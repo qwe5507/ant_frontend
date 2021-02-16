@@ -3,13 +3,14 @@ import React, { useState, useEffect } from "react"
 import { Div, Image, Container, Button, Anchor, scrollTo, Icon } from "atomize"
 import logo from "../../images/logo.svg"
 import producthunt from "../../images/logo-producthunt.svg"
+import { Link, Route, Switch, useHistory } from 'react-router-dom';
 
 function Header() {
 
   let [showMobileHeaderMenu, showMobileHeaderMenuChange] = useState(false);
   let [showProductHunt, showProductHuntChange] = useState(false);
 
-  function toggleHeaderMenu(value) {
+  function toggleHeaderMenu(value){
     showMobileHeaderMenuChange(value);
 
     setTimeout(() => {
@@ -44,15 +45,17 @@ function Header() {
           zIndex="-1"
         ></Div>
         <Container d="flex" align="center" justify="space-between">
-          <Div cursor="pointer">
+        
+          
+          <a href="/">
             <Image
               src={logo}
-              alt="atomize design system logo"
               h="18px"
               w="auto"
             />
-          </Div>
-
+            </a>
+          
+          
           {/* Icon For Mobile */}
 
           <Div

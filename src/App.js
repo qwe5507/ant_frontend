@@ -9,20 +9,33 @@ import Craft from "./components/homepage/Craft"
 import DesignDevelopment from "./components/homepage/DesignDevelopment"
 import GetStartedBanner from "./components/homepage/GetStartedBanner"
 import Footer from "./components/homepage/Footer"
+import { Link, Route, Switch, useHistory } from 'react-router-dom';
+import Login from "./components/login/login"
 
 function App() {
   return (
     <div className="App">
-      <Layout>
-        <Header />
-        <HeroSection />
-        <Introducing />
-        <Features />
-        <Craft />
-        <DesignDevelopment />
-        <GetStartedBanner />
-        <Footer />
-      </Layout>
+      <Switch>
+        
+          <Layout>
+            <Header />
+
+            <Route exact path="/">
+            <HeroSection />
+            <Introducing />
+            <Features />
+            <Craft />
+            <DesignDevelopment />
+            <GetStartedBanner />
+            </Route>
+            
+            <Route exact path="/Login">
+            <Login/>
+            </Route>
+            
+            <Footer />
+          </Layout>
+      </Switch>
     </div>
   );
 }
