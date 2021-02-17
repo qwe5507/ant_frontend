@@ -1,8 +1,11 @@
 import React from "react"
+import BacktestCondition from "./BacktestCondition"
 
 function Backtest() {
     return (
-        <div>test</div>
+        <div>
+            <BacktestCondition/>
+        </div>
     )
 }
 
