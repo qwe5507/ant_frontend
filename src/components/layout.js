@@ -12,6 +12,7 @@ const theme = {
     secondary:
       '"SF Pro Display",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji"',
     code: "'Fira Mono','Roboto Mono', monospace",
+    ko: 'Noto Sans KR',
   },
   grid: {
     containerMaxWidth: {

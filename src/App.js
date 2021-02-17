@@ -11,6 +11,7 @@ import GetStartedBanner from "./components/homepage/GetStartedBanner"
 import Footer from "./components/homepage/Footer"
 import { Link, Route, Switch, useHistory } from 'react-router-dom';
 import Login from "./components/login/login"
+import Backtest from "./components/ants/Backtest"
 
 function App() {
   return (
@@ -30,7 +31,11 @@ function App() {
             </Route>
             
             <Route exact path="/Login">
-            <Login/>
+              <Login/>
+            </Route>
+
+            <Route exact path="/Backtest">
+              <Backtest/>
             </Route>
             
             <Footer />

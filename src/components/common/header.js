@@ -8,9 +8,8 @@ import { Link, Route, Switch, useHistory } from 'react-router-dom';
 function Header() {
 
   let [showMobileHeaderMenu, showMobileHeaderMenuChange] = useState(false);
-  let [showProductHunt, showProductHuntChange] = useState(false);
 
-  function toggleHeaderMenu(value){
+  function toggleHeaderMenu(value) {
     showMobileHeaderMenuChange(value);
 
     setTimeout(() => {
@@ -20,10 +19,6 @@ function Header() {
 
   return (
     <>
-      <ProductHuntBanner
-        show={showProductHunt}
-        close={() => this.setState({ showProductHunt: false })}
-      />
       <Div
         tag="header"
         pos="fixed"
@@ -45,17 +40,17 @@ function Header() {
           zIndex="-1"
         ></Div>
         <Container d="flex" align="center" justify="space-between">
-        
-          
+
+
           <a href="/">
             <Image
               src={logo}
               h="18px"
               w="auto"
             />
-            </a>
-          
-          
+          </a>
+
+
           {/* Icon For Mobile */}
 
           <Div
@@ -115,40 +110,74 @@ function Header() {
             }}
             transition
           >
-            <Anchor
+
+            <Link to="/News">
+              <Anchor
+                target="_blank"
+                m={{ r: "2rem", b: { xs: "1rem", md: "0" } }}
+                textWeight="800"
+                textColor="medium"
+                hoverTextColor="black"
+                transition
+                fontFamily="ko"
+              >
+                뉴스
+              </Anchor>
+            </Link>
+
+            <Link to="/Community">
+              <Anchor
+                target="_blank"
+                m={{ r: "2rem", b: { xs: "1rem", md: "0" } }}
+                textWeight="800"
+                textColor="medium"
+                hoverTextColor="black"
+                transition
+                fontFamily="ko"
+              >
+                커뮤니티
+              </Anchor>
+            </Link>
+
+            <Link to="/Backtest">
+              <Anchor
+                target="_blank"
+                m={{ r: "2rem", b: { xs: "1rem", md: "0" } }}
+                textWeight="800"
+                textColor="medium"
+                hoverTextColor="black"
+                transition
+                fontFamily="ko"
+              >
+                백테스트
+              </Anchor>
+            </Link>
+
+            <Link to="/">
+              <Anchor
+                target="_blank"
+                m={{ r: "2rem", b: { xs: "1rem", md: "0" } }}
+                textWeight="800"
+                textColor="medium"
+                hoverTextColor="black"
+                transition
+                fontFamily="ko"
+              >
+                마이페이지
+              </Anchor>
+            </Link>
+
+            {/* <Anchor
               m={{ r: "2rem", b: { xs: "1rem", md: "0" } }}
-              textWeight="500"
+              textWeight="800"
               textColor="medium"
               hoverTextColor="black"
               transition
+              fontFamily="ko"
               onClick={() => scrollTo("#features")}
             >
-              Features
-              </Anchor>
-
-            <Anchor
-              href="https://github.com/proksh/atomize"
-              target="_blank"
-              m={{ r: "2rem", b: { xs: "1rem", md: "0" } }}
-              textWeight="500"
-              textColor="medium"
-              hoverTextColor="black"
-              transition
-            >
-              Github
-              </Anchor>
-
-            <Anchor
-              href="http://atomizedesign.com"
-              target="_blank"
-              m={{ r: "2.5rem", b: { xs: "4rem", md: "0" } }}
-              textWeight="500"
-              textColor="medium"
-              hoverTextColor="black"
-              transition
-            >
-              For Designers
-              </Anchor>
+              테스트
+              </Anchor> */}
 
           </Div>
         </Container>
@@ -164,61 +193,5 @@ Header.propTypes = {
 Header.defaultProps = {
   siteTitle: ``,
 }
-
-
-
-const ProductHuntBanner = ({ show, close }) => (
-  <>
-    <Div
-      d="flex"
-      h={show ? { xs: "5.25rem", sm: "3.75rem" } : "0"}
-      opacity={show ? "1" : "0"}
-      overflow="hidden"
-      flexWrap="wrap"
-      justify="center"
-      align="center"
-      textColor="white"
-      pos="fixed"
-      bottom="0"
-      left="0"
-      right="0"
-      zIndex="110"
-      textAlign="center"
-      p="0.75rem"
-      style={{ background: "#DA552F" }}
-    >
-      <Anchor
-        href="https://www.producthunt.com/posts/atomize-react"
-        target="_blank"
-        d="flex"
-        flexWrap="wrap"
-        justify="center"
-        align="center"
-        textColor="white"
-        hoverTextColor="white"
-      >
-        We are trending on{" "}
-        <Image
-          src={producthunt}
-          h="2.25rem"
-          w="auto"
-          cursor="pointer"
-          m={{ x: "0.5rem" }}
-        />{" "}
-        It will be a real help if you could support us 👉{" "}
-      </Anchor>
-      <Icon
-        name="Cross"
-        pos="absolute"
-        right="1rem"
-        top="50%"
-        transform="translateY(-50%)"
-        color="white"
-        size="16px"
-        onClick={close}
-      />
-    </Div>
-  </>
-)
 
 export default Header
