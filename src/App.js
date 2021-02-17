@@ -22,6 +22,7 @@ function App() {
 
             <Route exact path="/">
             <HeroSection />
+            <div>test</div>
             <Introducing />
             <Features />
             <Craft />
