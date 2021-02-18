@@ -1,4 +1,4 @@
-import React from "react"
+import React,{useEffect,useState} from "react"
 
 import { Button, Container, Text, Div, Icon, Input, Anchor } from "atomize"
 
@@ -10,8 +10,40 @@ import Buttons from "./uicomponents/Buttons"
 import CardComponent from "./uicomponents/CardComponent"
 import LoginForm from "./uicomponents/LoginForm"
 import { Link, Route, Switch, useHistory } from 'react-router-dom';
+import { connect } from 'react-redux';
 // import Notification from './uicomponents/Notification'
-function HeroSection() {
+function HeroSection(props) {
+  let history = useHistory();
+  let [sibal,sibal변경] = useState(false);
+    console.log(sessionStorage.getItem('loginstate'))
+
+    if(!window.Kakao.isInitialized()) {
+      window.Kakao.init('fb58ebd76f41eecb94267d2c08ceb73a');
+      console.log(window.Kakao.isInitialized());
+      console.log('111111')
+      // console.log('토근'+window.Kakao.Auth.getAccessToken());
+    }
+    function logoutWithKakao(){
+      if (window.Kakao.Auth.getAccessToken()) {
+        console.log('카카오 인증 액세스 토큰이 존재합니다.', window.Kakao.Auth.getAccessToken())
+        window.Kakao.Auth.logout(() => {
+          console.log('로그아웃 되었습니다', window.Kakao.Auth.getAccessToken());
+          localStorage.removeItem('loginstate');   
+          localStorage.removeItem('userid'); 
+          props.dispatch( { type:'로그아웃'}  ) 
+        });
+      }
+    }
+    
+    // let gaesibal = localStorage.getItem('loginstate');
+    useEffect(()=>{                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+      sibal변경(props.userinfo.loginstate)
+      console.log(props.userinfo.loginstate)
+      console.log('으악')
+       
+    }
+    ,['sibal']);
+  
 
     return (
       <>
@@ -47,8 +79,40 @@ function HeroSection() {
               justify="center"
               flexDir={{ xs: "column", sm: "row" }}
             >
-
-              <Link to="/Login">
+            {/* { props.userinfo.loginstate == false ?  */}
+            {/* { localStorage.getItem('loginstate') == 'login' ? */}
+            { sibal === true ?
+                          //     <Anchor
+              //   href="https://kauth.kakao.com/oauth/logout?client_id=0198e284181270821795f41b8741e202&logout_redirect_uri=http://localhost:3000"
+              //   target="_blank"
+              // >
+              <Button
+              h="3rem"
+              w={{ xs: "100%", sm: "11rem" }}
+              bg="transparent"
+              hoverBg="gray200"
+              border="1px solid"
+              borderColor="gray400"
+              hoverBorderColor="gray600"
+              rounded="lg"
+              p={{ l: "0.5rem", r: "1rem" }}
+              textColor="medium"
+              prefix={
+                <Icon
+                  name="Play"
+                  size="18px"
+                  m={{ r: "0.5rem" }}
+                  color="black400"
+                />
+              }
+              onClick = { () => {logoutWithKakao()}}
+            >
+              {/* <a href="https://kauth.kakao.com/oauth/logout?client_id=0198e284181270821795f41b8741e202&logout_redirect_uri=http://localhost:3000">로그아웃</a> */}
+             로그아웃
+            </Button>
+          // </Anchor>
+                  :
+                <Link to="/Login">
                 <Button
                     h="3rem"
                     w={{ xs: "100%", sm: "11rem" }}
@@ -65,33 +129,8 @@ function HeroSection() {
                   </Text>
                 </Button>
               </Link>
-              <Anchor
-                href="https://www.youtube.com/watch?v=1uEJT3_M1Y0"
-                target="_blank"
-              >
-                <Button
-                  h="3rem"
-                  w={{ xs: "100%", sm: "11rem" }}
-                  bg="transparent"
-                  hoverBg="gray200"
-                  border="1px solid"
-                  borderColor="gray400"
-                  hoverBorderColor="gray600"
-                  rounded="lg"
-                  p={{ l: "0.5rem", r: "1rem" }}
-                  textColor="medium"
-                  prefix={
-                    <Icon
-                      name="Play"
-                      size="18px"
-                      m={{ r: "0.5rem" }}
-                      color="black400"
-                    />
-                  }
-                >
-                  Watch Video
-                </Button>
-              </Anchor>
+                }
+              
             </Div>
           </Container>
         </Div>
@@ -142,5 +181,14 @@ function HeroSection() {
     )
   }
 
+// export default HeroSection
 
-export default HeroSection
+function userStateToProps(state) {
+  console.log(state)
+  // console.log(11111)
+    return{
+        userinfo : state
+    }
+}
+
+export default connect(userStateToProps)(HeroSection)

@@ -2,39 +2,25 @@ import React,{ useEffect } from "react"
 
 import { Text, Div, Icon, Anchor, Button, Input } from "atomize"
 import axios from 'axios';
-import styled from 'styled-components';
+// import styled from 'styled-components';
 // import KaKaoLogin from 'react-kakao-login';
 import { useHistory, useParams } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-function Login() {
+function Login(props) {
   let history = useHistory();
-  
-  // console.log(window.Kakao.isInitialized());
+
   if(!window.Kakao.isInitialized()) {
     window.Kakao.init('fb58ebd76f41eecb94267d2c08ceb73a');
     console.log(window.Kakao.isInitialized());
     console.log('111111')
+    // console.log('토근'+window.Kakao.Auth.getAccessToken());
   }
-  // window.Kakao.init('fb58ebd76f41eecb94267d2c08ceb73a');
+
   let ids ;
-  console.log('2222')
   
-  // function responseKaKao(res) {
-  //   alert(JSON.stringify(res))
-  // }
-  // // responseKaKao = (res: any) => {
-  // //   this.setState({
-  // //       data: res
-  // //   })
-  // //   alert(JSON.stringify(this.state.data))
-  // //   }
-  // function responseFail(err){
-  //   alert(err);
-  // }
-
-
   useEffect(()=>{
-
+    
   window.Kakao.Auth.createLoginButton({
     container: '#kakao-login-btn',
     success: function(authObj) {
@@ -48,27 +34,32 @@ function Login() {
               ids = res.id;
               //console.log(res.kaccount_email);//<---- 콘솔 로그에 email 정보 출력 (어딨는지 알겠죠?)
               console.log(res.kakao_account);
-              console.log(res.kakao_account['email']);
+              // console.log(res.kakao_account['email']);
               console.log(res.properties);
-              console.log(res.properties['nickname']);//<---- 콘솔 로그에 닉네임 출력(properties에 있는 nickname 접근 
+              // console.log(res.properties['nickname']);//<---- 콘솔 로그에 닉네임 출력(properties에 있는 nickname 접근 
               // console.log(res.properties.nickname ) // 으로도 접근 가능
-              console.log(authObj.access_token);//<---- 콘솔 로그에 토큰값 출력
-              let userdata = {
-                id: res.id,
-                name: res.properties['nickname'],
-              }
+              console.log('토큰1'+ authObj.access_token);//<---- 콘솔 로그에 토큰값 출력
+              console.log('토근2'+ window.Kakao.Auth.getAccessToken());
+              console.log(res);
+              props.dispatch( { type:'로그인',payload : { loginstate : 'on', userid : res.id, username : res.properties['nickname'] , useremail : res.kakao_account['email'] }}  ) 
+              localStorage.setItem('userid',res.id);
+              localStorage.setItem('loginstate', 'login' );
+              // let userdata = {
+              //   id: res.id,
+              //   name: res.properties['nickname'],
+              // }
 
-                axios.post("http://192.168.0.56:8000/user",userdata)
-                  .then( res => {
-                    alert('회원 등록성공')
+                // axios.post("http://192.168.0.56:8000/user",userdata)
+                //   .then( res => {
+                //     alert('회원 등록성공')
 
-                  })
-                  .catch(err => {
-                    alert('등록된 회원입니다.')
-                    console.log('kakao user 등록 에러', err);
+                //   })
+                //   .catch(err => {
+                //     alert('등록된 회원입니다.')
+                //     console.log('kakao user 등록 에러', err);
 
-                  });
-                  console.log("http://192.168.0.56:8000/user/"+userdata['id'])
+                //   });
+                  // console.log("http://192.168.0.56:8000/user/"+userdata['id'])
                   
                   // this.kakaologin(userdata);
                   
@@ -82,7 +73,7 @@ function Login() {
       console.log('실패?')
     }
   });
-
+  
 }
 ,[]);
     return (
@@ -260,4 +251,11 @@ function Login() {
 //         box-shadow: 0 0px 15px 0 rgba(0, 0, 0, 0.2)
 //     }
 // `
-export default Login
+function userStateToProps(state) {
+  console.log(state)
+    return{
+        userinfo : state.reducer
+    }
+}
+
+export default connect(userStateToProps)(Login)

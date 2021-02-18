@@ -3,8 +3,13 @@ import React from "react"
 import girl from "../../../images/avatar/girl.png"
 
 import { Button, Text, Div, Icon } from "atomize"
+import { connect } from 'react-redux';
 
-const FollowCard = ({ ...rest }) => (
+function FollowCard(props) {
+  
+// console.log(rest.props.userinfo);
+// const FollowCard = ({ ...rest }) => (
+return (
   <Div
     flexDir="column"
     border="1px solid"
@@ -21,7 +26,7 @@ const FollowCard = ({ ...rest }) => (
       b: { xs: "2rem", sm: "1.5rem" },
       t: "1.5rem",
     }}
-    {...rest}
+    {...props}
   >
     <Div flexGrow="1" d="flex" justify="center" align="center" flexDir="column">
       <Div
@@ -55,7 +60,8 @@ const FollowCard = ({ ...rest }) => (
         textWeight="500"
         textAlign="center"
       >
-        Meagan Fisher
+        {/* Meagan Fisher */}
+        {props.userinfo['username']}
       </Text>
       <Text
         textSize="caption"
@@ -63,7 +69,7 @@ const FollowCard = ({ ...rest }) => (
         m={{ b: "2.5rem" }}
         textAlign="center"
       >
-        Engineering Manager
+        {props.userinfo['useremail']}
       </Text>
     </Div>
     <Div d="flex" w="100%">
@@ -96,6 +102,7 @@ const FollowCard = ({ ...rest }) => (
     </Div>
   </Div>
 )
+}
 
 FollowCard.defaultProps = {
   m: { xs: "1rem", md: "0" },
@@ -104,4 +111,12 @@ FollowCard.defaultProps = {
   maxW: "100%",
 }
 
-export default FollowCard
+function userStateToProps(state) {
+  console.log(state)
+  // console.log(11111)
+    return{
+        userinfo : state
+    }
+}
+
+export default connect(userStateToProps)(FollowCard)
