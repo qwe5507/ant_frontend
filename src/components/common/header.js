@@ -42,13 +42,13 @@ function Header() {
         <Container d="flex" align="center" justify="space-between">
 
 
-          <a href="/">
+          <Link to="/">
             <Image
               src={logo}
               h="18px"
               w="auto"
             />
-          </a>
+          </Link>
 
 
           {/* Icon For Mobile */}

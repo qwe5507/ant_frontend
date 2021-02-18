@@ -18,19 +18,25 @@ const engine = new Styletron();
 // 2. Provide the engine to the app
 // debug engine needs inlined source maps
 
-let 유저초깃값 = { loginstate : false ,userid : '0000', username : 'Lee Jin Gang' , useremail : 'Kosmo5507@gmail.com'};
+let userDefault = { 
+  loginstate : false,
+  userid : '0000000000', 
+  username : 'Lee Jin Gang' , 
+  useremail : 'Kosmo5507@gmail.com'
+};
 
-function reducer(state = 유저초깃값 , 액션) {
-  if( 액션.type === '로그인'){
-    console.log(액션.payload)
-    let copy = {...state}
-    copy['userid'] = 액션.payload['userid']
-    copy['username'] = 액션.payload['username']
-    copy['useremail'] = 액션.payload['useremail']
-    copy['loginstate'] = 액션.payload['loginstate'];
+function reducer(state = userDefault , action) {
+  if( action.type === 'login'){
+    let copy = {...state};
+    console.log('1-- login');
+    copy['userid'] = action.payload['userid'];
+    copy['username'] = action.payload['username'];
+    copy['useremail'] = action.payload['useremail'];
+    copy['loginstate'] = action.payload['loginstate'];
     return copy;
-  }else if(액션.type === '로그아웃'){
-    let copy = 유저초깃값
+  }else if(action.type === '로그아웃'){
+    console.log('1-- logout');
+    let copy = userDefault
     return copy;
   }
   else {
@@ -38,12 +44,12 @@ function reducer(state = 유저초깃값 , 액션) {
   }
 }
 
-let store = createStore(reducer);
+let login = createStore(reducer);
 
 ReactDOM.render(
   <StyletronProvider value={engine} debug={debug} debugAfterHydration>
     <BrowserRouter>
-    <Provider store = {store}>
+    <Provider store = {login}>
     <App />
     </Provider>
     </BrowserRouter>
