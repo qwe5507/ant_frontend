@@ -13,6 +13,13 @@ import { Link, Route, Switch, useHistory } from 'react-router-dom';
 import Login from "./components/login/login"
 import Indicators from "./components/ants/Indicators"
 import Backtest from "./components/ants/Backtest"
+import LineChartIn from "./components/ants/LineChartIn"
+import LineChartIn2 from "./components/ants/LineChartIn2"
+import LineChartIn3 from "./components/ants/LineChartIn3"
+import IndicatorDetail from "./components/ants/IndicatorDetail"
+
+
+
 
 function App() {
   return (
@@ -42,7 +49,23 @@ function App() {
             <Route exact path="/Backtest">
               <Backtest/>
             </Route>
-            
+
+            <Route exact path="/LineChartIn">
+              <LineChartIn/>
+            </Route>
+
+            <Route exact path="/LineChartIn2">
+              <LineChartIn2/>
+            </Route>
+
+            <Route exact path="/LineChartIn3">
+              <LineChartIn3/>
+            </Route>
+
+            <Route exact path="/IndicatorDetail">
+              <IndicatorDetail/>
+            </Route>
+                 
             <Footer />
           </Layout>
       </Switch>
