@@ -11,6 +11,7 @@ import GetStartedBanner from "./components/homepage/GetStartedBanner"
 import Footer from "./components/homepage/Footer"
 import { Link, Route, Switch, useHistory } from 'react-router-dom';
 import Login from "./components/login/login"
+import Indicators from "./components/ants/Indicators"
 import Backtest from "./components/ants/Backtest"
 
 function App() {
@@ -22,16 +23,20 @@ function App() {
             <Header />
 
             <Route exact path="/">
-            <HeroSection />
-            <Introducing />
-            <Features />
-            <Craft />
-            <DesignDevelopment />
-            <GetStartedBanner />
+              <HeroSection />
+              <Introducing />
+              <Features />
+              <Craft />
+              <DesignDevelopment />
+              <GetStartedBanner />
             </Route>
             
             <Route exact path="/Login">
               <Login/>
+            </Route>
+
+            <Route exact path="/Indicators">
+              <Indicators/>
             </Route>
 
             <Route exact path="/Backtest">

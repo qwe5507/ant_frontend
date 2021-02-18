@@ -125,6 +125,20 @@ function Header() {
               </Anchor>
             </Link>
 
+            <Link to="/Indicators">
+              <Anchor
+                target="_blank"
+                m={{ r: "2rem", b: { xs: "1rem", md: "0" } }}
+                textWeight="800"
+                textColor="medium"
+                hoverTextColor="black"
+                transition
+                fontFamily="ko"
+              >
+                지표
+              </Anchor>
+            </Link>
+
             <Link to="/Community">
               <Anchor
                 target="_blank"
