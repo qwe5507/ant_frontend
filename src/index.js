@@ -28,7 +28,9 @@ let userDefault = {
 function reducer(state = userDefault , action) {
   if( action.type === 'login'){
     let copy = {...state};
-    console.log('1-- login');
+    
+    localStorage.setItem('loginstate', true);
+
     copy['userid'] = action.payload['userid'];
     copy['username'] = action.payload['username'];
     copy['useremail'] = action.payload['useremail'];

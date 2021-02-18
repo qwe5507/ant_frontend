@@ -42,10 +42,10 @@ function Login(props) {
             // console.log('토근2'+ window.Kakao.Auth.getAccessToken());
             // console.log(res);
 
-            props.dispatch({ type: 'login', payload: { loginstate: 'on', userid: res.id, username: res.properties['nickname'], useremail: res.kakao_account['email'] } })
-
+            props.dispatch({ type: 'login', payload: { loginstate: true, userid: res.id, username: res.properties['nickname'], useremail: res.kakao_account['email'] } })
+            
             localStorage.setItem('userid', res.id);
-            localStorage.setItem('loginstate', 'true');
+
             // let userdata = {
             //   id: res.id,
             //   name: res.properties['nickname'],
@@ -64,7 +64,7 @@ function Login(props) {
             // console.log("http://192.168.0.56:8000/user/"+userdata['id'])
 
             // this.kakaologin(userdata);
-
+            console.log('4-- login / localStorage',localStorage.getItem('loginstate'));
           }
         })
 
