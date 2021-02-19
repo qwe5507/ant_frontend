@@ -16,6 +16,7 @@ import Backtest from "./components/ants/Backtest"
 import Chat from "./components/ants/Chat"
 import IndicatorDetail from "./components/ants/IndicatorDetail"
 import Payment from "./components/ants/Payment"
+import Community from "./components/ants/Community"
 
 function App() {
   return (
@@ -44,6 +45,10 @@ function App() {
 
             <Route exact path="/Backtest">
               <Backtest/>
+            </Route>
+
+            <Route exact path="/Community">
+              <Community/>
             </Route>
            
             <Route exact path="/Chat">
