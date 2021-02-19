@@ -1,4 +1,4 @@
-import React,{useEffect,useState} from "react"
+import React, { useEffect, useState } from "react"
 
 import { Button, Container, Text, Div, Icon, Input, Anchor } from "atomize"
 
@@ -13,110 +13,125 @@ import { Link, Route, Switch, useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 // import Notification from './uicomponents/Notification'
 function HeroSection(props) {
-  let [loginchk,loginchkChange] = useState(localStorage.getItem('loginstate'));
-    console.log('3-- loginstate',localStorage.getItem('loginstate'))
+  let [loginchk, loginchkChange] = useState(localStorage.getItem('loginstate'));
 
-    if(!window.Kakao.isInitialized()) {
-      window.Kakao.init('fb58ebd76f41eecb94267d2c08ceb73a');
-      console.log('3-- 카카오 Initial',window.Kakao.isInitialized());
-      // console.log('토근'+window.Kakao.Auth.getAccessToken());
+  if (!window.Kakao.isInitialized()) {
+    window.Kakao.init('fb58ebd76f41eecb94267d2c08ceb73a');
+  };
+
+  function logoutWithKakao() {
+    if (window.Kakao.Auth.getAccessToken()) {
+      window.Kakao.Auth.logout(() => {
+        localStorage.removeItem('loginstate');
+        localStorage.removeItem('userid');
+        props.dispatch({ type: '로그아웃' });
+
+        // var result = getCookieValue('kd_lang');
+        console.log('result : ', document.cookie);
+      });
     }
-    function logoutWithKakao(){
-      if (window.Kakao.Auth.getAccessToken()) {
-        console.log('카카오 인증 액세스 토큰이 존재합니다.', window.Kakao.Auth.getAccessToken())
-        window.Kakao.Auth.logout(() => {
-          console.log('로그아웃 되었습니다', window.Kakao.Auth.getAccessToken());
-          localStorage.removeItem('loginstate');   
-          localStorage.removeItem('userid'); 
-          props.dispatch( { type:'로그아웃'}  ) 
-        });
+  };
+
+  const getCookieValue = (key) => {
+    let cookieKey = key + "="; 
+    let result = "";
+    const cookieArr = document.cookie.split(";");
+    
+    for(let i = 0; i < cookieArr.length; i++) {
+      if(cookieArr[i][0] === " ") {
+        cookieArr[i] = cookieArr[i].substring(1);
+      }
+      
+      if(cookieArr[i].indexOf(cookieKey) === 0) {
+        result = cookieArr[i].slice(cookieKey.length, cookieArr[i].length);
+        return result;
       }
     }
-    
-    useEffect(()=>{                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
-      console.log(props.userinfo);
-      loginchkChange(localStorage.getItem('loginstate'));
-      console.log('3-- useEffect',loginchk);
-    });
-  
+    return result;
+  };
 
-    return (
-      <>
-        <Div tag="section" p={{ t: { xs: "6rem", md: "10rem" } }}>
-          <Container d="flex" flexDir="column" align="center">
-            <Text
-              tag="h1"
-              textWeight="500"
-              textAlign="center"
-              textSize="display3"
-              fontFamily="secondary"
-              m={{ b: "1rem" }}
-            >
-              Design System for React JS
+  useEffect(() => {
+    loginchkChange(localStorage.getItem('loginstate'));
+  });
+
+
+  return (
+    <>
+      <Div tag="section" p={{ t: { xs: "6rem", md: "10rem" } }}>
+        <Container d="flex" flexDir="column" align="center">
+          <Text
+            tag="h1"
+            textWeight="500"
+            textAlign="center"
+            textSize="display3"
+            fontFamily="secondary"
+            m={{ b: "1rem" }}
+          >
+            Design System for React JS
             </Text>
-            <Text
-              tag="h2"
-              textWeight="400"
-              maxW="36rem"
-              textSize="subheader"
-              textAlign="center"
-              fontFamily="secondary"
-              textColor="medium"
-              m={{ b: "2.5rem" }}
-            >
-              Atomize React is a UI framework that helps developers collaborate
-              with designers and build consistent user interfaces effortlessly.
+          <Text
+            tag="h2"
+            textWeight="400"
+            maxW="36rem"
+            textSize="subheader"
+            textAlign="center"
+            fontFamily="secondary"
+            textColor="medium"
+            m={{ b: "2.5rem" }}
+          >
+            Atomize React is a UI framework that helps developers collaborate
+            with designers and build consistent user interfaces effortlessly.
             </Text>
 
-            <Div
-              d="flex"
-              w="100%"
-              justify="center"
-              flexDir={{ xs: "column", sm: "row" }}
-            >
+          <Div
+            d="flex"
+            w="100%"
+            justify="center"
+            flexDir={{ xs: "column", sm: "row" }}
+          >
             {/* { props.userinfo.loginstate == false ?  */}
             {/* { localStorage.getItem('loginstate') == 'login' ? */}
-            { loginchk ?
-                          //     <Anchor
+            {loginchk ?
+              //     <Anchor
               //   href="https://kauth.kakao.com/oauth/logout?client_id=0198e284181270821795f41b8741e202&logout_redirect_uri=http://localhost:3000"
               //   target="_blank"
               // >
               <Button
-              h="3rem"
-              w={{ xs: "100%", sm: "11rem" }}
-              bg="transparent"
-              hoverBg="gray200"
-              border="1px solid"
-              borderColor="gray400"
-              hoverBorderColor="gray600"
-              rounded="lg"
-              p={{ l: "0.5rem", r: "1rem" }}
-              textColor="medium"
-              prefix={
-                <Icon
-                  name="Play"
-                  size="18px"
-                  m={{ r: "0.5rem" }}
-                  color="black400"
-                />
-              }
-              onClick = { () => {logoutWithKakao()}}
-            >
-              {/* <a href="https://kauth.kakao.com/oauth/logout?client_id=0198e284181270821795f41b8741e202&logout_redirect_uri=http://localhost:3000">로그아웃</a> */}
+                h="3rem"
+                w={{ xs: "100%", sm: "11rem" }}
+                bg="transparent"
+                hoverBg="gray200"
+                border="1px solid"
+                borderColor="gray400"
+                hoverBorderColor="gray600"
+                rounded="lg"
+                p={{ l: "0.5rem", r: "1rem" }}
+                textColor="medium"
+                prefix={
+                  <Icon
+                    name="Play"
+                    size="18px"
+                    m={{ r: "0.5rem" }}
+                    color="black400"
+                  />
+                }
+                onClick={() => { logoutWithKakao(); }}
+              >
+                {/* <a href="https://kauth.kakao.com/oauth/logout?client_id=0198e284181270821795f41b8741e202&logout_redirect_uri=http://localhost:3000">로그아웃</a> */}
              로그아웃
             </Button>
-          // </Anchor>
-                  :
-                <Link to="/Login">
+              // </Anchor>
+              :
+              <Link to="/Login">
                 <Button
-                    h="3rem"
-                    w={{ xs: "100%", sm: "11rem" }}
-                    bg="info700"
-                    hoverBg="info600"
-                    rounded="lg"
-                    // maxW="calc(50% - 0.5rem)"
-                    m={{ r: "1rem", b: { xs: "1rem", sm: "0" } }}
-                  >
+                  h="3rem"
+                  w={{ xs: "100%", sm: "11rem" }}
+                  bg="info700"
+                  hoverBg="info600"
+                  rounded="lg"
+                  // maxW="calc(50% - 0.5rem)"
+                  m={{ r: "1rem", b: { xs: "1rem", sm: "0" } }}
+                >
                   <Text
                     textSize="subheader"
                     textWeight="800"
@@ -124,64 +139,64 @@ function HeroSection(props) {
                   </Text>
                 </Button>
               </Link>
-                }
-              
-            </Div>
+            }
 
-          </Container>
-        </Div>
-        <Div
-          tag="section"
-          w="100vw"
-          p={{ t: { xs: "3rem", md: "6rem" } }}
-          overflow="hidden"
-        >
-          <Container>
+          </Div>
+
+        </Container>
+      </Div>
+      <Div
+        tag="section"
+        w="100vw"
+        p={{ t: { xs: "3rem", md: "6rem" } }}
+        overflow="hidden"
+      >
+        <Container>
+          <Div
+            d="flex"
+            justify="center"
+            p={{ b: "10.5rem" }}
+            border={{ b: "1px solid" }}
+            borderColor="gray300"
+          >
             <Div
+              minW={{ xs: "100%", md: "44rem", lg: "59rem" }}
               d="flex"
-              justify="center"
-              p={{ b: "10.5rem" }}
-              border={{ b: "1px solid" }}
-              borderColor="gray300"
+              align="center"
+              flexDir="column"
+              h={{ xs: "auto", md: "21rem", lg: "20rem" }}
+              pos="relative"
             >
-              <Div
-                minW={{ xs: "100%", md: "44rem", lg: "59rem" }}
-                d="flex"
-                align="center"
-                flexDir="column"
-                h={{ xs: "auto", md: "21rem", lg: "20rem" }}
-                pos="relative"
-              >
-                {/* Button Components */}
-                <Buttons />
+              {/* Button Components */}
+              <Buttons />
 
-                {/* Follow Component */}
-                <FollowCard />
+              {/* Follow Component */}
+              <FollowCard />
 
-                {/* Card Component */}
-                <CardComponent />
+              {/* Card Component */}
+              <CardComponent />
 
-                {/* Notification Component */}
-                {/* <Notification /> */}
+              {/* Notification Component */}
+              {/* <Notification /> */}
 
-                {/* Form Component */}
-                <LoginForm />
+              {/* Form Component */}
+              <LoginForm />
 
-                {/* User Component */}
-                <UserEdit />
-              </Div>
+              {/* User Component */}
+              <UserEdit />
             </Div>
-          </Container>
-        </Div>
-      </>
-    )
-  }
+          </Div>
+        </Container>
+      </Div>
+    </>
+  )
+}
 
 function userStateToProps(state) {
-  console.log('3-- Redux',state)
-    return{
-        userinfo : state
-    }
+
+  return {
+    userinfo: state
+  }
 }
 
 export default connect(userStateToProps)(HeroSection)

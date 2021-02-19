@@ -12,9 +12,6 @@ function Login(props) {
 
   if (!window.Kakao.isInitialized()) {
     window.Kakao.init('fb58ebd76f41eecb94267d2c08ceb73a');
-    console.log(window.Kakao.isInitialized());
-    console.log('111111')
-    // console.log('토근'+window.Kakao.Auth.getAccessToken());
   }
 
   let ids;
@@ -64,7 +61,6 @@ function Login(props) {
             // console.log("http://192.168.0.56:8000/user/"+userdata['id'])
 
             // this.kakaologin(userdata);
-            console.log('4-- login / localStorage',localStorage.getItem('loginstate'));
           }
         })
 
@@ -72,7 +68,6 @@ function Login(props) {
       },
       fail: function (err) {
         alert(JSON.stringify(err));
-        console.log('실패?')
       }
     });
 

@@ -37,7 +37,6 @@ function reducer(state = userDefault , action) {
     copy['loginstate'] = action.payload['loginstate'];
     return copy;
   }else if(action.type === '로그아웃'){
-    console.log('1-- logout');
     let copy = userDefault
     return copy;
   }
