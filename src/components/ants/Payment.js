@@ -1,7 +1,7 @@
 import React from "react"
 import { Button, Container, Text, Div, Dropdown, Anchor, Input, Icon } from "atomize"
 
-function Backtest() {
+function Payment() {
     return (
         <div>
              <>
@@ -64,4 +64,4 @@ function Backtest() {
     )
 }
 
-export default Backtest;
+export default Payment;

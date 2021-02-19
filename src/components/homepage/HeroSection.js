@@ -13,14 +13,12 @@ import { Link, Route, Switch, useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 // import Notification from './uicomponents/Notification'
 function HeroSection(props) {
-  let history = useHistory();
-  let [sibal,sibal변경] = useState(false);
-    console.log(sessionStorage.getItem('loginstate'))
+  let [loginchk,loginchkChange] = useState(localStorage.getItem('loginstate'));
+    console.log('3-- loginstate',localStorage.getItem('loginstate'))
 
     if(!window.Kakao.isInitialized()) {
       window.Kakao.init('fb58ebd76f41eecb94267d2c08ceb73a');
-      console.log(window.Kakao.isInitialized());
-      console.log('111111')
+      console.log('3-- 카카오 Initial',window.Kakao.isInitialized());
       // console.log('토근'+window.Kakao.Auth.getAccessToken());
     }
     function logoutWithKakao(){
@@ -35,14 +33,11 @@ function HeroSection(props) {
       }
     }
     
-    // let gaesibal = localStorage.getItem('loginstate');
     useEffect(()=>{                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
-      sibal변경(props.userinfo.loginstate)
-      console.log(props.userinfo.loginstate)
-      console.log('으악')
-       
-    }
-    ,['sibal']);
+      console.log(props.userinfo);
+      loginchkChange(localStorage.getItem('loginstate'));
+      console.log('3-- useEffect',loginchk);
+    });
   
 
     return (
@@ -81,7 +76,7 @@ function HeroSection(props) {
             >
             {/* { props.userinfo.loginstate == false ?  */}
             {/* { localStorage.getItem('loginstate') == 'login' ? */}
-            { sibal === true ?
+            { loginchk ?
                           //     <Anchor
               //   href="https://kauth.kakao.com/oauth/logout?client_id=0198e284181270821795f41b8741e202&logout_redirect_uri=http://localhost:3000"
               //   target="_blank"
@@ -132,6 +127,7 @@ function HeroSection(props) {
                 }
               
             </Div>
+
           </Container>
         </Div>
         <Div
@@ -181,11 +177,8 @@ function HeroSection(props) {
     )
   }
 
-// export default HeroSection
-
 function userStateToProps(state) {
-  console.log(state)
-  // console.log(11111)
+  console.log('3-- Redux',state)
     return{
         userinfo : state
     }

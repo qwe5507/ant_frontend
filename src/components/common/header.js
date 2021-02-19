@@ -42,13 +42,13 @@ function Header() {
         <Container d="flex" align="center" justify="space-between">
 
 
-          <a href="/">
+          <Link to="/">
             <Image
               src={logo}
               h="18px"
               w="auto"
             />
-          </a>
+          </Link>
 
 
           {/* Icon For Mobile */}
@@ -164,6 +164,20 @@ function Header() {
                 fontFamily="ko"
               >
                 백테스트
+              </Anchor>
+            </Link>
+
+            <Link to="/Chat">
+              <Anchor
+                target="_blank"
+                m={{ r: "2rem", b: { xs: "1rem", md: "0" } }}
+                textWeight="800"
+                textColor="medium"
+                hoverTextColor="black"
+                transition
+                fontFamily="ko"
+              >
+                채팅
               </Anchor>
             </Link>
 

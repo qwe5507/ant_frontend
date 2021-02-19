@@ -7,8 +7,6 @@ import { connect } from 'react-redux';
 
 function FollowCard(props) {
   
-// console.log(rest.props.userinfo);
-// const FollowCard = ({ ...rest }) => (
 return (
   <Div
     flexDir="column"
@@ -112,8 +110,6 @@ FollowCard.defaultProps = {
 }
 
 function userStateToProps(state) {
-  console.log(state)
-  // console.log(11111)
     return{
         userinfo : state
     }

@@ -13,11 +13,11 @@ import { Link, Route, Switch, useHistory } from 'react-router-dom';
 import Login from "./components/login/login"
 import Indicators from "./components/ants/Indicators"
 import Backtest from "./components/ants/Backtest"
-import LineChartIn from "./components/ants/LineChartIn"
-import LineChartIn2 from "./components/ants/LineChartIn2"
-import LineChartIn3 from "./components/ants/LineChartIn3"
+import Chat from "./components/ants/Chat"
 import IndicatorDetail from "./components/ants/IndicatorDetail"
 import Payment from "./components/ants/Payment"
+import Community from "./components/ants/Community"
+import ChatPage from "./components/ants/ChatPage/ChatPage"
 
 function App() {
   return (
@@ -47,13 +47,25 @@ function App() {
             <Route exact path="/Backtest">
               <Backtest/>
             </Route>
+
+            <Route exact path="/Community">
+              <Community/>
+            </Route>
            
+            <Route exact path="/Chat">
+              <Chat/>
+            </Route>
+
             <Route exact path="/IndicatorDetail">
               <IndicatorDetail/>
             </Route>
 
             <Route exact path="/Payment">
               <Payment/>
+            </Route>
+
+            <Route exact path="/ChatPage">
+              <ChatPage/>
             </Route>
                  
             <Footer />

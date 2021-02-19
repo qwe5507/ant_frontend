@@ -10,7 +10,6 @@ import { Button, Text, Div, Icon } from "atomize"
 class CardComponent extends React.Component {
   
   constructor(){
-    console.log('1');
     super();
 
     this.state = {
@@ -26,8 +25,6 @@ class CardComponent extends React.Component {
       message: null
     }
     
-    // this.componentDidMount = this.componentDidMount.bind(this);
-    // this.componentDidMount.window.Kakao.Auth.createLoginButton = this.window.Kakao.Auth.createLoginButton.bind(this);
   }
 
   render() {
