@@ -1,11 +1,10 @@
-import React, { useEffect } from 'react';
+import React from "react"
 
-//테스트
 function Chat() {
     return (
-        <div>test</div>
+        <div>
+        </div>
     )
 }
 
 export default Chat;
-
