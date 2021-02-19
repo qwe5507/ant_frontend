@@ -1,17 +1,18 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react";
 
-import { Button, Container, Text, Div, Icon, Input, Anchor } from "atomize"
+import { Button, Container, Text, Div, Icon, Input, Anchor } from "atomize";
 
-import boy from "../../images/avatar/boy.png"
-import cardImg from "../../images/hero-illustration/card-img.png"
-import FollowCard from "./uicomponents/FollowCard"
-import UserEdit from "./uicomponents/UserEdit"
-import Buttons from "./uicomponents/Buttons"
-import CardComponent from "./uicomponents/CardComponent"
-import LoginForm from "./uicomponents/LoginForm"
+import boy from "../../images/avatar/boy.png";
+import cardImg from "../../images/hero-illustration/card-img.png";
+import FollowCard from "./uicomponents/FollowCard";
+import UserEdit from "./uicomponents/UserEdit";
+import Buttons from "./uicomponents/Buttons";
+import CardComponent from "./uicomponents/CardComponent";
+import LoginForm from "./uicomponents/LoginForm";
 import { Link, Route, Switch, useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
-// import Notification from './uicomponents/Notification'
+// import Notification from './uicomponents/Notification';
+
 function HeroSection(props) {
 
   let [loginchk, loginchkChange] = useState(localStorage.getItem('loginstate'));
@@ -37,6 +38,7 @@ function HeroSection(props) {
     let cookieKey = key + "="; 
     let result = "";
     const cookieArr = document.cookie.split(";");
+  }
     
     useEffect(()=>{                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
       loginchkChange(localStorage.getItem('loginstate'));
