@@ -18,6 +18,7 @@ import LineChartIn2 from "./components/ants/LineChartIn2"
 import LineChartIn3 from "./components/ants/LineChartIn3"
 import IndicatorDetail from "./components/ants/IndicatorDetail"
 import Payment from "./components/ants/Payment"
+import Community from "./components/ants/Community"
 
 function App() {
   return (
@@ -46,6 +47,10 @@ function App() {
 
             <Route exact path="/Backtest">
               <Backtest/>
+            </Route>
+
+            <Route exact path="/Community">
+              <Community/>
             </Route>
            
             <Route exact path="/IndicatorDetail">
