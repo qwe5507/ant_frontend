@@ -3,14 +3,6 @@ import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
 import Chartjs from "chart.js";
 
-const Section = styled.div`
-  width: 58vw;
-  height: 50vh;
-  display: center;
-  justify-content: center;
-  align-items: center;
-`;
-
 const Container = styled.div`
   justify-content: center;
   align-items: center;
@@ -23,8 +15,9 @@ const Title = styled.h1`
 const Canvas = styled.div`
   justify-content: center;
   align-items: center;
-  width: 1250px;
+  width: 1140px;
   height: 350px;
+  
 `;
 
 const LineChartInDetail = () => {
@@ -33,8 +26,8 @@ const LineChartInDetail = () => {
   useEffect(() => {
     let ctx = chartContainer.current.getContext("2d");
     let gradient = ctx.createLinearGradient(0, 0, 0, 300);
-    gradient.addColorStop(0, "rgba(80, 96, 96, 0.3)");
-    gradient.addColorStop(1, "rgba(80, 96, 96, 0.1)");
+    gradient.addColorStop(0, "rgba(82, 62, 152, 0.3)");
+    gradient.addColorStop(1, "rgba(82, 62, 152, 0.1)");
     new Chartjs(ctx, {
       type: "line",
       data: {
@@ -43,11 +36,11 @@ const LineChartInDetail = () => {
           {
             type: "line",         
             borderCapStyle: "round",
-            borderColor: "rgba(80, 96, 96 0.2)",
+            borderColor: "rgba(82, 62, 152, 0.2)",
             backgroundColor: gradient,
-            pointBackgroundColor: "rgba(80, 96, 96 0.2)",        
+            pointBackgroundColor: "rgba(82, 62, 152, 0.2)",        
             pointHoverRadius: 6,
-            pointHoverBackgroundColor: "rgba(80, 96, 96 0.2)",
+            pointHoverBackgroundColor: "rgba(82, 62, 152, 0.2)",
             data: [
               { x: "1960", y: 1047 },
               { x: "1970", y: 1048 },
@@ -113,14 +106,14 @@ const LineChartInDetail = () => {
   }, [chartContainer]);
 
   return (
-    <Section>
+
       <Container>
         
         <Canvas>
           <canvas ref={chartContainer} />
         </Canvas>
       </Container>
-    </Section>
+
   );
 };
 

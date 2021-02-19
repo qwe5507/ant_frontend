@@ -17,9 +17,7 @@ import LineChartIn from "./components/ants/LineChartIn"
 import LineChartIn2 from "./components/ants/LineChartIn2"
 import LineChartIn3 from "./components/ants/LineChartIn3"
 import IndicatorDetail from "./components/ants/IndicatorDetail"
-
-
-
+import Payment from "./components/ants/Payment"
 
 function App() {
   return (
@@ -49,21 +47,13 @@ function App() {
             <Route exact path="/Backtest">
               <Backtest/>
             </Route>
-
-            <Route exact path="/LineChartIn">
-              <LineChartIn/>
-            </Route>
-
-            <Route exact path="/LineChartIn2">
-              <LineChartIn2/>
-            </Route>
-
-            <Route exact path="/LineChartIn3">
-              <LineChartIn3/>
-            </Route>
-
+           
             <Route exact path="/IndicatorDetail">
               <IndicatorDetail/>
+            </Route>
+
+            <Route exact path="/Payment">
+              <Payment/>
             </Route>
                  
             <Footer />
