@@ -1,28 +1,20 @@
-import React from 'react'
+import React from "react"
 import UserPanel from './UserPanel';
 import Favorited from './Favorited';
 import ChatRooms from './ChatRooms';
 import DirectMessages from './DirectMessages';
 
-function SidePanel(props) {
+
+function SidePanel() {
     return (
-        <div style={{
-            backgroundColor: "#7B83EB",
-            padding: '2rem',
-            minHeight: '100vh',
-            color: 'white',
-            minWidth: '275px'
-        }}>
-            <UserPanel currentUser={props.currentUser} />
-
-            <Favorited currentUser={props.currentUser} />
-
-            <ChatRooms />
-
-            <DirectMessages currentUser={props.currentUser} />
+        <div>
+         <UserPanel /> 
+         <Favorited />
+         <ChatRooms />
+         <DirectMessages  />
+            
         </div>
     )
 }
 
-export default SidePanel
-
+export default SidePanel;

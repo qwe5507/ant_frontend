@@ -17,6 +17,7 @@ import Chat from "./components/ants/Chat"
 import IndicatorDetail from "./components/ants/IndicatorDetail"
 import Payment from "./components/ants/Payment"
 import Community from "./components/ants/Community"
+import ChatPage from "./components/ants/ChatPage/ChatPage"
 
 function App() {
   return (
@@ -61,6 +62,10 @@ function App() {
 
             <Route exact path="/Payment">
               <Payment/>
+            </Route>
+
+            <Route exact path="/ChatPage">
+              <ChatPage/>
             </Route>
                  
             <Footer />

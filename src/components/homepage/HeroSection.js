@@ -13,6 +13,7 @@ import { Link, Route, Switch, useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 // import Notification from './uicomponents/Notification'
 function HeroSection(props) {
+
   let [loginchk, loginchkChange] = useState(localStorage.getItem('loginstate'));
 
   if (!window.Kakao.isInitialized()) {
@@ -37,37 +38,24 @@ function HeroSection(props) {
     let result = "";
     const cookieArr = document.cookie.split(";");
     
-    for(let i = 0; i < cookieArr.length; i++) {
-      if(cookieArr[i][0] === " ") {
-        cookieArr[i] = cookieArr[i].substring(1);
-      }
-      
-      if(cookieArr[i].indexOf(cookieKey) === 0) {
-        result = cookieArr[i].slice(cookieKey.length, cookieArr[i].length);
-        return result;
-      }
-    }
-    return result;
-  };
+    useEffect(()=>{                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+      loginchkChange(localStorage.getItem('loginstate'));
+    });
+  
 
-  useEffect(() => {
-    loginchkChange(localStorage.getItem('loginstate'));
-  });
-
-
-  return (
-    <>
-      <Div tag="section" p={{ t: { xs: "6rem", md: "10rem" } }}>
-        <Container d="flex" flexDir="column" align="center">
-          <Text
-            tag="h1"
-            textWeight="500"
-            textAlign="center"
-            textSize="display3"
-            fontFamily="secondary"
-            m={{ b: "1rem" }}
-          >
-            Design System for React JS
+    return (
+      <>
+        <Div tag="section" p={{ t: { xs: "6rem", md: "10rem" } }}>
+          <Container d="flex" flexDir="column" align="center">
+            <Text
+              tag="h1"
+              textWeight="500"
+              textAlign="center"
+              textSize="display3"
+              fontFamily="secondary"
+              m={{ b: "1rem" }}
+            >
+              Design System for React JS
             </Text>
           <Text
             tag="h2"
@@ -91,8 +79,9 @@ function HeroSection(props) {
           >
             {/* { props.userinfo.loginstate == false ?  */}
             {/* { localStorage.getItem('loginstate') == 'login' ? */}
-            {loginchk ?
-              //     <Anchor
+
+            { loginchk ?
+                          //     <Anchor
               //   href="https://kauth.kakao.com/oauth/logout?client_id=0198e284181270821795f41b8741e202&logout_redirect_uri=http://localhost:3000"
               //   target="_blank"
               // >
@@ -139,6 +128,7 @@ function HeroSection(props) {
                   </Text>
                 </Button>
               </Link>
+
             }
 
           </Div>
