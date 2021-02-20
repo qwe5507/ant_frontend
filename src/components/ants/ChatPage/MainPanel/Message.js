@@ -1,46 +1,56 @@
-import React from 'react'
-import moment from "moment";
-import Media from 'react-bootstrap/Media';
+import React from "react"
+import MessageHeader from './MessageHeader';
 
-function MessageBody({ message, user }) {
+import { Button, Container, Text, Div, Dropdown, Anchor, Input, Icon, Row, Col } from "atomize"
 
-    const isMessageMine = (message, user) => {
-        return message.user.id === user.uid
-    };
-
-    const timeFromNow = timestamp => moment(timestamp).fromNow();
-
-    const isImage = message => {
-        return message.hasOwnProperty("image") && !message.hasOwnProperty("content");
-    };
-
+function MainPanel() {
     return (
-        <Media style={{ marginBottom:'3px'}}>
-            <img
-                style={{ borderRadius: '10px' }}
-                width={48}
-                height={48}
-                className="mr-3"
-                src={message.user.image}
-                alt={message.user.name}
-            />
-            <Media.Body style={{ backgroundColor: isMessageMine(message, user) ? "#ECECEC" : "" }} >
-                <h6 >
-                    {message.user.name}{" "}
-                    <span style={{ fontSize: '10px', color: 'gray' }}>
-                        {timeFromNow(message.timestamp)}
-                    </span>
-                </h6>
+        <div>
+        <Div flexDir="column" 
+        bg="gray200"
+        d="flex"
+        align="left"
+        p="1rem"
+        >
+       <Row>
+        
+        <Text
+        textAlign="left"
+        textSize="subheader"
+        textWeight="800"
+        fontFamily="ko"
+       // m={{ xs: '0.5rem', md: '0.5rem' }}
+        >
+        홍길동
+        </Text>
+        <Text
+        textAlign="left"
+        textSize="tiny"
+        textWeight="800"
+        fontFamily="ko"
+        m={{ xs: '0.5rem', md: '0.5rem' }}
+        >
+        6hours ago
+        </Text>
+        
+        </Row>
 
-                {isImage(message) ?
-                    <img style={{ maxWidth: '300px' }} alt="이미지" src={message.image} />
-                    :
-                    <p>{message.content}</p>
-                }
-
-            </Media.Body>
-        </Media>
+        <Row>
+        <Col>
+        <Text
+        textAlign="left"
+        textSize="subheader"
+        textWeight="500"
+        fontFamily="ko"
+        m={{ xs: 0, md: 0 }}
+        >
+        안녕하세요
+        </Text>
+        </Col>
+        </Row>
+        </Div>
+        </div>
     )
 }
 
-export default MessageBody
+export default MainPanel;
