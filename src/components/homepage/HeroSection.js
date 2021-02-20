@@ -12,13 +12,38 @@ import LoginForm from "./uicomponents/LoginForm";
 import { Link, Route, Switch, useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 // import Notification from './uicomponents/Notification';
+import { useCookies } from "react-cookie";
 
 function HeroSection(props) {
+
+  const [cookies, setCookie, removeCookie] = useCookies(["user"]);
+
+  function makeCookie(name) {
+    setCookie(name, "gowtham", {
+      path: "/"
+    });
+  }
+
+  function rmvCookie(name) {
+    removeCookie(name, {
+      path: "http://localhost:3000/"
+    });
+  }
+
+  function rmv2Cookie(name) {
+    removeCookie(name, {
+      path: "kakao.com"
+    });
+  }
 
   let [loginchk, loginchkChange] = useState(localStorage.getItem('loginstate'));
 
   if (!window.Kakao.isInitialized()) {
     window.Kakao.init('fb58ebd76f41eecb94267d2c08ceb73a');
+
+    console.log('result : ', document.cookie);
+
+    makeCookie('user');
   };
 
   function logoutWithKakao() {
@@ -28,8 +53,10 @@ function HeroSection(props) {
         localStorage.removeItem('userid');
         props.dispatch({ type: '로그아웃' });
 
+        rmvCookie('user');
+        rmv2Cookie('_kawlt');
+
         // var result = getCookieValue('kd_lang');
-        console.log('result : ', document.cookie);
       });
     }
   };
@@ -39,7 +66,7 @@ function HeroSection(props) {
     let result = "";
     const cookieArr = document.cookie.split(";");
   }
-    
+
     useEffect(()=>{                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
       loginchkChange(localStorage.getItem('loginstate'));
     });

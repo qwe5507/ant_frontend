@@ -8,6 +8,7 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { combineReducers, createStore } from 'redux';
+import { CookiesProvider } from 'react-cookie';
 
 const debug =
   process.env.NODE_ENV === "production" ? void 0 : new DebugEngine();
@@ -49,11 +50,13 @@ let login = createStore(reducer);
 
 ReactDOM.render(
   <StyletronProvider value={engine} debug={debug} debugAfterHydration>
+    <CookiesProvider>
     <BrowserRouter>
     <Provider store = {login}>
     <App />
     </Provider>
     </BrowserRouter>
+    </CookiesProvider>
   </StyletronProvider>,
   document.getElementById('root')
 );
