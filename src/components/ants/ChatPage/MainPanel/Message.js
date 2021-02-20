@@ -3,7 +3,7 @@ import MessageHeader from './MessageHeader';
 
 import { Button, Container, Text, Div, Dropdown, Anchor, Input, Icon, Row, Col } from "atomize"
 
-function MainPanel() {
+function Message() {
     return (
         <div>
         <Div flexDir="column" 
@@ -53,4 +53,4 @@ function MainPanel() {
     )
 }
 
-export default MainPanel;
+export default Message;
