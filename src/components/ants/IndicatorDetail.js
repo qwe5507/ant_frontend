@@ -1,17 +1,11 @@
 import React from "react"
 import { Text, Div, Icon, Anchor, Button, Input, Container, Row, footerLinks, Col,  mediaLinks, Tag } from "atomize";
-import LineChartIn from "./LineChartIn"
-import LineChartIn2 from "./LineChartIn2"
-import LineChartIn3 from "./LineChartIn3"
 import LineChartInDetail from "./LineChartInDetail"
 import Table from '@material-ui/core/Table'
 import TableBody from '@material-ui/core/TableBody'
 import TableCell from '@material-ui/core/TableCell'
 import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
-import Typography from '@material-ui/core/Typography'
-import CreateIcon from '@material-ui/icons/Create'
-import DeleteIcon from '@material-ui/icons/Delete'
 
 function IndicatorDetail() {
     console.log('asdasd')
