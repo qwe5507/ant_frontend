@@ -1,158 +1,60 @@
 import React from "react"
 import { Text, Div, Icon, Anchor, Button, Input, Container, Row, footerLinks, Col,  mediaLinks } from "atomize";
-import LineChartIn from "./LineChartIn"
-import LineChartIn2 from "./LineChartIn2"
-import LineChartIn3 from "./LineChartIn3"
+import IndicatorForm1 from "./IndicatorCompo/IndicatorForm1"
+import IndicatorForm2 from "./IndicatorCompo/IndicatorForm2"
+import IndicatorForm3 from "./IndicatorCompo/IndicatorForm3"
 import Table from '@material-ui/core/Table'
 import TableBody from '@material-ui/core/TableBody'
 import TableCell from '@material-ui/core/TableCell'
 import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
-import Typography from '@material-ui/core/Typography'
-import CreateIcon from '@material-ui/icons/Create'
-import DeleteIcon from '@material-ui/icons/Delete'
 
 function Indicators() {
     console.log('asdasd')
     return (     
       
       <div align = "center" >
-        <Container d="flex" flexDir="row" align="center">
-        <Div 
-            d="flex"
-            flexDir="column"
-            border="1px solid"
-            borderColor="gray200"
-            w={{ xs: "100%", md: "19.5rem" }}
-            maxW="100%"
-          
-            m={{ xs: "0rem", md: "5" }}
-            
-            top="0"
-            rounded="xl"
-            h={{ lg: "24rem" }}
-          
-            bg="white"
-            shadow="4"
-            p="2rem"
-            
-          >
-            <Div flexGrow="1">
-              <Text
-                textAlign="center"
-                textSize="title"
-                m={{ t: "0.5rem", b: "0.5rem" }}
-                textWeight="800"
-                fontFamily="ko"
-              >
-                미국USD/원
-              </Text>
-              <Text
-                textAlign="center"
-                textSize="title"
-                m={{ t: "0.5rem", b: "0.5rem" }}
-                textWeight="800"
-                fontFamily="ko"
-                textColor="info700"
-
-              >
-                1,107
-              </Text>
-              
-            </Div>
-            <LineChartIn/>
-          </Div>
+        <Div
+        tag="section"
+        w="100vw"
+        p={{ t: { xs: "3rem", md: "8rem" } }}
+        overflow="hidden"
+        
+      >
+        <Container
+        
+        >
           <Div
             d="flex"
-            flexDir="column"
-            border="1px solid"
-            borderColor="gray200"
-            w={{ xs: "100%", md: "19.5rem" }}
-            maxW="100%"
-           
-            m={{ xs: "5rem", md: "50" }}
-            
-            top="0"
-            rounded="xl"
-            h={{ lg: "24rem" }}
-          
-            bg="white"
-            shadow="4"
-            p="2rem"
+            justify="center"
+            p={{ b: "10.5rem" }}
+            border={{ b: "1px solid" }}
+            borderColor="gray300"
             
           >
-            <Div flexGrow="1">
-            <Text
-                textAlign="center"
-                textSize="title"
-                m={{ t: "0.5rem", b: "0.5rem" }}
-                textWeight="800"
-                fontFamily="ko"
-              >
-                미국USD/원
-              </Text>
-              <Text
-                textAlign="center"
-                textSize="title"
-                m={{ t: "0.5rem", b: "0.5rem" }}
-                textWeight="800"
-                fontFamily="ko"
-                textColor="info700"
+            <Div
+              minW={{ xs: "100%", md: "44rem", lg: "59rem" }}
+              d="flex"
+              align="center"
+              flexDir="column"
+              h={{ xs: "auto", md: "21rem", lg: "20rem" }}
+              pos="relative"
+            >
+          
+              {/* Form Component */}
+              <IndicatorForm1 />
+              <IndicatorForm2 />
+              <IndicatorForm3 />
 
-              >
-                1,107
-              </Text>
-             
             </Div>
-            <LineChartIn2/>
           </Div>
-                  <Div 
-            d="flex"
-            flexDir="column"
-            border="1px solid"
-            borderColor="gray200"
-            w={{ xs: "100%", md: "19.5rem" }}
-            maxW="100%"
-          
-            m={{ xs: "0rem", md: "10" }}
-            
-            top="0"
-            rounded="xl"
-            h={{ lg: "24rem" }}
-          
-            bg="white"
-            shadow="4"
-            p="2rem"
-            
+        </Container>
+      </Div>
+       
+          <Container d="flex" flexDir="row" align="center"
+          m={{ xs: "1rem", md: "-3.5rem" }}
           >
-            <Div flexGrow="1">
-            <Text
-                textAlign="center"
-                textSize="title"
-                m={{ t: "0.5rem", b: "0.5rem" }}
-                textWeight="800"
-                fontFamily="ko"
-              >
-                미국USD/원
-              </Text>
-              <Text
-                textAlign="center"
-                textSize="title"
-                m={{ t: "0.5rem", b: "0.5rem" }}
-                textWeight="800"
-                fontFamily="ko"
-                textColor="info700"
-
-              >
-                1,107
-              </Text>
-              
-              
-            </Div>
-            <LineChartIn3/>
-          </Div>
-          </Container>
-          <Container d="flex" flexDir="row" align="center">
+         
           <Button
               h="3rem"
                 w={{ xs: "100%", sm: "11rem" }}
@@ -228,11 +130,12 @@ function Indicators() {
                      >국내 시장 금리
                   </Text>
            </Button>
+           
            </Container>
            <Div>
 
       <Container>
-      <Table style={{margin : '60px'}}>
+      <Table style={{margin : '90px'}}>
           <TableHead>
             <TableRow>
               <TableCell align="center">FistName</TableCell>

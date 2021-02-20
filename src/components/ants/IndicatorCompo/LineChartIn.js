@@ -4,8 +4,6 @@ import styled from "styled-components";
 import Chartjs from "chart.js";
 
 const Section = styled.div`
-  width: 12vw;
-  height: 69vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -24,7 +22,7 @@ const Canvas = styled.div`
   justify-content: center;
   align-items: center;
   width: 300px;
-  height: 200px;
+  height: 210px;
 `;
 
 const LineChartIn = () => {
