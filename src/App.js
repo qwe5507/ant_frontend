@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import Layout from "./components/layout";
 import Header from "./components/common/header";
@@ -18,61 +18,90 @@ import IndicatorDetail from "./components/ants/IndicatorDetail";
 import Payment from "./components/ants/Payment";
 import Community from "./components/ants/Community";
 import ChatPage from "./components/ants/ChatPage/ChatPage";
+import { connect } from 'react-redux';
 
-function App() {
+function App(props) {
+
+  useEffect(() => {
+    initializeUserInfo(props);
+  });
+
+  function initializeUserInfo(props) {
+
+    var user_id = localStorage.getItem('userid');
+    
+    if (!user_id) {
+      props.dispatch({ type: 'logout' });
+      console.log('1');
+    }
+    else {
+      var user_name = localStorage.getItem('username');
+      props.dispatch({ type: 'login', payload: { loginstate: true, userid: user_id, username: user_name } });
+      console.log('2');
+    }
+
+  };
+
   return (
     <div className="App">
       <Switch>
-        
-          <Layout>
-            <Header />
 
-            <Route exact path="/">
-              <HeroSection />
-              <Introducing />
-              <Features />
-              <Craft />
-              <DesignDevelopment />
-              <GetStartedBanner />
-            </Route>
-            
-            <Route exact path="/Login">
-              <Login/>
-            </Route>
+        <Layout>
+          <Header />
 
-            <Route exact path="/Indicators">
-              <Indicators/>
-            </Route>
+          <Route exact path="/">
+            <HeroSection />
+            <Introducing />
+            <Features />
+            <Craft />
+            <DesignDevelopment />
+            <GetStartedBanner />
+          </Route>
 
-            <Route exact path="/Backtest">
-              <Backtest/>
-            </Route>
+          <Route exact path="/Login">
+            <Login />
+          </Route>
 
-            <Route exact path="/Community">
-              <Community/>
-            </Route>
-           
-            <Route exact path="/Chat">
-              <Chat/>
-            </Route>
+          <Route exact path="/Indicators">
+            <Indicators />
+          </Route>
 
-            <Route exact path="/IndicatorDetail">
-              <IndicatorDetail/>
-            </Route>
+          <Route exact path="/Backtest">
+            <Backtest />
+          </Route>
 
-            <Route exact path="/Payment">
-              <Payment/>
-            </Route>
+          <Route exact path="/Community">
+            <Community />
+          </Route>
 
-            <Route exact path="/ChatPage">
-              <ChatPage/>
-            </Route>
-                 
-            <Footer />
-          </Layout>
+          <Route exact path="/Chat">
+            <Chat />
+          </Route>
+
+          <Route exact path="/IndicatorDetail">
+            <IndicatorDetail />
+          </Route>
+
+          <Route exact path="/Payment">
+            <Payment />
+          </Route>
+
+          <Route exact path="/ChatPage">
+            <ChatPage />
+          </Route>
+
+          <Footer />
+        </Layout>
       </Switch>
     </div>
   );
 }
 
-export default App;
+function userStateToProps(state) {
+
+  return {
+    userinfo: state.reducer
+  }
+}
+
+export default connect(userStateToProps)(App);

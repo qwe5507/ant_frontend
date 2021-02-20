@@ -37,7 +37,7 @@ function reducer(state = userDefault , action) {
     copy['useremail'] = action.payload['useremail'];
     copy['loginstate'] = action.payload['loginstate'];
     return copy;
-  }else if(action.type === '로그아웃'){
+  }else if(action.type === 'logout'){
     let copy = userDefault
     return copy;
   }

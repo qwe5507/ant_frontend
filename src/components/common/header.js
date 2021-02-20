@@ -4,8 +4,9 @@ import { Div, Image, Container, Button, Anchor, scrollTo, Icon } from "atomize"
 import logo from "../../images/logo.svg"
 import producthunt from "../../images/logo-producthunt.svg"
 import { Link, Route, Switch, useHistory } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-function Header() {
+function Header(props) {
 
   let [showMobileHeaderMenu, showMobileHeaderMenuChange] = useState(false);
 
@@ -181,7 +182,27 @@ function Header() {
               </Anchor>
             </Link>
 
-            <Link to="/">
+            {localStorage.getItem('loginstate')
+              ?
+              <Link to="/">
+                <Anchor
+                  target="_blank"
+                  m={{ r: "2rem", b: { xs: "1rem", md: "0" } }}
+                  textWeight="800"
+                  textColor="medium"
+                  hoverTextColor="black"
+                  transition
+                  fontFamily="ko"
+                >
+                  마이페이지
+              </Anchor>
+              </Link>
+              :
+              ' '
+            }
+
+            {localStorage.getItem('loginstate')
+              ?
               <Anchor
                 target="_blank"
                 m={{ r: "2rem", b: { xs: "1rem", md: "0" } }}
@@ -191,9 +212,11 @@ function Header() {
                 transition
                 fontFamily="ko"
               >
-                마이페이지
+                {props.userinfo['username']}
               </Anchor>
-            </Link>
+              :
+              ' '
+            }
 
             {/* <Anchor
               m={{ r: "2rem", b: { xs: "1rem", md: "0" } }}
@@ -222,4 +245,10 @@ Header.defaultProps = {
   siteTitle: ``,
 }
 
-export default Header
+function userStateToProps(state) {
+  return {
+    userinfo: state
+  }
+}
+
+export default connect(userStateToProps)(Header)
