@@ -1,5 +1,7 @@
 import React from "react"
 import MessageHeader from './MessageHeader';
+import Message from './Message';
+import MessageForm from './MessageForm';
 
 import { Button, Container, Text, Div, Dropdown, Anchor, Input, Icon } from "atomize"
 
@@ -17,7 +19,10 @@ function MainPanel() {
                     marginBottom: '1rem',
                     overflowY: 'auto'
                 }}>
+            <Message />
+            
             </div>
+            <MessageForm />
             </div>
 
 
