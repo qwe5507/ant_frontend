@@ -74,6 +74,10 @@ function App(props) {
             <Community />
           </Route>
 
+          <Route exact path="/Community/:boardid">
+            <Community />
+          </Route>
+
           <Route exact path="/Chat">
             <Chat />
           </Route>

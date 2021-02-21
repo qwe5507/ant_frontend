@@ -3,12 +3,14 @@ import React, { useState, useEffect } from "react"
 import { Div, Image, Container, Button, Anchor, scrollTo, Icon, Text,Radiobox, Label,Switch,Row,Col,logoSketch,logoReact } from "atomize"
 import logo from "../../images/logo.svg"
 import producthunt from "../../images/logo-producthunt.svg"
-import { Link, Route, useHistory } from 'react-router-dom';
+import { Link, Route, useHistory, useParams } from 'react-router-dom';
 
 function Community() {
     let [showMobileHeaderMenu, showMobileHeaderMenuChange] = useState(false);
     let [selectedSwitchValue,selectedSwitchValueChange] = useState(false);
     let [liked,likedchange] = useState(false);
+
+    let { boardid } = useParams();
 
     function toggleHeaderMenu(value) {
       showMobileHeaderMenuChange(value);
@@ -29,16 +31,9 @@ function Community() {
         right="0"
         zIndex="1"
         w="80%"
-        // p={{ y: { xs: "4.5rem", md: "1rem" } }}
-
         align = "space-between"
-        // m={{ l : { xs: '5rem', md: '0%' },
-        // t : { xs: '5rem', md: '0%' }
-        // }}
-        // p ={{ l : { xs: '5rem', md: '0%' },
-        // t : { xs: '5rem', md: '0%' }
-        // }}
       >
+
         <Div
           pos="absolute"
           top="0"
@@ -52,16 +47,6 @@ function Community() {
           
         ></Div>
         <Container w="30.5rem" d="static" align="center" justify="center" >
-           
-
-          {/* <Link to="/">
-            <Image
-              src={logo}
-              h="18px"
-              w="auto"
-            />
-          </Link> */}
-
 
           {/* Icon For Mobile */}
          {/* 모바일일때 생기는탭 */}
@@ -104,7 +89,6 @@ function Community() {
             }
             align="center"
             textWeight="600"
-            // m={{ b: "1rem" }}
             >
             <Switch
                 checked={selectedSwitchValue}
@@ -114,7 +98,6 @@ function Community() {
             />
             {selectedSwitchValue ? <Text>추천순</Text> : <Text>최신순</Text>}
             </Label>
-
 
           {/* Links for Desktop */}
           <Div
@@ -131,13 +114,10 @@ function Community() {
               x: { xs: "1.5rem", md: "0" },
             }}
             //마진
-            // m={{  xs: '5rem', md: '15%' }}
             m={{ l : { xs: '5rem', md: '-80%' },
                t : { xs: '5rem', md: '20%' }
             }}
-            // top="20rem"
-            // left="10%"
-            // right="0"
+
             zIndex={{ xs: "-1", md: "0" }}
             shadow={{ xs: "4", md: "0" }}
             opacity={{
@@ -156,7 +136,6 @@ function Community() {
             <Link to="/News">
               <Anchor
                 target="_blank"
-                // m={{ r: "2rem", b: { xs: "1rem", md: "0" } }}
                 textWeight="800"
                 textColor="medium"
                 hoverTextColor="black"
@@ -177,7 +156,6 @@ function Community() {
             <Link to="/Indicators">
               <Anchor
                 target="_blank"
-                // m={{ r: "2rem", b: { xs: "1rem", md: "0" } }}
                 textWeight="800"
                 textColor="medium"
                 hoverTextColor="black"
@@ -186,7 +164,6 @@ function Community() {
               >
                     <Text
                         textSize="title"
-                        // m={{ b: "0.25rem" }}
                         textWeight="1000"
                         textAlign="center"
                         m={{ b: "0.25rem" ,r : "2.5rem" }}
@@ -198,7 +175,6 @@ function Community() {
             <Link to="/Indicators">
               <Anchor
                 target="_blank"
-                // m={{ r: "2rem", b: { xs: "1rem", md: "0" } }}
                 textWeight="800"
                 textColor="medium"
                 hoverTextColor="black"
@@ -235,13 +211,10 @@ function Community() {
             </Label>
 
           </Div>
-          
-
 
          {/* 게시판시작부분 */}
          <Div pos = "relative" 
          m={{t :{ md : "5%"}, l :{ md : "-80%"}}}
-        //  m={{ b: { xs: "2rem", md: "2rem" } }}
          w = {{xs: "100%", md : "250%"}}>
              
             <Row>
@@ -256,24 +229,10 @@ function Community() {
                   m={{ b: { xs: "2rem", md: "1rem" } }}
                 >
                     {/* 시작 */}
-                    {/* <Div
-        //   bgImg={cardImg}
-          bgSize="cover"
-          bgPos="center"
-          bgRepeat="no-repeat"
-          p={{ b: "84%" }}
-        /> */}
+
         <Div p="1rem" d="flex" align="center" justify="space-between">
           <Div d="inline-block" align="center" >
-            {/* <Div
-              h="1.5rem"
-              w="1.5rem"
-            //   bgImg={girl2}
-              bgSize="cover"
-              bgPos="center"
-              m={{ r: "1rem" }}
-              rounded="circle"
-            ></Div> */}
+
                     <Text
                     textAlign="left"
                     textSize="title"
@@ -376,31 +335,134 @@ function Community() {
           </Div>
         </Div>
                     {/* 끝 */}
-                  {/* <Image
-                    src={logoSketch}
-                    h="2.5rem"
-                    w="auto"
-                    m={{ b: "1rem" }}
-                  />
-                  <Text 
-                  align = "top"
-                  m={{ b: "0.5rem" }} textSize="heading" textWeight="500">
-                    게시글1
-                  </Text>
-
-                  <Text
-                    textSize="subheader"
-                    textColor="medium"
-                    p={{ r: "1rem" }}
-                    m={{ b: "1.5rem" }}
-                  >
-                    게시글 내용1~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-                  </Text> */}
 
                 </Div>
 
               </Col>
               <Col size={{ xs: 12, md: 6, lg: 6 }} pos="relative">
+
+<Div
+  shadow="4"
+  border="1px solid"
+  borderColor="gray200"
+  rounded="lg"
+  p="2rem"
+  m={{ b: { xs: "2rem", md: "1rem" } }}
+>
+            {/* 시작 */}
+
+        <Div p="1rem" d="flex" align="center" justify="space-between">
+        <Div d="inline-block" align="center" >
+
+            <Text
+            textAlign="left"
+            textSize="title"
+            textWeight="500"
+            fontFamily="secondary"
+            m={{ b: "1rem" }}
+            >
+            kakao mang hera kakao mang herakakao mang herakakao mang hera
+            </Text>
+            <Text
+            textAlign="left"
+            textSize="body"
+            textWeight="500"
+            fontFamily="secondary"
+            m={{ b: "1rem" }}
+            >
+            why KaKao SiBal Nom ? 
+            </Text>
+        </Div>
+
+        </Div>
+
+        <Div p="1rem" d="flex" align="center" justify="space-between">
+        <Div d="inline-block" align="center">
+        <Text
+            textAlign="left"
+            textSize="body"
+            textWeight="700"
+            fontFamily="secondary"
+            m={{ b: "0.2rem" }}
+            >
+            Lee Jin Soft
+        </Text>
+        <Div d="flex" align="center">
+            <Icon
+                transition
+                name= "Eye"
+                color= "black"
+                size="18px"
+                cursor="pointer"
+                m={{r : "0.4rem"}}
+            />
+            <Text
+            textAlign="left"
+            textSize="body"
+            textWeight="450"
+            fontFamily="secondary"
+            m={{r : "1rem"}}
+            >
+            4572
+            </Text>
+            <Icon
+                transition
+                onClick={() => likedchange(!liked)}
+                name={liked ? "HeartSolid" : "Heart"}
+                color={liked ? "danger700" : "black"}
+                size="18px"
+                cursor="pointer"
+                m={{r : "0.4rem"}}
+            />
+            <Text
+            textAlign="left"
+            textSize="body"
+            textWeight="450"
+            fontFamily="secondary"
+            m={{r : "1rem"}}
+            >
+            121
+            </Text>
+            <Icon
+                transition
+                name= "Message"
+                color= "black"
+                size="18px"
+                cursor="pointer"
+                m={{r : "0.4rem"}}
+            />
+            <Text
+            textAlign="left"
+            textSize="body"
+            textWeight="450"
+            fontFamily="secondary"
+            m={{r : "1rem"}}
+            >
+            121
+            </Text>
+        </Div>
+        </Div>
+        <Div d="flex" align="center">
+        <Div
+        h="1.5rem"
+        w="1.5rem"
+        //   bgImg={girl2}
+        bgSize="cover"
+        bgPos="center"
+        m={{ r: "1rem" }}
+        rounded="circle"
+        ></Div>
+        <Text textWeight="500">백년 전</Text>
+        </Div>
+        </Div>
+            {/* 끝 */}
+
+
+        </Div>
+
+        </Col>
+              
+        <Col size={{ xs: 12, md: 6, lg: 6 }} pos="relative">
 
 <Div
   shadow="4"
@@ -555,36 +617,6 @@ function Community() {
         </Div>
 
         </Col>
-              
-              <Col size={{ xs: 12, md: 6, lg: 6 }} pos="relative">
-                <Div
-                  shadow="4"
-                  border="1px solid"
-                  borderColor="gray200"
-                  rounded="lg"
-                  p="2rem"
-                  m={{ b: { xs: "2rem", md: "1rem" } }}
-                >
-                  <Image
-                    src={logoSketch}
-                    h="2.5rem"
-                    w="auto"
-                    m={{ b: "1rem" }}
-                  />
-                  <Text m={{ b: "0.5rem" }} textSize="heading" textWeight="500">
-                    게시글3
-                  </Text>
-
-                  <Text
-                    textSize="subheader"
-                    textColor="medium"
-                    p={{ r: "1rem" }}
-                    m={{ b: "1.5rem" }}
-                  >
-                    게시글 내용3~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-                  </Text>
-                </Div>
-              </Col>
               <Col size={{ xs: 12, md: 6, lg: 6 }} pos="relative">
                 <Div
                   shadow="4"
