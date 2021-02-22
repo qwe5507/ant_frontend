@@ -6,6 +6,7 @@ import axios from 'axios';
 // import KaKaoLogin from 'react-kakao-login';
 import { useHistory, useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
+import UserApiService from "../../API/UserApi";
 
 function Login(props) {
   let history = useHistory();
@@ -45,21 +46,21 @@ function Login(props) {
             props.dispatch({ type: 'login', payload: { loginstate: true, userid: res.id, username: res.properties['nickname'], useremail: res.kakao_account['email'] } })
             
             
-            // let userdata = {
-            //   id: res.id,
-            //   name: res.properties['nickname'],
-            // }
+            let userdata = {
+              id: 1234784444,
+              name: res.properties['nickname']
+            }
 
-            // axios.post("http://192.168.0.56:8000/user",userdata)
-            //   .then( res => {
-            //     alert('회원 등록성공')
+            UserApiService.addUser(userdata)
+              .then( res => {
+                alert('회원 등록성공')
 
-            //   })
-            //   .catch(err => {
-            //     alert('등록된 회원입니다.')
-            //     console.log('kakao user 등록 에러', err);
+              })
+              .catch(err => {
+                alert('등록된 회원입니다.')
+                console.log('kakao user 등록 에러', err);
 
-            //   });
+              });
             // console.log("http://192.168.0.56:8000/user/"+userdata['id'])
 
             // this.kakaologin(userdata);
