@@ -21,7 +21,7 @@ const Title = styled.h1`
 const Canvas = styled.div`
   justify-content: center;
   align-items: center;
-  width: 300px;
+  width: 100%;
   height: 210px;
 `;
 
