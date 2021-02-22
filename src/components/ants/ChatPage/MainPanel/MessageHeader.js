@@ -16,8 +16,8 @@ function MessageHeader() {
               >
                 홍길동
               </Text></Col>
-              <Col>
-              <Input
+              <Col >
+              <Input m={{ xs: '0.5rem', md: '1rem' }}
             placeholder="Search"
             suffix={
                 <Icon

@@ -36,7 +36,7 @@ function Message() {
         </Row>
 
         <Row>
-        <Col>
+        <Col >
         <Text
         textAlign="left"
         textSize="subheader"

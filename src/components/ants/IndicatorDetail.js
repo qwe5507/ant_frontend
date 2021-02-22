@@ -12,7 +12,7 @@ function IndicatorDetail() {
     return (     
       
       <div align = "center" >
-        <Container d="flex" flexDir="column" m={{ x: { xs: '0', md: 0 }, y: { xs: 0, md: '5.5rem' }}} >
+        <Container d="flex" flexDir="column" m={{ x: { xs: '0', md: '0' }, y: { xs: '5.5rem', md: '5.5rem' }}} >
        
         <Text
                 textAlign="left"
@@ -41,8 +41,8 @@ function IndicatorDetail() {
             bg="info700"
             hoverBg="info800"
             rounded="circle"
-            h={{ xs: '0.5rem', md: '2rem' }}
-            w={{ xs: '2rem', md: '5rem' }}
+            h={{ xs: '2rem', md: '2rem' }}
+            w={{ xs: '5rem', md: '5rem' }}
             m='0.5rem'
             shadow="3"
             hoverShadow="4"
@@ -54,8 +54,8 @@ function IndicatorDetail() {
             bg="info700"
             hoverBg="info800"
             rounded="circle"
-            h={{ xs: '0.5rem', md: '2rem' }}
-            w={{ xs: '2rem', md: '5rem' }}
+            h={{ xs: '2rem', md: '2rem' }}
+            w={{ xs: '5rem', md: '5rem' }}
             m='0.5rem'
             shadow="3"
             hoverShadow="4"
@@ -67,8 +67,8 @@ function IndicatorDetail() {
             bg="info700"
             hoverBg="info800"
             rounded="circle"
-            h={{ xs: '0.5rem', md: '2rem' }}
-            w={{ xs: '2rem', md: '5rem' }}
+            h={{ xs: '2rem', md: '2rem' }}
+            w={{ xs: '5rem', md: '5rem' }}
             m='0.5rem'
             shadow="3"
             hoverShadow="4"

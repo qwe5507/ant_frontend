@@ -9,7 +9,7 @@ export class ChatRooms extends Component {
             <div>
 
                 <br/>
-            <Text
+            <Text m={{ xs: "0.2rem", md: "0.3rem" }}
                 textAlign="right"
                 textSize="subheader"
                 textWeight="800"
@@ -17,7 +17,7 @@ export class ChatRooms extends Component {
               >
                 CHAT ROOMS(5)
               </Text>
-              <Text
+              <Text m={{ xs: "0.2rem", md: "0.3rem" }}
                 textAlign="right"
                 textSize="body"
                 textWeight="800"
@@ -25,7 +25,7 @@ export class ChatRooms extends Component {
               >
                 첫째방
               </Text>
-              <Text
+              <Text m={{ xs: "0.2rem", md: "0.3rem" }}
                 textAlign="right"
                 textSize="body"
                 textWeight="800"
@@ -33,7 +33,7 @@ export class ChatRooms extends Component {
               >
                 둘째방
               </Text>
-              <Text
+              <Text m={{ xs: "0.2rem", md: "0.3rem" }}
                 textAlign="right"
                 textSize="body"
                 textWeight="800"
