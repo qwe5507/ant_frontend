@@ -11,6 +11,7 @@ import GetStartedBanner from "./components/homepage/GetStartedBanner";
 import Footer from "./components/homepage/Footer";
 import { Link, Route, Switch, useHistory } from 'react-router-dom';
 import Login from "./components/login/login";
+import FirstLogin from "./components/login/FirstLogin";
 import Indicators from "./components/ants/Indicators";
 import Backtest from "./components/ants/Backtest";
 import Chat from "./components/ants/Chat";
@@ -59,6 +60,10 @@ function App(props) {
 
           <Route exact path="/Login">
             <Login />
+          </Route>
+
+          <Route exact path="/FirstLogin">
+            <FirstLogin/>
           </Route>
 
           <Route exact path="/Indicators">
