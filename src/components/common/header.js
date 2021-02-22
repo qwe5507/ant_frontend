@@ -212,7 +212,7 @@ function Header(props) {
                 transition
                 fontFamily="ko"
               >
-                {props.userinfo['username']}
+                {props.userinfo['kakaoname']}
               </Anchor>
               :
               ' '

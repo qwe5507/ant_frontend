@@ -59,7 +59,7 @@ return (
         textAlign="center"
       >
         {/* Meagan Fisher */}
-        {props.userinfo['username']}
+        {props.userinfo['kakaoname']}
       </Text>
       <Text
         textSize="caption"
@@ -67,7 +67,7 @@ return (
         m={{ b: "2.5rem" }}
         textAlign="center"
       >
-        {props.userinfo['useremail']}
+        {props.userinfo['email']}
       </Text>
     </Div>
     <Div d="flex" w="100%">

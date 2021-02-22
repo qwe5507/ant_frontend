@@ -40,34 +40,51 @@ function Login(props) {
             // console.log('토근2'+ window.Kakao.Auth.getAccessToken());
             // console.log(res);
 
+            UserApiService.fetchUserByID(res.id)
+            .then( res => {
+                // alert('호잇')
+                console.log(res.data)
+                if(res.data === "신규회원"){
+                  history.push('/FirstLogin');
+                }else{
+                  history.push('/');
+                }
+
+              })
+              .catch(err => {
+                alert('으아아악.')
+                console.log('오이잉', err);
+
+              });
+
             localStorage.setItem('userid', res.id);
             localStorage.setItem('username', res.properties['nickname']);
 
             props.dispatch({ type: 'login', payload: { loginstate: true, userid: res.id, username: res.properties['nickname'], useremail: res.kakao_account['email'] } })
+
             
-            
-            let userdata = {
-              id: 1234784444,
-              name: res.properties['nickname']
-            }
+            // let userdata = {
+            //   id: 1234784444,
+            //   name: res.properties['nickname']
+            // }
 
-            UserApiService.addUser(userdata)
-              .then( res => {
-                alert('회원 등록성공')
+            // UserApiService.addUser(userdata)
+            //   .then( res => {
+            //     alert('회원 등록성공')
 
-              })
-              .catch(err => {
-                alert('등록된 회원입니다.')
-                console.log('kakao user 등록 에러', err);
+            //   })
+            //   .catch(err => {
+            //     alert('등록된 회원입니다.')
+            //     console.log('kakao user 등록 에러', err);
 
-              });
+            //   });
             // console.log("http://192.168.0.56:8000/user/"+userdata['id'])
 
             // this.kakaologin(userdata);
           }
         })
 
-        history.push('/');
+        
       },
       fail: function (err) {
         alert(JSON.stringify(err));

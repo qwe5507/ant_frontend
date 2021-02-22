@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 
 import { Text, Div, Icon, Anchor, Button, Input } from "atomize"
 import axios from 'axios';
@@ -10,7 +10,16 @@ import UserApiService from "../../API/UserApi";
 
 function FirstLogin(props) {
   let history = useHistory();
+  let [nickname,nickname변경] = useState("");
+  let [telnumber,telnumber변경] = useState("");
+  
+  function addinfobutton() {
+    console.log(nickname+ telnumber)
+    props.dispatch({ type: 'loginadd', payload: { nickname : nickname ,phone : telnumber} })
 
+    console.log(props.userinfo)
+    history.push('/')
+  }
 
   return (
     <Div
@@ -28,7 +37,7 @@ function FirstLogin(props) {
       // right="50%"
       // top="50%"
       rounded="xl"
-      h={{ lg: "23rem" }}
+      h= "26rem"
       bg="white"
       shadow="4"
       p="2rem"
@@ -41,21 +50,13 @@ function FirstLogin(props) {
           textWeight="500"
           fontFamily="secondary"
         >
-          HELLO Smart Ants.
+          처음이시군요 추가정보를 입력하고      
+          회원등록을 완료하세요.
       </Text>
-        <Text
-          textColor="light"
-          textSize="caption"
-          m={{ b: "4rem" }}
-          textAlign="center"
-        >
-          Don't have an account yet? <Anchor>Create New</Anchor>
-        </Text>
+
         <Text
           m={{ b: "3rem" }}
           textAlign="center">
-
-
         </Text>
         <Text
           textColor="#999"
@@ -64,8 +65,74 @@ function FirstLogin(props) {
           textAlign="center"
           textWeight="500"
         >
-          카카오계정으로 간편하고 안전하게 로그인(회원가입)할 수 있습니다.
+          추가정보 입력 
       </Text>
+              <Input
+              placeholder="닉네임을 입력하세요."
+              p={{ x: "2.5rem" }}
+              onChange={(e) =>
+                nickname변경(e.target.value)
+              }
+              prefix={
+                <Icon
+                  name="UserSolid"
+                  color="warning800"
+                  size="16px"
+                  cursor="pointer"
+                  pos="absolute"
+                  top="50%"
+                  left="0.75rem"
+                  transform="translateY(-50%)"
+                />
+              }
+              />
+             <Input
+              placeholder="전화번호를 입력하세요."
+              p={{  x: "2.5rem" }}
+              m = {{ t : "1.2rem"}}
+              onChange={(e) =>
+                telnumber변경(e.target.value)
+              }
+              prefix={
+                <Icon
+                  name="Add"
+                  color="warning800"
+                  size="16px"
+                  cursor="pointer"
+                  pos="absolute"
+                  top="50%"
+                  left="0.75rem"
+                  transform="translateY(-50%)"
+                />
+              }
+              />
+              <Div
+              pos = "flex"
+              m={{ t: "2rem" ,l : "7rem"   }}>
+                <Button
+                  prefix={
+                    <Icon
+                      name="EyeSolid"
+                      size="25px"
+                      color="white"
+                      m={{ r: "0.5rem"   }}
+                    />
+                  }
+                  bg="warning700"
+                  hoverBg="warning800"
+                  rounded="circle"
+                  w = "12rem"
+                  p={{ r: "1.5rem", l: "1rem" }}
+                  shadow="3"
+                  hoverShadow="4"
+                  textWeight= "50"
+                  onClick={() =>
+                    addinfobutton()      
+                  }
+                >
+                  입력완료
+                </Button>
+              </Div>
         <Text
           textColor="#999"
           textSize="caption"
@@ -73,7 +140,7 @@ function FirstLogin(props) {
           textAlign="left"
           textWeight="500"
         >
-          카카오계정이 기억나지 않으시나요?
+          
           <Text
             // textColor="#999"
             textSize="caption"
@@ -81,13 +148,7 @@ function FirstLogin(props) {
             textAlign="right"
           // textWeight="500"
           >
-            <Anchor
-              href="https://accounts.kakao.com/weblogin/find_password?continue=https://accounts.kakao.com/weblogin/account/info"
-              target="_blank"
-              d="block"
-              m={{ b: "4rem" }}
-            >확인방법
-              </Anchor>
+
           </Text>
         </Text>
 
@@ -97,6 +158,7 @@ function FirstLogin(props) {
 }
 
 function userStateToProps(state) {
+  console.log(state)
   return {
     userinfo: state.reducer
   }
