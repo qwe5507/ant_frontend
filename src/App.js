@@ -32,12 +32,10 @@ function App(props) {
     
     if (!user_id) {
       props.dispatch({ type: 'logout' });
-      console.log('1');
     }
     else {
       var user_name = localStorage.getItem('username');
       props.dispatch({ type: 'login', payload: { loginstate: true, userid: user_id, username: user_name } });
-      console.log('2');
     }
 
   };

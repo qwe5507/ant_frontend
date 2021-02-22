@@ -12,51 +12,63 @@ import { Link } from 'react-router-dom';
 function BacktestCondition() {
 
     let [showDropdown, showDropdownChange] = useState(false);
+    let [coSelected, coSelectedChange] = useState('조건을 선택하세요');
 
     const testCondition = (
         <Div>
-            {["PBR", "PER", "당기순이익", "영업이익", "보유기간"].map((name, index) => (
+            {['PER', 'PBR', 'PCR', 'POR', 'PSR', 'PEG'].map((name, index) => (
                 <Anchor
                     d="block"
-                    p={{ y: "0.25rem", l: "0.75rem" }}>
+                    p={{ y: "0.25rem", l: "0.75rem" }}
+                    onClick={() => dropboxSelected(name) }
+                    >
                     {name}
                 </Anchor>
             ))}
         </Div>
     );
+    
+    function dropboxSelected(name){
+        coSelectedChange(name)
+        showDropdownChange(!showDropdown)
+    }
+
+    useEffect(() => {
+        console.log('dropbox : ',coSelected);
+    });
 
     return (
         <>
-            <Div 
-                tag="section" 
+            <Div
+                tag="section"
                 p={{ t: { xs: "6rem", md: "10rem" } }}
             >
-                <Container 
-                    d="flex" 
-                    flexDir="column" 
+                <Container
+                    d="flex"
+                    flexDir="column"
                     align="center">
-                        <Text
-                            tag="h1"
-                            textWeight="800"
-                            textAlign="center"
-                            textSize="display2"
-                            m={{ b: "1rem" }}
-                            fontFamily='ko'
-                        >
-                            한국주식 백테스트
+                    <Text
+                        tag="h1"
+                        textWeight="800"
+                        textAlign="center"
+                        textSize="display2"
+                        m={{ b: "1rem" }}
+                        fontFamily='ko'
+                    >
+                        한국주식 백테스트
                         </Text>
-                        <Text
-                            tag="h2"
-                            textWeight="400"
-                            maxW="36rem"
-                            textSize="subheader"
-                            textAlign="center"
-                            fontFamily="secondary"
-                            textColor="medium"
-                            m={{ b: "2.5rem" }}
-                            fontFamily='ko'
-                        >
-                            내가 설정한 재무제표 지표 조건으로 매매했을때 과거 성과를 확인해보세요.
+                    <Text
+                        tag="h2"
+                        textWeight="400"
+                        maxW="36rem"
+                        textSize="subheader"
+                        textAlign="center"
+                        fontFamily="secondary"
+                        textColor="medium"
+                        m={{ b: "2.5rem" }}
+                        fontFamily='ko'
+                    >
+                        설정한 재무제표 지표 조건에 따라 매매한 과거 성과를 확인하고 공유해보세요.
                         </Text>
 
                     {/* 백테스트 조건 Dropdown */}
@@ -77,7 +89,7 @@ function BacktestCondition() {
                             }
                             menu={testCondition}
                         >
-                            PER
+                            {coSelected}
                         </Dropdown>
 
                         <Input
@@ -86,9 +98,9 @@ function BacktestCondition() {
                             fontFamily='ko'
                             placeholder="값 입력" />
 
-                        <Icon 
-                            name="Add" 
-                            color="info700" 
+                        <Icon
+                            name="Add"
+                            color="info700"
                             size="40px"
                             cursor="pointer" />
 
