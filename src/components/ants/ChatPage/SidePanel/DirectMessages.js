@@ -7,9 +7,10 @@ export class DirectMessages extends Component {
     render() {
         return (
             <div>
-
+              
                 <br/>
             <Text
+            m={{ xs: "0.2rem", md: "0.3rem" }}
                 textAlign="right"
                 textSize="subheader"
                 textWeight="800"
@@ -17,7 +18,7 @@ export class DirectMessages extends Component {
               >
                 DIRECT MESSAGES (4)
               </Text>
-              <Text
+              <Text  m={{ xs: "0.2rem", md: "0.3rem" }}
                 textAlign="right"
                 textSize="body"
                 textWeight="800"
@@ -25,7 +26,7 @@ export class DirectMessages extends Component {
               >
                 첫째
               </Text>
-              <Text
+              <Text  m={{ xs: "0.2rem", md: "0.3rem" }}
                 textAlign="right"
                 textSize="body"
                 textWeight="800"
@@ -33,7 +34,7 @@ export class DirectMessages extends Component {
               >
                 둘째
               </Text>
-              <Text
+              <Text  m={{ xs: "0.2rem", md: "0.3rem" }}
                 textAlign="right"
                 textSize="body"
                 textWeight="800"

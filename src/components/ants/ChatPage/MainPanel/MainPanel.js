@@ -8,12 +8,12 @@ import { Button, Container, Text, Div, Dropdown, Anchor, Input, Icon } from "ato
 function MainPanel() {
     return (
         <div>
-            <div style={{ padding: '10rem 3rem 0 10rem' }}>
+            <div style={{ padding: '2.5rem 1rem 0 1rem'  }} >
             <MessageHeader/>
             <div style={{
                     width: '100%',
                     height: '450px',
-                    border: '.2rem solid #ececec',
+                   border: '.2rem solid #ececec',
                     borderRadius: '4px',
                  //   padding: '1rem',
                     marginBottom: '1rem',

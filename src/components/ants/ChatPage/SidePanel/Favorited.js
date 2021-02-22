@@ -9,7 +9,7 @@ export class Favorited extends Component {
             <div>
 
                 <br/>
-            <Text
+            <Text m={{ xs: "0.2rem", md: "0.3rem" }}
                 textAlign="right"
                 textSize="subheader"
                 textWeight="800"

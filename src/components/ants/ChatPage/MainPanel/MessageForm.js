@@ -17,7 +17,7 @@ function MessageForm() {
              hoverBg="info600"
               rounded="lg"
             
-            m={{ r: "1rem", b: { xs: "1rem", sm: "0" } }}
+            m={{ r: "1rem", b: { xs: "1rem", sm: "0.5rem" } }}
                             >
              <Text
                   textSize="subheader"
@@ -35,7 +35,7 @@ function MessageForm() {
              hoverBg="info600"
               rounded="lg"
             
-            m={{ r: "1rem", b: { xs: "1rem", sm: "0" } }}
+            m={{ r: "1rem", b: { xs: "1rem", sm: "0.5rem" } }}
                             >
              <Text
                   textSize="subheader"
