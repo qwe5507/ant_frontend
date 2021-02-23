@@ -23,7 +23,7 @@ function UserPanel() {
               </Text>
             
             </Div>
-           
+          
            
         </div>
     )
