@@ -20,7 +20,7 @@ import Payment from "./components/ants/Payment";
 import Community from "./components/ants/Community";
 import ChatPage from "./components/ants/ChatPage/ChatPage";
 import News from "./components/ants/News";
-import Stucks from "./components/ants/Stucks";
+import Stocks from "./components/ants/Stocks";
 import { connect } from 'react-redux';
 
 function App(props) {
@@ -104,8 +104,8 @@ function App(props) {
             <News />
           </Route>
 
-          <Route exact path="/Stucks">
-            <Stucks />
+          <Route exact path="/Stocks">
+            <Stocks />
           </Route>
 
 

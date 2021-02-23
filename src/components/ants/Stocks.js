@@ -3,7 +3,7 @@ import TradingViewWidget, { Themes } from 'react-tradingview-widget';
 import { Div, Text } from "atomize"
     //참고사이트
     //https://github.com/rafaelklaessen/react-tradingview-widget
-function Stucks() {
+function Stocks() {
     return (
  
         <Div
@@ -24,4 +24,4 @@ function Stucks() {
     )
 }
 
-export default Stucks;
+export default Stocks;
