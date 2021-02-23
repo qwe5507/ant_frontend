@@ -136,7 +136,7 @@ function Community() {
             borderColor="black"
           >
             
-            <Link to="/News">
+            <Link to="/Community">
               <Anchor
                 target="_blank"
                 textWeight="800"
@@ -156,7 +156,7 @@ function Community() {
               </Anchor>
             </Link>
 
-            <Link to="/Indicators">
+            <Link to="/Community">
               <Anchor
                 target="_blank"
                 textWeight="800"
@@ -175,7 +175,7 @@ function Community() {
                     </Text>
               </Anchor>
             </Link>
-            <Link to="/Indicators">
+            <Link to="/Community">
               <Anchor
                 target="_blank"
                 textWeight="800"
