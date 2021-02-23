@@ -45,7 +45,7 @@ function CommunityBoard() {
                             >
                                 <Text
                                 textAlign="left"
-                                textSize="heading"
+                                textSize="title"
                                 textWeight="750"
                                 fontFamily="secondary"
                                 justify="flex-start"
@@ -54,14 +54,13 @@ function CommunityBoard() {
                                 pos= {{xs:"absolute",md: "static"}}
                                 bottom = "32rem"
                                 >
-                                kakao mang hera kakao mang herakakao mangrang herakakao mangr
+                                kakao mang hera kakao mang herakakao mangra kakao mang herakakao mangra kakao mang herakakao mang
                                 </Text>
                             </Div>
                             <Div
                             justify="space-between"
                             align="center"
-                            // pos= "absolute"
-                            pos =  {{xs:"absolute",md: "static"}}
+                            pos= "absolute"
                             bottom = "32rem"
                            >
                                 <Text
@@ -71,7 +70,7 @@ function CommunityBoard() {
                                 fontFamily="secondary"
                                 textAlign="justify"
                                 justify="flex-end"
-                                // m={{ b: "1rem" }}
+                                m={{ b: "1rem" }}
                                 
                                 >
                                 맘마단 
@@ -80,14 +79,13 @@ function CommunityBoard() {
                             <Div
                             align=""
                             h="10rem"
-                            w="15rem"
+                            w="10rem"
                             justify="space-around"
                             // bg="black"
                             // rounded="md"
                             // border="1px solid"
                             // borderColor="gray200"
-                            // pos= "absolute"
-                            pos =  {{xs:"absolute",md: "static"}}
+                            pos= "absolute"
                             // bottom = "340px"
                             bottom = "22rem"
                             >
@@ -95,7 +93,7 @@ function CommunityBoard() {
                                 <Icon
                                     transition
                                     name= "Timestamp"
-                                    color= "gray"
+                                    color= "black"
                                     size="18px"
                                     cursor="pointer"
                                     m={{r : "0.4rem"}}
@@ -103,18 +101,16 @@ function CommunityBoard() {
                                 <Text
                                 textAlign="left"
                                 textSize="body"
-                                textWeight="600"
+                                textWeight="450"
                                 fontFamily="secondary"
-                                textColor = "gray"
                                 m={{r : "1rem"}}
-                                
                                 >
-                                14시간
+                                121
                                 </Text>
                                 <Icon
                                     transition
                                     name= "Eye"
-                                    color= "gray"
+                                    color= "black"
                                     size="18px"
                                     cursor="pointer"
                                     m={{r : "0.4rem"}}
@@ -122,10 +118,9 @@ function CommunityBoard() {
                                 <Text
                                 textAlign="left"
                                 textSize="body"
-                                textWeight="600"
+                                textWeight="450"
                                 fontFamily="secondary"
                                 m={{r : "1rem"}}
-                                textColor = "gray"
                                 >
                                 4572
                                 </Text>
@@ -133,7 +128,7 @@ function CommunityBoard() {
                                 <Icon
                                     transition
                                     name= "Message"
-                                    color= "gray"
+                                    color= "black"
                                     size="18px"
                                     cursor="pointer"
                                     m={{r : "0.4rem"}}
@@ -141,9 +136,8 @@ function CommunityBoard() {
                                 <Text
                                 textAlign="left"
                                 textSize="body"
-                                textWeight="600"
+                                textWeight="450"
                                 fontFamily="secondary"
-                                textColor = "gray"
                                 m={{r : "1rem"}}
                                 >
                                 121
@@ -154,97 +148,25 @@ function CommunityBoard() {
                                          
                         
                         </Div>
-                        <Div
-                            h= {{ xs: "22rem", md: "auto" }}
-                            w = {{ xs: "25rem", md: "47rem" }}
-                            // bg="black"
-                            // rounded="md"
-                            // border="1px solid"
-                            // borderColor="gray200"
-                            m = {{
-                                b : {xs : "-2rem"}
-                            }}
-                            border={{ b: "1px solid" }}
-                            borderColor="gray400"
-                            // p={{
-                            //     b: { xs : '1rem' }
-                            // }}
-                            >
-                                <Text
-                                    // textAlign="left"
-                                    textSize="title"
-                                    textWeight="400"
-                                    fontFamily="secondary"
-                                    textAlign="justify"
-                                    justify="flex-end"
-                                    m={{ b: "1rem" }}
-                                    p={{ t: "3rem", b : "2rem" }}
-                                    w = {{xs: "auto", md: "40rem"}}
-                                    textAlign="left"
-                                    // border= "1px solid"
-                                    // borderColor="gray400"
-                                    >
-                                    오늘 백화점 갔다가 폭스헤드 예뻐서 입어보고 왔는데
-                                    XS은 따악 맞는 느낌이고
-                                    S는 약간 낭낭해서 안에 셔츠나 티를 입고 입어도 괜찮을 거 같아서 고민이야..
-                                    사이즈가 사실 나한테 애매한데 색깔이나 촉감이 넘 좋아서 하나 장만하려구 하는데
-                                    다들 어떤 핏으로 샀엉 ? 블로그 하루종일 뒤져도 다 제각각이라 결정이 안서! 내일 가서 살건데ㅠㅠ
-                                    
-                                </Text>
-                                    <Div d="flex" align="center"
-                                        // border="1px solid"
-                                        // borderColor="gray200"
-                                        p = {{b : "20px"}}
-                                    >
-                                        <Icon
-                                            transition
-                                            name= "Heart"
-                                            color= "black"
-                                            size="23px"
-                                            cursor="pointer"
-                                            m={{r : "0.4rem"}}
-                                        />
-                                        <Text
-                                        textAlign="left"
-                                        textSize="subheader"
-                                        textWeight="600"
-                                        fontFamily="secondary"
-                                        textColor = "black"
-                                        m={{r : "1rem"}}
-                                        
-                                        >
-                                        좋아요
-                                        </Text>
-                                        <Icon
-                                            transition
-                                            name= "Message"
-                                            color= "black"
-                                            size="23px"
-                                            cursor="pointer"
-                                            m={{r : "0.4rem"}}
-                                        />
-                                        <Text
-                                        textAlign="left"
-                                        textSize="subheader"
-                                        textWeight="600"
-                                        fontFamily="secondary"
-                                        textColor = "black"
-                                        m={{r : "1rem"}}
-                                        >
-                                        121
-                                        </Text>
-                                    </Div>
-                        </Div>  
-                        <Div
-                        h="10rem"
-                        w="10rem"
-                        
+                      <Div
+                        h="20rem"
+                        w = {{ xs: "25rem", md: "47rem" }}
                         // bg="black"
                         // rounded="md"
                         // border="1px solid"
                         // borderColor="gray200"
-                        >댓글
-                        </Div>
+                        border={{ b: "1px solid" }}
+
+                        borderColor="gray400"
+                        >내용</Div>
+                        <Div
+                        h="10rem"
+                        w="10rem"
+                        // bg="black"
+                        // rounded="md"
+                        // border="1px solid"
+                        // borderColor="gray200"
+                        >댓글</Div>
                 
                 
                 
