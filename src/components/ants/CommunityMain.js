@@ -5,6 +5,7 @@ import logo from "../../images/logo.svg"
 import producthunt from "../../images/logo-producthunt.svg"
 import { Link, Route, useHistory, useParams } from 'react-router-dom';
 import BoardApiService from "../../api/BoardApi";
+import { AddAlarmSharp } from "@material-ui/icons"
 
 function CommunityMain() {
   let [showMobileHeaderMenu, showMobileHeaderMenuChange] = useState(false);
@@ -16,7 +17,6 @@ function CommunityMain() {
 
   function toggleHeaderMenu(value) {
     showMobileHeaderMenuChange(value);
-    
     setTimeout(() => {
       window.scrollTo(0, window.scrollY + 1)
     }, 400);
@@ -44,6 +44,27 @@ function CommunityMain() {
             <Row>
            {
             boardlist.map(function(data){
+              var nowtime = new Date()
+              var boardtime = new Date(data['board_createdata'])
+              var elapsedtime = nowtime.getTime() - boardtime.getTime()
+              let elapsedMin = elapsedtime / 1000 / 60; // 150.0666...
+              let elapsedHour = elapsedtime / 1000 / 60 / 60; // 2.501111...
+              let elapsedDay = elapsedtime / 1000 / 60 / 60 / 24;
+              var resulttime;
+              if(elapsedMin < 10){
+                resulttime = "now"
+              }else if (elapsedMin >= 10 && elapsedMin < 60 ){
+                resulttime = String(Math.floor(elapsedMin))+"분" 
+              }else if (elapsedMin >= 60 && elapsedHour < 24){
+                resulttime = String(Math.floor(elapsedHour))+"시간" 
+              }else if (elapsedHour >= 24 && elapsedHour < 48){
+                resulttime = "어제"
+              }else if (elapsedHour >= 48 && elapsedDay < 30){
+                resulttime = String(Math.floor(elapsedDay))+"일" 
+              }else if (elapsedDay >= 30){
+                resulttime = String(boardtime.getMonth()+1)+"."+String(boardtime.getDate())
+              }
+              
               return(
                         <Col size={{ xs: 12, md: 6, lg: 6 }} pos="relative">
                         <Div
@@ -156,7 +177,7 @@ function CommunityMain() {
                             rounded="circle"
                           ></Div>
                           <Text textWeight="500">
-                            {}
+                            {resulttime}
                           </Text>
                         </Div>
                       </Div>
