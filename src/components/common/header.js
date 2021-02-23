@@ -170,21 +170,26 @@ function Header() {
               </Anchor>
             </Link>
 
-            <Link to="/Chat">
-              <Anchor
-                target="_blank"
-                m={{ r: "2rem", b: { xs: "1rem", md: "0" } }}
-                textWeight="800"
-                textColor="medium"
-                hoverTextColor="black"
-                transition
-                fontFamily="ko"
-              >
-                채팅
+            {loginstate
+              ?
+              <Link to="/ChatPage">
+                <Anchor
+                  target="_blank"
+                  m={{ r: "2rem", b: { xs: "1rem", md: "0" } }}
+                  textWeight="800"
+                  textColor="medium"
+                  hoverTextColor="black"
+                  transition
+                  fontFamily="ko"
+                >
+                  채팅
               </Anchor>
-            </Link>
+              </Link>
+              :
+              ' '
+            }
 
-            { loginstate
+            {loginstate
               ?
               <Link to="/">
                 <Anchor
@@ -203,7 +208,7 @@ function Header() {
               ' '
             }
 
-            { loginstate
+            {loginstate
               ?
               <Anchor
                 target="_blank"
@@ -214,7 +219,7 @@ function Header() {
                 transition
                 fontFamily="ko"
               >
-                { nickname }
+                {nickname}
               </Anchor>
               :
               ' '

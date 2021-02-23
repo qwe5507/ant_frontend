@@ -4,7 +4,7 @@ import { Div, Image, Container, Button, Anchor, scrollTo, Icon, Text,Radiobox, L
 import logo from "../../images/logo.svg"
 import producthunt from "../../images/logo-producthunt.svg"
 import { Link, Route, useHistory, useParams } from 'react-router-dom';
-import BoardApiService from "../../API/BoardApi";
+import BoardApiService from "../../api/BoardApi";
 
 function CommunityMain() {
   let [showMobileHeaderMenu, showMobileHeaderMenuChange] = useState(false);

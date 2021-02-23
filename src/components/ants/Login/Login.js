@@ -2,7 +2,7 @@ import React, { useEffect } from "react"
 
 import { Text, Div, Icon, Anchor, Button, Input } from "atomize"
 import { useHistory, useParams } from 'react-router-dom';
-import UserApiService from "../../../API/UserApi";
+import UserApiService from "../../../api/UserApi";
 
 import { useDispatch, useSelector } from 'react-redux';
 import { setUserLogin } from '../../../redux/actions/user_action';

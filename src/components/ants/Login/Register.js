@@ -1,34 +1,29 @@
 import React, { useEffect, useState } from "react"
-
-import { Text, Div, Icon, Anchor, Button, Input,Notification } from "atomize"
-import axios from 'axios';
-// import styled from 'styled-components';
-// import KaKaoLogin from 'react-kakao-login';
+import { Text, Div, Icon, Anchor, Button, Input, Notification } from "atomize"
 import { useHistory, useParams } from 'react-router-dom';
-import { connect } from 'react-redux';
 
-function Register(props) {
+import { useDispatch, useSelector } from 'react-redux';
+import { setUserLoginAdd } from '../../../redux/actions/user_action';
+
+function Register() {
+  const dispatch = useDispatch();
   let history = useHistory();
-  let [nickname,nickname변경] = useState("");
-  let [telnumber,telnumber변경] = useState("");
-  let [이메일,이메일변경] = useState("");
-  let [비밀번호,비밀번호변경] = useState("");
-  let [비밀번호확인,비밀번호확인변경] = useState("");
-  let [warningDark,warningDark변경] = useState(false); 
-  // let [kakaoid,kakaoid변경] = useState(props.userinfo.userid); 
-  // let [kakaoname,kakaoname변경] = useState(props.userinfo.kakaoname); 
-  console.log(props.userinfo)
+  let [nickname, nickname변경] = useState("");
+  let [telnumber, telnumber변경] = useState("");
+  let [이메일, 이메일변경] = useState("");
+  let [비밀번호, 비밀번호변경] = useState("");
+  let [비밀번호확인, 비밀번호확인변경] = useState("");
+  let [warningDark, warningDark변경] = useState(false);
 
   function addinfobutton() {
-    if (비밀번호 === 비밀번호확인){
-      console.log('호이이잇')
-      // console.log(data);
-    props.dispatch({ type: 'loginadd', payload: {nickname : nickname, phone : telnumber, email : 이메일, pass : 비밀번호  } })
-    history.push('/')
-    }else{
+    if (비밀번호 === 비밀번호확인) {
+      var userinfo = { nickname: nickname, phone: telnumber, email: 이메일, pass: 비밀번호 };
+      dispatch(setUserLoginAdd(userinfo));
+      history.push('/')
+    } else {
       warningDark변경(true);
     }
-  
+
   }
 
   return (
@@ -47,7 +42,7 @@ function Register(props) {
       // right="50%"
       // top="50%"
       rounded="xl"
-      h= "38rem"
+      h="38rem"
       bg="white"
       shadow="4"
       p="2rem"
@@ -60,7 +55,7 @@ function Register(props) {
           textWeight="500"
           fontFamily="secondary"
         >
-          처음이시군요 추가정보를 입력하고      
+          처음이시군요 추가정보를 입력하고
           회원등록을 완료하세요.
       </Text>
 
@@ -77,7 +72,7 @@ function Register(props) {
             />
           }
         >
-        비밀번호를 확인하세요
+          비밀번호를 확인하세요
         </Notification>
 
         <Text
@@ -91,134 +86,134 @@ function Register(props) {
           textAlign="center"
           textWeight="500"
         >
-          추가정보 입력 
+          추가정보 입력
       </Text>
-              <Input
-              placeholder="닉네임을 입력하세요."
-              p={{ x: "2.5rem" }}
-              onChange={(e) =>
-                nickname변경(e.target.value)
-              }
-              prefix={
-                <Icon
-                  name="UserSolid"
-                  color="warning800"
-                  size="16px"
-                  cursor="pointer"
-                  pos="absolute"
-                  top="50%"
-                  left="0.75rem"
-                  transform="translateY(-50%)"
-                />
-              }
+        <Input
+          placeholder="닉네임을 입력하세요."
+          p={{ x: "2.5rem" }}
+          onChange={(e) =>
+            nickname변경(e.target.value)
+          }
+          prefix={
+            <Icon
+              name="UserSolid"
+              color="warning800"
+              size="16px"
+              cursor="pointer"
+              pos="absolute"
+              top="50%"
+              left="0.75rem"
+              transform="translateY(-50%)"
+            />
+          }
+        />
+        <Input
+          placeholder="전화번호를 입력하세요."
+          p={{ x: "2.5rem" }}
+          m={{ t: "1.2rem" }}
+          onChange={(e) =>
+            telnumber변경(e.target.value)
+          }
+          prefix={
+            <Icon
+              name="Add"
+              color="warning800"
+              size="16px"
+              cursor="pointer"
+              pos="absolute"
+              top="50%"
+              left="0.75rem"
+              transform="translateY(-50%)"
+            />
+          }
+        />
+        <Input
+          placeholder="이메일을 입력하세요."
+          p={{ x: "2.5rem" }}
+          m={{ t: "1.2rem" }}
+          onChange={(e) =>
+            이메일변경(e.target.value)
+          }
+          prefix={
+            <Icon
+              name="Email"
+              color="warning800"
+              size="16px"
+              cursor="pointer"
+              pos="absolute"
+              top="50%"
+              left="0.75rem"
+              transform="translateY(-50%)"
+            />
+          }
+        />
+        <Input
+          placeholder="정보수정을 위한 비밀번호를 입력하세요."
+          p={{ x: "2.5rem" }}
+          m={{ t: "1.2rem" }}
+          onChange={(e) =>
+            비밀번호변경(e.target.value)
+          }
+          prefix={
+            <Icon
+              name="EyeSolid"
+              color="warning800"
+              size="16px"
+              cursor="pointer"
+              pos="absolute"
+              top="50%"
+              left="0.75rem"
+              transform="translateY(-50%)"
+            />
+          }
+        />
+        <Input
+          placeholder="비밀번호를 다시 입력하세요."
+          p={{ x: "2.5rem" }}
+          m={{ t: "1.2rem" }}
+          onChange={(e) =>
+            비밀번호확인변경(e.target.value)
+          }
+          prefix={
+            <Icon
+              name="Eye"
+              color="warning800"
+              size="16px"
+              cursor="pointer"
+              pos="absolute"
+              top="50%"
+              left="0.75rem"
+              transform="translateY(-50%)"
+            />
+          }
+        />
+        <Div
+          pos="flex"
+          m={{ t: "2.7rem", l: "7rem" }}>
+          <Button
+            prefix={
+              <Icon
+                name="EyeSolid"
+                size="25px"
+                color="white"
+                m={{ r: "0.5rem" }}
               />
-             <Input
-              placeholder="전화번호를 입력하세요."
-              p={{  x: "2.5rem" }}
-              m = {{ t : "1.2rem"}}
-              onChange={(e) =>
-                telnumber변경(e.target.value)
-              }
-              prefix={
-                <Icon
-                  name="Add"
-                  color="warning800"
-                  size="16px"
-                  cursor="pointer"
-                  pos="absolute"
-                  top="50%"
-                  left="0.75rem"
-                  transform="translateY(-50%)"
-                />
-              }
-              />
-              <Input
-              placeholder="이메일을 입력하세요."
-              p={{  x: "2.5rem" }}
-              m = {{ t : "1.2rem"}}
-              onChange={(e) =>
-                이메일변경(e.target.value)
-              }
-              prefix={
-                <Icon
-                  name="Email"
-                  color="warning800"
-                  size="16px"
-                  cursor="pointer"
-                  pos="absolute"
-                  top="50%"
-                  left="0.75rem"
-                  transform="translateY(-50%)"
-                />
-              }
-              />
-              <Input
-              placeholder="정보수정을 위한 비밀번호를 입력하세요."
-              p={{  x: "2.5rem" }}
-              m = {{ t : "1.2rem"}}
-              onChange={(e) =>
-                비밀번호변경(e.target.value)
-              }
-              prefix={
-                <Icon
-                  name="EyeSolid"
-                  color="warning800"
-                  size="16px"
-                  cursor="pointer"
-                  pos="absolute"
-                  top="50%"
-                  left="0.75rem"
-                  transform="translateY(-50%)"
-                />
-              }
-              />
-             <Input
-              placeholder="비밀번호를 다시 입력하세요."
-              p={{  x: "2.5rem" }}
-              m = {{ t : "1.2rem"}}
-              onChange={(e) =>
-                비밀번호확인변경(e.target.value)
-              }
-              prefix={
-                <Icon
-                  name="Eye"
-                  color="warning800"
-                  size="16px"
-                  cursor="pointer"
-                  pos="absolute"
-                  top="50%"
-                  left="0.75rem"
-                  transform="translateY(-50%)"
-                />
-              }
-              />
-              <Div
-              pos = "flex"
-              m={{ t: "2.7rem" ,l : "7rem"   }}>
-                <Button
-                  prefix={
-                    <Icon
-                      name="EyeSolid"
-                      size="25px"
-                      color="white"
-                      m={{ r: "0.5rem"   }}
-                    />
-                  }
-                  bg="warning700"
-                  hoverBg="warning800"
-                  rounded="circle"
-                  w = "12rem"
-                  p={{ r: "1.5rem", l: "1rem" }}
-                  shadow="3"
-                  hoverShadow="4"
-                  textWeight= "50"
-                  onClick={() =>
-                    addinfobutton(props.userinfo)      
-                  }
-                >
-                  입력완료
+            }
+            bg="warning700"
+            hoverBg="warning800"
+            rounded="circle"
+            w="12rem"
+            p={{ r: "1.5rem", l: "1rem" }}
+            shadow="3"
+            hoverShadow="4"
+            textWeight="50"
+            onClick={() =>
+              addinfobutton()
+            }
+          >
+            입력완료
                 </Button>
-              </Div>
+        </Div>
         <Text
           textColor="#999"
           textSize="caption"
@@ -226,7 +221,7 @@ function Register(props) {
           textAlign="left"
           textWeight="500"
         >
-          
+
           <Text
             // textColor="#999"
             textSize="caption"
@@ -243,11 +238,4 @@ function Register(props) {
   )
 }
 
-function userStateToProps(state) {
-  console.log('FirstLogin.js',state);
-  return {
-    userinfo: state.reducer
-  }
-}
-
-export default connect(userStateToProps)(Register)
+export default Register;

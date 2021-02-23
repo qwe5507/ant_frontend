@@ -2,7 +2,10 @@ import {
     SET_USER_LOGIN,
     SET_USER_LOGIN_CHECK,
     SET_USER_LOGIN_ADD,
-    SET_USER_LOGOUT
+    SET_USER_LOGOUT,
+    SET_USER,               // Chat
+    CLEAR_USER,             // Chat
+    SET_PHOTO_URL           // Chat
 } from './types';
 
 export function setUserLogin(userinfo) {
@@ -29,5 +32,25 @@ export function setUserLoginAdd(userinfo) {
 export function setUserLogout() {
     return {
         type: SET_USER_LOGOUT
+    }
+}
+
+export function setUser(user) {     // Chat : Firebase Object
+    return {
+        type: SET_USER,
+        payload: user
+    }
+}
+
+export function clearUser() {       // Chat
+    return {
+        type: CLEAR_USER
+    }
+}
+
+export function setPhotoURL(photoURL) {     // Chat
+    return  {
+        type: SET_PHOTO_URL,
+        payload: photoURL
     }
 }

@@ -14,15 +14,14 @@ import Login from "./components/ants/Login/Login";
 import Register from "./components/ants/Login/Register";
 import Indicators from "./components/ants/Indicators";
 import Backtest from "./components/ants/Backtest";
-import Chat from "./components/ants/Chat";
 import IndicatorDetail from "./components/ants/IndicatorDetail";
 import Payment from "./components/ants/Payment";
 import Community from "./components/ants/Community";
-import ChatPage from "./components/ants/ChatPage/ChatPage";
-import RegisterPage from "./components/ants/ChatPage/RegisterPage/RegisterPage";
 import News from "./components/ants/News";
 import Stocks from "./components/ants/Stocks";
-import UserApiService from "./API/UserApi";
+import UserApiService from "./api/UserApi";
+
+import ChatPage from "./components/ChatPage/ChatPage";
 
 import { useDispatch, useSelector } from 'react-redux';
 import { setUserLoginCheck, setUserLogout } from './redux/actions/user_action';
@@ -93,9 +92,9 @@ function App() {
             <Community />
           </Route>
 
-          <Route exact path="/Chat">
+          {/* <Route exact path="/Chat">
             <Chat />
-          </Route>
+          </Route> */}
 
           <Route exact path="/IndicatorDetail">
             <IndicatorDetail />
@@ -109,7 +108,6 @@ function App() {
             <ChatPage />
           </Route>
 
-
           <Route exact path="/News">
             <News />
           </Route>
@@ -118,10 +116,9 @@ function App() {
             <Stocks />
           </Route>
 
-          <Route exact path="/RegisterPage">
+          {/* <Route exact path="/RegisterPage">
             <RegisterPage/>
-          </Route>
-	
+          </Route> */}
 
           <Footer />
         </Layout>
@@ -129,12 +126,5 @@ function App() {
     </div>
   );
 }
-
-// function userStateToProps(state) {
-
-//   return {
-//     userinfo: state.reducer
-//   }
-// }
 
 export default App;
