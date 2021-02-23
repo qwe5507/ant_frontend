@@ -7,6 +7,7 @@ import PropTypes from "prop-types"
 import { useDispatch, useSelector } from 'react-redux';
 
 function Header() {
+  const loginstate = useSelector(state => state.user.loginstate);
   const nickname = useSelector(state => state.user.nickname);
 
   let [showMobileHeaderMenu, showMobileHeaderMenuChange] = useState(false);
@@ -183,7 +184,7 @@ function Header() {
               </Anchor>
             </Link>
 
-            {localStorage.getItem('loginstate')
+            { loginstate
               ?
               <Link to="/">
                 <Anchor
@@ -202,7 +203,7 @@ function Header() {
               ' '
             }
 
-            {localStorage.getItem('loginstate')
+            { loginstate
               ?
               <Anchor
                 target="_blank"
@@ -213,7 +214,7 @@ function Header() {
                 transition
                 fontFamily="ko"
               >
-                {nickname}
+                { nickname }
               </Anchor>
               :
               ' '

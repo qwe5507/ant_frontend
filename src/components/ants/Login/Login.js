@@ -32,13 +32,12 @@ function Login() {
 
             UserApiService.fetchUserByID(res.id)
               .then(res => {
-                console.log(res.data)
                 if (res.data === "신규회원") {
                   var userinfo = { loginstate: true, userid: tempid, username: tempkakaoname };
                   dispatch(setUserLogin(userinfo));
                   history.push('/Register');
                 } else {
-                  var userinfo = { loginstate: true, userid: tempid, username: tempkakaoname };
+                  var userinfo = { loginstate: true, userid: tempid, username: tempkakaoname, nickname: res.data.nickname };
                   dispatch(setUserLogin(userinfo));
                   history.push('/');
                 }
