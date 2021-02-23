@@ -14,10 +14,7 @@ function FirstLogin(props) {
   let [telnumber,telnumber변경] = useState("");
   
   function addinfobutton() {
-    console.log(nickname+ telnumber)
     props.dispatch({ type: 'loginadd', payload: { nickname : nickname ,phone : telnumber} })
-
-    console.log(props.userinfo)
     history.push('/')
   }
 
