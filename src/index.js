@@ -26,7 +26,8 @@ let userDefault = {
   kakaoname : '' , 
   email : '',
   nickname : '',
-  phone : ''
+  phone : '',
+  pass : ''
 };
 
 function reducer(state = userDefault , action) {
@@ -53,11 +54,13 @@ function reducer(state = userDefault , action) {
   }
   else if(action.type === 'loginadd'){
     let copy = {...state};
-    
+
     localStorage.setItem('loginstate', true);
 
     copy['nickname'] = action.payload['nickname'];
     copy['phone'] = action.payload['phone'];
+    copy['email'] = action.payload['email'];
+    copy['pass'] = action.payload['pass'];
     
     console.log(copy)
     UserApiService.addUser(copy)

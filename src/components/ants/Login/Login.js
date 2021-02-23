@@ -6,7 +6,7 @@ import axios from 'axios';
 // import KaKaoLogin from 'react-kakao-login';
 import { useHistory, useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
-import UserApiService from "../../API/UserApi";
+import UserApiService from "../../../API/UserApi";
 
 function Login(props) {
   let history = useHistory();
@@ -39,6 +39,8 @@ function Login(props) {
             // console.log('토큰1'+ authObj.access_token);//<---- 콘솔 로그에 토큰값 출력
             // console.log('토근2'+ window.Kakao.Auth.getAccessToken());
             // console.log(res);
+            var tempid = res.id;
+            var tempkakaoname = res.properties.nickname;
 
             var nickname = '';
 
@@ -46,10 +48,11 @@ function Login(props) {
             .then( res => {
                 console.log(res.data)
                 if(res.data === "신규회원"){
-                  history.push('/FirstLogin');
+
+                  props.dispatch({ type: 'login', payload: { loginstate: true, userid: tempid, username: tempkakaoname } })
+                  history.push('/Register');
                 }else{
-                  nickname = res.data.nickname;
-                  props.dispatch({ type: 'login', payload: { loginstate: true, userid: res.id, nickname: nickname } })
+                  props.dispatch({ type: 'login', payload: { loginstate: true, userid: tempid ,username: tempkakaoname } })
                   history.push('/');
                 }
               })
