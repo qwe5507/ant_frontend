@@ -4,7 +4,7 @@ const Board_API_BASE_URL = "http://localhost:8000/board";
 
 class BoardApiService {
 
-    fetchUsers() {
+    fetchBoards() {
         return axios.get(Board_API_BASE_URL);
     }
 
