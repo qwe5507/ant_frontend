@@ -1,4 +1,4 @@
-import UserApiService from "../../api/UserApi";
+import UserApiService from "../../API/UserApi";
 
 import {
     SET_USER_LOGIN,
