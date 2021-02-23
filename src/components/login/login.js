@@ -15,8 +15,6 @@ function Login(props) {
     window.Kakao.init('fb58ebd76f41eecb94267d2c08ceb73a');
   }
 
-  let ids;
-
   useEffect(() => {
 
     window.Kakao.Auth.createLoginButton({
@@ -29,7 +27,6 @@ function Login(props) {
             // alert(JSON.stringify(res)); //<---- kakao.api.request 에서 불러온 결과값 json형태로 출력
             // alert(JSON.stringify(authObj)); //<----Kakao.Auth.createLoginButton에서 불러온 결과값 json형태로 출력
             // console.log('id : ',res.id);//<---- 콘솔 로그에 id 정보 출력(id는 res안에 있기 때문에  res.id 로 불러온다)
-            ids = res.id;
             //console.log(res.kaccount_email);//<---- 콘솔 로그에 email 정보 출력 (어딨는지 알겠죠?)
             // console.log(res.kakao_account);
             // console.log(res.kakao_account['email']);
@@ -52,8 +49,8 @@ function Login(props) {
 
               })
               .catch(err => {
-                alert('으아아악.')
-                console.log('오이잉', err);
+                alert('등록실패.')
+                console.log('-- 카카오 로그인 유저등록 API요청 실패 ', err);
 
               });
 
@@ -64,33 +61,12 @@ function Login(props) {
               email = ""
             }
             props.dispatch({ type: 'login', payload: { loginstate: true, userid: res.id, username: res.properties['nickname'], useremail: email } })
-
-            
-            // let userdata = {
-            //   id: 1234784444,
-            //   name: res.properties['nickname']
-            // }
-
-            // UserApiService.addUser(userdata)
-            //   .then( res => {
-            //     alert('회원 등록성공')
-
-            //   })
-            //   .catch(err => {
-            //     alert('등록된 회원입니다.')
-            //     console.log('kakao user 등록 에러', err);
-
-            //   });
-            // console.log("http://192.168.0.56:8000/user/"+userdata['id'])
-
-            // this.kakaologin(userdata);
           }
         })
-
-        
       },
       fail: function (err) {
         alert(JSON.stringify(err));
+        console.log('-- 카카오 로그인 실패 ', err);
       }
     });
 
@@ -106,12 +82,8 @@ function Login(props) {
       w={{ xs: "100%", md: "30.5rem" }}
       maxW="100%"
       pos={{ xs: "static" }}
-      // m={{ xs: "50%", md: "12rem" }}
       m={{ t: "13rem", l: "33%" }}
       align="center"
-
-      // right="50%"
-      // top="50%"
       rounded="xl"
       h={{ lg: "23rem" }}
       bg="white"
@@ -140,21 +112,6 @@ function Login(props) {
           m={{ b: "3rem" }}
           textAlign="center">
           <a id="kakao-login-btn"></a>
-          {/* <StyledText> */}
-          {/* <StKaKaoLogin>
-              <img src={img} alt="a" onClick={this.loginWithKakao} />
-          </StKaKaoLogin> */}
-          <br></br>
-          {/* <KaKaoBtn
-              jsKey={'fb58ebd76f41eecb94267d2c08ceb73a'}
-              buttonText="KaKao"
-              onSuccess={responseKaKao}
-              onFailure={responseFail}
-              getProfile={true}
-          /> */}
-
-          {/* </StyledText> */}
-
         </Text>
         <Text
           textColor="#999"
@@ -195,32 +152,6 @@ function Login(props) {
   )
 }
 
-// const StKaKaoLogin = styled.div`
-//     cursor: pointer;
-//     /* border-radius:10px; */
-//     /* width: 200px; */
-//     /* &:hover{
-//         box-shadow: 0 0px 0px 0 rgba(0, 0, 0, 0.2), 0 0px 20px 0 rgba(0, 0, 0, 0.19);
-//     } */
-// `;
-
-// const KaKaoBtn = styled(KaKaoLogin)`
-//     padding: 0;
-//     width: 190px;
-//     height: 44px;
-//     line-height: 44px;
-//     color: #783c00;
-//     background-color: #FFEB00;
-//     border: 1px solid transparent;
-//     border-radius: 3px;
-//     font-size: 16px;
-//     font-weight: bold;
-//     text-align: center;
-//     cursor: pointer;
-//     &:hover{
-//         box-shadow: 0 0px 15px 0 rgba(0, 0, 0, 0.2)
-//     }
-// `
 function userStateToProps(state) {
   return {
     userinfo: state.reducer
