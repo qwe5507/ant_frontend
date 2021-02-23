@@ -10,12 +10,14 @@ import Buttons from "./uicomponents/Buttons";
 import CardComponent from "./uicomponents/CardComponent";
 import LoginForm from "./uicomponents/LoginForm";
 import { Link, Route, Switch, useHistory } from 'react-router-dom';
-import { connect } from 'react-redux';
-// import Notification from './uicomponents/Notification';
 
-function HeroSection(props) {
+import { useDispatch, useSelector } from 'react-redux';
+import { setUserLogout } from '../../redux/actions/user_action';
 
-  let [loginchk, loginchkChange] = useState(localStorage.getItem('loginstate'));
+
+function HeroSection() {
+  const dispatch = useDispatch();
+  const loginstate = useSelector(state => state.user.loginstate);
 
   if (!window.Kakao.isInitialized()) {
     window.Kakao.init('fb58ebd76f41eecb94267d2c08ceb73a');
@@ -28,21 +30,10 @@ function HeroSection(props) {
         localStorage.removeItem('userid');
         localStorage.removeItem('username');
         
-        props.dispatch({ type: 'logout' });
+        dispatch(setUserLogout());
       });
     }
   };
-
-  const getCookieValue = (key) => {
-    let cookieKey = key + "="; 
-    let result = "";
-    const cookieArr = document.cookie.split(";");
-  }
-
-    useEffect(()=>{                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
-      loginchkChange(localStorage.getItem('loginstate'));
-    });
-  
 
     return (
       <>
@@ -78,14 +69,8 @@ function HeroSection(props) {
             justify="center"
             flexDir={{ xs: "column", sm: "row" }}
           >
-            {/* { props.userinfo.loginstate == false ?  */}
-            {/* { localStorage.getItem('loginstate') == 'login' ? */}
 
-            { loginchk ?
-                          //     <Anchor
-              //   href="https://kauth.kakao.com/oauth/logout?client_id=0198e284181270821795f41b8741e202&logout_redirect_uri=http://localhost:3000"
-              //   target="_blank"
-              // >
+            { loginstate ?
               <Button
                 h="3rem"
                 w={{ xs: "100%", sm: "11rem" }}
@@ -107,10 +92,8 @@ function HeroSection(props) {
                 }
                 onClick={() => { logoutWithKakao(); }}
               >
-                {/* <a href="https://kauth.kakao.com/oauth/logout?client_id=0198e284181270821795f41b8741e202&logout_redirect_uri=http://localhost:3000">로그아웃</a> */}
              로그아웃
             </Button>
-              // </Anchor>
               :
               <Link to="/Login">
                 <Button
@@ -183,11 +166,4 @@ function HeroSection(props) {
   )
 }
 
-function userStateToProps(state) {
-
-  return {
-    userinfo: state
-  }
-}
-
-export default connect(userStateToProps)(HeroSection)
+export default HeroSection

@@ -6,10 +6,15 @@ import { Provider as StyletronProvider, DebugEngine } from "styletron-react";
 import { Client as Styletron } from "styletron-engine-atomic";
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
-import { Provider } from 'react-redux';
-import { combineReducers, createStore } from 'redux';
 import { CookiesProvider } from 'react-cookie';
-import UserApiService from "./API/UserApi";
+// import UserApiService from "./api/UserApi";
+
+import { Provider } from 'react-redux';
+// import { combineReducers, createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
+import promiseMiddleware from 'redux-promise';
+import ReduxThunk from 'redux-thunk';
+import Reducer from './redux/reducers';
 
 const debug =
   process.env.NODE_ENV === "production" ? void 0 : new DebugEngine();
@@ -17,80 +22,19 @@ const debug =
 // 1. Create a client engine instance
 const engine = new Styletron();
 
-// 2. Provide the engine to the app
-// debug engine needs inlined source maps
-
-let userDefault = { 
-  loginstate : false,
-  userid : '', 
-  kakaoname : '' , 
-  email : '',
-  nickname : '',
-  phone : '',
-  pass : ''
-};
-
-function reducer(state = userDefault , action) {
-  if( action.type === 'login'){
-    let copy = {...state};
-    
-    localStorage.setItem('loginstate', true);
-
-    copy['loginstate'] = action.payload['loginstate'];
-    copy['userid'] = action.payload['userid'];
-    copy['kakaoname'] = action.payload['username'];
-    copy['email'] = action.payload['useremail'];
-    copy['nickname'] = action.payload['nickname'];
-    return copy;
-  }
-  else if(action.type === 'loginCheck'){
-    let copy = {...state};
-
-    copy['loginstate'] = action.payload['loginstate'];
-    copy['userid'] = action.payload['userid'];
-    copy['nickname'] = action.payload['nickname'];
-
-    return copy;
-  }
-  else if(action.type === 'loginadd'){
-    let copy = {...state};
-
-    localStorage.setItem('loginstate', true);
-
-    copy['nickname'] = action.payload['nickname'];
-    copy['phone'] = action.payload['phone'];
-    copy['email'] = action.payload['email'];
-    copy['pass'] = action.payload['pass'];
-    
-    console.log(copy)
-    UserApiService.addUser(copy)
-    .then( res => {
-        alert('회원 등록성공')
-
-      })
-    .catch(err => {
-        alert('에러.')
-        console.log('kakao user 등록 에러', err);
-
-      });
-    return copy;
-  }
-  else if(action.type === 'logout'){
-    let copy = userDefault
-    return copy;
-  }
-  else {
-    return state;
-  }
-}
-
-let login = createStore(reducer);
+const createStoreWithMiddleware = applyMiddleware(promiseMiddleware, ReduxThunk)(createStore);
 
 ReactDOM.render(
   <StyletronProvider value={engine} debug={debug} debugAfterHydration>
     <CookiesProvider>
     <BrowserRouter>
-    <Provider store = {login}>
+    <Provider 
+        store={createStoreWithMiddleware(
+        Reducer,
+        window.__REDUX_DEVTOOLS_EXTENSION__ &&
+        window.__REDUX_DEVTOOLS_EXTENSION__()
+      )}
+    >
     <App />
     </Provider>
     </BrowserRouter>

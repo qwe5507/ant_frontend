@@ -22,30 +22,34 @@ import ChatPage from "./components/ants/ChatPage/ChatPage";
 import RegisterPage from "./components/ants/ChatPage/RegisterPage/RegisterPage";
 import News from "./components/ants/News";
 import Stocks from "./components/ants/Stocks";
-import UserApiService from "./API/UserApi";
-import { connect } from 'react-redux';
+import UserApiService from "./api/UserApi";
 
-function App(props) {
+import { useDispatch, useSelector } from 'react-redux';
+import { setUserLoginCheck, setUserLogout } from './redux/actions/user_action';
+
+function App() {
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    initializeUserInfo(props);
+    initializeUserInfo();
   });
 
-  function initializeUserInfo(props) {
+  function initializeUserInfo() {
 
     var user_id = localStorage.getItem('userid');
     
     if (!user_id) {
-      props.dispatch({ type: 'logout' });
+      dispatch(setUserLogout());
     }
     else {
       UserApiService.fetchUserByID(user_id)
       .then(res => {
         var nickname = res.data.nickname;
-        props.dispatch({ type: 'loginCheck', payload: { loginstate: true, userid: user_id, nickname: nickname } });
+        var userinfo = { loginstate: true, userid: user_id, nickname: nickname };
+        dispatch(setUserLoginCheck(userinfo));
       })
       .catch(err => {
-        console.log('-- App.js fetchUserByID error:', err);
+        console.log('***** App.js fetchUserByID error:', err);
       });    }
   };
 
@@ -126,11 +130,11 @@ function App(props) {
   );
 }
 
-function userStateToProps(state) {
+// function userStateToProps(state) {
 
-  return {
-    userinfo: state.reducer
-  }
-}
+//   return {
+//     userinfo: state.reducer
+//   }
+// }
 
-export default connect(userStateToProps)(App);
+export default App;

@@ -1,12 +1,13 @@
-import PropTypes from "prop-types"
 import React, { useState, useEffect } from "react"
 import { Div, Image, Container, Button, Anchor, scrollTo, Icon } from "atomize"
 import logo from "../../images/logo-title.svg"
-import producthunt from "../../images/logo-producthunt.svg"
 import { Link, Route, Switch, useHistory } from 'react-router-dom';
-import { connect } from 'react-redux';
 
-function Header(props) {
+import PropTypes from "prop-types"
+import { useDispatch, useSelector } from 'react-redux';
+
+function Header() {
+  const nickname = useSelector(state => state.user.nickname);
 
   let [showMobileHeaderMenu, showMobileHeaderMenuChange] = useState(false);
 
@@ -212,7 +213,7 @@ function Header(props) {
                 transition
                 fontFamily="ko"
               >
-                {props.userinfo['nickname']}
+                {nickname}
               </Anchor>
               :
               ' '
@@ -227,7 +228,7 @@ function Header(props) {
               fontFamily="ko"
               onClick={() => scrollTo("#features")}
             >
-              테스트
+              클릭시 해당 아이디로 이동 앵커
               </Anchor> */}
 
           </Div>
@@ -245,10 +246,4 @@ Header.defaultProps = {
   siteTitle: ``,
 }
 
-function userStateToProps(state) {
-  return {
-    userinfo: state
-  }
-}
-
-export default connect(userStateToProps)(Header)
+export default Header;

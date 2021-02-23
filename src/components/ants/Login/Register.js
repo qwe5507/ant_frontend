@@ -6,7 +6,6 @@ import axios from 'axios';
 // import KaKaoLogin from 'react-kakao-login';
 import { useHistory, useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
-import UserApiService from "../../../API/UserApi";
 
 function Register(props) {
   let history = useHistory();
