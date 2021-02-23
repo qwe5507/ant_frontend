@@ -1,5 +1,5 @@
 import React, {useState}  from "react"
-import { Text, Div, Icon, Anchor, Button, Input, Container, Row, footerLinks, Col,  mediaLinks } from "atomize";
+import { Text, Div, Link, Button, Input, Container, Row, footerLinks, Col,  mediaLinks } from "atomize";
 import IndicatorForm1 from "./IndicatorCompo/IndicatorForm1"
 import IndicatorForm2 from "./IndicatorCompo/IndicatorForm2"
 import IndicatorForm3 from "./IndicatorCompo/IndicatorForm3"
@@ -56,7 +56,7 @@ function Indicators() {
               <IndicatorForm1 />
               <IndicatorForm2 />
               <IndicatorForm3 />
-
+              
             </Div>
           </Div>
         </Container>

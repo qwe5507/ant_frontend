@@ -19,6 +19,7 @@ import IndicatorDetail from "./components/ants/IndicatorDetail";
 import Payment from "./components/ants/Payment";
 import Community from "./components/ants/Community";
 import ChatPage from "./components/ants/ChatPage/ChatPage";
+import RegisterPage from "./components/ants/ChatPage/RegisterPage/RegisterPage";
 import News from "./components/ants/News";
 import Stocks from "./components/ants/Stocks";
 import UserApiService from "./API/UserApi";
@@ -113,6 +114,10 @@ function App(props) {
             <Stocks />
           </Route>
 
+          <Route exact path="/RegisterPage">
+            <RegisterPage/>
+          </Route>
+	
 
           <Footer />
         </Layout>

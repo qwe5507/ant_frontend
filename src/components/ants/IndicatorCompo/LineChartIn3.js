@@ -42,11 +42,11 @@ const LineChartIn3 = () => {
           {
             type: "line",         
             borderCapStyle: "round",
-            borderColor: "rgba(171, 242, 0 0.2)",
+            borderColor: "rgba(171, 242, 0, 0.2)",
             backgroundColor: gradient,
-            pointBackgroundColor: "rgba(171, 242, 0 0.2)",        
+            pointBackgroundColor: "rgba(171, 242, 0, 0.2)",        
             pointHoverRadius: 6,
-            pointHoverBackgroundColor: "rgba(171, 242, 0 0.2)",
+            pointHoverBackgroundColor: "rgba(171, 242, 0, 0.2)",
             data: [
               { x: "1960", y: 1047 },
               { x: "1970", y: 1048 },
