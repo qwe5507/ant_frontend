@@ -14,7 +14,7 @@ function FirstLogin(props) {
   let [telnumber,telnumber변경] = useState("");
   
   function addinfobutton() {
-    props.dispatch({ type: 'loginadd', payload: { nickname : nickname ,phone : telnumber} })
+    props.dispatch({ type: 'loginadd', payload: { nickname : nickname, phone : telnumber} })
     history.push('/')
   }
 
@@ -155,7 +155,7 @@ function FirstLogin(props) {
 }
 
 function userStateToProps(state) {
-  console.log(state)
+  console.log('FirstLogin.js',state);
   return {
     userinfo: state.reducer
   }

@@ -40,31 +40,29 @@ function Login(props) {
             // console.log('토근2'+ window.Kakao.Auth.getAccessToken());
             // console.log(res);
 
+            var nickname = '';
+
             UserApiService.fetchUserByID(res.id)
             .then( res => {
-                // alert('호잇')
                 console.log(res.data)
                 if(res.data === "신규회원"){
                   history.push('/FirstLogin');
                 }else{
+                  nickname = res.data.nickname;
+                  props.dispatch({ type: 'login', payload: { loginstate: true, userid: res.id, nickname: nickname } })
                   history.push('/');
                 }
-
               })
               .catch(err => {
                 alert('으아아악.')
                 console.log('오이잉', err);
-
               });
 
             localStorage.setItem('userid', res.id);
-            localStorage.setItem('username', res.properties['nickname']);
             var email = res.kakao_account['email']
             if(email === undefined && typeof emailtemp == "undefined"){
               email = ""
             }
-            props.dispatch({ type: 'login', payload: { loginstate: true, userid: res.id, username: res.properties['nickname'], useremail: email } })
-
             
             // let userdata = {
             //   id: 1234784444,
@@ -222,6 +220,7 @@ function Login(props) {
 //     }
 // `
 function userStateToProps(state) {
+  console.log('Login.js',state);
   return {
     userinfo: state.reducer
   }

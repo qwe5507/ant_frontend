@@ -22,9 +22,9 @@ const engine = new Styletron();
 
 let userDefault = { 
   loginstate : false,
-  userid : '0000000000', 
-  kakaoname : 'Lee Jin Gang' , 
-  email : 'Kosmo5507@gmail.com',
+  userid : '', 
+  kakaoname : '' , 
+  email : '',
   nickname : '',
   phone : ''
 };
@@ -35,10 +35,20 @@ function reducer(state = userDefault , action) {
     
     localStorage.setItem('loginstate', true);
 
+    copy['loginstate'] = action.payload['loginstate'];
     copy['userid'] = action.payload['userid'];
     copy['kakaoname'] = action.payload['username'];
     copy['email'] = action.payload['useremail'];
+    copy['nickname'] = action.payload['nickname'];
+    return copy;
+  }
+  else if(action.type === 'loginCheck'){
+    let copy = {...state};
+
     copy['loginstate'] = action.payload['loginstate'];
+    copy['userid'] = action.payload['userid'];
+    copy['nickname'] = action.payload['nickname'];
+
     return copy;
   }
   else if(action.type === 'loginadd'){
@@ -60,7 +70,6 @@ function reducer(state = userDefault , action) {
         console.log('kakao user 등록 에러', err);
 
       });
-    console.log(copy)
     return copy;
   }
   else if(action.type === 'logout'){
