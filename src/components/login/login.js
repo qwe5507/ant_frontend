@@ -59,8 +59,11 @@ function Login(props) {
 
             localStorage.setItem('userid', res.id);
             localStorage.setItem('username', res.properties['nickname']);
-
-            props.dispatch({ type: 'login', payload: { loginstate: true, userid: res.id, username: res.properties['nickname'], useremail: res.kakao_account['email'] } })
+            var email = res.kakao_account['email']
+            if(email === undefined && typeof emailtemp == "undefined"){
+              email = ""
+            }
+            props.dispatch({ type: 'login', payload: { loginstate: true, userid: res.id, username: res.properties['nickname'], useremail: email } })
 
             
             // let userdata = {

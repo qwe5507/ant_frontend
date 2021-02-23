@@ -1,7 +1,7 @@
 import PropTypes from "prop-types"
 import React, { useState, useEffect } from "react"
 import { Div, Image, Container, Button, Anchor, scrollTo, Icon } from "atomize"
-import logo from "../../images/logo with title.png"
+import logo from "../../images/logo-title.svg"
 import producthunt from "../../images/logo-producthunt.svg"
 import { Link, Route, Switch, useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
