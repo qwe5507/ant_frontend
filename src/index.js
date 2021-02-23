@@ -49,18 +49,17 @@ function reducer(state = userDefault , action) {
     copy['nickname'] = action.payload['nickname'];
     copy['phone'] = action.payload['phone'];
     
-    console.log(copy)
+    // console.log(copy)
     UserApiService.addUser(copy)
     .then( res => {
         alert('회원 등록성공')
-
       })
     .catch(err => {
         alert('에러.')
         console.log('kakao user 등록 에러', err);
 
       });
-    console.log(copy)
+    // console.log(copy)
     return copy;
   }
   else if(action.type === 'logout'){
