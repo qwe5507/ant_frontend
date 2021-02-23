@@ -1,21 +1,35 @@
 import React, { useEffect, useState } from "react"
 
-import { Text, Div, Icon, Anchor, Button, Input } from "atomize"
+import { Text, Div, Icon, Anchor, Button, Input,Notification } from "atomize"
 import axios from 'axios';
 // import styled from 'styled-components';
 // import KaKaoLogin from 'react-kakao-login';
 import { useHistory, useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
-import UserApiService from "../../API/UserApi";
+import UserApiService from "../../../API/UserApi";
 
-function FirstLogin(props) {
+function Register(props) {
   let history = useHistory();
   let [nickname,nickname변경] = useState("");
   let [telnumber,telnumber변경] = useState("");
-  
+  let [이메일,이메일변경] = useState("");
+  let [비밀번호,비밀번호변경] = useState("");
+  let [비밀번호확인,비밀번호확인변경] = useState("");
+  let [warningDark,warningDark변경] = useState(false); 
+  // let [kakaoid,kakaoid변경] = useState(props.userinfo.userid); 
+  // let [kakaoname,kakaoname변경] = useState(props.userinfo.kakaoname); 
+  console.log(props.userinfo)
+
   function addinfobutton() {
-    props.dispatch({ type: 'loginadd', payload: { nickname : nickname, phone : telnumber} })
+    if (비밀번호 === 비밀번호확인){
+      console.log('호이이잇')
+      // console.log(data);
+    props.dispatch({ type: 'loginadd', payload: {nickname : nickname, phone : telnumber, email : 이메일, pass : 비밀번호  } })
     history.push('/')
+    }else{
+      warningDark변경(true);
+    }
+  
   }
 
   return (
@@ -28,13 +42,13 @@ function FirstLogin(props) {
       maxW="100%"
       pos={{ xs: "static" }}
       // m={{ xs: "50%", md: "12rem" }}
-      m={{ t: "13rem", l: "33%" }}
+      m={{ t: "11rem", l: "33%" }}
       align="center"
 
       // right="50%"
       // top="50%"
       rounded="xl"
-      h= "26rem"
+      h= "38rem"
       bg="white"
       shadow="4"
       p="2rem"
@@ -50,6 +64,22 @@ function FirstLogin(props) {
           처음이시군요 추가정보를 입력하고      
           회원등록을 완료하세요.
       </Text>
+
+        <Notification
+          bg="warning700"
+          isOpen={warningDark}
+          onClose={() => warningDark변경(false)}
+          prefix={
+            <Icon
+              name="AlertSolid"
+              color="white"
+              size="18px"
+              m={{ r: "0.5rem" }}
+            />
+          }
+        >
+        비밀번호를 확인하세요
+        </Notification>
 
         <Text
           m={{ b: "3rem" }}
@@ -103,9 +133,69 @@ function FirstLogin(props) {
                 />
               }
               />
+              <Input
+              placeholder="이메일을 입력하세요."
+              p={{  x: "2.5rem" }}
+              m = {{ t : "1.2rem"}}
+              onChange={(e) =>
+                이메일변경(e.target.value)
+              }
+              prefix={
+                <Icon
+                  name="Email"
+                  color="warning800"
+                  size="16px"
+                  cursor="pointer"
+                  pos="absolute"
+                  top="50%"
+                  left="0.75rem"
+                  transform="translateY(-50%)"
+                />
+              }
+              />
+              <Input
+              placeholder="정보수정을 위한 비밀번호를 입력하세요."
+              p={{  x: "2.5rem" }}
+              m = {{ t : "1.2rem"}}
+              onChange={(e) =>
+                비밀번호변경(e.target.value)
+              }
+              prefix={
+                <Icon
+                  name="EyeSolid"
+                  color="warning800"
+                  size="16px"
+                  cursor="pointer"
+                  pos="absolute"
+                  top="50%"
+                  left="0.75rem"
+                  transform="translateY(-50%)"
+                />
+              }
+              />
+             <Input
+              placeholder="비밀번호를 다시 입력하세요."
+              p={{  x: "2.5rem" }}
+              m = {{ t : "1.2rem"}}
+              onChange={(e) =>
+                비밀번호확인변경(e.target.value)
+              }
+              prefix={
+                <Icon
+                  name="Eye"
+                  color="warning800"
+                  size="16px"
+                  cursor="pointer"
+                  pos="absolute"
+                  top="50%"
+                  left="0.75rem"
+                  transform="translateY(-50%)"
+                />
+              }
+              />
               <Div
               pos = "flex"
-              m={{ t: "2rem" ,l : "7rem"   }}>
+              m={{ t: "2.7rem" ,l : "7rem"   }}>
                 <Button
                   prefix={
                     <Icon
@@ -124,7 +214,7 @@ function FirstLogin(props) {
                   hoverShadow="4"
                   textWeight= "50"
                   onClick={() =>
-                    addinfobutton()      
+                    addinfobutton(props.userinfo)      
                   }
                 >
                   입력완료
@@ -161,4 +251,4 @@ function userStateToProps(state) {
   }
 }
 
-export default connect(userStateToProps)(FirstLogin)
+export default connect(userStateToProps)(Register)
