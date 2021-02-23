@@ -21,6 +21,7 @@ import Community from "./components/ants/Community";
 import ChatPage from "./components/ants/ChatPage/ChatPage";
 import News from "./components/ants/News";
 import Stucks from "./components/ants/Stucks";
+import UserApiService from "./API/UserApi";
 import { connect } from 'react-redux';
 
 function App(props) {
@@ -32,15 +33,21 @@ function App(props) {
   function initializeUserInfo(props) {
 
     var user_id = localStorage.getItem('userid');
-    
+
     if (!user_id) {
       props.dispatch({ type: 'logout' });
     }
     else {
-      var user_name = localStorage.getItem('username');
-      props.dispatch({ type: 'login', payload: { loginstate: true, userid: user_id, username: user_name } });
+      UserApiService.fetchUserByID(user_id)
+      .then(res => {
+        var nickname = res.data.nickname;
+        props.dispatch({ type: 'loginCheck', payload: { loginstate: true, userid: user_id, nickname: nickname } });
+      })
+      .catch(err => {
+        console.log('-- App.js fetchUserByID error:', err);
+      });
     }
-
+    
   };
 
   return (
@@ -64,7 +71,7 @@ function App(props) {
           </Route>
 
           <Route exact path="/FirstLogin">
-            <FirstLogin/>
+            <FirstLogin />
           </Route>
 
           <Route exact path="/Indicators">
@@ -117,9 +124,8 @@ function App(props) {
 }
 
 function userStateToProps(state) {
-
   return {
-    userinfo: state.reducer
+    userchk: state.reducer
   }
 }
 
