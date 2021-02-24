@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import Container from 'react-bootstrap/Container';
 //import Row from 'react-bootstrap/Row';
 //import Col from 'react-bootstrap/Col';
-import { Row, Col, Div } from "atomize"
+import { Row, Col, Div, Text } from "atomize"
 import InputGroup from 'react-bootstrap/InputGroup';
 import FormControl from 'react-bootstrap/FormControl';
 import Card from 'react-bootstrap/Card';
@@ -109,29 +109,39 @@ function MessageHeader({ handleSearchChange }) {
             <Container>
                 <Row >
                     <Col>
-                        <h2>
+                            <span>
                             {
                                 isPrivateChatRoom ?
                                     <FaLock style={{ marginBottom: '10px' }} />
                                     :
                                     <FaLockOpen style={{ marginBottom: '10px' }} />
                             }
+                            </span>
+                            {!isPrivateChatRoom &&
+                            
+                            <span style={{ cursor: 'pointer'  }} onClick={handleFavorite}>
+                            {
+                            isFavorited ?
+                            <MdFavorite style={{ borderBottom: '10px' }} />
+                            :
+                            <MdFavoriteBorder style={{ borderBottom: '10px' }} />
+                             }
+                            </span>
+                            }
+                            <span>
+                            <Text
+                             textAlign="left"
+                            textSize="display1"
+                            textWeight="800"
+                            fontFamily="ko"
+                            m={{ b: "1rem" }}
+                            >
                             {" "}
                             {chatRoom && chatRoom.name}
-
-                            {!isPrivateChatRoom &&
-
-                                <span style={{ cursor: 'pointer'  }} onClick={handleFavorite}>
-                                    {
-                                        isFavorited ?
-                                            <MdFavorite style={{ borderBottom: '10px' }} />
-                                            :
-                                            <MdFavoriteBorder style={{ borderBottom: '10px' }} />
-                                    }
-                                </span>
-                            }
-
-                        </h2>
+                            </Text>
+                            </span>
+                            
+                        
                     </Col>
                     <Col>
                         <InputGroup className="mb-3">

@@ -10,7 +10,7 @@ import {
 import { connect } from 'react-redux';
 import { FaPlus } from 'react-icons/fa';
 import { FaRegSmileWink } from 'react-icons/fa';
-
+import { Div, Text, Container} from "atomize"
 export class ChatRooms extends Component {
 
     state = {
@@ -219,19 +219,32 @@ export class ChatRooms extends Component {
                     display: 'flex', alignItems: 'center'
                 }}>
                     <FaRegSmileWink style={{ marginRight: 3 }} />
+                    <Text m={{ xs: "0.2rem", md: "0.3rem" }}
+                    textAlign="right"
+                    textSize="subheader"
+                    textWeight="800"
+                    fontFamily="ko"
+                    >
                     CHAT ROOMS{" "} ({chatRooms.length})
-
+                    </Text>
                         <FaPlus
                         style={{
                             position: 'absolute',
-                            left: 150, cursor: 'pointer'
+                            right: 0, cursor: 'pointer'
                         }}
                         onClick={this.handleShow}
                     />
                 </div>
 
                 <ul style={{ listStyleType: 'none', padding: '0' }}>
+                <Text m={{ xs: "0.2rem", md: "0.3rem" }}
+                    textAlign="left"
+                    textSize="body"
+                    textWeight="800"
+                    fontFamily="ko"
+                     >
                     {this.renderChatrooms(chatRooms)}
+                    </Text>
                 </ul>
 
                 {/* ADD ChatRoom Modal */}
