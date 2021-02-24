@@ -16,6 +16,7 @@ import Indicators from "./components/ants/Indicators";
 import Backtest from "./components/ants/Backtest";
 import IndicatorDetail from "./components/ants/IndicatorDetail";
 import Payment from "./components/ants/Payment";
+import PaymentSecond from "./components/ants/PaymentSecond";
 import Community from "./components/ants/Community";
 import News from "./components/ants/News";
 import Stocks from "./components/ants/Stocks";
@@ -102,6 +103,10 @@ function App() {
 
           <Route exact path="/Payment">
             <Payment />
+          </Route>
+
+          <Route exact path="/PaymentSecond">
+            <PaymentSecond />
           </Route>
 
           <Route exact path="/ChatPage">
