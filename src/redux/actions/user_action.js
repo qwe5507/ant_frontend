@@ -1,4 +1,5 @@
 import {
+    SET_USER_NEW,
     SET_USER_LOGIN,
     SET_USER_LOGIN_CHECK,
     SET_USER_LOGIN_ADD,
@@ -7,6 +8,13 @@ import {
     CLEAR_USER,             // Chat
     SET_PHOTO_URL           // Chat
 } from './types';
+
+export function setUserNew(userinfo) {
+    return {
+        type: SET_USER_NEW,
+        payload: userinfo
+    }
+}
 
 export function setUserLogin(userinfo) {
     return {

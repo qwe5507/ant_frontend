@@ -1,8 +1,9 @@
 import UserApiService from "../../api/UserApi";
-import firebase from "../../firebase";
-import md5 from "md5";
+// import firebase from "../../firebase";
+// import md5 from "md5";
 
 import {
+    SET_USER_NEW,
     SET_USER_LOGIN,
     SET_USER_LOGIN_CHECK,
     SET_USER_LOGIN_ADD,
@@ -29,7 +30,14 @@ export default function (state = userInfoDefault, action) {
     let copy = { ...state };
 
     switch (action.type) {
-        // userinfo
+        
+        // 신규회원
+        case SET_USER_NEW:
+            copy['userid'] = action.payload['userid'];
+            copy['kakaoname'] = action.payload['username'];
+            return copy;
+        
+        // 회원 로그인
         case SET_USER_LOGIN:
             localStorage.setItem('loginstate', true);
             copy['loginstate'] = action.payload['loginstate'];
@@ -38,6 +46,8 @@ export default function (state = userInfoDefault, action) {
             copy['email'] = action.payload['useremail'];
             copy['nickname'] = action.payload['nickname'];
             return copy;
+
+        // 로그인 여부 확인
         case SET_USER_LOGIN_CHECK:
             copy['loginstate'] = action.payload['loginstate'];
             copy['userid'] = action.payload['userid'];
@@ -47,6 +57,7 @@ export default function (state = userInfoDefault, action) {
         // 회원등록
         case SET_USER_LOGIN_ADD:
             localStorage.setItem('loginstate', true);
+            copy['loginstate'] = action.payload['loginstate'];
             copy['nickname'] = action.payload['nickname'];
             copy['phone'] = action.payload['phone'];
             copy['email'] = action.payload['email'];
@@ -60,34 +71,6 @@ export default function (state = userInfoDefault, action) {
                 .catch(err => {
                     console.log('SET_USER_LOGIN_ADD 에러', err);
                 });
-
-            // Firebase RegisterPage 대체
-            try {
-                let createdUser = firebase.auth().createUserWithEmailAndPassword(action.payload['email'], action.payload['pass'])
-                    .then((user) => {
-                        console.log('createdUser', user)
-                    })
-                    .catch((error) => {
-                        console.log('Firebase Register Error', error.code);
-                        console.log('Firebase Register Error', error.message);
-                    });
-
-                // Firebase auth 서비스에서 생성한 유저에 추가 정보 입력
-                createdUser.user.updateProfile({
-                    displayName: action.payload['nickname'],
-                    photoURL: `http://gravatar.com/avatar/${md5(
-                        createdUser.user.email
-                    )}?d=identicon`
-                })
-
-                // Firebase 데이터 베이스에서 
-                firebase.database().ref("users").child(createdUser.user.uid).set({
-                    name: createdUser.user.displayName,
-                    image: createdUser.user.photoURL
-                });
-            } catch (error) {
-                console.log('Firebase RegisterPage 대체 에러', error);
-            }
             return copy;
         case SET_USER_LOGOUT:
             copy = userInfoDefault;

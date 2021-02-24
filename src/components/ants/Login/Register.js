@@ -1,27 +1,81 @@
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 import { Text, Div, Icon, Anchor, Button, Input, Notification } from "atomize"
 import { useHistory, useParams } from 'react-router-dom';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { setUserLoginAdd } from '../../../redux/actions/user_action';
 
+import firebase from "../../../firebase";
+import md5 from "md5";
+
 function Register() {
+
   const dispatch = useDispatch();
+  const [isLoading, isLoadingChange] = useState(false)
+
   let history = useHistory();
+
   let [nickname, nickname변경] = useState("");
   let [telnumber, telnumber변경] = useState("");
   let [이메일, 이메일변경] = useState("");
   let [비밀번호, 비밀번호변경] = useState("");
   let [비밀번호확인, 비밀번호확인변경] = useState("");
-  let [warningDark, warningDark변경] = useState(false);
 
-  function addinfobutton() {
+  let [pwdNotMatch, pwdNotMatchChange] = useState(false);
+  let [pwdLength, pwdLengthChange] = useState(false);
+  let [firebaseError, firebaseErrorChange] = useState(false);
+
+  async function addinfobutton() {
     if (비밀번호 === 비밀번호확인) {
-      var userinfo = { nickname: nickname, phone: telnumber, email: 이메일, pass: 비밀번호 };
-      dispatch(setUserLoginAdd(userinfo));
-      history.push('/')
+      if (비밀번호.length >= 6) {
+        isLoadingChange(true);  // 회원 등록 진행 중 버튼 클릭 비활성화
+
+        // Firebase RegisterPage 대체
+        try {
+
+          var userinfo = { loginstate: true, nickname: nickname, phone: telnumber, email: 이메일, pass: 비밀번호 };
+          dispatch(setUserLoginAdd(userinfo));
+
+          // 1. Firebase 유저 생성
+          let createdUser = await firebase
+            .auth()  // auth 서비스 접근 
+            .createUserWithEmailAndPassword(이메일, 비밀번호)
+            .catch((error) => { // auth 에러 확인
+              console.log('Firebase Register Error', error.code);
+              console.log('Firebase Register Error', error.message);
+            });
+          console.log('createdUser', createdUser)
+
+          // 2. Firebase 유저 추가 정보 입력
+          await createdUser.user
+            .updateProfile({
+              displayName: nickname,
+              photoURL: `http://gravatar.com/avatar/${md5(
+                createdUser.user.email
+              )}?d=identicon`
+            })
+
+          // 3. Firebase 데이터베이스 저장
+          await firebase.database().ref("users").child(createdUser.user.uid).set({
+            name: createdUser.user.displayName,
+            image: createdUser.user.photoURL
+          });
+
+          isLoadingChange(false); // 회원 등록 완료 후 버튼 활성화
+          history.push('/');
+        }
+        catch (error) {
+          console.log('Firebase RegisterPage 대체 에러', error.message);
+          localStorage.removeItem('userid'); // 회원 등록 오류 시 Local Storage의 userid 삭제
+          isLoadingChange(false); // 회원 등록 완료 후 버튼 활성화
+          firebaseErrorChange(true);
+        }
+      }
+      else {
+        pwdLengthChange(true);
+      }
     } else {
-      warningDark변경(true);
+      pwdNotMatchChange(true);
     }
 
   }
@@ -59,10 +113,11 @@ function Register() {
           회원등록을 완료하세요.
       </Text>
 
+        {/* 비밀번호 일치 여부 확인 */}
         <Notification
           bg="warning700"
-          isOpen={warningDark}
-          onClose={() => warningDark변경(false)}
+          isOpen={pwdNotMatch}
+          onClose={() => pwdNotMatchChange(false)}
           prefix={
             <Icon
               name="AlertSolid"
@@ -72,7 +127,41 @@ function Register() {
             />
           }
         >
-          비밀번호를 확인하세요
+          비밀번호가 일치하지 않습니다.
+        </Notification>
+
+        {/* 비밀번호 6자리 이상 확인 */}
+        <Notification
+          bg="warning700"
+          isOpen={pwdLength}
+          onClose={() => pwdLengthChange(false)}
+          prefix={
+            <Icon
+              name="AlertSolid"
+              color="white"
+              size="18px"
+              m={{ r: "0.5rem" }}
+            />
+          }
+        >
+          비밀번호는 6자리 이상이어야 합니다.
+        </Notification>
+
+        {/* Firebase 등록 에러 발생 시 안내 */}
+        <Notification
+          bg="warning700"
+          isOpen={firebaseError}
+          onClose={() => firebaseErrorChange(false)}
+          prefix={
+            <Icon
+              name="AlertSolid"
+              color="white"
+              size="18px"
+              m={{ r: "0.5rem" }}
+            />
+          }
+        >
+          서버 에러가 발생했습니다. 잠시 후 다시 시도해주세요.
         </Notification>
 
         <Text
@@ -207,9 +296,25 @@ function Register() {
             shadow="3"
             hoverShadow="4"
             textWeight="50"
+            prefix={
+              isLoading ?
+                <Icon
+                  name="Loading"
+                  pos="absolute"
+                  top="50%"
+                  left="1rem"
+                  transform="translateY(-50%)"
+                  size="18px"
+                  color="white"
+                  m={{ r: "0.5rem" }}
+                />
+                :
+                ""
+            }
             onClick={() =>
               addinfobutton()
             }
+            disabled={isLoading}
           >
             입력완료
                 </Button>

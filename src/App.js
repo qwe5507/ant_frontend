@@ -29,6 +29,7 @@ import { setUserLoginCheck, setUserLogout } from './redux/actions/user_action';
 
 function App() {
   const dispatch = useDispatch();
+  let history = useHistory();
 
   useEffect(() => {
     initializeUserInfo();
@@ -37,20 +38,28 @@ function App() {
   function initializeUserInfo() {
 
     var user_id = localStorage.getItem('userid');
-    
+
     if (!user_id) {
       dispatch(setUserLogout());
     }
     else {
       UserApiService.fetchUserByID(user_id)
-      .then(res => {
-        var nickname = res.data.nickname;
-        var userinfo = { loginstate: true, userid: user_id, nickname: nickname };
-        dispatch(setUserLoginCheck(userinfo));
-      })
-      .catch(err => {
-        console.log('***** App.js fetchUserByID error:', err);
-      });    }
+        .then(res => {
+          if (res.data.nickname) {
+            var nickname = res.data.nickname;
+            var userinfo = { loginstate: true, userid: user_id, nickname: nickname };
+            dispatch(setUserLoginCheck(userinfo));
+          }
+          else {
+            localStorage.removeItem('userid');
+            dispatch(setUserLogout());
+            history.push('/');
+          }
+        })
+        .catch(err => {
+          console.log('***** App.js fetchUserByID error:', err);
+        });
+    }
   };
 
   return (
@@ -74,7 +83,7 @@ function App() {
           </Route>
 
           <Route exact path="/Register">
-            <Register/>
+            <Register />
           </Route>
 
           <Route exact path="/Indicators">

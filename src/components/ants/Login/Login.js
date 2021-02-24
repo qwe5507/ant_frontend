@@ -4,8 +4,8 @@ import { Text, Div, Icon, Anchor, Button, Input } from "atomize"
 import { useHistory, useParams } from 'react-router-dom';
 import UserApiService from "../../../api/UserApi";
 
-import { useDispatch, useSelector } from 'react-redux';
-import { setUserLogin } from '../../../redux/actions/user_action';
+import { useDispatch } from 'react-redux';
+import { setUserNew, setUserLogin } from '../../../redux/actions/user_action';
 
 
 function Login() {
@@ -27,18 +27,18 @@ function Login() {
           url: '/v2/user/me',
           success: function (res) {
             ids = res.id;
-            var tempid = res.id;
             var tempkakaoname = res.properties.nickname;
 
             UserApiService.fetchUserByID(res.id)
               .then(res => {
                 if (res.data === "신규회원") {
-                  var userinfo = { loginstate: true, userid: tempid, username: tempkakaoname };
-                  dispatch(setUserLogin(userinfo));
+                  var userinfo = { userid: ids, username: tempkakaoname }; // 신규회원은 등록 전까지 로그인한 상태가 아님
+                  dispatch(setUserNew(userinfo));
                   history.push('/Register');
                 } else {
-                  var userinfo = { loginstate: true, userid: tempid, username: tempkakaoname, nickname: res.data.nickname };
+                  var userinfo = { loginstate: true, userid: ids, username: tempkakaoname, nickname: res.data.nickname };
                   dispatch(setUserLogin(userinfo));
+                  localStorage.setItem('userid', ids);
                   history.push('/');
                 }
               })
@@ -46,8 +46,9 @@ function Login() {
                 alert('으아아악.')
                 console.log('오이잉', err);
               });
-
-            localStorage.setItem('userid', res.id);
+            
+            localStorage.setItem('userid', ids); // 회원 등록 완료 후 Local Storage에 userid 저장
+            
             var email = res.kakao_account['email']
             if (email === undefined && typeof emailtemp == "undefined") {
               email = ""
