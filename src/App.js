@@ -136,8 +136,8 @@ function App() {
           </Route>
 
           <Route exact path="/ChatPage">
-            <ChatTest />
-            {/* <ChatPage /> */}
+            {/*<ChatTest />*/}
+             <ChatPage /> 
           </Route>
 
           <Route exact path="/News">

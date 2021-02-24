@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+//import Row from 'react-bootstrap/Row';
+//import Col from 'react-bootstrap/Col';
+import { Row, Col, Div } from "atomize"
 import InputGroup from 'react-bootstrap/InputGroup';
 import FormControl from 'react-bootstrap/FormControl';
 import Card from 'react-bootstrap/Card';
@@ -119,7 +120,8 @@ function MessageHeader({ handleSearchChange }) {
                             {chatRoom && chatRoom.name}
 
                             {!isPrivateChatRoom &&
-                                <span style={{ cursor: 'pointer' }} onClick={handleFavorite}>
+
+                                <span style={{ cursor: 'pointer'  }} onClick={handleFavorite}>
                                     {
                                         isFavorited ?
                                             <MdFavorite style={{ borderBottom: '10px' }} />
@@ -146,17 +148,23 @@ function MessageHeader({ handleSearchChange }) {
                             />
                         </InputGroup>
                     </Col>
-                </Row>
-
-                {!isPrivateChatRoom &&
-                    <div style={{ display: 'flex', justifyContent: 'flex-end' }} >
+                    <Col>
+                    {!isPrivateChatRoom &&
+                    <Div>
+                  
                         <p>
                             <Image style={{ width: '30px', height: '30px' }}
                                 src={chatRoom && chatRoom.createdBy.image} roundedCircle />{" "}
                             {chatRoom && chatRoom.createdBy.name}
                         </p>
-                    </div>
+                   
+                    </Div>
                 }
+                    </Col>
+                </Row>
+
+              
+                
 
                 <Row >
                     <Col>
@@ -173,24 +181,6 @@ function MessageHeader({ handleSearchChange }) {
                             </Card>
                         </Accordion>
                     </Col>
-
-                    <Col>
-                        <Accordion >
-                            <Card>
-                                <Card.Header style={{ padding: '0 1rem' }}>
-                                    <Accordion.Toggle as={Button} style={{ color: 'black', textDecoration: 'none' }} variant="link" eventKey="0">
-                                        Posts Count
-                                    </Accordion.Toggle>
-                                </Card.Header>
-                                <Accordion.Collapse eventKey="0">
-                                    <Card.Body>
-                                        {userPosts && renderUserPosts(userPosts)}
-                                    </Card.Body>
-                                </Accordion.Collapse>
-                            </Card>
-                        </Accordion>
-                    </Col>
-
 
                 </Row>
             </Container>
