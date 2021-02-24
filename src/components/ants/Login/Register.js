@@ -3,7 +3,7 @@ import { Text, Div, Icon, Anchor, Button, Input, Notification } from "atomize"
 import { useHistory, useParams } from 'react-router-dom';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { setUserLoginAdd } from '../../../redux/actions/user_action';
+import { setUserLoginAdd, setUser } from '../../../redux/actions/user_action';
 
 import firebase from "../../../firebase";
 import md5 from "md5";
@@ -58,6 +58,16 @@ function Register() {
           await firebase.database().ref("users").child(createdUser.user.uid).set({
             name: createdUser.user.displayName,
             image: createdUser.user.photoURL
+          });
+
+          // 4. Firebase 유저 정보 Redux State 저장
+          await firebase.auth().onAuthStateChanged(user => {
+            if (user) {
+              dispatch(setUser(user));
+            } else {
+              // Firebase만 로그아웃 된 경우 처리 필요
+              // dispatch(clearUser());
+            }
           });
 
           isLoadingChange(false); // 회원 등록 완료 후 버튼 활성화
