@@ -27,6 +27,7 @@ function CommunityMain() {
     BoardApiService.fetchBoards()
     .then(res => {
       boardlist변경(res.data);
+      console.log(res.data[0].userid);
       // console.log('asdasdadadads');
     })
     .catch(err => {
@@ -77,25 +78,28 @@ function CommunityMain() {
                         >
                         <Div p="1rem" d="flex" align="center" justify="space-between">
                           <Div d="inline-block" align="center" >
-
-                            <Text
-                            textAlign="left"
-                            textSize="title"
-                            textWeight="500"
-                            fontFamily="secondary"
-                            m={{ b: "1rem" }}
-                            >
-                            {data['board_title']}
-                            </Text>
-                            <Text
-                            textAlign="left"
-                            textSize="body"
-                            textWeight="500"
-                            fontFamily="secondary"
-                            m={{ b: "1rem" }}
-                            >
-                          {data['board_content'].length > 77 ? data['board_content'].substring(0,70)+"..." :data['board_content'] }
-                            </Text>
+                            <Link to={"/Community/"+data['board_id']}  style={{ color: '#000' }}>
+                              <Text
+                              textAlign="left"
+                              textSize="title"
+                              textWeight="700"
+                              fontFamily="secondary"
+                              m={{ b: "1rem" }}
+                              >
+                              {data['board_title']}
+                              </Text>
+                            </Link>
+                              <Link to={"/Community/"+data['board_id']}  style={{ color: '#000' }}>
+                              <Text
+                              textAlign="left"
+                              textSize="body"
+                              textWeight="500"
+                              fontFamily="secondary"
+                              m={{ b: "1rem" }}
+                              >
+                            {data['board_content'].length > 77 ? data['board_content'].substring(0,70)+"..." :data['board_content'] }
+                              </Text>
+                              </Link>
                           </Div>
 
                         </Div>
@@ -109,7 +113,7 @@ function CommunityMain() {
                             fontFamily="secondary"
                             m={{ b: "0.2rem" }}
                             >
-                            {data['userid']}
+                            {data['nickname']}
                         </Text>
                         <Div d="flex" align="center">
                             <Icon
@@ -127,7 +131,7 @@ function CommunityMain() {
                             fontFamily="secondary"
                             m={{r : "1rem"}}
                             >
-                            4572
+                            {data['board_viewnum']}
                             </Text>
                             <Icon
                                 transition

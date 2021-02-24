@@ -8,9 +8,9 @@ class BoardApiService {
         return axios.get(Board_API_BASE_URL);
     }
 
-    // fetchUserByID(userID) {
-    //     return axios.get(Board_API_BASE_URL + '/' + userID);
-    // }
+    fetchBoardByID(boardID) {
+        return axios.get(Board_API_BASE_URL + '/' + boardID);
+    }
 
     // deleteUser(userID) {
     //     return axios.delete(Board_API_BASE_URL + '/' + userID);
