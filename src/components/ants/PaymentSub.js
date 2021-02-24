@@ -1,6 +1,6 @@
 import React from "react"
 import { Button, Container, Text, Div, Dropdown, Anchor, Input, Icon } from "atomize"
-
+import { Link} from 'react-router-dom';
 function Payment() {
     return (
         <div>
@@ -21,7 +21,7 @@ function Payment() {
                             m={{ b: "1rem" }}
                             fontFamily='ko'
                         >
-                            구독회원 등록
+                            고객님은 구독회원입니다
                         </Text>
                         <Text
                             tag="h2"
@@ -34,9 +34,9 @@ function Payment() {
                             m={{ b: "2.5rem" }}
                             fontFamily='ko'
                         >
-                            한달 ￦8,900 으로 황금개미가 되어보세요
+                           계량투자의 핵심 중 핵심, 백테스트를 체험해봅시다
                         </Text>
-          
+                        <Link to="/Backtest">
                             <Button
                                 h="3rem"
                                 w={{ xs: "100%", sm: "11rem" }}
@@ -49,9 +49,10 @@ function Payment() {
                                     textSize="subheader"
                                     textWeight="800"
                                     fontFamily='ko'
-                                >등록하기
+                                >백테스트 하러가기
                                 </Text>
                             </Button>
+                            </Link>
                 
                    
                 </Container>

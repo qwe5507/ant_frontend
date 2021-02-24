@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import firebase from "../../../firebase";
 import mime from "mime-types";
 import { setPhotoURL } from '../../../redux/actions/user_action';
-
+import { Div, Text} from "atomize"
 import Dropdown from 'react-bootstrap/Dropdown';
 import Image from 'react-bootstrap/Image';
 import { IoIosChatboxes } from 'react-icons/io';
@@ -84,7 +84,14 @@ function UserPanel() {
                         }}
                         id="dropdown-basic"
                     >
+                        <Text m={{ xs: "0.2rem", md: "0.3rem" }}
+                        textAlign="right"
+                        textSize="heading"
+                        textWeight="800"
+                        fontFamily="ko"
+                        >
                         {user && user.displayName}
+                        </Text>
                     </Dropdown.Toggle>
 
                     <Dropdown.Menu>

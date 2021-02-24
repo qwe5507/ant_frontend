@@ -7,7 +7,7 @@ import {
 } from '../../../redux/actions/chatRoom_action';
 import Badge from 'react-bootstrap/Badge';
 import { FaRegSmile } from 'react-icons/fa';
-
+import { Div, Text, Container} from "atomize"
 export class DirectMessages extends Component {
 
     state = {
@@ -140,10 +140,25 @@ export class DirectMessages extends Component {
         return (
             <>
                 <span style={{ display: 'flex', alignItems: 'center' }}>
-                    <FaRegSmile style={{ marginRight: '3px' }} />  DIRECT MESSAGES ({users.length})
+                    <FaRegSmile style={{ marginRight: '3px' }} />  
+                    <Text m={{ xs: "0.2rem", md: "0.3rem" }}
+                    textAlign="right"
+                    textSize="subheader"
+                    textWeight="800"
+                    fontFamily="ko"
+                    >
+                    DIRECT MESSAGES ({users.length})
+                    </Text>
                 </span>
                 <ul style={{ listStyleType: 'none', padding: '0' }}>
+                    <Text m={{ xs: "0.2rem", md: "0.3rem" }}
+                    textAlign="left"
+                    textSize="body"
+                    textWeight="800"
+                    fontFamily="ko"
+                     >
                     {this.renderDirectMessages(users)}
+                    </Text>
                 </ul>
             </>
         )

@@ -156,6 +156,25 @@ function Header() {
               </Anchor>
             </Link>
 
+            {loginstate
+              ?
+              <Link to="/PaymentFirst">
+                <Anchor
+                  target="_blank"
+                  m={{ r: "2rem", b: { xs: "1rem", md: "0" } }}
+                  textWeight="800"
+                  textColor="medium"
+                  hoverTextColor="black"
+                  transition
+                  fontFamily="ko"
+                >
+                  구독
+              </Anchor>
+              </Link>
+              :
+              ' '
+            }
+
             <Link to="/Backtest">
               <Anchor
                 target="_blank"
