@@ -1,9 +1,10 @@
 import PropTypes from "prop-types"
 import React, { useState, useEffect } from "react"
-import { Div, Image, Container, Button, Anchor, scrollTo, Icon, Text,Radiobox, Label,Switch,Row,Col,logoSketch,logoReact } from "atomize"
+import { Input, Div, Image, Container, Button, Anchor, scrollTo, Icon, Text,Radiobox, Label,Switch,Row,Col,logoSketch,logoReact } from "atomize"
 import logo from "../../images/logo.svg"
 import producthunt from "../../images/logo-producthunt.svg"
 import { Link, Route, useHistory, useParams } from 'react-router-dom';
+import axios from "axios";
 
 
 function NewsDetail(props){
@@ -21,6 +22,49 @@ function NewsDetail(props){
       }, 400);
     };
     let { id } = useParams();
+
+    let [search,search변경] = useState("");
+    let [countlist,countlist변경] = useState("");
+    let history = useHistory();
+    const onClick = () => {
+      upsertKeyword()
+
+    
+      history.push("/NewsDetail/"+search)
+    };
+
+    const onKeyPress = (e) => {
+      if(e.key == 'Enter'){
+        onClick();
+      }
+    }
+
+
+    const onChange = e => {
+      search변경(e.target.value)
+      console.log(e.target.value)
+    }
+    
+    const sendParam = {search}
+  
+    function upsertKeyword(){
+      axios.get("http://localhost:8000/news/upsert", { params : { id : {search}}})
+      .then(response =>{
+        console.log(response);
+
+        console.log("??")
+      })
+      .catch(error=>{
+        console.log(error);
+      });
+
+    }
+   
+    function searchCount(){
+      countlist = axios.get("http://localhost:8000/news/searchcount")
+      console.log(countlist)
+    }
+
     console.log("detail"+id);
     return (
 
