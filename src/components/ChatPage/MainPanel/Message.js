@@ -16,7 +16,10 @@ function MessageBody({ message, user }) {
 
     return (
         <Media style={{ marginBottom:'3px'}}>
-            <img
+            
+            <Media.Body style={{ backgroundColor: isMessageMine(message, user) ? "#ECECEC" : "" }} >
+                <h6 >
+                <img
                 style={{ borderRadius: '10px' }}
                 width={48}
                 height={48}
@@ -24,8 +27,6 @@ function MessageBody({ message, user }) {
                 src={message.user.image}
                 alt={message.user.name}
             />
-            <Media.Body style={{ backgroundColor: isMessageMine(message, user) ? "#ECECEC" : "" }} >
-                <h6 >
                     {message.user.name}{" "}
                     <span style={{ fontSize: '10px', color: 'gray' }}>
                         {timeFromNow(message.timestamp)}

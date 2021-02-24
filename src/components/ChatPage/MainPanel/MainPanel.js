@@ -193,7 +193,7 @@ export class MainPanel extends Component {
     render() {
         const { messages, searchTerm, searchResults, typingUsers, messageLoading } = this.state;
         return (
-            <div style={{ padding: '2rem 2rem 0 2rem' }}>
+            <div style={{ padding: '2.5rem 1rem 0 1rem' }}>
                 <MessageHeader
                     messages={messages}
                     handleSearchChange={this.handleSearchChange}
@@ -204,7 +204,7 @@ export class MainPanel extends Component {
                     height: '450px',
                     border: '.2rem solid #ececec',
                     borderRadius: '4px',
-                    padding: '1rem',
+                //    padding: '1rem',
                     marginBottom: '1rem',
                     overflowY: 'auto'
                 }}>

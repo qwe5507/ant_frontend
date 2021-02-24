@@ -1,8 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react'
 import Form from 'react-bootstrap/Form';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Button from 'react-bootstrap/Button';
+//import Row from 'react-bootstrap/Row';
+//import Col from 'react-bootstrap/Col';
+import { Button, Text, Row, Col, Textarea } from "atomize"
+//import Button from 'react-bootstrap/Button';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import firebase from "../../../firebase";
 import { useSelector } from 'react-redux';
@@ -150,7 +151,8 @@ function MessageForm() {
         <div>
             <Form onSubmit={handleSubmit}>
                 <Form.Group controlId="exampleForm.ControlTextarea1">
-                    <Form.Control
+                    <Textarea
+                     m={{ xs: '0.5rem', md: '0.5rem' }}
                         onKeyDown={handleKeyDown}
                         value={content}
                         onChange={handleChange}
@@ -174,22 +176,48 @@ function MessageForm() {
 
             <Row>
                 <Col>
-                    <button onClick={handleSubmit}
+                    <Button onClick={handleSubmit}
                         type="submit"
                         style={{ width: '100%' }}
                         disabled={loading ? true : false}
+                        h="3rem"
+                        w={{ xs: "100%", sm: "40rem" }}
+                        bg="info700"
+                        hoverBg="info600"
+                         rounded="lg"
+                       
+                       m={{ r: "1rem", b: { xs: "1rem", sm: "0.5rem" } }}
                     >
+                        <Text
+                        textSize="subheader"
+                         textWeight="800"
+                        fontFamily='ko'
+                         >
                         SEND
-                    </button>{' '}
+                        </Text>
+                    </Button>{' '}
                 </Col>
-                <Col>
-                    <button onClick={handleOpenImageRef}
+            <Col>
+                <Button onClick={handleSubmit}
                         type="submit"
                         style={{ width: '100%' }}
                         disabled={loading ? true : false}
+                        h="3rem"
+                        w={{ xs: "100%", sm: "40rem" }}
+                        bg="info700"
+                        hoverBg="info600"
+                         rounded="lg"
+                       
+                       m={{ r: "1rem", b: { xs: "1rem", sm: "0.5rem" } }}
                     >
+                        <Text
+                        textSize="subheader"
+                         textWeight="800"
+                         fontFamily='ko'
+                         >
                         UPLOAD
-                     </button>{' '}
+                        </Text>
+                    </Button>{' '}
                 </Col>
             </Row>
 

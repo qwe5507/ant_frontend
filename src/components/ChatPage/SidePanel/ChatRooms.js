@@ -224,7 +224,7 @@ export class ChatRooms extends Component {
                         <FaPlus
                         style={{
                             position: 'absolute',
-                            right: 0, cursor: 'pointer'
+                            left: 150, cursor: 'pointer'
                         }}
                         onClick={this.handleShow}
                     />

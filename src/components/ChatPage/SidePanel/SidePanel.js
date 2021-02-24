@@ -7,10 +7,10 @@ import DirectMessages from './DirectMessages';
 function SidePanel(props) {
     return (
         <div style={{
-            backgroundColor: "#7B83EB",
+           // backgroundColor: "#7B83EB",
             padding: '2rem',
             minHeight: '100vh',
-            color: 'white',
+            color: 'black',
             minWidth: '275px'
         }}>
             <UserPanel currentUser={props.currentUser} />
