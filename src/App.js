@@ -21,7 +21,7 @@ import Community from "./components/ants/Community";
 import News from "./components/ants/News";
 import Stocks from "./components/ants/Stocks";
 import UserApiService from "./api/UserApi";
-
+import NewsDetail from "./components/ants/NewsDetail"
 import ChatPage from "./components/ChatPage/ChatPage";
 
 import { useDispatch, useSelector } from 'react-redux';
@@ -130,6 +130,9 @@ function App() {
             <Stocks />
           </Route>
 
+          <Route exact path="/NewsDetail/:id">
+            <NewsDetail />
+          </Route>
           {/* <Route exact path="/RegisterPage">
             <RegisterPage/>
           </Route> */}
