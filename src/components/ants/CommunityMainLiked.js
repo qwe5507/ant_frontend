@@ -12,8 +12,7 @@ function CommunityMain(props) {
   let [selectedSwitchValue,selectedSwitchValueChange] = useState(false);
   let [liked,likedchange] = useState(false);
 
-  let { die } = useParams();
-
+  let { boardid } = useParams();
   let [boardlist ,boardlist변경] = useState([{board_content : ""}]); 
   // selectedSwitchValueChange(props.orderswitch);
   function toggleHeaderMenu(value) {
@@ -23,20 +22,8 @@ function CommunityMain(props) {
     }, 400);
   };
   useEffect(() => {
-    // if(die === "die"){
-    //   BoardApiService.fetchBoardsSave()
-    // .then(res => {
-    //   boardlist변경(res.data);
-    //   console.log(res.data[0].userid);
-    //   // console.log('asdasdadadads');
-    // })
-    // .catch(err => {
-    //   console.log('***** Community fetchBoards error:', err);
-    // }); 
 
-    // }
-
-    BoardApiService.fetchBoards()
+    BoardApiService.fetchBoardsLiked()
     .then(res => {
       boardlist변경(res.data);
       console.log(res.data[0].userid);
@@ -90,20 +77,17 @@ function CommunityMain(props) {
                         >
                         <Div p="1rem" d="flex" align="center" justify="space-between">
                           <Div d="inline-block" align="center" >
-                            <Div d="flex">
-                              <Link to={"/Community/"+data['board_id']}  style={{ color: '#000' }}>
-                                <Text
-                                textAlign="left"
-                                textSize="title"
-                                textWeight="700"
-                                fontFamily="secondary"
-                                m={{ b: "1rem" }}
-                                >
-                                {data['board_title']}
-                                </Text>
-                              </Link>
-                              <Icon name="Bookmark" size="20px" />
-                            </Div>
+                            <Link to={"/Community/"+data['board_id']}  style={{ color: '#000' }}>
+                              <Text
+                              textAlign="left"
+                              textSize="title"
+                              textWeight="700"
+                              fontFamily="secondary"
+                              m={{ b: "1rem" }}
+                              >
+                              {data['board_title']}
+                              </Text>
+                            </Link>
                               <Link to={"/Community/"+data['board_id']}  style={{ color: '#000' }}>
                               <Text
                               textAlign="left"

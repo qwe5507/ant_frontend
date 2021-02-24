@@ -6,15 +6,48 @@ import producthunt from "../../images/logo-producthunt.svg"
 import { Link, Route, useHistory, useParams } from 'react-router-dom';
 import { Divider } from "@material-ui/core"
 import BoardApiService from "../../api/BoardApi";
+import { useDispatch, useSelector } from 'react-redux';
 
 function CommunityBoard() {
- let [liked,likedchange] = useState(false);
+    const loginid = useSelector(state => state.user.userid);
+    let [liked,likedchange] = useState(false);
  console.log('게시판로딩')
- 
+
  let [board ,board변경] = useState({}); 
 
  let { boardid } = useParams();
 
+ function likedClick(board) {
+    // 눌려져있을떄  
+    if(liked){
+        likedchange(!liked);
+        console.log(board['board_LikeNum']);
+        board['board_LikeNum'] = board['board_LikeNum'] - 1;
+        BoardApiService.editBoard(board);
+
+        let UserLikeBoard = {
+            board_id : board['board_id'],
+            userid : loginid
+            }
+        BoardApiService.deleteLikedUserBoard(UserLikeBoard);
+        // BoardApiService.deleteLikedUserBoard(UserLikeBoard);
+            
+        console.log(loginid)
+    } // 안 눌려져있을떄 
+     else{
+        likedchange(!liked);
+        board['board_LikeNum'] = board['board_LikeNum'] + 1;
+        BoardApiService.editBoard(board);
+
+        let UserLikeBoard = {
+            board_id : board['board_id'],
+            userid : loginid
+            }
+        BoardApiService.addLikedUserBoard(UserLikeBoard);
+     }
+    
+     console.log(board)
+ }
 
  function timecal(data) {
     var nowtime = new Date()
@@ -39,6 +72,7 @@ function CommunityBoard() {
     }
     return resulttime;
  }
+
     useEffect(() => {
         let listtemp = sessionStorage.getItem('boardviewlist');
         if(listtemp == null ){  // 세션스토리지에 list가 없을떄 
@@ -48,7 +82,7 @@ function CommunityBoard() {
             console.log(res.data);
             // console.log('asdasdadadads');
             board변경(res.data);
-
+            
             })
             .catch(err => {
                 console.log('***** Community fetchBoardByID error:', err);
@@ -64,6 +98,12 @@ function CommunityBoard() {
                 console.log(res.data);
                 board변경(res.data);
                 // console.log('asdasdadadads');
+                let UserLikeBoard = {
+                    board_id : board['board_id'],
+                    userid : loginid
+                    }
+                    console.log(BoardApiService.fetchLikeUserBoardCheck(UserLikeBoard));
+                    
                 })
                 .catch(err => {
                     console.log('***** Community fetchBoardByID error:', err);
@@ -75,6 +115,21 @@ function CommunityBoard() {
                 console.log(res.data);
                 board변경(res.data);
                 // console.log('asdasdadadads');
+                let UserLikeBoard = {
+                    board_id : res.data.board_id,
+                    userid : loginid
+                    }
+                    BoardApiService.fetchLikeUserBoardCheck(UserLikeBoard)
+                    .then(res => {
+                        console.log(res.data)
+                        if(res.data ==1 ){
+                            likedchange(true);
+                        }
+                    })
+                    .catch(err => {
+                        console.log('***** Community fetchBoardByID error:', err);
+                    }); 
+
                 })
                 .catch(err => {
                     console.log('***** Community fetchBoardByID error:', err);
@@ -142,12 +197,13 @@ function CommunityBoard() {
                            >
                                 <Text
                                 // textAlign="left"
-                                textSize="title"
-                                textWeight="400"
+                                textSize="subheader"
+                                textWeight="550"
+                                textColor = "gray"
                                 fontFamily="secondary"
                                 textAlign="justify"
                                 justify="flex-end"
-                                // m={{ b: "1rem" }}
+                                m={{ l: "0.2rem" }}
                                 
                                 >
                                 {board['nickname']}
@@ -282,12 +338,13 @@ function CommunityBoard() {
                                     >
                                         <Icon
                                             transition
-                                            name= "Heart"
-                                            color= "black"
+                                            onClick={() => likedClick(board)}
+                                            name={liked ? "HeartSolid" : "Heart"}
+                                            color={liked ? "danger700" : "black"}
                                             size="23px"
                                             cursor="pointer"
                                             m={{r : "0.4rem"}}
-                                        />
+                                        ></Icon>
                                         <Text
                                         textAlign="left"
                                         textSize="subheader"
@@ -342,7 +399,7 @@ function CommunityBoard() {
                                 댓글 21
                             </Text>
                             <Input
-                                placeholder="User Name"
+                                placeholder="댓글을 남겨주세요."
                                 p={{ x: "2.5rem" }}
                                 m={{t : "0.5rem"}}
                                 h = "5rem"

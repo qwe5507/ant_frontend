@@ -7,18 +7,45 @@ class BoardApiService {
     fetchBoards() {
         return axios.get(Board_API_BASE_URL);
     }
+    fetchBoardsLiked() {
+        return axios.get(Board_API_BASE_URL+'/likedorder');
+    }
+    fetchBoardsSave(){
+        return axios.get(Board_API_BASE_URL+'/save');
+    }
 
     fetchBoardByID(boardID) {
         return axios.get(Board_API_BASE_URL + '/' + boardID);
     }
 
+    editBoard(board) {
+        return axios.put(Board_API_BASE_URL + '/' + board.board_id, board)
+    }
+    addBoard(board) {
+        return axios.post(Board_API_BASE_URL, board);
+    }
+        
+    fetchLikeUserBoardCheck(UserLikeBoard) {
+        return axios.get(Board_API_BASE_URL + '/like'+"/"+UserLikeBoard.board_id+"/"+UserLikeBoard.userid);
+    }
+
+    addLikedUserBoard(UserLikeBoard){
+        return axios.post(Board_API_BASE_URL + "/like", UserLikeBoard);
+    }
+    deleteLikedUserBoard(UserLikeBoard) {
+        // return axios.delete(Board_API_BASE_URL + '/like'+"/?board_id="+UserLikeBoard.board_id+"&userid="+UserLikeBoard.userid);
+        return axios.delete(Board_API_BASE_URL + '/like'+"/"+UserLikeBoard.board_id+"/"+UserLikeBoard.userid);
+        // return axios.delete(Board_API_BASE_URL + '/like');
+    }
+
+    // addUserLikeBoard(user) {
+    //     return axios.post(Board_API_BASE_URL, user);
+    // }
+    
     // deleteUser(userID) {
     //     return axios.delete(Board_API_BASE_URL + '/' + userID);
     // }
 
-    // addUser(user) {
-    //     return axios.post(Board_API_BASE_URL, user);
-    // }
 
     // editUser(user) {
     //     return axios.put(Board_API_BASE_URL + '/' + user.id, user)
