@@ -58,17 +58,22 @@ function Register() {
           await firebase.database().ref("users").child(createdUser.user.uid).set({
             name: createdUser.user.displayName,
             image: createdUser.user.photoURL
-          });
-
-          // 4. Firebase 유저 정보 Redux State 저장
-          await firebase.auth().onAuthStateChanged(user => {
-            if (user) {
-              dispatch(setUser(user));
-            } else {
-              // Firebase만 로그아웃 된 경우 처리 필요
-              // dispatch(clearUser());
-            }
-          });
+            })
+            .then(() => {
+              // 4. Firebase 유저 정보 Redux State 저장
+              firebase.auth().onAuthStateChanged(user => {
+                if (user) {
+                  dispatch(setUser(user));
+                } else {
+                  // Firebase만 로그아웃 된 경우 처리 필요
+                  // dispatch(clearUser());
+                }
+              });
+            })
+            .catch((error) => {
+              console.log('Firebase 데이터베이스 에러', error.code);
+              console.log('Firebase 데이터베이스 에러', error.message);
+            });
 
           isLoadingChange(false); // 회원 등록 완료 후 버튼 활성화
           history.push('/');
