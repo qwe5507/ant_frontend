@@ -5,10 +5,83 @@ import logo from "../../images/logo.svg"
 import producthunt from "../../images/logo-producthunt.svg"
 import { Link, Route, useHistory, useParams } from 'react-router-dom';
 import { Divider } from "@material-ui/core"
+import BoardApiService from "../../api/BoardApi";
 
 function CommunityBoard() {
  let [liked,likedchange] = useState(false);
+ console.log('게시판로딩')
+ 
+ let [board ,board변경] = useState({}); 
 
+ let { boardid } = useParams();
+
+
+ function timecal(data) {
+    var nowtime = new Date()
+    var boardtime = new Date(data)
+    var elapsedtime = nowtime.getTime() - boardtime.getTime()
+    let elapsedMin = elapsedtime / 1000 / 60; // 150.0666...
+    let elapsedHour = elapsedtime / 1000 / 60 / 60; // 2.501111...
+    let elapsedDay = elapsedtime / 1000 / 60 / 60 / 24;
+    var resulttime;
+    if(elapsedMin < 10){
+      resulttime = "now"
+    }else if (elapsedMin >= 10 && elapsedMin < 60 ){
+      resulttime = String(Math.floor(elapsedMin))+"분" 
+    }else if (elapsedMin >= 60 && elapsedHour < 24){
+      resulttime = String(Math.floor(elapsedHour))+"시간" 
+    }else if (elapsedHour >= 24 && elapsedHour < 48){
+      resulttime = "어제"
+    }else if (elapsedHour >= 48 && elapsedDay < 30){
+      resulttime = String(Math.floor(elapsedDay))+"일" 
+    }else if (elapsedDay >= 30){
+      resulttime = String(boardtime.getMonth()+1)+"."+String(boardtime.getDate())
+    }
+    return resulttime;
+ }
+    useEffect(() => {
+        let listtemp = sessionStorage.getItem('boardviewlist');
+        if(listtemp == null ){  // 세션스토리지에 list가 없을떄 
+            sessionStorage.setItem('boardviewlist', JSON.stringify([boardid]) );
+            BoardApiService.fetchBoardByID(boardid+"/count")
+            .then(res => {
+            console.log(res.data);
+            // console.log('asdasdadadads');
+            board변경(res.data);
+
+            })
+            .catch(err => {
+                console.log('***** Community fetchBoardByID error:', err);
+            }); 
+        }else{
+            let viewedBoardList = JSON.parse(listtemp)
+            if (viewedBoardList.includes(boardid) === false){
+               console.log('세션 스토리지에 게시물 번호가 포함 되어있지 않음.')
+               viewedBoardList.push(boardid);
+               sessionStorage.setItem('boardviewlist', JSON.stringify(viewedBoardList) );
+               BoardApiService.fetchBoardByID(boardid+"/count")
+               .then(res => {
+                console.log(res.data);
+                board변경(res.data);
+                // console.log('asdasdadadads');
+                })
+                .catch(err => {
+                    console.log('***** Community fetchBoardByID error:', err);
+                }); 
+            }else{
+                console.log('세션 스토리지에 게시물 번호가 포함되어 있음')
+                BoardApiService.fetchBoardByID(boardid)
+                .then(res => {
+                console.log(res.data);
+                board변경(res.data);
+                // console.log('asdasdadadads');
+                })
+                .catch(err => {
+                    console.log('***** Community fetchBoardByID error:', err);
+                }); 
+            }
+        }
+    },[]);
     return (
 <>
     <Div  
@@ -27,7 +100,7 @@ function CommunityBoard() {
                 >
                         <Div
                         // h="10rem"
-                        h = {{ xs: "11rem", md: "11rem" }}
+                        h = {{ xs: "11rem", md: "9rem" }}
                         w = {{ xs: "25rem", md: "47rem" }}
                         // bg="black"
                         // rounded="md"
@@ -56,7 +129,8 @@ function CommunityBoard() {
                                 pos= {{xs:"absolute",md: "static"}}
                                 // bottom = "32rem"
                                 >
-                                kakao mang hera kakao mang herakakao mangrang herakakao mangr
+                                {/* kakao mang hera kakao mang herakakao mangrang herakakao mangr */}
+                                {board['board_title']}
                                 </Text>
                             </Div>
                             <Div
@@ -76,7 +150,7 @@ function CommunityBoard() {
                                 // m={{ b: "1rem" }}
                                 
                                 >
-                                맘마단 
+                                {board['nickname']}
                                 </Text>    
                             </Div>   
                             <Div
@@ -113,7 +187,7 @@ function CommunityBoard() {
                                 m={{r : "1rem"}}
                                 
                                 >
-                                14시간
+                                {timecal(board['board_createdata'])}
                                 </Text>
                                 <Icon
                                     transition
@@ -131,9 +205,8 @@ function CommunityBoard() {
                                 m={{r : "1rem"}}
                                 textColor = "gray"
                                 >
-                                4572
+                                {board['board_viewnum']}
                                 </Text>
-
                                 <Icon
                                     transition
                                     name= "Message"
@@ -198,12 +271,7 @@ function CommunityBoard() {
                                     // border= "1px solid"
                                     // borderColor="gray400"
                                     >
-                                    오늘 백화점 갔다가 폭스헤드 예뻐서 입어보고 왔는데
-                                    XS은 따악 맞는 느낌이고
-                                    S는 약간 낭낭해서 안에 셔츠나 티를 입고 입어도 괜찮을 거 같아서 고민이야..
-                                    사이즈가 사실 나한테 애매한데 색깔이나 촉감이 넘 좋아서 하나 장만하려구 하는데
-                                    다들 어떤 핏으로 샀엉 ? 블로그 하루종일 뒤져도 다 제각각이라 결정이 안서! 내일 가서 살건데ㅠㅠ
-                                    
+                                    {board['board_content']}
                                 </Text>
                                     <Div d="flex" align="center"
                                         // border="1px solid"

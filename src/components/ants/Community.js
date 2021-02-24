@@ -22,7 +22,7 @@ function Community() {
         window.scrollTo(0, window.scrollY + 1)
       }, 400);
     };
-
+    
     return (
 <>
       <Div
