@@ -21,13 +21,16 @@ import Community from "./components/ants/Community";
 import News from "./components/ants/News";
 import Stocks from "./components/ants/Stocks";
 import UserApiService from "./api/UserApi";
-import NewsDetail from "./components/ants/NewsDetail"
+import NewsDetail from "./components/ants/NewsDetail";
+
 import ChatPage from "./components/ChatPage/ChatPage";
+import ChatTest from "./components/ants/ChatTest";
 
 import { useDispatch, useSelector } from 'react-redux';
 import { setUserLoginCheck, setUserLogout, setUser } from './redux/actions/user_action';
 
 import firebase from "./firebase";
+
 
 function App() {
   const dispatch = useDispatch();
@@ -133,7 +136,8 @@ function App() {
           </Route>
 
           <Route exact path="/ChatPage">
-            <ChatPage />
+            <ChatTest />
+            {/* <ChatPage /> */}
           </Route>
 
           <Route exact path="/News">
