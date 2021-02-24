@@ -10,7 +10,8 @@ import {
     SET_USER_LOGOUT,
     SET_USER,               // Chat
     CLEAR_USER,             // Chat
-    SET_PHOTO_URL           // Chat
+    SET_PHOTO_URL,          // Chat
+    SET_SEARCHWORD          // 검색어
 } from '../actions/types';
 
 const userInfoDefault = {
@@ -22,7 +23,8 @@ const userInfoDefault = {
     phone: '',
     pass: '',
     currentUser: null,
-    isLoading: true
+    isLoading: true,
+    searchWord: ''
 };
 
 export default function (state = userInfoDefault, action) {
@@ -96,6 +98,10 @@ export default function (state = userInfoDefault, action) {
                 currentUser: { ...state.currentUser, photoURL: action.payload },
                 isLoading: false
             }
+
+        case SET_SEARCHWORD:
+            copy['searchWord'] = action.payload['searchWord'];
+            return copy;
 
         default:
             return state;

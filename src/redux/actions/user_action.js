@@ -6,7 +6,8 @@ import {
     SET_USER_LOGOUT,
     SET_USER,               // Chat
     CLEAR_USER,             // Chat
-    SET_PHOTO_URL           // Chat
+    SET_PHOTO_URL,          // Chat
+    SET_SEARCHWORD          // 검색어
 } from './types';
 
 export function setUserNew(userinfo) {
@@ -60,5 +61,12 @@ export function setPhotoURL(photoURL) {     // Chat
     return  {
         type: SET_PHOTO_URL,
         payload: photoURL
+    }
+}
+
+export function setSearchWord(searchWord) {     // Chat
+    return  {
+        type: SET_SEARCHWORD,
+        payload: searchWord
     }
 }
