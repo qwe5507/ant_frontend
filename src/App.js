@@ -25,7 +25,9 @@ import NewsDetail from "./components/ants/NewsDetail"
 import ChatPage from "./components/ChatPage/ChatPage";
 
 import { useDispatch, useSelector } from 'react-redux';
-import { setUserLoginCheck, setUserLogout } from './redux/actions/user_action';
+import { setUserLoginCheck, setUserLogout, setUser } from './redux/actions/user_action';
+
+import firebase from "./firebase";
 
 function App() {
   const dispatch = useDispatch();
@@ -35,6 +37,7 @@ function App() {
     initializeUserInfo();
   });
 
+  // 새로고침시 Redux State 세팅
   function initializeUserInfo() {
 
     var user_id = localStorage.getItem('userid');
@@ -46,9 +49,20 @@ function App() {
       UserApiService.fetchUserByID(user_id)
         .then(res => {
           if (res.data.nickname) {
+            // Redux State 세팅
             var nickname = res.data.nickname;
             var userinfo = { loginstate: true, userid: user_id, nickname: nickname };
             dispatch(setUserLoginCheck(userinfo));
+
+            // Firebase Redux State 세팅
+            firebase.auth().onAuthStateChanged(user => {
+              if (user) {
+                dispatch(setUser(user));
+              } else {
+                // Firebase만 로그아웃 된 경우 처리 필요
+                // dispatch(clearUser());
+              }
+            });
           }
           else {
             localStorage.removeItem('userid');

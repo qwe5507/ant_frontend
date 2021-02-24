@@ -32,7 +32,6 @@ function Register() {
 
         // Firebase RegisterPage 대체
         try {
-
           var userinfo = { loginstate: true, nickname: nickname, phone: telnumber, email: 이메일, pass: 비밀번호 };
           dispatch(setUserLoginAdd(userinfo));
 

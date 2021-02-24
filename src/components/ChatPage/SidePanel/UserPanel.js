@@ -15,9 +15,9 @@ function UserPanel() {
 
     const inputOpenImageRef = useRef()
 
-    const handleLogout = () => {
-        firebase.auth().signOut()
-    }
+    // const handleLogout = () => {
+    //     firebase.auth().signOut()
+    // }
 
     const handleOpenImageRef = () => {
         inputOpenImageRef.current.click()
@@ -91,9 +91,9 @@ function UserPanel() {
                         <Dropdown.Item onClick={handleOpenImageRef}>
                             프로필 사진 변경
                         </Dropdown.Item>
-                        <Dropdown.Item onClick={handleLogout}>
+                        {/* <Dropdown.Item onClick={handleLogout}>
                             로그아웃
-                        </Dropdown.Item>
+                        </Dropdown.Item> */}
                     </Dropdown.Menu>
                 </Dropdown>
             </div>
