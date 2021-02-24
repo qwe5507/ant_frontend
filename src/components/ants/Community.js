@@ -7,6 +7,7 @@ import { Link, Route, useHistory, useParams } from 'react-router-dom';
 
 import CommunityBoard from './CommunityBoard';
 import CommunityMain from './CommunityMain';
+import CommunityMainLiked from './CommunityMainLiked';
 
 function Community() {
     let [showMobileHeaderMenu, showMobileHeaderMenuChange] = useState(false);
@@ -22,7 +23,7 @@ function Community() {
         window.scrollTo(0, window.scrollY + 1)
       }, 400);
     };
-    
+
     return (
 <>
       <Div
@@ -223,8 +224,8 @@ function Community() {
 
          {/* 게시판시작부분 */}
          {((typeof boardid != "undefined") && (typeof boardid.valueOf() == "string")) && (boardid.length > 0) ?
-         <CommunityBoard></CommunityBoard>:
-         <CommunityMain></CommunityMain>}
+         <CommunityBoard></CommunityBoard>: selectedSwitchValue ? 
+         <CommunityMainLiked></CommunityMainLiked> : <CommunityMain></CommunityMain> }
          
        {/* 게시판끝부분 */}
     
