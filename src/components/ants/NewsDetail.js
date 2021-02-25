@@ -8,107 +8,27 @@ import axios from "axios";
 
 
 function NewsDetail(props){
-    let [showMobileHeaderMenu, showMobileHeaderMenuChange] = useState(false);
-    let [selectedSwitchValue,selectedSwitchValueChange] = useState(false);
-    let [liked,likedchange] = useState(false);
 
-    let { boardid } = useParams();
+    let { searchName } = useParams();
 
-    function toggleHeaderMenu(value) {
-      showMobileHeaderMenuChange(value);
-      
-      setTimeout(() => {
-        window.scrollTo(0, window.scrollY + 1)
-      }, 400);
-    };
-    let { id } = useParams();
-
-    let [search,search변경] = useState("");
-    let [countlist,countlist변경] = useState("");
-    let history = useHistory();
-    const onClick = () => {
-      upsertKeyword()
-
-    
-      history.push("/NewsDetail/"+search)
-    };
-
-    const onKeyPress = (e) => {
-      if(e.key == 'Enter'){
-        onClick();
-      }
-    }
-
-
-    const onChange = e => {
-      search변경(e.target.value)
-      console.log(e.target.value)
-    }
-    
-    const sendParam = {search}
-  
-    function upsertKeyword(){
-      axios.get("http://localhost:8000/news/upsert", { params : { id : {search}}})
+    function searchmatchparse(){
+      axios.get("http://localhost:8000/news/searchmatchparse", { params : { id : searchName }})
       .then(response =>{
-        console.log(response);
-
-        console.log("??")
+        console.log(response.data);
       })
       .catch(error=>{
         console.log(error);
       });
-
-    }
-   
-    function searchCount(){
-      countlist = axios.get("http://localhost:8000/news/searchcount")
-      console.log(countlist)
     }
 
-    console.log("detail"+id);
+    searchmatchparse();
+
+    console.log("detail"+searchName);
     return (
+      <div>
 
-        <Div
-        tag="section"
-        w="100vw"
-        p={{ t: { xs: "6rem", md: "6rem" } }}
-        overflow="hidden"
-        d="flex"
-        justify="center"
-        // border="1px solid"
-        // borderColor="info700"
-        >
 
-         <Input
-        placeholder="Search"
-        // p={{ x: "30.5rem" }}
-        w = {{ xs: "38rem", md: "20rem" } }
-        h = {{ xs: "3rem", md: "3rem" } }
-        onChange={onChange}
-        onKeyPress={onKeyPress}
-
-        // border="1px solid"
-        // borderColor="info700"
-        pos = "static"
-        suffix={
-         <Icon
-
-         onClick={onClick}
-         name="Search"
-         size="20px"
-         cursor="pointer"
-         pos="absolute"
-        
-         top="50%"
-         right="1rem"
-         transform="translateY(-50%)"
-         />
-     }
-     />
-            
-     
-
-        <Div
+      <Div
         tag="section"
         pos={{ xs: 'relative', md: 'relative' }}
         top="0"
@@ -118,6 +38,7 @@ function NewsDetail(props){
         zIndex="1"
         w="80%"
         align = "space-between"
+        
       >
 
         <Div
@@ -139,7 +60,7 @@ function NewsDetail(props){
           <Div
             d={{ xs: "flex", md: "none" }}
             flexDir="column"
-            onClick={() => toggleHeaderMenu(!showMobileHeaderMenu)}
+ 
             m={{ t: "5rem"}}
           >
             <Div
@@ -147,48 +68,35 @@ function NewsDetail(props){
               w="1rem"
               bg="black"
               rounded="md"
-              style={{
-                transform: `translateY(${showMobileHeaderMenu ? "1" : "-2"
-                  }px)rotate(${showMobileHeaderMenu ? "135" : "0"}deg)`,
-              }}
-              transition
             ></Div>
             <Div
               h="2px"
               w="1rem"
               bg="black"
               rounded="lg"
-              style={{
-                transform: `translateY(${showMobileHeaderMenu ? "-1" : "2"
-                  }px)rotate(${showMobileHeaderMenu ? "45" : "0"}deg)`,
-              }}
-
-              transition
             ></Div>
           </Div>
 
           <Label
              d={{ xs: "flex", md: "none" }}
              m={{ l: "85%" ,t : "-1rem" }}
-            onClick={() =>
-                selectedSwitchValueChange( !selectedSwitchValue)
-            }
+
             align="center"
             textWeight="600"
             >
             <Switch
-                checked={selectedSwitchValue}
+
                 inactiveColor="success400"
                 activeColor="success700"
                 activeShadow="5"
             />
-            {selectedSwitchValue ? <Text>추천순</Text> : <Text>최신순</Text>}
+          
             </Label>
 
           {/* Links for Desktop */}
           <Div
             d="flex"
-            onClick={() => toggleHeaderMenu(false)}
+
             bg={{ xs: "white", md: "transparent" }}
             align={{ xs: "strech", md: "flex-start" }}
             flexDir={{ xs: "column", md: "row" }}
@@ -207,19 +115,19 @@ function NewsDetail(props){
             zIndex={{ xs: "-1", md: "0" }}
             shadow={{ xs: "4", md: "0" }}
             opacity={{
-              xs: showMobileHeaderMenu ? "1" : "0",
+
               md: "1",
             }}
             transform={{
-              xs: `translateY(${showMobileHeaderMenu ? "0" : "-100%"})`,
-              md: "none",
+         
+              md: "none"
             }}
             transition
             border={{ b: "1px solid" }}
             borderColor="black"
           >
             
-            <Link to="/Community">
+            <Link to="/NewsDetail/핫이슈">
               <Anchor
                 target="_blank"
                 textWeight="800"
@@ -234,12 +142,12 @@ function NewsDetail(props){
                         textWeight="1000"
                         textAlign="center"
                     >
-                        전체
+                        핫이슈
                     </Text>
               </Anchor>
             </Link>
 
-            <Link to="/Community">
+            <Link to="/NewsDetail/정치">
               <Anchor
                 target="_blank"
                 textWeight="800"
@@ -254,11 +162,13 @@ function NewsDetail(props){
                         textAlign="center"
                         m={{ b: "0.25rem" ,r : "2.5rem" }}
                     >
-                        팔로워
+                        정치
                     </Text>
               </Anchor>
             </Link>
-            <Link to="/Community">
+
+            
+            <Link to="/NewsDetail/경제">
               <Anchor
                 target="_blank"
                 textWeight="800"
@@ -269,16 +179,78 @@ function NewsDetail(props){
               >
                     <Text
                         textSize="title"
-                        m={{ b: "0.25rem" }}
                         textWeight="1000"
                         textAlign="center"
+                        m={{ b: "0.25rem" ,r : "2.5rem" }}
                     >
-                        저장한 글
+                        경제
+                    </Text>
+              </Anchor>
+            </Link>
+         
+            <Link to="/NewsDetail/IT과학">
+              <Anchor
+                target="_blank"
+                textWeight="800"
+                textColor="medium"
+                hoverTextColor="black"
+                transition
+                fontFamily="ko"
+              >
+                    <Text
+                        textSize="title"
+                        textWeight="1000"
+                        textAlign="center"
+                        m={{ b: "0.25rem" ,r : "2.5rem" }}
+                    >
+                        IT과학
                     </Text>
               </Anchor>
             </Link>
 
-            <Label
+
+            <Link to="/NewsDetail/금융">
+              <Anchor
+                target="_blank"
+                textWeight="800"
+                textColor="medium"
+                hoverTextColor="black"
+                transition
+                fontFamily="ko"
+              >
+                    <Text
+                        textSize="title"
+                        textWeight="1000"
+                        textAlign="center"
+                        m={{ b: "0.25rem" ,r : "2.5rem" }}
+                    >
+                        금융
+                    </Text>
+              </Anchor>
+            </Link>
+
+            <Link to="/NewsDetail/부동산">
+              <Anchor
+                target="_blank"
+                textWeight="800"
+                textColor="medium"
+                hoverTextColor="black"
+                transition
+                fontFamily="ko"
+              >
+                    <Text
+                        textSize="title"
+                        textWeight="1000"
+                        textAlign="center"
+                        m={{ b: "0.25rem" ,r : "2.5rem" }}
+                    >
+                        부동산
+                    </Text>
+              </Anchor>
+            </Link>
+
+            
+            {/* <Label
              m={{ l: "40rem" ,t : "0.2rem" }}
             onClick={() =>
                 selectedSwitchValueChange( !selectedSwitchValue)
@@ -300,15 +272,191 @@ function NewsDetail(props){
             null :
             selectedSwitchValue ? 
             <Text>추천순</Text> : <Text>최신순</Text>}
-            </Label>
+            </Label> */}
+
+
 
           </Div>
 
-    
+  
+          <Div  
+         m={{t :{ md : "5%"}, l :{ md : "-78%"}}}
+         w = {{xs: "90vw", md : "248%"}}
+          align="center" justify="space-between"
+         d={{ xs: "flex", md: "flex" }}
+         >
+               <Div
+                //   shadow="4"
+                //   border="1px solid"
+                //   borderColor="gray200"
+                  bg="white"
+                //   rounded="lg"
+                  d="inline-block" align="center"
+                >
+                        <Div
+                        // h="10rem"
+                        h = {{ xs: "11rem", md: "9rem" }}
+                        w = {{ xs: "25rem", md: "47rem" }}
+                        // bg="black"
+                        // rounded="md"
+                        // border="1px solid"
+                        // borderColor="gray200"
+                        border={{ b: "1px solid" }}
+                        borderColor="gray400"
+                        pos = "flex"
+                        d={{ xs: "inline-block", md: "inline-block" }}
+                        
+                        >   
+                        
+                            <Div
+                            align="flex-start"
+                            // pos= "absolute"
+                            // bottom = "35rem"
+                            h = {{xs : "7rem" ,md : "auto"}}
+                            >
+                                <Text
+                                textAlign="left"
+                                textSize="heading"
+                                textWeight="750"
+                                fontFamily="secondary"
+                                justify="flex-start"
+                                // m={{ b: "1rem" }}
+                                m={{ b: "0rem" }}
+                                pos= {{xs:"absolute",md: "static"}}
+                                // bottom = "32rem"
+                                >
+                                {/* kakao mang hera kakao mang herakakao mangrang herakakao mangr */}
+                                으으으으으윽으으으으으윽으으으으으윽으으으
+                                </Text>
+                                <Text
+                                 m={{ b: "1rem" }}
+                                >뉴스 | 코스모경제 | 20분전</Text>  
+                            </Div>
+
+                            <Div
+                            justify="space-between"
+                            align="center"
+                            // pos= "absolute"
+                            pos =  {{xs:"static",md: "static"}}
+                            // bottom = "32rem"
+                           >
+                                <Text
+                                // textAlign="left"
+                                textSize="title"
+                                textWeight="400"
+                                fontFamily="secondary"
+                                textAlign="justify"
+                                justify="flex-end"
+                                // m={{ b: "1rem" }}
+                                
+                                >
+                               가나다라마바사아자차카타파하카타파차카자아사바마라나다으으으으으으으
+                                </Text>    
+                            </Div>   
+                            <Div
+                            // align=""
+                            // h="19rem"
+                            w="15rem"
+                            justify="space-around"
+                            // bg="black"
+                            // rounded="md"
+                            // border="1px solid"
+                            // borderColor="gray200"
+                            // pos= "absolute"
+                            pos =  {{xs:"absolute",md: "static"}}
+                            // bottom = "340px"
+                            // bottom = "22rem"
+                            m = "3px"
+                            
+                            >
+                                <Div d="flex" align="center">
+                                  
+                                <Icon
+                                    transition
+                                    name= "Timestamp"
+                                    color= "gray"
+                                    size="18px"
+                                    cursor="pointer"
+                                    m={{r : "0.4rem"}}
+                                />
+                                <Text
+                                textAlign="left"
+                                textSize="body"
+                                textWeight="600"
+                                fontFamily="secondary"
+                                textColor = "gray"
+                                m={{r : "1rem"}}
+                                
+                                >
+                                1000
+                                </Text>
+                                <Icon
+                                    transition
+                                    name= "Eye"
+                                    color= "gray"
+                                    size="18px"
+                                    cursor="pointer"
+                                    m={{r : "0.4rem"}}
+                                />
+                                <Text
+                                textAlign="left"
+                                textSize="body"
+                                textWeight="600"
+                                fontFamily="secondary"
+                                m={{r : "1rem"}}
+                                textColor = "gray"
+                                >
+                               500
+                                </Text>
+                                <Icon
+                                    transition
+                                    name= "Message"
+                                    color= "gray"
+                                    size="33px"
+                                    cursor="pointer"
+                                    m={{r : "0.4rem"}}
+                                />
+                                <Text
+                                textAlign="left"
+                                textSize="body"
+                                textWeight="600"
+                                fontFamily="secondary"
+                                textColor = "gray"
+                                m={{r : "1rem"}}
+                                >
+                                121
+                                </Text>
+                                {/* <Div 
+                                // pos="relative"
+                                // top="0"
+                                // m={{l : "30rem"}}
+                                m={{
+                                    l: { xs: '7rem', md: '22rem' }
+                                }}
+                                >
+                                <Icon name="Options" size="20px" />
+                                </Div> */}
+                            </Div>    
+                            
+                            </Div>
+                                         
+                        
+                        </Div>
+                     </Div>
+                     
+                     </Div>
+                  
+                  
+                 
         </Container>
+               
+       
+  
       </Div>
-      </Div>
-        
+
+
+    </div>
+
         
     )
 
