@@ -38,6 +38,13 @@ class BoardApiService {
         // return axios.delete(Board_API_BASE_URL + '/like');
     }
 
+    fetchSavedUserBoardCheck(userid) {
+        return axios.get(Board_API_BASE_URL + '/savedboard'+"/"+userid);
+    }
+    addSaveddUserBoard(UserSavedBoard){
+        return axios.post(Board_API_BASE_URL + "/saved", UserSavedBoard);
+    }
+
     // addUserLikeBoard(user) {
     //     return axios.post(Board_API_BASE_URL, user);
     // }
