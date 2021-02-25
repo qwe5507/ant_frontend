@@ -47,6 +47,7 @@ class IndiTable1 extends Component{
             <div>
             
         <Div  p={{ t: { xs: "9rem", md: "5rem" } }} >
+         
         <Table >
           <TableHead>
             <TableRow>
