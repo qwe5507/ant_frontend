@@ -48,7 +48,7 @@ function CommunityMain(props) {
   }
   
   useEffect(() => {
-    console.log(props.ordered);
+    console.log(props.savedstate);
     if(!props.ordered){ // 추천순 게시물 가져오기 
     BoardApiService.fetchBoards()
     .then(res => {

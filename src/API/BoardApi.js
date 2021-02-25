@@ -39,10 +39,16 @@ class BoardApiService {
     }
 
     fetchSavedUserBoardCheck(userid) {
-        return axios.get(Board_API_BASE_URL + '/savedboard'+"/"+userid);
+        return axios.get(Board_API_BASE_URL + '/savedboardCheck'+"/"+userid);
     }
     addSaveddUserBoard(UserSavedBoard){
         return axios.post(Board_API_BASE_URL + "/saved", UserSavedBoard);
+    }
+    fetchSavedUserBoard(userid) {
+        return axios.get(Board_API_BASE_URL + '/savedboard'+"/"+userid);
+    }
+    fetchSavedUserBoardLiked(userid) {
+        return axios.get(Board_API_BASE_URL + '/savedboardLiked'+"/"+userid);
     }
 
     // addUserLikeBoard(user) {
