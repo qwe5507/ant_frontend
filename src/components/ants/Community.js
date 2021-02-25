@@ -7,12 +7,13 @@ import { Link, Route, useHistory, useParams } from 'react-router-dom';
 
 import CommunityBoard from './CommunityBoard';
 import CommunityMain from './CommunityMain';
-import CommunityMainLiked from './CommunityMainLiked';
+import CommunityMainSaved from './CommunityMainSaved';
 
 function Community() {
     let [showMobileHeaderMenu, showMobileHeaderMenuChange] = useState(false);
     let [selectedSwitchValue,selectedSwitchValueChange] = useState(false);
     let [liked,likedchange] = useState(false);
+    let [saveBoardstate,saveBoardstateChange] = useState("total");
 
     let { boardid } = useParams();
 
@@ -139,15 +140,17 @@ function Community() {
             
             <Link to="/Community">
               <Anchor
-                target="_blank"
+                // href = "/Community"
+                // target="_blank"
                 textWeight="800"
                 textColor="medium"
                 hoverTextColor="black"
                 transition
-                fontFamily="ko"
+                // fontFamily="ko"
               >
                     <Text
                         textSize="title"
+                        onClick={() => saveBoardstateChange("total")}
                         m={{ b: "0.25rem" ,r : "2.5rem" , l : "2.5rem" }}
                         textWeight="1000"
                         textAlign="center"
@@ -164,7 +167,7 @@ function Community() {
                 textColor="medium"
                 hoverTextColor="black"
                 transition
-                fontFamily="ko"
+                // fontFamily="ko"
               >
                     <Text
                         textSize="title"
@@ -183,9 +186,10 @@ function Community() {
                 textColor="medium"
                 hoverTextColor="black"
                 transition
-                fontFamily="ko"
+                // fontFamily="ko"
               >
                     <Text
+                        onClick={() => saveBoardstateChange("saveboard")}
                         textSize="title"
                         m={{ b: "0.25rem" }}
                         textWeight="1000"
@@ -224,9 +228,9 @@ function Community() {
 
          {/* 게시판시작부분 */}
          {((typeof boardid != "undefined") && (typeof boardid.valueOf() == "string")) && (boardid.length > 0) ?
-         <CommunityBoard></CommunityBoard>: <CommunityMain ordered = {selectedSwitchValue}></CommunityMain> }
-         {/* selectedSwitchValue ?  */}
-         {/* <CommunityMainLiked></CommunityMainLiked> : <CommunityMain></CommunityMain> } */}
+         <CommunityBoard></CommunityBoard>: 
+         saveBoardstate.indexOf("saveboard") > 0 ? 
+         <CommunityMainSaved ordered = {selectedSwitchValue}></CommunityMainSaved> : <CommunityMain ordered = {selectedSwitchValue}></CommunityMain>  }
          
        {/* 게시판끝부분 */}
     
