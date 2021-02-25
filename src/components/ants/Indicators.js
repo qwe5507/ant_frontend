@@ -79,7 +79,7 @@ function Indicators() {
                         textSize="subheader"
                           textWeight="800"
                           fontFamily='ko'
-                     >환전고시 환율
+                     >전체보기
                   </Text>
            </Button>
            <Button onClick={() => {indiShow2(true); indiShow1(false); indiShow3(false); indiShow4(false); } }
@@ -94,7 +94,7 @@ function Indicators() {
                         textSize="subheader"
                           textWeight="800"
                           fontFamily='ko'
-                     >국제시장 환율
+                     >환율
                   </Text>
            </Button>
            <Button onClick={() => { indiShow3(true); indiShow1(false); indiShow2(false); indiShow4(false); }}

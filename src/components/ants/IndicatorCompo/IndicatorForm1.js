@@ -1,8 +1,53 @@
-import React from "react"
+import React, { Component} from "react"
 import LineChartIn from "./LineChartIn"
 import { Text, Div, Icon, Anchor, Button, Input } from "atomize"
+import IndApi from "../../../api/IndApi";
 
-const IndicatorForm = () => (
+class IndicatorForm extends Component{
+
+  constructor(props){
+    console.log('constro run');
+    super(props);
+    this.state ={
+      dates : '',
+      exechange_Name : '',
+      rates : '',
+      message : null
+};
+}
+
+componentDidMount(){
+  console.log('comdid run');
+  this.reloadJipyoList();
+  
+}
+
+reloadJipyoList = () => {
+  IndApi.labelDalOneList()
+  .then(res =>{
+      this.setState({
+        dates : res.data[0]["dates"].substring(0,10),
+        exechange_Name : res.data[0]["exechange_Name"],
+        rates : res.data[0]["rates"],
+        message : "1일 데이터"
+      })
+      console.log(res.data[0]["dates"])
+      console.log("차트")
+      })
+      .catch(err => {
+      console.error('지표리스트 오류(국외환율)', err);
+     // alert('조회오류');
+      })
+
+    }
+
+
+    componentWillUnmount(){
+      console.log('comwilunmont run')
+    }
+
+  render(){
+    return(
   <Div
     d="flex"
     flexDir="column"
@@ -21,7 +66,10 @@ const IndicatorForm = () => (
     shadow="4"
     p="2rem"
   >
+    
     <Div flexGrow="1">
+    
+    <Div>
       <Text
         textAlign="center"
         textSize="title"
@@ -29,7 +77,7 @@ const IndicatorForm = () => (
         textWeight="800"
         fontFamily="ko"
       >
-        외국 USD/원
+       {this.state.exechange_Name}
       </Text>
       <Text
         textAlign="center"
@@ -40,12 +88,26 @@ const IndicatorForm = () => (
         textColor="info700"
         
       >
-        1,107
+        {this.state.rates}
       </Text>
+      <Text
+        textAlign="center"
+        textSize="caption"
+        m={{ t: "0.5rem", b: "0.5rem" }}
+        textWeight="800"
+        fontFamily="ko"
+        textColor="light"
+        
+      >
+        ({this.state.dates} 기준)
+      </Text>
+      </Div>
+     
       <br/>
       <LineChartIn/>
      </Div>
   </Div>
-)
-
+    )
+  }
+}
 export default  IndicatorForm 
