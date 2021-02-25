@@ -6,12 +6,17 @@ import producthunt from "../../images/logo-producthunt.svg"
 import { Link, Route, useHistory, useParams } from 'react-router-dom';
 import BoardApiService from "../../api/BoardApi";
 import { AddAlarmSharp } from "@material-ui/icons"
+import { useDispatch, useSelector } from 'react-redux';
 
 function CommunityMain(props) {
   let [showMobileHeaderMenu, showMobileHeaderMenuChange] = useState(false);
   let [selectedSwitchValue,selectedSwitchValueChange] = useState(false);
   let [liked,likedchange] = useState(false);
+  let [savedboard,savedboardChange] = useState([]);
+  const loginid = useSelector(state => state.user.userid);
+  let [hoit ,hoit변경] = useState(false);
 
+  let [saved,savedchange] = useState(false);
   let { die } = useParams();
 
   let [boardlist ,boardlist변경] = useState([{board_content : ""}]); 
@@ -22,32 +27,109 @@ function CommunityMain(props) {
       window.scrollTo(0, window.scrollY + 1)
     }, 400);
   };
+
+  function savedClick(savetruefalse,board){
+    if(savetruefalse){ // 저장 되있을때 클릭
+      
+    }else{ // 저장 안되있을때 
+      // savedchange(!saved);
+      console.log(board);
+      let UserSavedBoard = {
+        board_id : board['board_id'],
+        userid : loginid
+        }
+      BoardApiService.addSaveddUserBoard(UserSavedBoard);
+      let templist = [...savedboard]
+      templist.push(board['board_id']);
+      savedboardChange(templist);
+      hoit변경(!hoit);
+    }
+
+  }
+  
   useEffect(() => {
-    // if(die === "die"){
-    //   BoardApiService.fetchBoardsSave()
-    // .then(res => {
-    //   boardlist변경(res.data);
-    //   console.log(res.data[0].userid);
-    //   // console.log('asdasdadadads');
-    // })
-    // .catch(err => {
-    //   console.log('***** Community fetchBoards error:', err);
-    // }); 
-
-    // }
-
+    console.log(props.ordered);
+    if(!props.ordered){ // 추천순 게시물 가져오기 
     BoardApiService.fetchBoards()
     .then(res => {
       boardlist변경(res.data);
       console.log(res.data[0].userid);
       // console.log('asdasdadadads');
+        BoardApiService.fetchSavedUserBoardCheck(loginid)
+        .then(res =>{
+            console.log(res.data);
+            savedboardChange(res.data);
+        })
+        .catch(err =>{
+          console.log('***** Community fetchSavedUserBoardCheck error:', err);
+        })
     })
     .catch(err => {
       console.log('***** Community fetchBoards error:', err);
     }); 
-    
-  },[]);
+    }else{          // 추천순 게시물 가져오기
+    BoardApiService.fetchBoardsLiked()
+    .then(res => {
+      boardlist변경(res.data);
+      console.log(res.data[0].userid);
+      // console.log('asdasdadadads');
+          BoardApiService.fetchSavedUserBoardCheck(loginid)
+          .then(res =>{
+              console.log(res.data);
+              savedboardChange(res.data);
+          })
+          .catch(err =>{
+            console.log('***** Community fetchSavedUserBoardCheck error:', err);
+          })
+    })
+    .catch(err => {
+      console.log('***** Community fetchBoards error:', err);
+    }); 
+    }
 
+  },[props.ordered]);
+
+  useEffect(() => {
+    console.log(props.ordered);
+    if(!props.ordered){ // 추천순 게시물 가져오기 
+    BoardApiService.fetchBoards()
+    .then(res => {
+      boardlist변경(res.data);
+      console.log(res.data[0].userid);
+      // console.log('asdasdadadads');
+        BoardApiService.fetchSavedUserBoardCheck(loginid)
+        .then(res =>{
+            console.log(res.data);
+            savedboardChange(res.data);
+        })
+        .catch(err =>{
+          console.log('***** Community fetchSavedUserBoardCheck error:', err);
+        })
+    })
+    .catch(err => {
+      console.log('***** Community fetchBoards error:', err);
+    }); 
+    }else{          // 추천순 게시물 가져오기
+    BoardApiService.fetchBoardsLiked()
+    .then(res => {
+      boardlist변경(res.data);
+      console.log(res.data[0].userid);
+      // console.log('asdasdadadads');
+          BoardApiService.fetchSavedUserBoardCheck(loginid)
+          .then(res =>{
+              console.log(res.data);
+              savedboardChange(res.data);
+          })
+          .catch(err =>{
+            console.log('***** Community fetchSavedUserBoardCheck error:', err);
+          })
+    })
+    .catch(err => {
+      console.log('***** Community fetchBoards error:', err);
+    }); 
+    }
+
+  },[]);
     return (
 <>
 <Div pos = "relative" 
@@ -89,21 +171,31 @@ function CommunityMain(props) {
                           m={{ b: { xs: "2rem", md: "1rem" } }}
                         >
                         <Div p="1rem" d="flex" align="center" justify="space-between">
-                          <Div d="inline-block" align="center" >
-                            <Div d="flex">
+                          <Div d="inline-block" align="center" justify="space-between" >
+                            <Div d="flex"
+                            justify="space-between"
+                            >
                               <Link to={"/Community/"+data['board_id']}  style={{ color: '#000' }}>
-                                <Text
-                                textAlign="left"
-                                textSize="title"
-                                textWeight="700"
-                                fontFamily="secondary"
-                                m={{ b: "1rem" }}
-                                >
-                                {data['board_title']}
-                                </Text>
-                              </Link>
-                              <Icon name="Bookmark" size="20px" />
+                                    <Text
+                                    justify="flex-start"
+                                    textAlign="left"
+                                    textSize="title"
+                                    textWeight="700"
+                                    fontFamily="secondary"
+                                    m={{ b: "1rem" }}
+                                    >
+                                    {data['board_title']}
+                                    </Text>
+                                  </Link>
+                              <Div>
+                                <Icon name="Bookmark" size="20px" 
+                                cursor="pointer"
+                                onClick={() => savedClick(savedboard.includes(String(data['board_id'])),data)}
+                                color={ savedboard.includes(String(data['board_id'])) ? "danger700" : "black"}
+                                />
+                              </Div>
                             </Div>
+
                               <Link to={"/Community/"+data['board_id']}  style={{ color: '#000' }}>
                               <Text
                               textAlign="left"

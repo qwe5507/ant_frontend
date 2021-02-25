@@ -224,8 +224,9 @@ function Community() {
 
          {/* 게시판시작부분 */}
          {((typeof boardid != "undefined") && (typeof boardid.valueOf() == "string")) && (boardid.length > 0) ?
-         <CommunityBoard></CommunityBoard>: selectedSwitchValue ? 
-         <CommunityMainLiked></CommunityMainLiked> : <CommunityMain></CommunityMain> }
+         <CommunityBoard></CommunityBoard>: <CommunityMain ordered = {selectedSwitchValue}></CommunityMain> }
+         {/* selectedSwitchValue ?  */}
+         {/* <CommunityMainLiked></CommunityMainLiked> : <CommunityMain></CommunityMain> } */}
          
        {/* 게시판끝부분 */}
     
