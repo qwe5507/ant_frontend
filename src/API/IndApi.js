@@ -31,6 +31,7 @@ class IndApiService {
 
     //차트데이터-국내환율
     chartIndi(num) {
+        num = parseInt(num);
         return axios.get(USER_API_BASE_URL_CHART + '/' + num);
     }
 
