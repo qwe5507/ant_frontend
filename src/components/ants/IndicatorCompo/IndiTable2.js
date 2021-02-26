@@ -108,6 +108,7 @@ class IndiTable2 extends Component{
       <Table >
         <TableHead>         
           <TableRow>
+          <TableCell align="center">통화명</TableCell>
             <TableCell align="center">기준일자</TableCell>
             <TableCell align="center">매매기준율</TableCell>
             
@@ -115,7 +116,8 @@ class IndiTable2 extends Component{
         </TableHead>
         <TableBody>
         {this.state.indikors.map(indikor => 
-            <TableRow>              
+            <TableRow>        
+              <TableCell align="center">원/달러</TableCell>      
               <TableCell align="center">{indikor.dates.substring(0,10)}</TableCell>
               <TableCell align="center">{indikor.rates}</TableCell>
             </TableRow>

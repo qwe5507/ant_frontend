@@ -14,7 +14,7 @@ import Login from "./components/ants/Login/Login";
 import Register from "./components/ants/Login/Register";
 import Indicators from "./components/ants/Indicators";
 import Backtest from "./components/ants/Backtest";
-import IndicatorDetail from "./components/ants/IndicatorDetail";
+import IndicatorDetail from "./components/ants/IndicatorCompo/IndiDetail/pages/IndicatorDetail";
 import Payment from "./components/ants/Payment";
 import PaymentSub from "./components/ants/PaymentSub";
 import PaymentFirst from "./components/ants/PaymentFirst";

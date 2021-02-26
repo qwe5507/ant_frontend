@@ -5,6 +5,7 @@ const USER_API_BASE_URL_FORIGN = "http://localhost:8000/indicator/exeForeign";
 const USER_API_BASE_URL_KOR = "http://localhost:8000/indicator/exeKorList";
 const USER_API_BASE_URL_ONE_EURUSD = "http://localhost:8000/indicator/labelDalOneList";
 const USER_API_BASE_URL_CHART_EURUSD = "http://localhost:8000/indicator/labelDalAllList";
+const USER_API_BASE_URL_CHART = "http://localhost:8000/indicator/chart";
 
 class IndApiService {
 
@@ -26,6 +27,11 @@ class IndApiService {
     //1일의 EURUSD 수치
      labelDalOneList() {
         return axios.get(USER_API_BASE_URL_ONE_EURUSD);
+    }
+
+    //차트데이터-국내환율
+    chartIndi(num) {
+        return axios.get(USER_API_BASE_URL_CHART + '/' + num);
     }
 
     //차트라벨_EURUSD
