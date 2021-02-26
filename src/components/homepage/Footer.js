@@ -168,9 +168,18 @@ const Footer = () => {
             textAlign="center"
             m={{ b: "1rem" }}
           >
-            Designed & Developed by Proksh Luthra
+            똑똑한 개미들의 모든 컨텐츠는 저작권법에 의해 보호 받고 있습니다.
           </Text>
-          <Div d="flex" align="center" justify="center">
+          <Text
+            tag="h2"
+            textWeight="400"
+            textSize="body"
+            textAlign="center"
+            m={{ b: "1rem" }}
+          >
+            대표 이진현  서울 금천구 가산동  사업자등록번호 000-00-0000 통신판매업신고번호 2021-서울-00000 고객문의 contacts@smartants.com 개인정보처리방침
+          </Text>
+          {/* <Div d="flex" align="center" justify="center">
             {mediaLinks.map((link, index) => (
               <Anchor href={link.link} target="_blank">
                 <Icon
@@ -182,7 +191,7 @@ const Footer = () => {
                 />
               </Anchor>
             ))}
-          </Div>
+          </Div> */}
         </Div>
       </Container>
     </Div>

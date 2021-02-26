@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react"
 
-import { Text, Div, Icon, Anchor, Button, Input } from "atomize"
+import { Text, Div, Image, Anchor } from "atomize"
 import { useHistory, useParams } from 'react-router-dom';
+
+import logo from "../../../images/logo.png";
+
 import UserApiService from "../../../api/UserApi";
 
 import { useDispatch } from 'react-redux';
@@ -98,90 +101,115 @@ function Login() {
   }
 
   return (
+
     <Div
+      p={{ t: { xs: "6rem", md: "22rem" }, b: "10.5rem" }}
+
+      minW={{ xs: "100%", md: "44rem", lg: "59rem" }}
       d="flex"
-      flexDir="column"
-      border="1px solid"
-      borderColor="gray200"
-      w={{ xs: "100%", md: "30.5rem" }}
-      maxW="100%"
-      pos={{ xs: "static" }}
-      // m={{ xs: "50%", md: "12rem" }}
-      m={{ t: "13rem", l: "33%" }}
       align="center"
-
-      // right="50%"
-      // top="50%"
-      rounded="xl"
-      h={{ lg: "23rem" }}
-      bg="white"
-      shadow="4"
-      p="2rem"
+      justify="center"
+      flexDir={{ xs: "column", md: "row" }}
+      h={{ xs: "auto", md: "21rem", lg: "20rem" }}
+      pos="relative"
     >
-      <Div flexGrow="1">
-        <Text
+      <Div
+        border="1px solid"
+        borderColor="gray200"
+        w={{ xs: "100%", md: "30rem" }}
+        maxW="100%"
+        pos={{ xs: "static", md: "relative" }}
+        m={{ xs: "1rem", md: "1rem" }}
+        top="0"
+        p={{
+          x: { xs: "2rem", sm: "1.5rem" },
+          b: { xs: "2rem", sm: "1.5rem" },
+          t: "1.5rem",
+        }}
+        h="24rem"
+        bg="white"
+        shadow="4"
+        rounded="xl"
+      >
+        <Div
           textAlign="center"
-          textSize="title"
-          m={{ t: "3rem", b: "0.5rem" }}
-          textWeight="500"
-          fontFamily="secondary"
+          m={{ t: "1rem" }}
         >
-          HELLO Smart Ants.
-      </Text>
-        <Text
-          textColor="light"
-          textSize="caption"
-          m={{ b: "4rem" }}
+          <Image
+            src={logo}
+            h="80px"
+            w="auto"
+          />
+        </Div>
+        <Div
+          flexGrow="1"
           textAlign="center"
-          fontFamily="ko"
         >
-          계정이 없으신가요? <Anchor>계정 만들기</Anchor>
-        </Text>
-        <Text
-          m={{ b: "3rem" }}
-          textAlign="center">
-          <a id="kakao-login-btn"></a>
-          {errorsFromSubmit &&
-            <p>{errorsFromSubmit}</p>
-          }
-          <br></br>
-
-        </Text>
-        <Text
-          textColor="#999"
-          textSize="caption"
-          m={{ b: "0.5rem" }}
-          textAlign="center"
-          textWeight="500"
-          fontFamily="ko"
-        >
-          카카오계정으로 간편하고 안전하게 로그인(회원가입)할 수 있습니다.
-      </Text>
-        <Text
-          textColor="#999"
-          textSize="caption"
-          m={{ b: "4rem" }}
-          textAlign="left"
-          textWeight="500"
-        >
-          카카오계정이 기억나지 않으시나요?
           <Text
-            // textColor="#999"
-            textSize="caption"
-            // m={{ b: "1rem" }}
-            textAlign="right"
-          // textWeight="500"
+            m={{ t: "1rem", b: "0.5rem" }}
+            textWeight="800"
+            textSize="title"
+            fontFamily="ko"
           >
+            안녕! 똑똑한 개미
+      </Text>
+          <Text
+            textColor="light"
+            textSize="paragraph"
+            textWeight="800"
+            m={{ b: "1rem" }}
+            textAlign="center"
+            fontFamily="ko"
+          >
+            계정이 없으신가요?
             <Anchor
-              href="https://accounts.kakao.com/weblogin/find_password?continue=https://accounts.kakao.com/weblogin/account/info"
-              target="_blank"
-              d="block"
-              m={{ b: "4rem" }}
-            >확인방법
+              textSize="paragraph"
+              textWeight="800"
+              m={{ b: "1rem", l: "0.4rem" }}
+              textAlign="center"
+              fontFamily="ko">
+              계정 만들기
               </Anchor>
           </Text>
-        </Text>
+          <Text
+            m={{ b: "1rem" }}
+            textAlign="center">
+            <a id="kakao-login-btn"></a>
+            {errorsFromSubmit &&
+              <p>{errorsFromSubmit}</p>
+            }
+            <br></br>
 
+          </Text>
+          <Text
+            textColor="light"
+            textSize="paragraph"
+            textWeight="800"
+            textAlign="center"
+            fontFamily="ko"
+          >
+            카카오계정으로 간편하고 안전하게 로그인(회원가입)할 수 있습니다.
+      </Text>
+          <Text
+            textColor="light"
+            textSize="paragraph"
+            textWeight="800"
+            textAlign="center"
+            fontFamily="ko"
+          >
+            카카오계정이 기억나지 않으시나요?
+            <Anchor
+              href="https://accounts.kakao.com/weblogin/find_password?continue=https://accounts.kakao.com/weblogin/account/info"
+              textSize="paragraph"
+              textWeight="800"
+              m={{ b: "1rem", l: "0.4rem" }}
+              textAlign="center"
+              fontFamily="ko">
+              확인방법
+              </Anchor>
+          </Text>
+
+        </Div>
       </Div>
     </Div>
   )

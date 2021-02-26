@@ -50,26 +50,25 @@ function HeroSection() {
           <Container d="flex" flexDir="column" align="center">
             <Text
               tag="h1"
-              textWeight="500"
+              textWeight="800"
               textAlign="center"
               textSize="display3"
-              fontFamily="secondary"
+              fontFamily="ko"
               m={{ b: "1rem" }}
             >
-              Design System for React JS
+              개인투자자를 위한 커뮤니티
             </Text>
           <Text
             tag="h2"
-            textWeight="400"
+            textWeight="800"
             maxW="36rem"
             textSize="subheader"
             textAlign="center"
-            fontFamily="secondary"
+            fontFamily="ko"
             textColor="medium"
             m={{ b: "2.5rem" }}
           >
-            Atomize React is a UI framework that helps developers collaborate
-            with designers and build consistent user interfaces effortlessly.
+            개인투자자만을 위한 똑똑한 개미들의 다양한 서비스를 경험해보세요!
             </Text>
 
           <Div
@@ -126,49 +125,6 @@ function HeroSection() {
 
           </Div>
 
-        </Container>
-      </Div>
-      <Div
-        tag="section"
-        w="100vw"
-        p={{ t: { xs: "3rem", md: "6rem" } }}
-        overflow="hidden"
-      >
-        <Container>
-          <Div
-            d="flex"
-            justify="center"
-            p={{ b: "10.5rem" }}
-            border={{ b: "1px solid" }}
-            borderColor="gray300"
-          >
-            <Div
-              minW={{ xs: "100%", md: "44rem", lg: "59rem" }}
-              d="flex"
-              align="center"
-              flexDir="column"
-              h={{ xs: "auto", md: "21rem", lg: "20rem" }}
-              pos="relative"
-            >
-              {/* Button Components */}
-              <Buttons />
-
-              {/* Follow Component */}
-              <FollowCard />
-
-              {/* Card Component */}
-              <CardComponent />
-
-              {/* Notification Component */}
-              {/* <Notification /> */}
-
-              {/* Form Component */}
-              <LoginForm />
-
-              {/* User Component */}
-              <UserEdit />
-            </Div>
-          </Div>
         </Container>
       </Div>
     </>

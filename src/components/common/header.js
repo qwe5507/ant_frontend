@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react"
 import { Div, Image, Container, Button, Anchor, scrollTo, Icon } from "atomize"
 import logo from "../../images/logo-title.svg"
+import girl from "../../images/avatar/girl.png"
 import { Link, Route, Switch, useHistory } from 'react-router-dom';
 
 import PropTypes from "prop-types"
@@ -48,7 +49,7 @@ function Header() {
           <Link to="/">
             <Image
               src={logo}
-              h="18px"
+              h="24px"
               w="auto"
             />
           </Link>
@@ -114,10 +115,25 @@ function Header() {
             transition
           >
 
+            <Link to="/Test">
+              <Anchor
+                target="_blank"
+                m={{ r: "2rem", b: { xs: "1rem", md: "0" } }}
+                textWeight="800"
+                textColor="medium"
+                hoverTextColor="black"
+                transition
+                fontFamily="ko"
+              >
+                테스트
+              </Anchor>
+            </Link>
+
             <Link to="/News">
               <Anchor
                 target="_blank"
                 m={{ r: "2rem", b: { xs: "1rem", md: "0" } }}
+                textSize="title"
                 textWeight="800"
                 textColor="medium"
                 hoverTextColor="black"
@@ -132,6 +148,7 @@ function Header() {
               <Anchor
                 target="_blank"
                 m={{ r: "2rem", b: { xs: "1rem", md: "0" } }}
+                textSize="title"
                 textWeight="800"
                 textColor="medium"
                 hoverTextColor="black"
@@ -146,6 +163,7 @@ function Header() {
               <Anchor
                 target="_blank"
                 m={{ r: "2rem", b: { xs: "1rem", md: "0" } }}
+                textSize="title"
                 textWeight="800"
                 textColor="medium"
                 hoverTextColor="black"
@@ -162,6 +180,7 @@ function Header() {
                 <Anchor
                   target="_blank"
                   m={{ r: "2rem", b: { xs: "1rem", md: "0" } }}
+                  textSize="title"
                   textWeight="800"
                   textColor="medium"
                   hoverTextColor="black"
@@ -179,6 +198,7 @@ function Header() {
               <Anchor
                 target="_blank"
                 m={{ r: "2rem", b: { xs: "1rem", md: "0" } }}
+                textSize="title"
                 textWeight="800"
                 textColor="medium"
                 hoverTextColor="black"
@@ -195,6 +215,7 @@ function Header() {
                 <Anchor
                   target="_blank"
                   m={{ r: "2rem", b: { xs: "1rem", md: "0" } }}
+                  textSize="title"
                   textWeight="800"
                   textColor="medium"
                   hoverTextColor="black"
@@ -208,7 +229,7 @@ function Header() {
               ' '
             }
 
-            {loginstate
+            {/* {loginstate
               ?
               <Link to="/">
                 <Anchor
@@ -225,19 +246,33 @@ function Header() {
               </Link>
               :
               ' '
-            }
+            } */}
 
             {loginstate
               ?
               <Anchor
                 target="_blank"
                 m={{ r: "2rem", b: { xs: "1rem", md: "0" } }}
+                textSize="title"
                 textWeight="800"
                 textColor="medium"
                 hoverTextColor="black"
                 transition
                 fontFamily="ko"
+                d="flex"
+                flexDir="row"
               >
+                <Div
+          h="2rem"
+          w="2rem"
+          bg="gray300"
+          rounded="circle"
+          pos="relative"
+          bgImg={girl}
+          bgSize="cover"
+          bgPos="center"
+          m={{ r: "0.5rem" }}
+        />
                 {nickname}
               </Anchor>
               :
