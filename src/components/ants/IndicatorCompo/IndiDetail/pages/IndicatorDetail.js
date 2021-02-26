@@ -1,4 +1,4 @@
-import React from "react"
+import React, {useState} from "react"
 import { Text, Div, Icon, Anchor, Button, Input, Container, Row, footerLinks, Col,  mediaLinks, Tag } from "atomize";
 import ChartKor from "../chart/ChartKor"
 import Table from '@material-ui/core/Table'
@@ -9,6 +9,11 @@ import TableRow from '@material-ui/core/TableRow'
 
 function IndicatorDetail() {
     console.log('asdasd')
+    let nums = 0
+    let [chart1, chartShow1 ] = useState(true);
+    let [chart2, chartShow2 ] = useState(false);
+    let [chart3, chartShow3 ] = useState(false);
+    
     return (     
       
       <div align = "center" >
@@ -36,7 +41,7 @@ function IndicatorDetail() {
                 1,107
           </Text>   
           <Container d="flex" flexDir="row ">
-        <Button
+        <Button onClick={() => {chartShow1(true); chartShow2(false); chartShow3(false);} } 
             
             bg="info700"
             hoverBg="info800"
@@ -49,7 +54,7 @@ function IndicatorDetail() {
           >
             1개월
           </Button>
-          <Button
+          <Button onClick={() => {chartShow2(true); chartShow1(false); chartShow3(false);} } 
             
             bg="info700"
             hoverBg="info800"
@@ -62,7 +67,7 @@ function IndicatorDetail() {
           >
             3개월 
           </Button>
-          <Button
+          <Button onClick={() => {chartShow3(true); chartShow1(false); chartShow2(false);} }
             
             bg="info700"
             hoverBg="info800"
@@ -78,7 +83,22 @@ function IndicatorDetail() {
         
           </Container>
       
-          <ChartKor/>
+          {
+            chart1 === true
+            ? <ChartKor nums={30}/>
+            : null
+          }
+          {
+            chart2 === true
+            ? <ChartKor nums={90}/>
+            : null
+          }
+          {
+            chart3 === true
+            ? <ChartKor nums={180}/>
+            : null
+          }
+
           <Text
                 textAlign="left"
                 textSize="title"
