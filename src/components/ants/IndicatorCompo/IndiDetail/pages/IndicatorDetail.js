@@ -1,6 +1,6 @@
 import React from "react"
 import { Text, Div, Icon, Anchor, Button, Input, Container, Row, footerLinks, Col,  mediaLinks, Tag } from "atomize";
-import LineChartInDetail from "./LineChartInDetail"
+import ChartKor from "../chart/ChartKor"
 import Table from '@material-ui/core/Table'
 import TableBody from '@material-ui/core/TableBody'
 import TableCell from '@material-ui/core/TableCell'
@@ -73,12 +73,12 @@ function IndicatorDetail() {
             shadow="3"
             hoverShadow="4"
           >
-            1년
+            6개월
           </Button>
         
           </Container>
       
-          <LineChartInDetail/>
+          <ChartKor/>
           <Text
                 textAlign="left"
                 textSize="title"
