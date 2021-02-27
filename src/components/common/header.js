@@ -252,7 +252,7 @@ function Header() {
               ?
               <Anchor
                 target="_blank"
-                m={{ r: "2rem", b: { xs: "1rem", md: "0" } }}
+                m={{ r: "1rem", b: { xs: "1rem", md: "0" } }}
                 textSize="title"
                 textWeight="800"
                 textColor="medium"
@@ -263,16 +263,16 @@ function Header() {
                 flexDir="row"
               >
                 <Div
-          h="2rem"
-          w="2rem"
-          bg="gray300"
-          rounded="circle"
-          pos="relative"
-          bgImg={girl}
-          bgSize="cover"
-          bgPos="center"
-          m={{ r: "0.5rem" }}
-        />
+                  h="2rem"
+                  w="2rem"
+                  bg="gray300"
+                  rounded="circle"
+                  pos="relative"
+                  bgImg={girl}
+                  bgSize="cover"
+                  bgPos="center"
+                  m={{ r: "0.5rem" }}
+                />
                 {nickname}
               </Anchor>
               :
@@ -290,6 +290,8 @@ function Header() {
             >
               클릭시 해당 아이디로 이동 앵커
               </Anchor> */}
+
+            <Icon name="Notification" size="20px" />
 
           </Div>
         </Container>

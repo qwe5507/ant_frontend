@@ -22,7 +22,19 @@ const MainPnlCmp2 = () => (
     rounded="xl"
 
   >
-
+      <Div
+            flexGrow="1"
+            textAlign="center"
+        >
+            <Text
+                m={{ t: "1rem", b: "0.5rem" }}
+                textWeight="800"
+                textSize="title"
+                fontFamily="ko"
+            >
+                주요 지표
+            </Text>
+        </Div>
   </Div>
 )
 

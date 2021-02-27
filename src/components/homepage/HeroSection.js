@@ -56,7 +56,7 @@ function HeroSection() {
               fontFamily="ko"
               m={{ b: "1rem" }}
             >
-              개인투자자를 위한 커뮤니티
+              개인투자자만을 위한 공간
             </Text>
           <Text
             tag="h2"
@@ -68,7 +68,7 @@ function HeroSection() {
             textColor="medium"
             m={{ b: "2.5rem" }}
           >
-            개인투자자만을 위한 똑똑한 개미들의 다양한 서비스를 경험해보세요!
+            오직 개인투자자만을 위한 똑똑한 개미들의 서비스와 커뮤니티를 경험해보세요!
             </Text>
 
           <Div
@@ -81,7 +81,7 @@ function HeroSection() {
             { loginstate ?
               <Button
                 h="3rem"
-                w={{ xs: "100%", sm: "11rem" }}
+                w={{ xs: "50%", sm: "11rem" }}
                 bg="transparent"
                 hoverBg="gray200"
                 border="1px solid"
@@ -106,7 +106,7 @@ function HeroSection() {
               <Link to="/Login">
                 <Button
                   h="3rem"
-                  w={{ xs: "100%", sm: "11rem" }}
+                  w={{ xs: "50%", sm: "11rem" }}
                   bg="info700"
                   hoverBg="info600"
                   rounded="lg"

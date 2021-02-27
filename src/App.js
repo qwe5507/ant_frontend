@@ -100,72 +100,22 @@ function App() {
             <GetStartedBanner />
           </Route>
 
-          <Route exact path="/Login">
-            <Login />
-          </Route>
+          <Route exact path="/Login" component={Login} />
+          <Route exact path="/Register" component={Register} />
+          <Route exact path="/Indicators" component={Indicators} />
+          <Route exact path="/Backtest" component={Backtest} />
+          <Route exact path="/Community" component={Community} />
+          <Route exact path="/Community/:boardid" component={Community} />
 
-          <Route exact path="/Register">
-            <Register />
-          </Route>
-
-          <Route exact path="/Indicators">
-            <Indicators />
-          </Route>
-
-          <Route exact path="/Backtest">
-            <Backtest />
-          </Route>
-
-          <Route exact path="/Community">
-            <Community />
-          </Route>
-
-          <Route exact path="/Community/:boardid">
-            <Community />
-          </Route>
-
-          {/* <Route exact path="/Chat">
-            <Chat />
-          </Route> */}
-
-          <Route exact path="/IndicatorDetail">
-            <IndicatorDetail />
-          </Route>
-
-          <Route exact path="/PaymentFirst">
-            <PaymentFirst />
-          </Route>
-
-          <Route exact path="/Payment">
-            <Payment />
-          </Route>
-
-          <Route exact path="/PaymentSub">
-            <PaymentSub />
-          </Route>
-
-          <Route exact path="/ChatPage">
-            {/*<ChatTest />*/}
-            <ChatPage />
-          </Route>
-
-          <Route exact path="/News">
-            <News />
-          </Route>
-
-          <Route exact path="/Stocks">
-            <Stocks />
-          </Route>
-
-          <Route exact path="/NewsDetail/:id">
-            <NewsDetail />
-          </Route>
-
+          <Route exact path="/IndicatorDetail" component={IndicatorDetail} />
+          <Route exact path="/PaymentFirst" component={PaymentFirst} />
+          <Route exact path="/Payment" component={Payment} />
+          <Route exact path="/PaymentSub" component={PaymentSub} />
+          <Route exact path="/ChatPage" component={ChatPage} />
+          <Route exact path="/News" component={News} />
+          <Route exact path="/NewsDetail/:id" component={NewsDetail} />
+          <Route exact path="/Stocks" component={Stocks} />
           <Route exact path="/Test" component={BlockTest} />
-
-          {/* <Route exact path="/RegisterPage">
-            <RegisterPage/>
-          </Route> */}
 
           <Footer />
         </Layout>
