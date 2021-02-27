@@ -1,43 +1,30 @@
 import React, { useState, useEffect } from "react"
-import { Div, Text, Row, Col, Container, Image, Tag } from "atomize"
+import { Div, Text, Row, Col, Container, Tag, Icon } from "atomize"
+import { Link } from 'react-router-dom';
+
+import BoardApiService from "../../api/BoardApi";
 
 import intro1 from "../../images/icons/intro1.svg"
 import intro2 from "../../images/icons/intro2.svg"
 import intro3 from "../../images/icons/intro3.svg"
 import intro4 from "../../images/icons/intro4.svg"
 
-const list = [
-  {
-    icon: intro1,
-    heading: "Flexible Grid",
-    subheading: "Change grid variables or give decimal column size.",
-    link: "/docs/react/theme#columnCount",
-  },
-  {
-    icon: intro2,
-    heading: "Style guide",
-    subheading: "Update theme throughout the application easily.",
-    link: "/docs/react/theme#availableColors",
-  },
-
-  {
-    icon: intro3,
-    heading: "Spacing",
-    subheading: "A better and controlled way of update spacing.",
-    link: "/docs/react/spacing",
-  },
-
-  {
-    icon: intro4,
-    heading: "Responsive",
-    subheading: "Better control to make the app responsive.",
-    link: "/docs/react/responsive",
-  },
-]
-
 function Intoducing() {
+
+  let [board, boardChange] = useState([]);
+
+  useEffect(() => {
+    BoardApiService.fetchBoardsLiked()
+      .then(res => {
+        boardChange(res.data.slice(0, 4));
+      })
+      .catch(err => {
+        console.log('[ Introducing.js ] fetchBoardsLiked Error:', err);
+      });
+  }, []);
+
   return (
-    <Div tag="section" id="features" p={{ t: "8rem" }}>
+    <Div tag="section" id="features" p={{ t: "4rem" }}>
       <Container>
         <Tag
           bg="black"
@@ -46,25 +33,27 @@ function Intoducing() {
           p={{ x: "1rem" }}
           rounded="circle"
           m={{ b: "2rem" }}
+          fontFamily="ko"
+          textSize="subheader"
+          textWeight="800"
         >
-          Key features
+          커뮤니티
           </Tag>
         <Text
           textSize="display1"
-          textWeight="500"
-          fontFamily="secondary"
+          textWeight="800"
+          fontFamily="ko"
           m={{ b: "1rem" }}
         >
-          Why use Atomize React?
+          오늘의 추천 글
           </Text>
         <Text
           textSize="subheader"
           textColor="medium"
-          maxW="30rem"
+          maxW="50rem"
           m={{ b: "3rem" }}
         >
-          Atomize React helps you in building fully responsive websites and
-          products that match your style.
+          지난 하루 동안 가장 많은 추천을 받은 글입니다. 다른 투자자의 노하우를 참고해보세요.
           </Text>
         <Div
           p={{ b: "6rem" }}
@@ -72,7 +61,7 @@ function Intoducing() {
           borderColor="gray300"
         >
           <Row>
-            {list.map(item => (
+            {board.map((data) => (
               <Col size={{ xs: 12, sm: 6, lg: 3 }}>
                 <Div m={{ b: { xs: "1rem", lg: "0" } }}>
                   <Div
@@ -85,43 +74,102 @@ function Intoducing() {
                     shadow="3"
                     rounded="xl"
                   >
-                    <Div flexGrow="1">
-                      <Image
-                        src={item.icon}
-                        m={{ t: "1rem", b: "2rem" }}
-                        w="auto"
-                        h="2rem"
-                      />
-                      <Text
-                        textSize="title"
-                        textWeight="500"
-                        m={{ b: "1rem" }}
-                      >
-                        {item.heading}
-                      </Text>
-                      <Text
-                        textSize="subheader"
-                        textColor="medium"
-                        m={{ b: "2rem" }}
-                      >
-                        {item.subheading}
-                      </Text>
-                    </Div>
-                    <Text
-                      textColor="info700"
-                      hoverTextColor="info800"
-                      textWeight="500"
-                    >
-                      See How
+                    <Link to={"/Community/" + data['board_id']} style={{ color: '#000' }}>
+                      <Div flexGrow="1">
+                        <Text
+                          textSize="heading"
+                          textWeight="800"
+                          fontFamily="ko"
+                          m={{ b: "1rem" }}
+                        >
+                          {data['board_title']}
                         </Text>
+                        <Text
+                          textSize="subheader"
+                          textWeight="600"
+                          fontFamily="ko"
+                          m={{ b: "2rem" }}
+                        >
+                          {data['board_content'].length > 77 ? data['board_content'].substring(0, 70) + "..." : data['board_content']}
+                        </Text>
+                      </Div>
+
+                      {/* 메인화면 오늘의 추천 글 아래 조회 / 좋아요 / 댓글 수 표시 */}
+                      <Div 
+                        d="flex" align="center" justify="space-between">
+                        <Div d="inline-block" align="center">
+                          <Text
+                            textAlign="left"
+                            textSize="body"
+                            textWeight="700"
+                            fontFamily="secondary"
+                            m={{ b: "0.2rem" }}
+                          >
+                            {data['nickname']}
+                          </Text>
+                          <Div d="flex" align="center">
+                            <Icon
+                              transition
+                              name="Eye"
+                              color="black"
+                              size="18px"
+                              m={{ r: "0.4rem" }}
+                            />
+                            <Text
+                              textAlign="left"
+                              textSize="body"
+                              textWeight="450"
+                              fontFamily="secondary"
+                              m={{ r: "1rem" }}
+                            >
+                              {data['board_viewnum']}
+                            </Text>
+                            <Icon
+                              transition
+                              name="HeartSolid"
+                              color="danger700"
+                              size="18px"
+                              m={{ r: "0.4rem" }}
+                            />
+                            <Text
+                              textAlign="left"
+                              textSize="body"
+                              textWeight="450"
+                              fontFamily="secondary"
+                              m={{ r: "1rem" }}
+                            >
+                              {data['board_LikeNum']}
+                            </Text>
+                            <Icon
+                              transition
+                              name="Message"
+                              color="black"
+                              size="18px"
+                              m={{ r: "0.4rem" }}
+                            />
+                            <Text
+                              textAlign="left"
+                              textSize="body"
+                              textWeight="450"
+                              fontFamily="secondary"
+                              m={{ r: "1rem" }}
+                            >
+                              121
+                            </Text>
+                          </Div>
+                        </Div>
+                      </Div>
+
+                    </Link>
                   </Div>
+
                 </Div>
               </Col>
             ))}
           </Row>
         </Div>
       </Container>
-    </Div>
+    </Div >
   )
 }
 

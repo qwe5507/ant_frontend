@@ -94,10 +94,10 @@ function App() {
             <HeroSection />
             <MainPanels component={MainPanels} />
             <Introducing />
-            <Features />
+            {/* <Features />
             <Craft />
             <DesignDevelopment />
-            <GetStartedBanner />
+            <GetStartedBanner /> */}
           </Route>
 
           <Route exact path="/Login" component={Login} />
