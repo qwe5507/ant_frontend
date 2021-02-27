@@ -35,7 +35,7 @@ const ChartKor = (props) => {
   const reloadJipyoList = () => {
     let temp = []
     //var num = 90
-    IndApi.chartIndi(props.nums)
+    IndApi.chartIndiExeFor(props.symbol, props.nums)
      .then(res =>{
  
         charteurusd = res.data      
