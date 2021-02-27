@@ -5,9 +5,11 @@ import TableBody from '@material-ui/core/TableBody'
 import TableCell from '@material-ui/core/TableCell'
 import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
-import { Text, Div, Icon, Anchor, Button, Link } from "atomize";
+import Button from '@material-ui/core/Button'
+import { Text, Div, Icon, Anchor} from "atomize";
+import { Link } from 'react-router-dom';
 
-class IndiTable2_Kor extends Component{
+class IndiTable2_Detail extends Component{
 
     constructor(props){
         console.log('constro run');
@@ -31,7 +33,8 @@ class IndiTable2_Kor extends Component{
     reloadJipyoList = () => {
     IndApi.exeForeignList()
     .then(res =>{
-        this.setState({indifors: res.data})
+        this.setState({
+          indifors: res.data})
         })
         .catch(err => {
         console.error('지표리스트 오류(국외환율)', err);
@@ -57,16 +60,12 @@ class IndiTable2_Kor extends Component{
         console.log('comwilunmont run')
       }
 
-      showChart = () => {
-        this.props.history.push('/IndicatorDetail')
-      }
-
       render(){
         console.log('render run');
         return(
           <div>
           
-      <Div  p={{ t: { xs: "9rem", md: "5rem" } }} >
+      <Div  p={{ t: { xs: "2rem", md: "2rem" } }} >
         <Div textAlign="left">
         <Text
         textSize="title"
@@ -88,7 +87,14 @@ class IndiTable2_Kor extends Component{
         <TableBody>
         {this.state.indifors.map(indifor => 
             <TableRow>
-              <TableCell align="center">{indifor.exechange_Name}</TableCell>
+              
+              <TableCell align="center">
+              <Link to={`/IndicatorDetailExeFor/${indifor.symbol}`} >
+              <Button variant="contained">
+                {indifor.exechange_Name}
+              </Button>
+              </Link>
+                </TableCell>
               <TableCell align="center">{indifor.symbol}</TableCell>
               <TableCell align="center">{indifor.rates}</TableCell>
               <TableCell align="center">{indifor.dates.substring(0,10)}</TableCell>
@@ -119,15 +125,15 @@ class IndiTable2_Kor extends Component{
             
           </TableRow>
         </TableHead>
-        <TableBody>
+        <TableBody align="center">
         {this.state.indikors.map(indikor => 
-            <TableRow>        
+            <TableRow  >        
               <TableCell align="center">
-             
-                <Button onClick={() => this.showChart()}>
+              <Link to="/IndicatorDetail" >
+              <Button variant="contained">
                 원/달러
-                </Button>
-                
+              </Button>
+                </Link>
                 </TableCell>      
               <TableCell align="center">{indikor.dates.substring(0,10)}</TableCell>
               <TableCell align="center">{indikor.rates}</TableCell>
@@ -144,4 +150,4 @@ class IndiTable2_Kor extends Component{
       }
 
 }
-export default IndiTable2_Kor;
+export default IndiTable2_Detail;

@@ -35,6 +35,12 @@ class IndApiService {
         return axios.get(USER_API_BASE_URL_CHART + '/' + num);
     }
 
+    //차트데이터-해외환율
+    chartIndiExeFor(symbol, num) {
+        num = parseInt(num);
+        return axios.get(USER_API_BASE_URL_CHART  + '/' + symbol + '/' + num);
+    }
+
     //차트라벨_EURUSD
     //labelDalAllList() {
     //    return axios.get(USER_API_BASE_URL_LABEL_EURUSD);
