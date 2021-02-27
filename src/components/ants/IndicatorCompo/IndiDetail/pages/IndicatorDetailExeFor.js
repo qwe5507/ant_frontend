@@ -1,5 +1,6 @@
 import React, {useState, useEffect, useRef } from "react"
 import { Text, Div, Icon, Anchor, Button, Input, Container, Row, footerLinks, Col,  mediaLinks, Tag } from "atomize";
+import { useParams } from 'react-router-dom';
 import ChartKor from "../chart/ChartKor"
 import Table from '@material-ui/core/Table'
 import TableBody from '@material-ui/core/TableBody'
@@ -8,25 +9,27 @@ import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
 import IndApi from "../../../../../api/IndApi";
 
-function IndicatorDetail() {
-    console.log('asdasd')
+function IndicatorDetailExeFor(props) {
+    console.log('외국환율-1일데이터-시작')
+    let [name, namebyun] = useState('')
     let [nums, numsbyun] = useState('')
     let [date, datesbyun] = useState('')
     let [chart1, chartShow1 ] = useState(true);
     let [chart2, chartShow2 ] = useState(false);
     let [chart3, chartShow3 ] = useState(false);
-    const usdKrwContainer = useRef(null);
-
+    let {symbol} = useParams();
+    
     useEffect(() => {
       window.scrollTo(0, 0)
-      IndApi.chartIndi(1)
+      console.log("여기부터")
+      console.log(symbol)
+      IndApi.chartIndiExeFor(symbol, 1)
       .then(res =>{
-        //oneUsdKrwbyun(res.data)
+        console.log(res.data[0]["exechange_Name"])
+        namebyun(res.data[0]["exechange_Name"])
         numsbyun(res.data[0]["rates"])
         datesbyun(res.data[0]["dates"].substring(0,10))
-        console.log('1일 수치 확인',nums)
-        
-        
+     
       }
       )
       .catch(err => {
@@ -48,9 +51,8 @@ function IndicatorDetail() {
                 m={{ t: "0.5rem", b: "0.5rem" }}
                 textWeight="800"
                 fontFamily="ko"
-                >
-                
-                원/달러
+                >                
+                {name}
               </Text>
           
           <Div  d="flex" flexDir="row ">
@@ -248,4 +250,4 @@ function IndicatorDetail() {
 
 }
 
-export default IndicatorDetail;
+export default IndicatorDetailExeFor;

@@ -15,6 +15,7 @@ import Register from "./components/ants/Login/Register";
 import Indicators from "./components/ants/Indicators";
 import Backtest from "./components/ants/Backtest";
 import IndicatorDetail from "./components/ants/IndicatorCompo/IndiDetail/pages/IndicatorDetail";
+import IndicatorDetailExeFor from "./components/ants/IndicatorCompo/IndiDetail/pages/IndicatorDetailExeFor";
 import Payment from "./components/ants/Payment";
 import PaymentSub from "./components/ants/PaymentSub";
 import PaymentFirst from "./components/ants/PaymentFirst";
@@ -106,7 +107,7 @@ function App() {
           <Route exact path="/Backtest" component={Backtest} />
           <Route exact path="/Community" component={Community} />
           <Route exact path="/Community/:boardid" component={Community} />
-
+          <Route exact path="/IndicatorDetailExeFor/:symbol" component={IndicatorDetailExeFor} />
           <Route exact path="/IndicatorDetail" component={IndicatorDetail} />
           <Route exact path="/PaymentFirst" component={PaymentFirst} />
           <Route exact path="/Payment" component={Payment} />

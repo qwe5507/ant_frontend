@@ -1,7 +1,6 @@
 import { render } from '@testing-library/react';
 import React, {Component, useEffect} from 'react';
-import IndiTable2_For from "./IndiTable2_For";
-import IndiTable2_Kor from './IndiTable2_Kor'
+import IndiTable2_Detail from './IndiTable2_Detail'
 import TableBody from '@material-ui/core/TableBody'
 import TableCell from '@material-ui/core/TableCell'
 import TableHead from '@material-ui/core/TableHead'
@@ -15,30 +14,8 @@ function IndiTable2(){
           <div>
           
       <Div  p={{ t: { xs: "9rem", md: "5rem" } }} >
-        <Div textAlign="left">
-        <Text
-        textSize="title"
-        textWeight="800"
-        fontFamily='ko'
-        >
-          국제시장 환율
-          </Text>
-          </Div>
-      <IndiTable2_For />
-      </Div >
-
-
-      <Div  p={{ t: { xs: "2rem", md: "5rem" } }} >
-        <Div textAlign="left">
-        <Text
-        textSize="title"
-        textWeight="800"
-        fontFamily='ko'
-        >
-          원/달러 환율
-          </Text>
-          </Div>
-          <IndiTable2_Kor />
+       
+          <IndiTable2_Detail />
          </Div >
       
           </div>
