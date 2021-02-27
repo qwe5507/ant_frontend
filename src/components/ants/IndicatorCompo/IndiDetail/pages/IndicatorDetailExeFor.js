@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useRef } from "react"
-import { Text, Div, Icon, Anchor, Button, Input, Container, Row, footerLinks, Col,  mediaLinks, Tag } from "atomize";
+import { Text, Div, Icon, Anchor, Button, Input, Container} from "atomize";
 import { useParams } from 'react-router-dom';
-import ChartKor from "../chart/ChartKor"
+import ChartExeFor from "../chart/ChartExeFor"
 import Table from '@material-ui/core/Table'
 import TableBody from '@material-ui/core/TableBody'
 import TableCell from '@material-ui/core/TableCell'
@@ -135,17 +135,17 @@ function IndicatorDetailExeFor(props) {
       
           {
             chart1 === true
-            ? <ChartKor nums={30}/>
+            ? <ChartExeFor nums={30} symbol={symbol}/>
             : null
           }
           {
             chart2 === true
-            ? <ChartKor nums={90}/>
+            ? <ChartExeFor nums={90} symbol={symbol}/>
             : null
           }
           {
             chart3 === true
-            ? <ChartKor nums={180}/>
+            ? <ChartExeFor nums={180} symbol={symbol}/>
             : null
           }
 

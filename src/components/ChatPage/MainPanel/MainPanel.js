@@ -6,7 +6,7 @@ import firebase from "../../../firebase";
 import { connect } from "react-redux";
 import { setUserPosts } from '../../../redux/actions/chatRoom_action';
 import Skeleton from './Skeleton';
-
+import { Text, Div } from "atomize";
 export class MainPanel extends Component {
 
     messagesEnd = React.createRef();
@@ -193,7 +193,25 @@ export class MainPanel extends Component {
     render() {
         const { messages, searchTerm, searchResults, typingUsers, messageLoading } = this.state;
         return (
-            <div style={{ padding: '2.5rem 1rem 0 1rem' }}>
+            <Div
+            d="flex"
+            flexDir="column"
+            border="1px solid"
+            borderColor="gray200"
+            w={{ xs: "100%", md: "50%", lg:"70%" }}
+            maxW="100%"
+            pos={{ xs: "static", md: "absolute" }}
+            m={{ xs: "1rem", md: "-2rem" }}
+            right="0"
+            //left="2"
+            top="0"
+            rounded="xl"
+            h={{ lg: "100%" }}
+            bg="white"
+            //shadow="4"
+            border="0"
+            p="2rem"
+            >
                 <MessageHeader
                     messages={messages}
                     handleSearchChange={this.handleSearchChange}
@@ -217,7 +235,7 @@ export class MainPanel extends Component {
                 </div>
 
                 <MessageForm />
-            </div>
+            </Div>
         )
     }
 }
