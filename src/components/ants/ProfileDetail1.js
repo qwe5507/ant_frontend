@@ -178,10 +178,24 @@ function ProfileDetail1(props) {
                         flexGrow="1"
                         maxW="calc(50% - 0.5rem)"
                         rounded="circle"
+                        suffix={<Icon name="Bookmark" size="18px" color="black400" />}
+                    >
+                        Saved
+                    </Button>
+                    {/* <Button
+                        bg="white"
+                        hoverBg="gray300"
+                        border="1px solid"
+                        borderColor="gray500"
+                        textColor="medium"
+                        justify="space-between"
+                        flexGrow="1"
+                        maxW="calc(50% - 0.5rem)"
+                        rounded="circle"
                         suffix={<Icon name="Message" size="18px" color="black400" />}
                     >
                         Message
-                    </Button>
+                    </Button> */}
                 </Div>
 
             </Div>
