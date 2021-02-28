@@ -8,6 +8,11 @@ import {
 import Badge from 'react-bootstrap/Badge';
 import { FaRegSmile } from 'react-icons/fa';
 import { Div, Text, Container} from "atomize"
+import Accordion from '@material-ui/core/Accordion';
+import AccordionSummary from '@material-ui/core/AccordionSummary';
+import AccordionDetails from '@material-ui/core/AccordionDetails';
+import Typography from '@material-ui/core/Typography';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 export class DirectMessages extends Component {
 
     state = {
@@ -139,7 +144,15 @@ export class DirectMessages extends Component {
         const { users } = this.state;
         return (
             <>
-                <span style={{ display: 'flex', alignItems: 'center' }}>
+           
+         <Accordion>
+            <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="panel1a-content"
+            id="panel1a-header"
+             >
+            < Typography>
+             <span style={{ display: 'flex', alignItems: 'center' }}>
                     <FaRegSmile style={{ marginRight: '3px' }} />  
                     <Text m={{ xs: "0.2rem", md: "0.3rem" }}
                     textAlign="right"
@@ -147,9 +160,13 @@ export class DirectMessages extends Component {
                     textWeight="800"
                     fontFamily="ko"
                     >
-                    DIRECT MESSAGES ({users.length})
-                    </Text>
-                </span>
+                    MESSAGES ({users.length})
+            </Text>
+            </span>
+            </Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                <Typography>
                 <ul style={{ listStyleType: 'none', padding: '0' }}>
                     <Text m={{ xs: "0.2rem", md: "0.3rem" }}
                     textAlign="left"
@@ -160,6 +177,10 @@ export class DirectMessages extends Component {
                     {this.renderDirectMessages(users)}
                     </Text>
                 </ul>
+                </Typography>
+                </AccordionDetails>
+                </Accordion>
+                
             </>
         )
     }
