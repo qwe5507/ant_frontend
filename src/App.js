@@ -4,12 +4,8 @@ import Layout from "./components/layout";
 import Header from "./components/common/header";
 import HeroSection from "./components/homepage/HeroSection";
 import Introducing from "./components/homepage/Introducing";
-import Features from "./components/homepage/Features";
-import Craft from "./components/homepage/Craft";
-import DesignDevelopment from "./components/homepage/DesignDevelopment";
-import GetStartedBanner from "./components/homepage/GetStartedBanner";
 import Footer from "./components/homepage/Footer";
-import { Link, Route, Switch, useHistory } from 'react-router-dom';
+import { Route, Switch, useHistory } from 'react-router-dom';
 import Login from "./components/ants/Login/Login";
 import Register from "./components/ants/Login/Register";
 import Indicators from "./components/ants/Indicators";
@@ -26,16 +22,13 @@ import UserApiService from "./api/UserApi";
 import NewsDetail from "./components/ants/NewsDetail";
 import BlockTest from "./components/test/BlockTest";
 import MainPanels from "./components/ants/MainPanels";
-
+import Profile from "./components/ants/Profile";
 import ChatPage from "./components/ChatPage/ChatPage";
-import ChatTest from "./components/ants/ChatTest";
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setUserLoginCheck, setUserLogout, setUser } from './redux/actions/user_action';
 
 import firebase from "./firebase";
-
-
 
 function App() {
   const dispatch = useDispatch();
@@ -116,6 +109,7 @@ function App() {
           <Route exact path="/News" component={News} />
           <Route exact path="/NewsDetail/:id" component={NewsDetail} />
           <Route exact path="/Stocks" component={Stocks} />
+          <Route exact path="/Profile" component={Profile} />
           <Route exact path="/Test" component={BlockTest} />
 
           <Footer />

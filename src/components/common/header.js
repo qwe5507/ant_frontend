@@ -115,20 +115,6 @@ function Header() {
             transition
           >
 
-            <Link to="/Test">
-              <Anchor
-                target="_blank"
-                m={{ r: "2rem", b: { xs: "1rem", md: "0" } }}
-                textWeight="800"
-                textColor="medium"
-                hoverTextColor="black"
-                transition
-                fontFamily="ko"
-              >
-                테스트
-              </Anchor>
-            </Link>
-
             <Link to="/News">
               <Anchor
                 target="_blank"
@@ -250,31 +236,33 @@ function Header() {
 
             {loginstate
               ?
-              <Anchor
-                target="_blank"
-                m={{ r: "1rem", b: { xs: "1rem", md: "0" } }}
-                textSize="title"
-                textWeight="800"
-                textColor="medium"
-                hoverTextColor="black"
-                transition
-                fontFamily="ko"
-                d="flex"
-                flexDir="row"
-              >
-                <Div
-                  h="2rem"
-                  w="2rem"
-                  bg="gray300"
-                  rounded="circle"
-                  pos="relative"
-                  bgImg={girl}
-                  bgSize="cover"
-                  bgPos="center"
-                  m={{ r: "0.5rem" }}
-                />
-                {nickname}
-              </Anchor>
+              <Link to="/Profile">
+                <Anchor
+                  target="_blank"
+                  m={{ r: "1rem", b: { xs: "1rem", md: "0" } }}
+                  textSize="title"
+                  textWeight="800"
+                  textColor="medium"
+                  hoverTextColor="black"
+                  transition
+                  fontFamily="ko"
+                  d="flex"
+                  flexDir="row"
+                >
+                  <Div
+                    h="2rem"
+                    w="2rem"
+                    bg="gray300"
+                    rounded="circle"
+                    pos="relative"
+                    bgImg={girl}
+                    bgSize="cover"
+                    bgPos="center"
+                    m={{ r: "0.5rem" }}
+                  />
+                  {nickname}
+                </Anchor>
+              </Link>
               :
               ' '
             }
