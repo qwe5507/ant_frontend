@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
+
 import Form from 'react-bootstrap/Form';
 import Badge from 'react-bootstrap/Badge';
 import firebase from "../../../firebase";
@@ -11,6 +12,14 @@ import { connect } from 'react-redux';
 import { FaPlus } from 'react-icons/fa';
 import { FaRegSmileWink } from 'react-icons/fa';
 import { Div, Text, Container} from "atomize"
+import { FaRegSmileBeam } from 'react-icons/fa';
+
+import Accordion from '@material-ui/core/Accordion';
+import AccordionSummary from '@material-ui/core/AccordionSummary';
+import AccordionDetails from '@material-ui/core/AccordionDetails';
+import Typography from '@material-ui/core/Typography';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+
 export class ChatRooms extends Component {
 
     state = {
@@ -169,6 +178,7 @@ export class ChatRooms extends Component {
         this.setState({ activeChatRoomId: chatRoom.id });
         this.props.dispatch(setPrivateChatRoom(false));
         this.clearNotifications();
+        
     }
 
     clearNotifications = () => {
@@ -214,28 +224,28 @@ export class ChatRooms extends Component {
         return (
             <>
 
-                <div style={{
-                    position: 'relative', width: '100%',
-                    display: 'flex', alignItems: 'center'
-                }}>
-                    <FaRegSmileWink style={{ marginRight: 3 }} />
-                    <Text m={{ xs: "0.2rem", md: "0.3rem" }}
-                    textAlign="right"
-                    textSize="subheader"
-                    textWeight="800"
-                    fontFamily="ko"
-                    >
-                    CHAT ROOMS{" "} ({chatRooms.length})
-                    </Text>
-                        <FaPlus
-                        style={{
-                            position: 'absolute',
-                            right: 0, cursor: 'pointer'
-                        }}
-                        onClick={this.handleShow}
-                    />
-                </div>
-
+             <Accordion>
+                <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel1a-content"
+                 id="panel1a-header"
+                >
+                    <Typography>
+                <span style={{ display: 'flex', alignItems: 'center' }}>
+                <FaRegSmileBeam style={{ marginRight: '3px' }} />
+                 <Text m={{ xs: "0.2rem", md: "0.3rem" }}
+                        textAlign="right"
+                        textSize="subheader"
+                        textWeight="800"
+                        fontFamily="ko"
+                >
+                    CHATROOM{" "} ({chatRooms.length})
+                </Text>
+                </span>
+                </Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                <Typography>
                 <ul style={{ listStyleType: 'none', padding: '0' }}>
                 <Text m={{ xs: "0.2rem", md: "0.3rem" }}
                     textAlign="left"
@@ -247,6 +257,20 @@ export class ChatRooms extends Component {
                     </Text>
                 </ul>
 
+                </Typography>
+                </AccordionDetails>
+                </Accordion>
+
+                <FaPlus
+                        style={{
+                            position: 'absolute',
+                            right: 0, cursor: 'pointer'
+                        }}
+                        onClick={this.handleShow}
+                    />
+                
+
+               
                 {/* ADD ChatRoom Modal */}
                 <Modal show={show} onHide={this.handleClose}>
                     <Modal.Header closeButton>

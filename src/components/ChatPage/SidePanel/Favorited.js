@@ -4,6 +4,11 @@ import { connect } from 'react-redux';
 import { setCurrentChatRoom, setPrivateChatRoom } from '../../../redux/actions/chatRoom_action';
 import { FaRegSmileBeam } from 'react-icons/fa';
 import { Div, Text, Container} from "atomize"
+import Accordion from '@material-ui/core/Accordion';
+import AccordionSummary from '@material-ui/core/AccordionSummary';
+import AccordionDetails from '@material-ui/core/AccordionDetails';
+import Typography from '@material-ui/core/Typography';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 export class Favorited extends Component {
 
     state = {
@@ -81,18 +86,31 @@ export class Favorited extends Component {
         const { favoritedChatRooms } = this.state
         return (
             <>
-                <span style={{ display: 'flex', alignItems: 'center' }}>
+      
+             <Accordion>
+                <AccordionSummary
+                  expandIcon={<ExpandMoreIcon />}
+                 aria-controls="panel1a-content"
+                id="panel1a-header"
+            >
+             <Typography>
+                 <span style={{ display: 'flex', alignItems: 'center' }}>
                     <FaRegSmileBeam style={{ marginRight: '3px' }} />
                     <Text m={{ xs: "0.2rem", md: "0.3rem" }}
                      textAlign="right"
-                    textSize="subheader"
+                     textSize="subheader"
                     textWeight="800"
                     fontFamily="ko"
                      >
                     FAVORITED ({favoritedChatRooms.length})
                     </Text>
                 </span>
-                <ul style={{ listStyleType: 'none', padding: '0' }}>
+                 
+                 </Typography>
+                </AccordionSummary>
+                 <AccordionDetails>
+                 <Typography>
+                 <ul style={{ listStyleType: 'none', padding: '0' }}>
                 <Text m={{ xs: "0.2rem", md: "0.3rem" }}
                     textAlign="left"
                     textSize="body"
@@ -102,6 +120,10 @@ export class Favorited extends Component {
                     {this.renderFavoritedChatRooms(favoritedChatRooms)}
                     </Text>
                 </ul>
+            </Typography>
+            </AccordionDetails>
+            </Accordion>
+            
             </>
         )
     }

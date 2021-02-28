@@ -1,9 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react'
 import Form from 'react-bootstrap/Form';
-//import Row from 'react-bootstrap/Row';
-//import Col from 'react-bootstrap/Col';
 import { Button, Text, Row, Col, Textarea } from "atomize"
-//import Button from 'react-bootstrap/Button';
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import firebase from "../../../firebase";
 import { useSelector } from 'react-redux';
@@ -146,13 +143,14 @@ function MessageForm() {
         )
 
     }
-
+    
     return (
-        <div>
+        <div width="250%">
             <Form onSubmit={handleSubmit}>
                 <Form.Group controlId="exampleForm.ControlTextarea1">
                     <Textarea
                      m={{ xs: '0.5rem', md: '0.5rem' }}
+                     w={{xs:'26rem', md: "50rem", lg:"50rem"}}
                         onKeyDown={handleKeyDown}
                         value={content}
                         onChange={handleChange}

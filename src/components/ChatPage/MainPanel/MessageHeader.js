@@ -5,11 +5,6 @@ import Container from 'react-bootstrap/Container';
 import { Row, Col, Div, Text } from "atomize"
 import InputGroup from 'react-bootstrap/InputGroup';
 import FormControl from 'react-bootstrap/FormControl';
-import Card from 'react-bootstrap/Card';
-import Accordion from 'react-bootstrap/Accordion';
-import Button from 'react-bootstrap/Button';
-import Image from 'react-bootstrap/Image';
-
 import { FaLockOpen } from 'react-icons/fa';
 import { FaLock } from 'react-icons/fa';
 import { AiOutlineSearch } from 'react-icons/ai';
@@ -32,7 +27,8 @@ function MessageHeader({ handleSearchChange }) {
         if (chatRoom && user) {
             addFavoriteListener(chatRoom.id, user.uid)
         }
-    }, [])
+      //  window.scrollTo(0, 0)
+    })
 
     const addFavoriteListener = (chatRoomId, userId) => {
         usersRef
@@ -99,12 +95,13 @@ function MessageHeader({ handleSearchChange }) {
 
     return (
         <div style={{
-            width: '100%',
-            height: '170px',
+            width: '95%',
+            height: '120px',
             border: '.2rem solid #ececec',
             borderRadius: '4px',
             padding: '1rem',
-            marginBottom: '1rem'
+            marginBottom: '1rem',
+            marginTop: '-1rem'
         }}>
             <Container>
                 <Row >
@@ -152,24 +149,12 @@ function MessageHeader({ handleSearchChange }) {
                             </InputGroup.Prepend>
                             <FormControl
                                 onChange={handleSearchChange}
-                                placeholder="Search Messages"
+                                size="lg" type="text"
+                                placeholder="메시지 검색"
                                 aria-label="Search"
                                 aria-describedby="basic-addon1"
                             />
                         </InputGroup>
-                    </Col>
-                    <Col>
-                    {!isPrivateChatRoom &&
-                    <Div>
-                  
-                        <p>
-                            <Image style={{ width: '30px', height: '30px' }}
-                                src={chatRoom && chatRoom.createdBy.image} roundedCircle />{" "}
-                            {chatRoom && chatRoom.createdBy.name}
-                        </p>
-                   
-                    </Div>
-                }
                     </Col>
                 </Row>
 
@@ -177,21 +162,27 @@ function MessageHeader({ handleSearchChange }) {
                 
 
                 <Row >
-                    <Col>
-                        <Accordion >
-                            <Card>
-                                <Card.Header style={{ padding: '0 1rem' }}>
-                                    <Accordion.Toggle as={Button} variant="link" style={{ color: 'black', textDecoration: 'none' }} eventKey="0">
-                                        Description
-                                    </Accordion.Toggle>
-                                </Card.Header>
-                                <Accordion.Collapse eventKey="0">
-                                    <Card.Body> {chatRoom && chatRoom.description}</Card.Body>
-                                </Accordion.Collapse>
-                            </Card>
-                        </Accordion>
-                    </Col>
-
+                <Div
+                h="2.5rem"
+                p={{ x: "1rem" }}
+                 shadow="new-shadow"
+                rounded="lg"
+                d="flex"
+                align="center"
+                justify="center"
+                textColor="medium"
+                >
+                <Text
+                    textAlign="left"
+                    textSize="subheader"
+                    textWeight="800"
+                    fontFamily="ko"
+                    background=""
+                    m={{ b: "1rem" }}
+                >
+                {chatRoom && chatRoom.description}</Text>
+                 </Div>
+                
                 </Row>
             </Container>
         </div>

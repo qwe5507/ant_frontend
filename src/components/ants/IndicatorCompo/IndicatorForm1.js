@@ -2,7 +2,7 @@ import React, { Component} from "react"
 import LineChartIn from "./LineChartIn"
 import { Text, Div, Icon, Anchor, Button, Input } from "atomize"
 import IndApi from "../../../api/IndApi";
-
+import { Link } from 'react-router-dom';
 class IndicatorForm extends Component{
 
   constructor(props){
@@ -66,16 +66,18 @@ reloadJipyoList = () => {
     shadow="4"
     p="2rem"
   >
-    
+     <Link to="/IndicatorDetail" >
     <Div flexGrow="1">
-    
+   
     <Div>
+   
       <Text
         textAlign="center"
         textSize="title"
         m={{ t: "0.5rem", b: "0.5rem" }}
         textWeight="800"
         fontFamily="ko"
+        textColor="black"
       >
        {this.state.exechange_Name}
       </Text>
@@ -102,10 +104,11 @@ reloadJipyoList = () => {
         ({this.state.dates} 기준)
       </Text>
       </Div>
-     
+      
       <br/>
       <LineChartIn/>
      </Div>
+     </Link>
   </Div>
     )
   }
