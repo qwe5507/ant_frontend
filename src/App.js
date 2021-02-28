@@ -107,7 +107,7 @@ function App() {
           <Route exact path="/PaymentSub" component={PaymentSub} />
           <Route exact path="/ChatPage" component={ChatPage} />
           <Route exact path="/News" component={News} />
-          <Route exact path="/NewsDetail/:id" component={NewsDetail} />
+          <Route exact path="/NewsDetail/:search" component={NewsDetail} />
           <Route exact path="/Stocks" component={Stocks} />
           <Route exact path="/Profile" component={Profile} />
           <Route exact path="/Test" component={BlockTest} />
