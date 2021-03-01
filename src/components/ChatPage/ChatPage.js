@@ -18,8 +18,8 @@ function ChatPage() {
             <Container>
                 <Div
                     d="flex"
-                    justify="space-around"     
-                    p={{ b: "150rem" }}
+                    justify="space-between"     
+                    p={{ b: "280rem" }}
                     border={{ b: "1px solid" }}
                     borderColor="gray300"
                     w={{ b: "280rem"}}
@@ -29,17 +29,18 @@ function ChatPage() {
                         minW={{ xs: "100%", md: "100%", lg: "100%" }}
                         d="flex"
                         align="center"
-                        justify="space-around" 
+                        justify="space-between" 
                         flexDir={{ xs: "column", md: "row" }}
                         h={{ xs: "auto", md: "auto", lg: "auto" }}
                         m={{xs: "0", md: "0", lg: "0" }}
                         pos="relative"
                     >
+                <div style={{ width: '250px' }}>
                 <SidePanel                  
                     key={currentUser && currentUser.uid}
                     currentUser={currentUser}
                 />
-                
+                </div>
                 <MainPanel
                     key={currentChatRoom && currentChatRoom.id} // 이게 없으면 MainPanel 에서  그냥 componentDidUMount 해서 메시지 데이터가 안가져와진다.
                 />
