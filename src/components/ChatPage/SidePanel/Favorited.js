@@ -86,7 +86,7 @@ export class Favorited extends Component {
         const { favoritedChatRooms } = this.state
         return (
             <>
-      
+    
              <Accordion>
                 <AccordionSummary
                   expandIcon={<ExpandMoreIcon />}
@@ -123,7 +123,7 @@ export class Favorited extends Component {
             </Typography>
             </AccordionDetails>
             </Accordion>
-            
+          
             </>
         )
     }
