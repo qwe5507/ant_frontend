@@ -50,9 +50,12 @@ function Indicators() {
             >
           
               {/* Form Component */}
+              
               <IndicatorForm1 />
               <IndicatorForm2 />
+              
               <IndicatorForm3 />
+              
               
             </Div>
           </Div>
