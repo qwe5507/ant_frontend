@@ -3,7 +3,7 @@ import LineChartIn from "./LineChartIn"
 import { Text, Div, Icon, Anchor, Button, Input } from "atomize"
 import IndApi from "../../../api/IndApi";
 import { Link } from 'react-router-dom';
-class IndicatorForm extends Component{
+class IndicatorForm1 extends Component{
 
   constructor(props){
     console.log('constro run');
@@ -31,8 +31,7 @@ reloadJipyoList = () => {
         rates : res.data[0]["rates"],
         message : "1일 데이터"
       })
-      console.log(res.data[0]["dates"])
-      console.log("차트")
+      
       })
       .catch(err => {
       console.error('지표리스트 오류(국외환율)', err);
@@ -113,4 +112,4 @@ reloadJipyoList = () => {
     )
   }
 }
-export default  IndicatorForm 
+export default  IndicatorForm1; 

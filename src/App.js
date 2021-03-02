@@ -12,6 +12,7 @@ import Indicators from "./components/ants/Indicators";
 import Backtest from "./components/ants/Backtest";
 import IndicatorDetail from "./components/ants/IndicatorCompo/IndiDetail/pages/IndicatorDetail";
 import IndicatorDetail1 from "./components/ants/IndicatorCompo/IndiDetail/pages/IndicatorDetail1";
+import IndicatorDetail2 from "./components/ants/IndicatorCompo/IndiDetail/pages/IndicatorDetail2";
 import IndicatorDetailExeFor from "./components/ants/IndicatorCompo/IndiDetail/pages/IndicatorDetailExeFor";
 import Payment from "./components/ants/Payment";
 import PaymentSub from "./components/ants/PaymentSub";
@@ -104,6 +105,7 @@ function App() {
           <Route exact path="/IndicatorDetailExeFor/:symbol" component={IndicatorDetailExeFor} />
           <Route exact path="/IndicatorDetail" component={IndicatorDetail} />
           <Route exact path="/IndicatorDetail1/:tableName" component={IndicatorDetail1} />
+          <Route exact path="/IndicatorDetail2/:tableName" component={IndicatorDetail2} />
           <Route exact path="/PaymentFirst" component={PaymentFirst} />
           <Route exact path="/Payment" component={Payment} />
           <Route exact path="/PaymentSub" component={PaymentSub} />

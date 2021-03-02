@@ -2,7 +2,7 @@
 import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
 import Chartjs from "chart.js";
-import IndApi from "../../../api/IndApi";
+import IndApi from "../../../../../api/IndApi";
 
 const Section = styled.div`
   display: flex;
@@ -22,25 +22,31 @@ const Title = styled.h1`
 const Canvas = styled.div`
   justify-content: center;
   align-items: center;
-  width: 100%;
-  height: 210px;
+  width: 1140px;
+  height: 350px;
 `;
 
-const LineChartIn = () => {
+const ChartIndi2 = (props) => {
   let labeleurusd = []
   let charteurusd = []
+  let datachart = []
   const chartContainer = useRef(null);
 
   const reloadJipyoList = () => {
     let temp = []
-    IndApi.labelDalAllList()
+    //var num = 90
+    IndApi.indicators1(props.tableName, props.num)
      .then(res =>{
-        
-        charteurusd = res.data
-         
-         labeleurusd = [charteurusd[0]["dates"], charteurusd[1]["dates"], charteurusd[2]["dates"], charteurusd[3]["dates"], charteurusd[4]["dates"], charteurusd[5]["dates"], charteurusd[6]["dates"]]
-          console.log("마지막 확인")
-        //  console.log(jipyos2)  
+ 
+        charteurusd = res.data      
+       
+        for (var i = 0; i < charteurusd.length ; i++){
+          labeleurusd.push(charteurusd[i]["dates"])
+        }
+     
+        for (var i = 0; i < charteurusd.length ; i++){
+          datachart.push( { x: labeleurusd[i].substring(0,10), y: charteurusd[i]["price"]},)
+        }
 
          let ctx = chartContainer.current.getContext("2d");
          let gradient = ctx.createLinearGradient(0, 0, 0, 300);
@@ -62,19 +68,10 @@ const LineChartIn = () => {
                 pointBackgroundColor: "rgba(171, 242, 0, 0.2)",        
                 pointHoverRadius: 0,
                 pointDot : false,
-                pointRadius: 0, 
+                pointRadius: 0,
                 pointDotRadius: 0,
                 pointHoverBackgroundColor: "rgba(171, 242, 0, 0.2)",
-                data: [
-                  { x: labeleurusd[0].substring(0,10), y: charteurusd[0]["rates"]},
-                  { x: labeleurusd[1].substring(0,10), y: charteurusd[1]["rates"] },
-                  { x: labeleurusd[2].substring(0,10), y: charteurusd[2]["rates"]  },
-                  { x: labeleurusd[3].substring(0,10), y: charteurusd[3]["rates"]  }, 
-                  { x: labeleurusd[4].substring(0,10), y: charteurusd[4]["rates"]  },
-                  { x: labeleurusd[5].substring(0,10), y: charteurusd[5]["rates"]  },
-                  { x: labeleurusd[6].substring(0,10), y: charteurusd[6]["rates"]  }
-                
-                ]
+                data : datachart
               }
             ]
           },
@@ -102,7 +99,7 @@ const LineChartIn = () => {
                   type: "time",
                   time: {
                     unit: "day",
-                    unitStepSize: 1
+                    unitStepSize: 7
                   },
                   ticks: {
                     fontSize: 10
@@ -142,10 +139,7 @@ const LineChartIn = () => {
  
      useEffect(() => {
     
-   
       reloadJipyoList();
-     
-   
     
      }, [chartContainer]);
 
@@ -161,4 +155,4 @@ const LineChartIn = () => {
   );
 };
 
-export default LineChartIn;
+export default ChartIndi2;

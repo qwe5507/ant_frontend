@@ -1,13 +1,15 @@
 import React, {useState, useEffect, useRef } from "react"
-import { Text, Div, Icon, Anchor, Button, Input, Container} from "atomize";
+import { Text, Div,  Button, Input, Container} from "atomize";
 import { useParams } from 'react-router-dom';
-import ChartIndi1 from "../chart/ChartIndi1"
+import ChartIndi2 from "../chart/ChartIndi2"
 import Table from '@material-ui/core/Table'
+
 import TableCell from '@material-ui/core/TableCell'
+
 import TableRow from '@material-ui/core/TableRow'
 import IndApi from "../../../../../api/IndApi";
 
-function IndicatorDetail1(props) {
+function IndicatorDetail2(props) {
     console.log('시작')
     let [nums, numsbyun] = useState('')
     let [dates, datesbyun] = useState('')
@@ -19,28 +21,20 @@ function IndicatorDetail1(props) {
     
     useEffect(() => {
       window.scrollTo(0, 0)
-      console.log("여기부터")
-      console.log(tableName)
-      if(tableName == 'dolleridx')
+      
+      if(tableName == 'wti')
       {
-        titlebyun("달러인덱스")
+        titlebyun("WTI")
       }
-      if(tableName == 'bond10')
+      if(tableName == 'goldfor')
       {
-        titlebyun("미 10년 채권수익률")
+        titlebyun("국제 금")
       }
-      if(tableName == 'bond2')
-      {
-        titlebyun("미 2년 채권수익률")
-      }
-      if(tableName == 'bitcoin')
-      {
-        titlebyun("비트코인")
-      }
+     
       console.log("제목변경",title)
-      IndApi.indicators2(tableName, 1)
+      IndApi.indicators1(tableName, 1)
       .then(res =>{
-        
+       
         numsbyun(res.data[0]["price"])
         datesbyun(res.data[0]["dates"].substring(0,10))
        
@@ -147,17 +141,17 @@ function IndicatorDetail1(props) {
 
           {
             chart1 === true
-            ? <ChartIndi1 num={30} tableName={tableName}/>
+            ? <ChartIndi2 num={30} tableName={tableName}/>
             : null
           }
           {
             chart2 === true
-            ? <ChartIndi1 num={90} tableName={tableName}/>
+            ? <ChartIndi2 num={90} tableName={tableName}/>
             : null
           }
           {
             chart3 === true
-            ? <ChartIndi1 num={180} tableName={tableName}/>
+            ? <ChartIndi2 num={180} tableName={tableName}/>
             : null
           }
          
@@ -260,4 +254,4 @@ function IndicatorDetail1(props) {
 
 }
 
-export default IndicatorDetail1;
+export default IndicatorDetail2;

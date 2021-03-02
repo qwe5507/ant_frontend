@@ -1,21 +1,42 @@
 import React, {useState, useEffect, useRef } from "react"
-import { Text, Div, Icon, Anchor, Button, Input, Container, Row, footerLinks, Col,  mediaLinks, Tag } from "atomize";
+import { Text, Div, Button, Container } from "atomize";
 import ChartKor from "../chart/ChartKor"
-import Table from '@material-ui/core/Table'
-import TableBody from '@material-ui/core/TableBody'
-import TableCell from '@material-ui/core/TableCell'
-import TableHead from '@material-ui/core/TableHead'
-import TableRow from '@material-ui/core/TableRow'
 import IndApi from "../../../../../api/IndApi";
+
+import axios from "axios";
 
 function IndicatorDetail() {
     console.log('asdasd')
+    let [result, result변경] = useState("");
+    let [hits, hits변경] = useState([]); 
+
     let [nums, numsbyun] = useState('')
     let [date, datesbyun] = useState('')
     let [chart1, chartShow1 ] = useState(true);
     let [chart2, chartShow2 ] = useState(false);
     let [chart3, chartShow3 ] = useState(false);
     const usdKrwContainer = useRef(null);
+    
+     {/*뉴스*/}  
+    function moveHref(url){
+      console.log("moveHref호출")
+     // window.location.href = url;
+     window.open(url)
+    }
+
+    function searchmatchparse(){
+      axios.get("http://localhost:8000/news/searchmatchparse", { params :{id : "달러", id: "원화"}})
+      .then(response =>{
+        result=response.data
+        
+        var hits2 = result['hits']['hits']
+        hits변경(hits2)
+        
+      })
+      .catch(error=>{
+        console.log(error);
+      });
+    }
 
     useEffect(() => {
       window.scrollTo(0, 0)
@@ -24,23 +45,21 @@ function IndicatorDetail() {
         //oneUsdKrwbyun(res.data)
         numsbyun(res.data[0]["rates"])
         datesbyun(res.data[0]["dates"].substring(0,10))
-        console.log('1일 수치 확인',nums)
-        
-        
+             
       }
       )
       .catch(err => {
         console.error('1일 수치 확인 오류(국내환율)', err);
       
         })
-       
+        searchmatchparse()
      }, []);
 
-  
+    
     return (     
       
       <div align = "center">
-        <Container d="flex" flexDir="column" m={{ x: { xs: '0', md: '0' }, y: { xs: '5.5rem', md: '5.5rem' }}} >
+        <Container d="flex" flexDir="column" m={{ x: { xs: '0', md: '0' }, y: { xs: '5.5rem', md: '3.5rem' }}} >
        
         <Text
                 textAlign="left"
@@ -150,97 +169,66 @@ function IndicatorDetail() {
           <Text
                 textAlign="left"
                 textSize="title"
-                m={{ t: "0.5rem", b: "0.5rem" }}
+                m={{ t: "0rem", b: "0rem" }}
                 textWeight="800"
                 fontFamily="ko"
               >
                 뉴스 목록
               </Text>
           
-          <Table style={{margin : '0px'}}>
-
-            <TableRow>
-              <TableCell align="left" >
-              <Text
-                textAlign="left"
-                textSize="subheader"
-                m={{ t: "0.5rem", b: "0.5rem" }}
-                textWeight="800"
-                fontFamily="ko"
-              >
-                [외환브리핑]위험자산 선호 심리 둔화 속 美中 갈등..1100원 중반대 전망
-              </Text>
-              <Text
-              textColor="black800"
-              >
-              원·달러 환율이 1100원 중반대에서 지지부진한 흐름을 이어갈 전망이다. 미국 고용 지표 악화와 인플레이션 우려에 위험자산 선호 심리가 약해졌다. 이런 가운데... 
-              원·달러 환율이 1100원 중반대에서 지지부진한 흐름을 이어갈 전망이다. 미국 고용 지표 악화와 인플레이션 우려에 위험자산 선호 심리가 약해졌다. 이런 가운데...
-              원·달러 환율이 1100원 중반대에서 지지부진한 흐름을 이어갈 전망이다. 미국 고용 지표 악화와 인플레이션 우려에 위험자산 선호 심리가 약해졌다. 이런 가운데...
-              </Text>
-              <Text
-              textColor="gray900"
-              >이데일리 | 2021-02-19 08:08</Text>
-               
-                </TableCell>
-             
-            </TableRow>
-              
-            <TableRow>
-              <TableCell align="left" >
-              <Text
-                textAlign="left"
-                textSize="subheader"
-                m={{ t: "0.5rem", b: "0.5rem" }}
-                textWeight="800"
-                fontFamily="ko"
-              >
-                [외환브리핑]위험자산 선호 심리 둔화 속 美中 갈등..1100원 중반대 전망
-              </Text>
-              <Text
-              textColor="black800"
-              >
-              원·달러 환율이 1100원 중반대에서 지지부진한 흐름을 이어갈 전망이다. 미국 고용 지표 악화와 인플레이션 우려에 위험자산 선호 심리가 약해졌다. 이런 가운데... 
-              원·달러 환율이 1100원 중반대에서 지지부진한 흐름을 이어갈 전망이다. 미국 고용 지표 악화와 인플레이션 우려에 위험자산 선호 심리가 약해졌다. 이런 가운데...
-              원·달러 환율이 1100원 중반대에서 지지부진한 흐름을 이어갈 전망이다. 미국 고용 지표 악화와 인플레이션 우려에 위험자산 선호 심리가 약해졌다. 이런 가운데...
-              </Text>
-              <Text
-              textColor="gray900"
-              >이데일리 | 2021-02-19 08:08</Text>
-               
-                </TableCell>
-             
-            </TableRow>
-            <TableRow>
-              <TableCell align="left" >
-              <Text
-                textAlign="left"
-                textSize="subheader"
-                m={{ t: "0.5rem", b: "0.5rem" }}
-                textWeight="800"
-                fontFamily="ko"
-              >
-                [외환브리핑]위험자산 선호 심리 둔화 속 美中 갈등..1100원 중반대 전망
-              </Text>
-              <Text
-              textColor="black800"
-              >
-              원·달러 환율이 1100원 중반대에서 지지부진한 흐름을 이어갈 전망이다. 미국 고용 지표 악화와 인플레이션 우려에 위험자산 선호 심리가 약해졌다. 이런 가운데... 
-              원·달러 환율이 1100원 중반대에서 지지부진한 흐름을 이어갈 전망이다. 미국 고용 지표 악화와 인플레이션 우려에 위험자산 선호 심리가 약해졌다. 이런 가운데...
-              원·달러 환율이 1100원 중반대에서 지지부진한 흐름을 이어갈 전망이다. 미국 고용 지표 악화와 인플레이션 우려에 위험자산 선호 심리가 약해졌다. 이런 가운데...
-              </Text>
-              <Text
-              textColor="gray900"
-              >이데일리 | 2021-02-19 08:08</Text>
-               
-                </TableCell>
-             
-            </TableRow>
-
-        </Table>
-   
+          
           
           </Container>
+       {hits.map(function(data){
+        return(
           
+        <Div  m = {{ xs: "0", md: "-1.5rem" }}>
+        
+        <Div
+        bg="white" 
+        d="inline-block" align="center"
+       
+        >
+       <Div
+      h = {{ xs: "11rem", md: "6rem" }}
+       w = {{ xs: "25rem", md: "70rem" }}
+      
+       border={{ b: "1px solid" }}
+       borderColor="gray400"
+       pos = "flex"
+       d={{ xs: "inline-block", md: "inline-block", lg: "inline-block" }}
+       
+       >
+
+           <Div
+           align="flex-start"
+           h = {{xs : "7rem" ,md : "auto"}}
+           onClick = {() => {moveHref(data['_source']['news_url'])}}
+           >
+            <Text
+                textAlign="left"
+                textSize="subheader"
+                m={{ t: "0.5rem", b: "0.5rem" }}
+                textWeight="800"
+                fontFamily="ko"
+              >
+               {data['_source']['news_title']}
+               </Text>
+               <Text
+                m={{xs : "7rem" ,md : "auto"}}
+                textAlign="left"  
+                textColor="gray900"
+               >{data['_source']['news_group']} | {data['_source']['news_source']} | {data['_source']['news_date'].substring(0,10)} | </Text>  
+            
+           </Div>
+       
+       </Div>
+    </Div>
+    
+    </Div>
+ 
+
+)})}
           
       </div>
       
