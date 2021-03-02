@@ -153,9 +153,6 @@ function News() {
     )
     }
 
-    News.defaultProps = {
-      newsid : "test"
-     }
 
 
 export default News;
