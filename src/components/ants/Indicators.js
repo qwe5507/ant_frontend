@@ -7,11 +7,7 @@ import IndiTable1 from "./IndicatorCompo/IndiTable1"
 import IndiTable2 from "./IndicatorCompo/IndiTable2"
 import IndiTable3 from "./IndicatorCompo/IndiTable3"
 import IndiTable4 from "./IndicatorCompo/IndiTable4"
-import Table from '@material-ui/core/Table'
-import TableBody from '@material-ui/core/TableBody'
-import TableCell from '@material-ui/core/TableCell'
-import TableHead from '@material-ui/core/TableHead'
-import TableRow from '@material-ui/core/TableRow'
+import IndiTable5 from "./IndicatorCompo/IndiTable5"
 
 function Indicators() {
 
@@ -19,6 +15,7 @@ function Indicators() {
   let [indi2, indiShow2 ] = useState(false);
   let [indi3, indiShow3 ] = useState(false);
   let [indi4, indiShow4 ] = useState(false);
+  let [indi5, indiShow5 ] = useState(false);
 
     console.log('IndiPage Start')
     return (     
@@ -67,7 +64,7 @@ function Indicators() {
           align="center"
           m={{ xs: "-8.5rem", md: "-3.5rem" }}
           >  
-          <Button onClick={() => {indiShow1(true); indiShow2(false); indiShow3(false); indiShow4(false);} } 
+          <Button onClick={() => {indiShow1(true); indiShow2(false); indiShow3(false); indiShow4(false);indiShow5(false);} } 
               h="3rem"
                 w={{ xs: "100%", sm: "11rem" }}
                     bg="info700"
@@ -82,7 +79,7 @@ function Indicators() {
                      >전체보기
                   </Text>
            </Button>
-           <Button onClick={() => {indiShow2(true); indiShow1(false); indiShow3(false); indiShow4(false); } }
+           <Button onClick={() => {indiShow2(true); indiShow1(false); indiShow3(false); indiShow4(false); indiShow5(false);} }
               h="3rem"
                 w={{ xs: "100%", sm: "11rem" }}
                     bg="info700"
@@ -97,7 +94,7 @@ function Indicators() {
                      >환율
                   </Text>
            </Button>
-           <Button onClick={() => { indiShow3(true); indiShow1(false); indiShow2(false); indiShow4(false); }}
+           <Button onClick={() => { indiShow3(true); indiShow1(false); indiShow2(false); indiShow4(false); indiShow5(false);}}
               h="3rem"
                 w={{ xs: "100%", sm: "11rem" }}
                     bg="info700"
@@ -112,7 +109,7 @@ function Indicators() {
                      >유가·금시세
                   </Text>
            </Button>
-           <Button onClick={() => {  indiShow4(true); indiShow1(false); indiShow2(false);  indiShow3(false);} } 
+           <Button onClick={() => {  indiShow4(true); indiShow1(false); indiShow2(false);  indiShow3(false); indiShow5(false);} } 
               h="3rem"
                 w={{ xs: "100%", sm: "11rem" }}
                     bg="info700"
@@ -124,7 +121,22 @@ function Indicators() {
                         textSize="subheader"
                           textWeight="800"
                           fontFamily='ko'
-                     >국내 시장 금리
+                     >미 채권수익률
+                  </Text>
+           </Button>
+           <Button onClick={() => {  indiShow4(false); indiShow1(false); indiShow2(false);  indiShow3(false); indiShow5(true);} } 
+              h="3rem"
+                w={{ xs: "100%", sm: "11rem" }}
+                    bg="info700"
+                       hoverBg="info600"
+                          rounded="lg"                           
+                m={{ r: "1rem", b: { xs: "1rem", sm: "0.5rem" } }}
+                            >
+                     <Text
+                        textSize="subheader"
+                          textWeight="800"
+                          fontFamily='ko'
+                     >비트코인
                   </Text>
            </Button>
            
@@ -150,6 +162,11 @@ function Indicators() {
       {
         indi4 === true
         ? <IndiTable4/>
+        : null
+      }
+      {
+        indi5 === true
+        ? <IndiTable5/>
         : null
       }
       </Container>

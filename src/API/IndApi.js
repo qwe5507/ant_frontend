@@ -6,6 +6,9 @@ const USER_API_BASE_URL_KOR = "http://localhost:8000/indicator/exeKorList";
 const USER_API_BASE_URL_ONE_EURUSD = "http://localhost:8000/indicator/labelDalOneList";
 const USER_API_BASE_URL_CHART_EURUSD = "http://localhost:8000/indicator/labelDalAllList";
 const USER_API_BASE_URL_CHART = "http://localhost:8000/indicator/chart";
+const USER_API_BASE_URL_INDI1 = "http://localhost:8000/indicator/indi1";
+const USER_API_BASE_URL_INDI2 = "http://localhost:8000/indicator/indi2";
+
 
 class IndApiService {
 
@@ -40,6 +43,21 @@ class IndApiService {
         num = parseInt(num);
         return axios.get(USER_API_BASE_URL_CHART  + '/' + symbol + '/' + num);
     }
+
+   //지표-유형1(국제금,WTI)
+   indicators1(tableName, num) {
+    num = parseInt(num);
+    return axios.get(USER_API_BASE_URL_INDI1  + '/' + tableName + '/' + num);
+    }
+
+    //지표-유형2(미10년,미2년,달러인덱스,비트코인)
+    indicators2(tableName, num) {
+    num = parseInt(num);
+    return axios.get(USER_API_BASE_URL_INDI2  + '/' + tableName + '/' + num);
+    }
+
+
+
 
     //차트라벨_EURUSD
     //labelDalAllList() {
