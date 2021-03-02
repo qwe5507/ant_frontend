@@ -40,7 +40,6 @@ const LineChartIn = () => {
          
          labeleurusd = [charteurusd[0]["dates"], charteurusd[1]["dates"], charteurusd[2]["dates"], charteurusd[3]["dates"], charteurusd[4]["dates"], charteurusd[5]["dates"], charteurusd[6]["dates"]]
           console.log("마지막 확인")
-        //  console.log(jipyos2)  
 
          let ctx = chartContainer.current.getContext("2d");
          let gradient = ctx.createLinearGradient(0, 0, 0, 300);
@@ -127,26 +126,19 @@ const LineChartIn = () => {
             }
           }
         });
-       // console.log(typeof res.data)
-       // jipyos = res.data
-        // this.setState({jipyos: res.data});
+      
          })        
          .catch(err => {
          console.error('지표리스트 오류', err);
          alert('조회오류');
          })
-    //   jipyos = ["1960", "1970", "1980", "1990", "2000", "2010", "2020"];
-    //  jipyos = temp
-     
+
      }
  
      useEffect(() => {
-    
    
       reloadJipyoList();
      
-   
-    
      }, [chartContainer]);
 
   return (

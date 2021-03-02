@@ -137,12 +137,9 @@ const LineChartIn2 = () => {
      }
  
      useEffect(() => {
-    
-   
+      
       reloadJipyoList();
-     
-   
-    
+ 
      }, [chartContainer]);
   return (
     <Section>
