@@ -12,6 +12,7 @@ class IndicatorForm1 extends Component{
       dates : '',
       exechange_Name : '',
       rates : '',
+      symbol : 'EURUSD',
       message : null
 };
 }
@@ -65,7 +66,7 @@ reloadJipyoList = () => {
     shadow="4"
     p="2rem"
   >
-     <Link to="/IndicatorDetail" >
+     <Link to={`/IndicatorDetailExeFor/${this.state.symbol}`}>
     <Div flexGrow="1">
    
     <Div>

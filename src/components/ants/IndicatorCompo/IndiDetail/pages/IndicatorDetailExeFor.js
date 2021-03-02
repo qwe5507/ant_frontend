@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef } from "react"
+import React, {useState, useEffect, useCallback } from "react"
 import { Text, Div,  Button,  Container} from "atomize";
 import { useParams } from 'react-router-dom';
 import ChartExeFor from "../chart/ChartExeFor"
@@ -8,12 +8,11 @@ import axios from "axios";
 
 function IndicatorDetailExeFor(props) {
     
-    let [result, result변경] = useState("");
-    let [hits, hits변경] = useState([]); 
+    let [result, resultbyun] = useState("");
+    let [hits, hitsbyun] = useState([]); 
 
-    let [ids, idsbyun] = useState([])
-    let [id1, id1byun] = useState('')
-    let [id2, id2byun] = useState('')
+    let [id1, id1byun] = useState('달러')
+    let [id2, id2byun] = useState('유로')
 
     let [name, namebyun] = useState('')
     let [nums, numsbyun] = useState('')
@@ -23,6 +22,7 @@ function IndicatorDetailExeFor(props) {
     let [chart3, chartShow3 ] = useState(false);
     let {symbol} = useParams();
     
+    let [values, valuesbyun] = useState(true)
      {/*뉴스*/}  
      function moveHref(url){
      
@@ -33,16 +33,30 @@ function IndicatorDetailExeFor(props) {
       IndApi.chartIndiExeFor(symbol, 1)
       .then(res =>{
        
-        idsbyun(res.data[0]["exechange_Name"].split("/"))
-       
         namebyun(res.data[0]["exechange_Name"])
         numsbyun(res.data[0]["rates"])
         datesbyun(res.data[0]["dates"].substring(0,10))
-        console.log(ids[0].split(" ")[1])
-        var temp = ids[0].split(" ")[1]
-        console.log(temp)
-        id1byun(temp)
-        id2byun(ids[1])
+        valuesbyun(false)
+          id1byun(name.split("/")[0].split(" ")[0])
+      id2byun(name.split("/")[0].split(" ")[1])
+
+      //console.log(id1)
+      axios.get("http://localhost:8000/news/searchmatchparsesort", { params :{id : id1, id:id2}})
+      .then(response =>{
+        result=response.data
+       
+        var hits2 = result['hits']['hits']
+        
+        hitsbyun(hits2)
+        if(hits2.length > 9)
+        {
+          hitsbyun([result['hits']['hits'][0], result['hits']['hits'][1], result['hits']['hits'][2], result['hits']['hits'][3], result['hits']['hits'][4], result['hits']['hits'][5], result['hits']['hits'][6], result['hits']['hits'][7], result['hits']['hits'][8]])
+        }
+        
+      })
+      .catch(error=>{
+        console.log(error);
+      });
       }
       )
       .catch(err => {
@@ -50,38 +64,16 @@ function IndicatorDetailExeFor(props) {
       
         })
 
-      return 0;
-
+        return "res"
+      
     }
-
-    function searchmatchparse2(){
-      axios.get("http://localhost:8000/news/searchmatchparse", { params :{id : id1, id:id2}})
-      .then(response =>{
-        result=response.data
-       
-        var hits2 = result['hits']['hits']
-        hits변경(hits2)
-        
-        
-      })
-      .catch(error=>{
-        console.log(error);
-      });
-    }
-
-
+    
     useEffect(() => {
       window.scrollTo(0, 0)
-      var value = searchmatchparse()
-      console.log(value)
-      if (value == 0)
-      {
-        searchmatchparse2()
-      }
+      searchmatchparse()
+      console.log(id2)
+     },[id2]);
 
-     },[]);
-     
-  
     return (     
       
       <div align = "center">

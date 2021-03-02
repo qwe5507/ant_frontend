@@ -7,8 +7,8 @@ import axios from "axios";
 
 function IndicatorDetail() {
     console.log('asdasd')
-    let [result, result변경] = useState("");
-    let [hits, hits변경] = useState([]); 
+    let [result, resultbyun] = useState("");
+    let [hits, hitsbyun] = useState([]); 
 
     let [nums, numsbyun] = useState('')
     let [date, datesbyun] = useState('')
@@ -17,10 +17,8 @@ function IndicatorDetail() {
     let [chart3, chartShow3 ] = useState(false);
     const usdKrwContainer = useRef(null);
     
-     {/*뉴스*/}  
     function moveHref(url){
       console.log("moveHref호출")
-     // window.location.href = url;
      window.open(url)
     }
 
@@ -30,8 +28,12 @@ function IndicatorDetail() {
         result=response.data
         
         var hits2 = result['hits']['hits']
-        hits변경(hits2)
-        
+              
+        if(hits2.length > 9)
+        {
+          hitsbyun([result['hits']['hits'][0], result['hits']['hits'][1], result['hits']['hits'][2], result['hits']['hits'][3], result['hits']['hits'][4], result['hits']['hits'][5], result['hits']['hits'][6], result['hits']['hits'][7], result['hits']['hits'][8]])
+        }
+        hitsbyun(hits2)
       })
       .catch(error=>{
         console.log(error);
@@ -42,7 +44,6 @@ function IndicatorDetail() {
       window.scrollTo(0, 0)
       IndApi.chartIndi(1)
       .then(res =>{
-        //oneUsdKrwbyun(res.data)
         numsbyun(res.data[0]["rates"])
         datesbyun(res.data[0]["dates"].substring(0,10))
              
@@ -174,9 +175,7 @@ function IndicatorDetail() {
                 fontFamily="ko"
               >
                 뉴스 목록
-              </Text>
-          
-          
+              </Text> 
           
           </Container>
        {hits.map(function(data){

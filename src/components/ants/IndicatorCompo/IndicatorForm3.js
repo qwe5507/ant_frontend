@@ -35,7 +35,6 @@ class   IndicatorForm3 extends Component{
     )
     .catch(err => {
       console.error('지표리스트 오류(WTI)', err);
-     // alert('조회오류');
       })
 
   }
