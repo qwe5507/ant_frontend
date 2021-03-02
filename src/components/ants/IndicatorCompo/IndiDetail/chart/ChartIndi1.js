@@ -39,23 +39,15 @@ const ChartIndi1 = (props) => {
      .then(res =>{
  
         charteurusd = res.data      
-        console.log(charteurusd)
-        console.log(charteurusd[5]["dates"])
-        console.log(charteurusd[5])
-        console.log("확인1")
         
         for (var i = 0; i < charteurusd.length ; i++){
           labeleurusd.push(charteurusd[i]["dates"])
         }
-        console.log(labeleurusd)
-
+       
         for (var i = 0; i < charteurusd.length ; i++){
           datachart.push( { x: labeleurusd[i].substring(0,10), y: charteurusd[i]["price"]},)
        }
-       console.log(datachart)
-
-       console.log("마지막 확인") 
-
+    
          let ctx = chartContainer.current.getContext("2d");
          let gradient = ctx.createLinearGradient(0, 0, 0, 300);
         gradient.addColorStop(0, "rgba(171, 242, 0, 0.3)");
@@ -132,9 +124,7 @@ const ChartIndi1 = (props) => {
             }
           }
         });
-       // console.log(typeof res.data)
-       // jipyos = res.data
-        // this.setState({jipyos: res.data});
+      
          })        
          .catch(err => {
          console.error('지표리스트 오류', err);

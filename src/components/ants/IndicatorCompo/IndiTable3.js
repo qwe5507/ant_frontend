@@ -8,6 +8,7 @@ import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
 import Button from '@material-ui/core/Button'
 import { Text, Div } from "atomize";
+import { Link } from 'react-router-dom';
 
 class IndiTable3 extends Component{
 
@@ -18,7 +19,7 @@ class IndiTable3 extends Component{
           wtis : [],
           forgolds : [],
           wtiid : 'wti',
-          forgoldif : 'forgold',
+          forgoldid : 'goldfor',
           message : null
     };
 }
@@ -43,9 +44,10 @@ class IndiTable3 extends Component{
       }
 
       reloadForGoldList = () => {
-        IndApi.indicators1("forgold", 5)
+        IndApi.indicators1("goldfor", 5)
     .then(res =>{
           this.setState({forgolds: res.data})
+          console.log(res.data)
           })
           .catch(err => {
           console.error('지표리스트(국제금) 오류', err);
@@ -82,17 +84,21 @@ class IndiTable3 extends Component{
           </TableRow>
         </TableHead>
         <TableBody>
-
+        {this.state.wtis.map(wti => 
             <TableRow>
               <TableCell align="center">
+              <Link to={`/IndicatorDetail2/${this.state.wtiid}`} >
               <Button variant="contained">
                 WTI
                 </Button>
+                </Link>
                 </TableCell>
-              <TableCell align="center"></TableCell>
-              <TableCell align="center"></TableCell>
+              <TableCell align="center">{wti.dates.substring(0,10)}</TableCell>
+              <TableCell align="center">{wti.price}</TableCell>
              
-            </TableRow>         
+            </TableRow>      
+        )
+      }   
             </TableBody>
         </Table>
         </Div >
@@ -117,19 +123,21 @@ class IndiTable3 extends Component{
           </TableRow>
         </TableHead>
         <TableBody>
-
+        {this.state.forgolds.map(forgold => 
           <TableRow>
           <TableCell align="center">
+          <Link to={`/IndicatorDetail2/${this.state.forgoldid}`} >
           <Button variant="contained">
             국제 금
           </Button>
+          </Link>
             </TableCell>
-            <TableCell align="center"></TableCell>
+            <TableCell align="center">{forgold.dates.substring(0,10)}</TableCell>
           <TableCell align="center">달러/트레이온스</TableCell>
-          <TableCell align="center"></TableCell>
-
-
-            </TableRow>         
+          <TableCell align="center">{forgold.price}</TableCell>
+          </TableRow>         
+        )
+      }
           </TableBody>
         </Table>
       </Div >

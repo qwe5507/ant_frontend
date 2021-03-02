@@ -81,7 +81,7 @@ function Register() {
         catch (error) {
           console.log('Firebase RegisterPage 대체 에러', error.message);
           localStorage.removeItem('userid'); // 회원 등록 오류 시 Local Storage의 userid 삭제
-          isLoadingChange(false); // 회원 등록 완료 후 버튼 활성화
+          isLoadingChange(false); // 회원 등록 실패 시 버튼 재활성화
           firebaseErrorChange(true);
         }
       }

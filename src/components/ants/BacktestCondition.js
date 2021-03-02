@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react"
+import BacktestApi from "../../api/BacktestApi"
+import BacktestResult from "./BacktestResult"
 
-import { Button, Container, Text, Div, Dropdown, Anchor, Input, Icon } from "atomize"
+import { Button, Container, Text, Div, Dropdown, Anchor, Input, Icon, Notification } from "atomize"
 
 // import Notification from './uicomponents/Notification'
 function BacktestCondition() {
@@ -18,25 +20,138 @@ function BacktestCondition() {
     let [showcoSet, showcoSetChange] = useState(false);
     let [coSetSel, coSetSelChange] = useState('기준');
 
+    let [coFsInputVal, coFsInputValChange] = useState('');
+
     let [showcoPrice, showcoPriceChange] = useState(false);
     let [coPriceSel, coPriceSelChange] = useState('조건');
 
-    // 석택 조건 목록 추가 함수
+    let [coPriceInputVal, coPriceInputValChange] = useState('');
+
+    // 에러 메시지 Notification State
+    let [coInputError, coInputErrorChange] = useState(false);   // 입력 값 없음
+    let [coDuplicateError, coDuplicateErrorChange] = useState(false);   // 중복 옵션
+
+    // 백테스트 결과 저장 State
+    let [result, resultChange] = useState('');
+
+    // 백테스트 수행 중 버튼 로딩
+    const [isLoading, isLoadingChange] = useState(false)
+
+    // 재무제표 선택 목록 추가 함수
     function addFsCo() {
+        // 빈 값 확인
+        if (coFsvalueSel == '조건' || coPeriodSel == '기간' || coSetSel == '기준' || coFsInputVal == '') {
+            coInputErrorChange(true);
+        }
+        else {
+            // 중복 확인
+            var chk = coFsvalueSel + coPeriodSel + coSetSel;
+            var duplicate = co.findIndex((a) => { return a.chk === chk })
 
-        
-        // 이미 Arr에 추가된 것인지 확인
+            // 입력 값 숫자 확인
+            var num_check = /^[0-9]*$/;
+            if (!num_check.test(coFsInputVal)) {
+                return; // 숫자가 아니면 addFsCo 함수 종료
+            }
 
-        // 입력 값 가져오기
+            // 중복 없으면 State에 옵션 저장
+            if (duplicate < 0) {
 
-        // 입력 값 넣기
-        var temp = {'category': '재무제표', 'condition':coFsvalueSel, 'period':coPeriodSel, 'base':coSetSel};
+                if (coSetSel === '수치') {
+                    var unit;
+                    switch (coFsvalueSel) {
+                        case '매출액':
+                        case '영업이익':
+                        case '당기순이익':
+                            unit = '0억원';
+                            break;
+                        case '영업이익률':
+                        case '순이익률':
+                        case 'ROE(%)':
+                        case 'ROA(%)':
+                        case '부채비율':
+                            unit = '%';
+                            break;
+                    }
+                }
+                else {
+                    unit = '%';
+                }
 
-        coChange([...co,temp]);
+                var temp = {
+                    'category': '재무제표'
+                    , 'condition': coFsvalueSel
+                    , 'period': coPeriodSel
+                    , 'base': coSetSel
+                    , 'value': coFsInputVal
+                    , 'unit': unit
+                    , 'chk': coFsvalueSel + coPeriodSel + coSetSel
+                };
+                coChange([...co, temp]);
+            }
+            // 중복 있으면 에러 메시지 Notification
+            else {
+                coDuplicateErrorChange(true);
+            }
+        }
     }
 
-    function addPriceCo(){
-        console.log(co);
+    // 가격 선택 목록 추가 함수
+    function addPriceCo() {
+        // 빈 값 확인
+        if (coPriceSel == '조건' || coPriceInputVal == '') {
+            coInputErrorChange(true);
+        }
+        else {
+            // 중복 확인
+            var chk = coPriceSel;
+            var duplicate = co.findIndex((a) => { return a.chk === chk })
+
+            // 입력 값 숫자 확인
+            var num_check = /^[0-9]*$/;
+            if (!num_check.test(coPriceInputVal)) {
+                return; // 숫자가 아니면 addFsCo 함수 종료
+            }
+
+            // 중복 없으면 State에 옵션 저장
+            if (duplicate < 0) {
+                var temp = {
+                    'category': '가격지표'
+                    , 'condition': coPriceSel
+                    , 'value': coPriceInputVal
+                    , 'unit': ''
+                    , 'chk': coPriceSel
+                };
+                coChange([...co, temp]);
+            }
+            // 중복 있으면 에러 메시지 Notification
+            else {
+                coDuplicateErrorChange(true);
+            }
+        }
+    }
+
+    // 선택 목록 제거 함수
+    function removeCo(chk) {
+        var idx = co.findIndex((a) => { return a.chk === chk });
+        var temp = [...co];
+        temp.splice(idx, 1);
+        coChange(temp);
+    }
+
+    // 백테스트 실행
+    function executeBacktest() {
+        isLoadingChange(true); // 백테스트 수행 중 버튼 클릭 비활성화
+        BacktestApi.request(co)
+            .then(res => {
+                const temp = JSON.parse(res.data.data);
+                resultChange(temp);
+                isLoadingChange(false); // 백테스트 수행 후 버튼 클릭 활성화
+            })
+            .catch(err => {
+                console.log('executeBacktest 에러', err);
+                isLoadingChange(false); // 백테스트 실패 시 버튼 재활성화
+            })
     }
 
     // 재무제표 조건
@@ -133,7 +248,8 @@ function BacktestCondition() {
                 <Container
                     d="flex"
                     flexDir="column"
-                    align="center">
+                    align="center"
+                >
                     <Text
                         tag="h1"
                         textWeight="800"
@@ -190,10 +306,9 @@ function BacktestCondition() {
                             w="100%"
                             justify="center"
                         >
-
                             <Dropdown
-                                w={{ xs: "50%", sm: "11rem" }}
-                                m={{ b: "1.5rem", r: "1rem" }}
+                                w={{ xs: "50%", sm: "10rem" }}
+                                m={{ b: "0.5rem", r: "1rem" }}
                                 isOpen={showcoFsvalue}
                                 onClick={() =>
                                     showcoFsvalueChange(!showcoFsvalue)
@@ -203,8 +318,8 @@ function BacktestCondition() {
                                 {coFsvalueSel}
                             </Dropdown>
                             <Dropdown
-                                w={{ xs: "30%", sm: "8rem" }}
-                                m={{ b: "1.5rem", r: "1rem" }}
+                                w={{ xs: "50%", sm: "8rem" }}
+                                m={{ b: "0.5rem", r: "1rem" }}
                                 isOpen={showcoPeriod}
                                 onClick={() =>
                                     showcoPeriodChange(!showcoPeriod)
@@ -213,8 +328,14 @@ function BacktestCondition() {
                             >
                                 {coPeriodSel}
                             </Dropdown>
+                        </Div>
+                        <Div
+                            d="flex"
+                            w="100%"
+                            justify="center"
+                        >
                             <Dropdown
-                                w={{ xs: "30%", sm: "8rem" }}
+                                w={{ xs: "50%", sm: "8rem" }}
                                 m={{ b: "1.5rem", r: "1rem" }}
                                 isOpen={showcoSet}
                                 onClick={() =>
@@ -225,16 +346,30 @@ function BacktestCondition() {
                                 {coSetSel}
                             </Dropdown>
                             <Input
-                                w={{ xs: "100%", sm: "11rem" }}
-                                m={{ b: "1.5rem", r: "1rem" }}
+                                w={{ xs: "100%", sm: "8rem" }}
+                                m={{ b: "1.5rem" }}
                                 fontFamily='ko'
                                 placeholder="값 입력"
+                                onChange={(e) =>
+                                    coFsInputValChange(e.target.value)
+                                }
                             />
+                            <Text
+                                w={{ xs: "20%", sm: "5rem" }}
+                                p={{ t: "0.3rem" }}
+                                textSize="subheader"
+                                textWeight="500"
+                                textAlign="center"
+                                fontFamily="ko"
+                            >
+                                이상
+                            </Text>
                             <Icon
                                 name="Add"
                                 color="info700"
                                 size="40px"
                                 cursor="pointer"
+                                m={{ b: "1.5rem", r: "1rem" }}
                                 onClick={() => { addFsCo() }}
                             />
 
@@ -275,7 +410,7 @@ function BacktestCondition() {
                         justify="center"
                     >
                         <Dropdown
-                            w={{ xs: "50%", sm: "11rem" }}
+                            w={{ xs: "50%", sm: "8rem" }}
                             m={{ b: "1.5rem", r: "1rem" }}
                             isOpen={showcoPrice}
                             onClick={() =>
@@ -285,18 +420,31 @@ function BacktestCondition() {
                         >
                             {coPriceSel}
                         </Dropdown>
-
                         <Input
-                            w={{ xs: "100%", sm: "11rem" }}
-                            m={{ b: "1.5rem", r: "1rem" }}
+                            w={{ xs: "100%", sm: "8rem" }}
+                            m={{ b: "1.5rem" }}
                             fontFamily='ko'
-                            placeholder="값 입력" />
-
+                            placeholder="값 입력"
+                            onChange={(e) =>
+                                coPriceInputValChange(e.target.value)
+                            }
+                        />
+                        <Text
+                            w={{ xs: "20%", sm: "5rem" }}
+                            p={{ t: "0.3rem" }}
+                            textSize="subheader"
+                            textWeight="500"
+                            textAlign="center"
+                            fontFamily="ko"
+                        >
+                            이하
+                        </Text>
                         <Icon
                             name="Add"
                             color="info700"
                             size="40px"
                             cursor="pointer"
+                            m={{ b: "1.5rem", r: "1rem" }}
                             onClick={() => { addPriceCo() }}
                         />
 
@@ -308,6 +456,7 @@ function BacktestCondition() {
                     d="flex"
                     flexDir="column"
                     align="center"
+                    textAlign="center"
                 >
                     {/* 선택조건 제목 */}
                     <Text
@@ -316,7 +465,7 @@ function BacktestCondition() {
                         textWeight="800"
                         textAlign="center"
                         fontFamily="ko"
-                        >
+                    >
                         선택조건
                     </Text>
                     {/* 선택조건 칼럼명 */}
@@ -338,42 +487,115 @@ function BacktestCondition() {
                             <Text
                                 textWeight="800"
                                 fontFamily="ko"
+                                w="18%"
                             >
                                 분류
                             </Text>
                             <Text
                                 textWeight="800"
                                 fontFamily="ko"
+                                w="18%"
                             >
                                 조건
                             </Text>
                             <Text
                                 textWeight="800"
                                 fontFamily="ko"
+                                w="18%"
                             >
                                 기간
                             </Text>
                             <Text
                                 textWeight="800"
                                 fontFamily="ko"
+                                w="18%"
+                            >
+                                기준
+                            </Text>
+                            <Text
+                                textWeight="800"
+                                fontFamily="ko"
+                                w="18%"
                             >
                                 값
                             </Text>
                             <Text
                                 textWeight="800"
                                 fontFamily="ko"
+                                w="6%"
                             >
                                 삭제
                             </Text>
-                            {/* <Icon
-                                name="CBIndetermine"
-                                color="brand900"
-                                size="20px"
-                            /> */}
                         </Div>
                     </Div>
-                    
-                    
+
+                    {/* 선택조건 데이터 */}
+                    {
+                        co.map((a, i) => {
+                            return (
+                                <Div
+                                    p="1rem"
+                                    bg="white"
+                                    shadow="2"
+                                    rounded="xl"
+                                    w={{ xs: "100%", sm: "40rem" }}
+                                    m={{ b: "0.5rem" }}
+                                >
+                                    <Div
+                                        d="flex"
+                                        align="center"
+                                        justify="space-between"
+                                        pos="relative"
+                                        flexDir="row"
+                                    >
+                                        <Text
+                                            textWeight="800"
+                                            fontFamily="ko"
+                                            w="18%"
+                                        >
+                                            {a.category}
+                                        </Text>
+                                        <Text
+                                            textWeight="800"
+                                            fontFamily="ko"
+                                            w="18%"
+                                        >
+                                            {a.condition}
+                                        </Text>
+                                        <Text
+                                            textWeight="800"
+                                            fontFamily="ko"
+                                            w="18%"
+                                        >
+                                            {a.period}
+                                        </Text>
+                                        <Text
+                                            textWeight="800"
+                                            fontFamily="ko"
+                                            w="18%"
+                                        >
+                                            {a.base}
+                                        </Text>
+                                        <Text
+                                            textWeight="800"
+                                            fontFamily="ko"
+                                            w="18%"
+                                        >
+                                            {a.value}{a.unit}
+                                        </Text>
+                                        <Icon
+                                            name="CBIndetermine"
+                                            color="brand900"
+                                            size="20px"
+                                            w="10%"
+                                            cursor="pointer"
+                                            onClick={() => { removeCo(a.chk) }}
+                                        />
+                                    </Div>
+                                </Div>
+                            )
+                        })
+                    }
 
                     <Button
                         h="3rem"
@@ -381,7 +603,24 @@ function BacktestCondition() {
                         bg="info700"
                         hoverBg="info600"
                         rounded="lg"
-                        m={{ b: { xs: "1rem", sm: "0" } }}
+                        m={{ b: { xs: "1rem", sm: "5rem" } }}
+                        onClick={() => { executeBacktest() }}
+                        prefix={
+                            isLoading ?
+                                <Icon
+                                    name="Loading"
+                                    pos="absolute"
+                                    top="50%"
+                                    left="1rem"
+                                    transform="translateY(-50%)"
+                                    size="18px"
+                                    color="white"
+                                    m={{ r: "0.5rem" }}
+                                />
+                                :
+                                ""
+                        }
+                        disabled={isLoading}
                     >
                         <Text
                             textSize="subheader"
@@ -391,6 +630,54 @@ function BacktestCondition() {
                         </Text>
                     </Button>
                 </Container> {/* 끝 : 선택 조건 보여주기 */}
+
+                {/* 백테스트 결과 화면 */}
+                {result === ''
+                    ?
+                    ''
+                    :
+                    <Container
+                        d="flex"
+                        flexDir="column"
+                        align="center"
+                    >
+                        <BacktestResult result={result} />
+                    </Container>
+                }
+
+                {/* 조건 입력 에러 Notification*/}
+                <Notification
+                    bg="warning700"
+                    isOpen={coInputError}
+                    onClose={() => coInputErrorChange(false)}
+                    prefix={
+                        <Icon
+                            name="AlertSolid"
+                            color="white"
+                            size="18px"
+                            m={{ r: "0.5rem" }}
+                        />
+                    }
+                >
+                    모든 조건을 선택한 후 추가하세요.
+                </Notification>
+
+                {/* 중복 선택 에러 Notification*/}
+                <Notification
+                    bg="warning700"
+                    isOpen={coDuplicateError}
+                    onClose={() => coDuplicateErrorChange(false)}
+                    prefix={
+                        <Icon
+                            name="AlertSolid"
+                            color="white"
+                            size="18px"
+                            m={{ r: "0.5rem" }}
+                        />
+                    }
+                >
+                    이미 선택한 조건입니다. 값 변경을 원하면 선택 목록에서 삭제 후 다시 추가하세요.
+                </Notification>
 
             </Div>
         </>
