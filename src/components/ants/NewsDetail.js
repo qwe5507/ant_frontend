@@ -1,21 +1,116 @@
 import PropTypes from "prop-types"
 import React, { useState, useEffect } from "react"
-import { Input, Div, Image, Container, Button, Anchor, scrollTo, Icon, Text,Radiobox, Label,Switch,Row,Col,logoSketch,logoReact } from "atomize"
+import { Input, Div, Image, Container, Button, Anchor, Dropdown, scrollTo, Icon, Text,Radiobox, Label,Switch,Row,Col,logoSketch,logoReact } from "atomize"
 import logo from "../../images/logo.svg"
 import producthunt from "../../images/logo-producthunt.svg"
 import { Link, Route, useHistory, useParams } from 'react-router-dom';
 import axios from "axios";
-
-
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
 function NewsDetail(){
 
     let { search } = useParams();
     let [result, result변경] = useState("");
     let [hits, hits변경] = useState([]); 
+    let [group, group변경] = useState("");
+    let [value, onChange] = useState(new Date());
+    let [showcoFsvalue, showcoFsvalueChange] = useState(false);
+    let [coFsvalueSel, coFsvalueSelChange] = useState('조건');
+    let [calendarShow, calendarShowChange] = useState(false);
+    let today = new Date();   
+    let year = today.getFullYear(); // 년도
+    let month = today.getMonth() + 1;  // 월
+    let date = today.getDate();  // 날짜
+    if(date<10) {
+      date='0'+date
+    } 
+    if(month<10) {
+      month='0'+month
+    }
+
+    let now = year +'-'+month+"-"+date;
 
     function moveHref(url){
       console.log("moveHref호출")
       window.location.href = url;
+    }
+
+    const coFsvalue = (
+      <Div
+      
+        
+      >
+          {['최신순', '좋아요순', '1주일', '1개월', '3개월', '6개월', '1년'].map((name, index) => (
+              <Anchor
+                  d="block"
+                  p={{ y: "0.25rem", l: "0.75rem" }}
+                  
+                  onClick={() => coFsvalueClicked(name)}
+              > 
+                  {name}
+              </Anchor>
+          ))}
+      </Div>
+  );
+
+  function coFsvalueClicked(name) {
+    coFsvalueSelChange(name)
+    showcoFsvalueChange(!showcoFsvalue)
+    if(name == "1주일"){
+      searchmatchparsedate("7")
+    } else if (name =="1개월"){
+      searchmatchparsedate("30")
+    } else if (name=="3개월"){
+      searchmatchparsedate("90")
+    } else if (name=="6개월"){
+      searchmatchparsedate("180")
+    } else if (name=="1년"){
+      searchmatchparsedate("365")
+    } else if (name=="최신순"){
+      searchSort()
+    }
+
+  }
+    function searchGroup(group){
+      axios.get("http://localhost:8000/news/searchgroupmatchphrase", { params : { id : group} })
+      .then(response=>{
+        console.log('그룹', group)
+        result=response.data
+        var hits2 = result['hits']['hits']
+        hits변경(hits2)
+        console.log(hits2)
+      })
+      .catch(error=>{
+        console.log(error);
+      })
+    }
+
+    function searchSort(){
+      console.log(search)
+      axios.get("http://localhost:8000/news/searchmatchparsesort", { params : { id : search }})
+      .then(response =>{
+        result=response.data
+        var hits2 = result['hits']['hits']
+        hits변경(hits2)
+        console.log(hits2)
+      })
+      .catch(error=>{
+        console.log(error);
+      });
+    }
+
+    function searchmatchparsedate(date){
+      console.log(date, search)
+      axios.get("http://localhost:8000/news/searchmatchparsedate", { params : { id : search, id2 : date }})
+      .then(response =>{
+        result=response.data
+        var hits2 = result['hits']['hits']
+        hits변경(hits2)
+        console.log(hits2)
+      })
+      .catch(error=>{
+        console.log(error);
+      });
     }
 
     function searchmatchparse(){
@@ -33,6 +128,8 @@ function NewsDetail(){
     console.log("test")
     useEffect(() => {
     searchmatchparse()
+
+
     },[])
 
     function timecal(data) {
@@ -71,6 +168,9 @@ function NewsDetail(){
       }
       return txt;
   }
+
+
+  
 
     return (
       <div>
@@ -173,8 +273,9 @@ function NewsDetail(){
             border={{ b: "1px solid" }}
             borderColor="black"
           >
+
             
-            <Link to="/NewsDetail/핫이슈">
+            <Div>
               <Anchor
                 target="_blank"
                 textWeight="800"
@@ -182,19 +283,21 @@ function NewsDetail(){
                 hoverTextColor="black"
                 transition
                 fontFamily="ko"
+              
               >
                     <Text
                         textSize="title"
                         m={{ b: "0.25rem" ,r : "2.5rem" , l : "2.5rem" }}
                         textWeight="1000"
                         textAlign="center"
+                        onClick = {() => {searchSort()}}
                     >
                         핫이슈
                     </Text>
               </Anchor>
-            </Link>
+              </Div>
 
-            <Link to="/NewsDetail/정책금융">
+              <Div>
               <Anchor
                 target="_blank"
                 textWeight="800"
@@ -208,14 +311,15 @@ function NewsDetail(){
                         textWeight="1000"
                         textAlign="center"
                         m={{ b: "0.25rem" ,r : "2.5rem" }}
+                        onClick = {() => {searchGroup("정책/금융")}}
                     >
                         정책/금융
                     </Text>
               </Anchor>
-            </Link>
+              </Div>
 
             
-            <Link to="/NewsDetail/국제경제">
+            <Div>
               <Anchor
                 target="_blank"
                 textWeight="800"
@@ -229,13 +333,14 @@ function NewsDetail(){
                         textWeight="1000"
                         textAlign="center"
                         m={{ b: "0.25rem" ,r : "2.5rem" }}
+                        onClick = {() => {searchGroup("국제경제")}}
                     >
                         국제경제
                     </Text>
               </Anchor>
-            </Link>
+              </Div>
          
-            <Link to="/NewsDetail/IT과학">
+              <Div>
               <Anchor
                 target="_blank"
                 textWeight="800"
@@ -249,54 +354,57 @@ function NewsDetail(){
                         textWeight="1000"
                         textAlign="center"
                         m={{ b: "0.25rem" ,r : "2.5rem" }}
-                    >
-                        중국경제
-                    </Text>
-              </Anchor>
-            </Link>
-
-
-            <Link to="/NewsDetail/금융">
-              <Anchor
-                target="_blank"
-                textWeight="800"
-                textColor="medium"
-                hoverTextColor="black"
-                transition
-                fontFamily="ko"
-              >
-                    <Text
-                        textSize="title"
-                        textWeight="1000"
-                        textAlign="center"
-                        m={{ b: "0.25rem" ,r : "2.5rem" }}
-                    >
-                        증권
-                    </Text>
-              </Anchor>
-            </Link>
-
-            <Link to="/NewsDetail/부동산">
-              <Anchor
-                target="_blank"
-                textWeight="800"
-                textColor="medium"
-                hoverTextColor="black"
-                transition
-                fontFamily="ko"
-              >
-                    <Text
-                        textSize="title"
-                        textWeight="1000"
-                        textAlign="center"
-                        m={{ b: "0.25rem" ,r : "2.5rem" }}
+                        onClick = {() => {searchGroup("IB/기업")}}
                     >
                         IB/기업
                     </Text>
               </Anchor>
-            </Link>
+              </Div>
 
-            
+              <Div>
+              <Anchor
+                target="_blank"
+                textWeight="800"
+                textColor="medium"
+                hoverTextColor="black"
+                transition
+                fontFamily="ko"
+              >
+                    <Text
+                        textSize="title"
+                        textWeight="1000"
+                        textAlign="center"
+                        m={{ b: "0.25rem" ,r : "2.5rem" }}
+                        onClick = {() => {searchGroup("증권")}}
+                    >
+                        증권
+                    </Text>
+              </Anchor>
+              </Div>
+
+
+            <Div>
+              <Anchor
+                target="_blank"
+                textWeight="800"
+                textColor="medium"
+                hoverTextColor="black"
+                transition
+                fontFamily="ko"
+              >
+                    <Text
+                        textSize="title"
+                        textWeight="1000"
+                        textAlign="center"
+                        m={{ b: "0.25rem" ,r : "2.5rem" }}
+                        onClick = {() => {searchGroup("부동산")}}
+                    >
+                        부동산
+                    </Text>
+              </Anchor>
+            </Div>
+           
+          
             {/* <Label
              m={{ l: "40rem" ,t : "0.2rem" }}
             onClick={() =>
@@ -324,9 +432,93 @@ function NewsDetail(){
 
 
           </Div>
+          
+          <Div
+              d="flex"
+              justify="flex-end"
+              w="80%"
+              m={{
+                l: '2rem',
+                r: { xs: '10rem', md: '3rem' },
+                y: '10rem'
+            }}
+          >
+          
+          
+          <Dropdown
+              w={{ xs: "50%", sm: "11rem" }}
+              m={{ b: "1.5rem", r: "1rem" }}
+              isOpen={showcoFsvalue}
+              onClick={() =>
+                  showcoFsvalueChange(!showcoFsvalue)
+              }
+              menu={coFsvalue}
+              >
+              {coFsvalueSel}
+          </Dropdown>
 
-     
-        
+          <Calendar
+            activeStartDate={new Date()}
+            onChange={onChange}
+            value={value}
+          />
+          <Calendar
+            activeStartDate={new Date()}
+            onChange={onChange}
+            value={value}
+          />
+          {/* <Dropdown
+              w={{ xs: "50%", sm: "11rem" }}
+              m={{ b: "1.5rem", r: "1rem" }}
+              onClick={() =>
+                calendarShowChange(!calendarShow)
+              }
+              >
+          </Dropdown>
+
+              {calendarShow==true ? 
+                <Calendar
+                 // onChange={this.onDateChange} 
+                 // value={this.state.date}
+                />
+                :
+                null
+
+              } */}
+
+
+
+            {/* <Dropdown
+              w={{ xs: "50%", sm: "11rem" }}
+              m={{ b: "1.5rem", r: "1rem" }}
+              onClick={ () =>  calendarShowChange(!calendarShow) } 
+              >
+              달력
+              {calendarShow==true ? 
+              <>
+              <DatePicker
+                selected={startDate}
+                onChange={date => setStartDate(date)}
+                selectsStart
+                startDate={startDate}
+                endDate={endDate}
+              />
+              <DatePicker
+                selected={endDate}
+                onChange={date => setEndDate(date)}
+                selectsEnd
+                startDate={startDate}
+                endDate={endDate}
+                minDate={startDate}
+              />
+            </>
+              
+              : null }  
+          </Dropdown> */}
+            
+          </Div>
+
+              
         {hits.map(function(data){
         return(
         <Div  
@@ -367,10 +559,11 @@ function NewsDetail(){
            // pos= "absolute"
            // bottom = "35rem"
            h = {{xs : "7rem" ,md : "auto"}}
-           onClick = {() => {moveHref(data['_source']['news_url'])}}
+
            >
                <Text
                textAlign="left"
+               cursor="pointer"
                textSize="heading"
                textWeight="750"
                fontFamily="secondary"
@@ -378,14 +571,16 @@ function NewsDetail(){
                // m={{ b: "1rem" }}
                m={{ b: "0rem" }}
                pos= {{xs:"absolute",md: "static"}}
+               onClick = {() => {moveHref(data['_source']['news_url'])}}
                // bottom = "32rem"
                >
                {/* kakao mang hera kakao mang herakakao mangrang herakakao mangr */}
+               
                {data['_source']['news_title']}
                </Text>
                <Text
                 m={{ b: "1rem" }}
-               >{data['_source']['news_group']} | {data['_source']['news_source']} | {timecal(data['_source']['news_date'])}</Text>  
+               >{data['_source']['news_group']} | {data['_source']['news_source']}</Text>  
            </Div>
 
            <Div
@@ -447,7 +642,7 @@ function NewsDetail(){
                m={{r : "1rem"}}
                
                >
-               0
+               {timecal(data['_source']['news_date'])}
                </Text>
                <Icon
                    transition
