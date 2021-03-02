@@ -17,6 +17,8 @@ class IndiTable2_Detail extends Component{
         this.state ={
           indifors : [],
           indikors : [],
+          dolleridx : [],
+          dollerid : 'dolleridx',
           message : null
     };
 }
@@ -26,6 +28,7 @@ class IndiTable2_Detail extends Component{
         console.log('comdid run');
         this.reloadJipyoList();
         this.reloadKorList();
+        this.reloadDolIdxList();
         
       }
 
@@ -54,6 +57,18 @@ class IndiTable2_Detail extends Component{
         })
     
     }
+
+    reloadDolIdxList = () => {
+      IndApi.indicators2("dolleridx", 3)
+      .then(res =>{
+          this.setState({dolleridx: res.data})
+          })
+      .catch(err => {
+          console.error('5일 달러인덱스 오류', err);
+          // alert('조회오류');
+          })
+      
+      }
 
       
       componentWillUnmount(){
@@ -98,6 +113,51 @@ class IndiTable2_Detail extends Component{
               <TableCell align="center">{indifor.symbol}</TableCell>
               <TableCell align="center">{indifor.rates}</TableCell>
               <TableCell align="center">{indifor.dates.substring(0,10)}</TableCell>
+            </TableRow>
+        )
+      }         
+            </TableBody>
+      </Table>
+      </Div >
+
+      <Div  p={{ t: { xs: "2rem", md: "2rem" } }} >
+        <Div textAlign="left">
+        <Text
+        textSize="title"
+        textWeight="800"
+        fontFamily='ko'
+        >
+          달러인덱스
+          </Text>
+          </Div>
+      <Table >
+        <TableHead>         
+          <TableRow>         
+            <TableCell align="center">통화명</TableCell>
+            <TableCell align="center">기준일자</TableCell>
+            <TableCell align="center">종가</TableCell>
+            <TableCell align="center">오픈</TableCell>
+            <TableCell align="center">고가</TableCell>
+            <TableCell align="center">저가</TableCell>
+            
+          </TableRow>
+        </TableHead>
+        <TableBody>
+        {this.state.dolleridx.map(dolidx => 
+            <TableRow>
+              
+              <TableCell align="center">
+              <Link to={`/IndicatorDetail1/${this.state.dollerid}`} >
+              <Button variant="contained">
+                달러인덱스
+              </Button>
+              </Link>
+                </TableCell>
+              <TableCell align="center">{dolidx.dates.substring(0,10)}</TableCell>
+              <TableCell align="center">{dolidx.price}</TableCell>
+              <TableCell align="center">{dolidx.open}</TableCell>
+              <TableCell align="center">{dolidx.high}</TableCell>
+              <TableCell align="center">{dolidx.low}</TableCell>
             </TableRow>
         )
       }         

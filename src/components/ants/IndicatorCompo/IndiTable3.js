@@ -1,12 +1,13 @@
 import { render } from '@testing-library/react';
 import React, {Component, useState} from 'react';
-//import ApiService from '../ApiService';
+import IndApi from "../../../api/IndApi";
 import Table from '@material-ui/core/Table'
 import TableBody from '@material-ui/core/TableBody'
 import TableCell from '@material-ui/core/TableCell'
 import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
-import { Text, Div, Icon, Anchor, Button, Input, Container, Row, footerLinks, Col,  mediaLinks } from "atomize";
+import Button from '@material-ui/core/Button'
+import { Text, Div } from "atomize";
 
 class IndiTable3 extends Component{
 
@@ -14,58 +15,125 @@ class IndiTable3 extends Component{
         console.log('constro run');
         super(props);
         this.state ={
-          jipyos : [],
+          wtis : [],
+          forgolds : [],
+          wtiid : 'wti',
+          forgoldif : 'forgold',
           message : null
     };
 }
-/*
+
     componentDidMount(){
         console.log('comdid run');
-        this.reloadJipyoList();
+        this.reloadWTIList();
+        this.reloadForGoldList();
       }
 
     
-    reloadJipyoList = () => {
-    ApiService.fetchJipyo()
+    reloadWTIList = () => {
+      IndApi.indicators1("wti", 5)
     .then(res =>{
-        this.setState({jipyos: res.data})
+        this.setState({wtis: res.data})
         })
         .catch(err => {
-        console.error('지표리스트 오류', err);
-        alert('조회오류');
+        console.error('지표리스트(WTI) 오류', err);
+        //alert('조회오류');
         })
 
       }
+
+      reloadForGoldList = () => {
+        IndApi.indicators1("forgold", 5)
+    .then(res =>{
+          this.setState({forgolds: res.data})
+          })
+          .catch(err => {
+          console.error('지표리스트(국제금) 오류', err);
+          //alert('조회오류');
+          })
+  
+        }
 
       componentWillUnmount(){
         console.log('comwilunmont run')
       }
-    */
+    
       render(){
         console.log('render run');
         return(
           <div>
-          
-      <Div  p={{ t: { xs: "9rem", md: "5rem" } }} >
-      <Table >
+        <Div  p={{ t: { xs: "9rem", md: "5rem" } }} >
+        <Div  p={{ t: { xs: "2rem", md: "2rem" } }} >
+        <Div textAlign="left">
+        <Text
+          textSize="title"
+          textWeight="800"
+          fontFamily='ko'
+          >
+          WTI
+        </Text>
+        </Div>
+        <Table >
         <TableHead>
           <TableRow>
-            <TableCell align="center">FistName3</TableCell>
-            <TableCell align="center">FistName3</TableCell>
-            <TableCell align="center">LastName3</TableCell>
+          <TableCell align="center">구분</TableCell>
+            <TableCell align="center">기준일자</TableCell>          
+            <TableCell align="center">가격</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
 
             <TableRow>
-              <TableCell></TableCell>
-              <TableCell ></TableCell>
-              <TableCell ></TableCell>
-
+              <TableCell align="center">
+              <Button variant="contained">
+                WTI
+                </Button>
+                </TableCell>
+              <TableCell align="center"></TableCell>
+              <TableCell align="center"></TableCell>
+             
             </TableRow>         
             </TableBody>
-      </Table>
+        </Table>
+        </Div >
+        
+        <Div  p={{ t: { xs: "2rem", md: "2rem" } }} >
+          <Div textAlign="left">
+          <Text
+          textSize="title"
+          textWeight="800"
+          fontFamily='ko'
+          >
+          국제 금
+          </Text>
+          </Div>
+        <Table >
+        <TableHead>
+          <TableRow>
+            <TableCell align="center">구분</TableCell>
+            <TableCell align="center">기준일자</TableCell>
+            <TableCell align="center">단위</TableCell>
+            <TableCell align="center">가격</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+
+          <TableRow>
+          <TableCell align="center">
+          <Button variant="contained">
+            국제 금
+          </Button>
+            </TableCell>
+            <TableCell align="center"></TableCell>
+          <TableCell align="center">달러/트레이온스</TableCell>
+          <TableCell align="center"></TableCell>
+
+
+            </TableRow>         
+          </TableBody>
+        </Table>
       </Div >
+      </Div>  
           </div>
       )
       }
