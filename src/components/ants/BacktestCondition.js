@@ -144,7 +144,9 @@ function BacktestCondition() {
         isLoadingChange(true); // 백테스트 수행 중 버튼 클릭 비활성화
         BacktestApi.request(co)
             .then(res => {
+                // console.log(res);
                 const temp = JSON.parse(res.data.data);
+                console.log(temp);
                 resultChange(temp);
                 isLoadingChange(false); // 백테스트 수행 후 버튼 클릭 활성화
             })

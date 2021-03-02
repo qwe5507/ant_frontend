@@ -21,8 +21,8 @@ function BacktestResult(props) {
 
             console.log(temp);
 
-            var labels = Object.keys(temp['0']);
-            var data = Object.values(temp['0']);
+            var labels = Object.keys(temp['mean']);
+            var data = Object.values(temp['mean']);
 
             for (var j = 0; j < labels.length; j++) {
                 labels[j] = labels[j].substring(0, 10)
@@ -81,7 +81,7 @@ function BacktestResult(props) {
                     b: { xs: "2rem", sm: "1.5rem" },
                     t: "1.5rem",
                 }}
-                h="80rem"
+                h="100rem"
                 bg="white"
                 shadow="4"
                 rounded="xl"
