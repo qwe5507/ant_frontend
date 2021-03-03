@@ -3,6 +3,8 @@ import React, { useEffect } from "react";
 import Layout from "./components/layout";
 import Header from "./components/common/header";
 import HeroSection from "./components/homepage/HeroSection";
+import SearchPanel from "./components/ants/SearchPanel";
+import MainPanels from "./components/ants/MainPanels";
 import Introducing from "./components/homepage/Introducing";
 import Footer from "./components/homepage/Footer";
 import { Route, Switch, useHistory } from 'react-router-dom';
@@ -23,12 +25,11 @@ import Stocks from "./components/ants/Stocks";
 import UserApiService from "./api/UserApi";
 import NewsDetail from "./components/ants/NewsDetail";
 import BlockTest from "./components/test/BlockTest";
-import MainPanels from "./components/ants/MainPanels";
 import Profile from "./components/ants/Profile";
 import ChatPage from "./components/ChatPage/ChatPage";
 import Logout from "./components/ants/Logout";
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setUserLoginCheck, setUserLogout, setUser } from './redux/actions/user_action';
 
 import firebase from "./firebase";
@@ -36,6 +37,8 @@ import firebase from "./firebase";
 function App() {
   const dispatch = useDispatch();
   let history = useHistory();
+
+  const loginstate = useSelector(state => state.user.loginstate);
 
   useEffect(() => {
     initializeUserInfo();
@@ -88,7 +91,15 @@ function App() {
           <Header />
 
           <Route exact path="/">
-            <HeroSection />
+            {
+              loginstate
+              ?
+              ""
+              :
+              <HeroSection />
+            }
+
+            <SearchPanel />
             <MainPanels component={MainPanels} />
             <Introducing />
             {/* <Features />
