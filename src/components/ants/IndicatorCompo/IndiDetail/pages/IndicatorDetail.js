@@ -44,7 +44,7 @@ function IndicatorDetail() {
       window.scrollTo(0, 0)
       IndApi.chartIndi(1)
       .then(res =>{
-        numsbyun(res.data[0]["rates"])
+        numsbyun(res.data[0]["price"])
         datesbyun(res.data[0]["dates"].substring(0,10))
              
       }

@@ -34,7 +34,7 @@ function IndicatorDetailExeFor(props) {
       .then(res =>{
        
         namebyun(res.data[0]["exechange_Name"])
-        numsbyun(res.data[0]["rates"])
+        numsbyun(res.data[0]["price"])
         datesbyun(res.data[0]["dates"].substring(0,10))
         valuesbyun(false)
           id1byun(name.split("/")[0].split(" ")[0])
