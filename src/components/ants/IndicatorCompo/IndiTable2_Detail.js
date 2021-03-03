@@ -111,7 +111,7 @@ class IndiTable2_Detail extends Component{
               </Link>
                 </TableCell>
               <TableCell align="center">{indifor.symbol}</TableCell>
-              <TableCell align="center">{indifor.rates}</TableCell>
+              <TableCell align="center">{indifor.price}</TableCell>
               <TableCell align="center">{indifor.dates.substring(0,10)}</TableCell>
             </TableRow>
         )
@@ -196,7 +196,7 @@ class IndiTable2_Detail extends Component{
                 </Link>
                 </TableCell>      
               <TableCell align="center">{indikor.dates.substring(0,10)}</TableCell>
-              <TableCell align="center">{indikor.rates}</TableCell>
+              <TableCell align="center">{indikor.price}</TableCell>
             </TableRow>
         )
       }         

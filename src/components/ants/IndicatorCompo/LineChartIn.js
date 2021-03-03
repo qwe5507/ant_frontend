@@ -65,13 +65,13 @@ const LineChartIn = () => {
                 pointDotRadius: 0,
                 pointHoverBackgroundColor: "rgba(171, 242, 0, 0.2)",
                 data: [
-                  { x: labeleurusd[0].substring(0,10), y: charteurusd[0]["rates"]},
-                  { x: labeleurusd[1].substring(0,10), y: charteurusd[1]["rates"] },
-                  { x: labeleurusd[2].substring(0,10), y: charteurusd[2]["rates"]  },
-                  { x: labeleurusd[3].substring(0,10), y: charteurusd[3]["rates"]  }, 
-                  { x: labeleurusd[4].substring(0,10), y: charteurusd[4]["rates"]  },
-                  { x: labeleurusd[5].substring(0,10), y: charteurusd[5]["rates"]  },
-                  { x: labeleurusd[6].substring(0,10), y: charteurusd[6]["rates"]  }
+                  { x: labeleurusd[0].substring(0,10), y: charteurusd[0]["price"]},
+                  { x: labeleurusd[1].substring(0,10), y: charteurusd[1]["price"] },
+                  { x: labeleurusd[2].substring(0,10), y: charteurusd[2]["price"]  },
+                  { x: labeleurusd[3].substring(0,10), y: charteurusd[3]["price"]  }, 
+                  { x: labeleurusd[4].substring(0,10), y: charteurusd[4]["price"]  },
+                  { x: labeleurusd[5].substring(0,10), y: charteurusd[5]["price"]  },
+                  { x: labeleurusd[6].substring(0,10), y: charteurusd[6]["price"]  }
                 
                 ]
               }

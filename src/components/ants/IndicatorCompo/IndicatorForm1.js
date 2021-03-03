@@ -29,7 +29,7 @@ reloadJipyoList = () => {
       this.setState({
         dates : res.data[0]["dates"].substring(0,10),
         exechange_Name : res.data[0]["exechange_Name"],
-        rates : res.data[0]["rates"],
+        rates : res.data[0]["price"],
         message : "1일 데이터"
       })
       

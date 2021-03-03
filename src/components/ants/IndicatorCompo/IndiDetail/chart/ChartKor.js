@@ -45,7 +45,7 @@ const ChartKor = (props) => {
         }
 
         for (var i = 0; i < charteurusd.length ; i++){
-          datachart.push( { x: labeleurusd[i].substring(0,10), y: charteurusd[i]["rates"]},)
+          datachart.push( { x: labeleurusd[i].substring(0,10), y: charteurusd[i]["price"]},)
        }
 
          let ctx = chartContainer.current.getContext("2d");
