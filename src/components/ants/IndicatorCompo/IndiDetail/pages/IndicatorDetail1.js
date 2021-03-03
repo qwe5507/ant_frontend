@@ -2,9 +2,6 @@ import React, {useState, useEffect, useRef } from "react"
 import { Text, Div, Icon, Anchor, Button, Input, Container} from "atomize";
 import { useParams } from 'react-router-dom';
 import ChartIndi1 from "../chart/ChartIndi1"
-import Table from '@material-ui/core/Table'
-import TableCell from '@material-ui/core/TableCell'
-import TableRow from '@material-ui/core/TableRow'
 import IndApi from "../../../../../api/IndApi";
 
 import axios from "axios";
@@ -14,9 +11,6 @@ function IndicatorDetail1(props) {
 
     let [result, resultbyun] = useState("");
     let [hits, hitsbyun] = useState([]); 
-    let [keyword, keybyun] = useState([]);
-    let [id1, id1byun] = useState('')
-    let [id2, id2byun] = useState('')
 
     let [nums, numsbyun] = useState('')
     let [dates, datesbyun] = useState('')
@@ -54,19 +48,18 @@ function IndicatorDetail1(props) {
         
         numsbyun(res.data[0]["price"])
         datesbyun(res.data[0]["dates"].substring(0,10))
-        console.log(res.data[0])
-        console.log("키워드확인", keyword)
-        axios.get("http://localhost:8000/news/searchmatchparse", { params :{id : "달러", id: "원화"}})
+        
+        axios.get("http://localhost:8000/news/searchmatchparse", { params :{id : res.data[0]["keyword"].split("/")[0], id: res.data[0]["keyword"].split("/")[1], id:res.data[0]["keyword"].split("/")[2]}})
         .then(response =>{
           result=response.data
           
           var hits2 = result['hits']['hits']
-                
+          hitsbyun(hits2)     
           if(hits2.length > 9)
           {
             hitsbyun([result['hits']['hits'][0], result['hits']['hits'][1], result['hits']['hits'][2], result['hits']['hits'][3], result['hits']['hits'][4], result['hits']['hits'][5], result['hits']['hits'][6], result['hits']['hits'][7], result['hits']['hits'][8]])
           }
-          hitsbyun(hits2)
+         
         })
         .catch(error=>{
           console.log(error);
@@ -74,7 +67,7 @@ function IndicatorDetail1(props) {
       }
       )
       .catch(err => {
-        console.error('1일 수치 확인 오류(국내환율)', err);
+        console.error('1일 수치 확인 오류', err);
       
         })
 
@@ -91,7 +84,7 @@ function IndicatorDetail1(props) {
     return (     
       
       <div align = "center">
-       <Container d="flex" flexDir="column" m={{ x: { xs: '0', md: '0' }, y: { xs: '5.5rem', md: '5.5rem' }}} >
+       <Container d="flex" flexDir="column" m={{ x: { xs: '0', md: '0' }, y: { xs: '5.5rem', md: '3.5rem' }}} >
        
        <Text
                textAlign="left"
@@ -218,13 +211,13 @@ function IndicatorDetail1(props) {
         d="inline-block" align="center"
         >
        <Div
-      h = {{ xs: "11rem", md: "6rem" }}
-       w = {{ xs: "25rem", md: "70rem" }}
+        h = {{ xs: "11rem", md: "6rem" }}
+        w = {{ xs: "25rem", md: "70rem" }}
       
-       border={{ b: "1px solid" }}
-       borderColor="gray400"
-       pos = "flex"
-       d={{ xs: "inline-block", md: "inline-block", lg: "inline-block" }}
+        border={{ b: "1px solid" }}
+        borderColor="gray400"
+        pos = "flex"
+        d={{ xs: "inline-block", md: "inline-block", lg: "inline-block" }}
        >
 
            <Div
