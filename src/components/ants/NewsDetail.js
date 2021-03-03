@@ -4,16 +4,16 @@ import { Input, Div, Image, Container, Button, Anchor, Dropdown, scrollTo, Icon,
 import logo from "../../images/logo.svg"
 import producthunt from "../../images/logo-producthunt.svg"
 import { Link, Route, useHistory, useParams } from 'react-router-dom';
+//import Modal from 'react-modal';
 import axios from "axios";
-import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
+import 'react-date-range/dist/styles.css'; // main style file
+import 'react-date-range/dist/theme/default.css'; // theme css file
 function NewsDetail(){
 
     let { search } = useParams();
     let [result, result변경] = useState("");
     let [hits, hits변경] = useState([]); 
-    let [group, group변경] = useState("");
-    let [value, onChange] = useState(new Date());
     let [showcoFsvalue, showcoFsvalueChange] = useState(false);
     let [coFsvalueSel, coFsvalueSelChange] = useState('조건');
     let [calendarShow, calendarShowChange] = useState(false);
@@ -29,7 +29,14 @@ function NewsDetail(){
     }
 
     let now = year +'-'+month+"-"+date;
-
+    const [state, setState] = useState([
+        {
+          startDate: new Date(),
+          endDate: null,
+          key: 'selection'
+        }
+    ]);
+  
     function moveHref(url){
       console.log("moveHref호출")
       window.location.href = url;
@@ -52,6 +59,8 @@ function NewsDetail(){
           ))}
       </Div>
   );
+
+  
 
   function coFsvalueClicked(name) {
     coFsvalueSelChange(name)
@@ -125,11 +134,12 @@ function NewsDetail(){
         console.log(error);
       });
     }
+
+
     console.log("test")
     useEffect(() => {
-    searchmatchparse()
-
-
+      searchmatchparse()
+    
     },[])
 
     function timecal(data) {
@@ -169,7 +179,17 @@ function NewsDetail(){
       return txt;
   }
 
-
+ 
+  const customStyles = {
+    content : {
+      top                   : '50%',
+      left                  : '50%',
+      right                 : 'auto',
+      bottom                : 'auto',
+      marginRight           : '-50%',
+      transform             : 'translate(-50%, -50%)'
+    }
+  };
   
 
     return (
@@ -439,15 +459,15 @@ function NewsDetail(){
               w="80%"
               m={{
                 l: '2rem',
-                r: { xs: '10rem', md: '3rem' },
-                y: '10rem'
+                r: { xs: '20rem', md: '3rem' },
+                y: '1rem'
             }}
           >
           
           
           <Dropdown
-              w={{ xs: "50%", sm: "11rem" }}
-              m={{ b: "1.5rem", r: "1rem" }}
+              w={{ xs: "90%", sm: "11rem" }}
+              m={{ b: "1.5rem", r: "-22rem" }}
               isOpen={showcoFsvalue}
               onClick={() =>
                   showcoFsvalueChange(!showcoFsvalue)
@@ -457,7 +477,12 @@ function NewsDetail(){
               {coFsvalueSel}
           </Dropdown>
 
-          <Calendar
+          <Div
+            
+          >
+
+
+          {/* <Calendar
             activeStartDate={new Date()}
             onChange={onChange}
             value={value}
@@ -466,7 +491,8 @@ function NewsDetail(){
             activeStartDate={new Date()}
             onChange={onChange}
             value={value}
-          />
+          /> */}
+          </Div>
           {/* <Dropdown
               w={{ xs: "50%", sm: "11rem" }}
               m={{ b: "1.5rem", r: "1rem" }}
@@ -517,7 +543,6 @@ function NewsDetail(){
           </Dropdown> */}
             
           </Div>
-
               
         {hits.map(function(data){
         return(
