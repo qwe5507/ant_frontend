@@ -56,35 +56,44 @@ function SearchPanel() {
         <Div
             tag="section"
             w="100vw"
-            p={{ t: { xs: "6rem", md: "6rem" } }}
+            p={{ t: { xs: "6rem", md: "8rem" } }}
             overflow="hidden"
-            d="flex"
-            justify="center"
         >
-            <Input
-                placeholder="Search"
-                // p={{ x: "30.5rem" }}
-                w={{ xs: "38rem", md: "20rem" }}
-                h={{ xs: "3rem", md: "3rem" }}
-                onChange={onChange}
-                onKeyPress={onKeyPress}
-
-                pos="static"
-                suffix={
-                    <Icon
-
-                        onClick={onClick}
-                        name="Search"
-                        size="20px"
-                        cursor="pointer"
-                        pos="absolute"
-
-                        top="50%"
-                        right="1rem"
-                        transform="translateY(-50%)"
+            <Container>
+                <Div
+                    d="flex"
+                    justify="center"
+                    p={{ b: "2rem" }}
+                >
+                    <Input
+                        placeholder="검색어를 입력해주세요."
+                        w={{ xs: "80vw", md: "30rem" }}
+                        h={{ xs: "4rem", md: "4rem" }}
+                        onChange={onChange}
+                        onKeyPress={onKeyPress}
+                        pos="static"
+                        textSize="title"
+                        textWeight="500"
+                        fontFamily="ko"
+                        textColor="medium"
+                        border="2px solid"
+                        foucsBorderColor="black800"
+                        focusTextColor="black800"
+                        suffix={
+                            <Icon
+                                name="Search"
+                                size="20px"
+                                cursor="pointer"
+                                pos="absolute"
+                                top="50%"
+                                right="1rem"
+                                transform="translateY(-50%)"
+                                onClick={onClick}
+                            />
+                        }
                     />
-                }
-            />
+                </Div>
+            </Container>
         </Div>
     )
 }

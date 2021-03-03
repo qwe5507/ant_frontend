@@ -5,7 +5,7 @@ import MainPnlCmp2 from "./MainPnlCmp2";
 import MainPnlCmp3 from "./MainPnlCmp3";
 
 import { BrowserRouter as Router, Route, Link, useHistory } from "react-router-dom";
-import { Switch, Label, Example, Div, Br, Text, Container, Anchor, Input, Icon, Button, props, girl, rest, boy } from "atomize";
+import { Tag, Div, Br, Text, Container, Anchor, Input, Icon, Button, props, girl, rest, boy } from "atomize";
 
 function MainPanels() {
 
@@ -31,7 +31,7 @@ function MainPanels() {
                             minW={{ xs: "100%", md: "44rem", lg: "59rem" }}
                             d="flex"
                             align="center"
-                            justify="center" 
+                            justify="center"
                             flexDir={{ xs: "column", md: "row" }}
                             h={{ xs: "auto", md: "21rem", lg: "20rem" }}
                             pos="relative"

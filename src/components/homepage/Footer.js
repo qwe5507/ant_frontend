@@ -116,50 +116,6 @@ const Footer = () => {
       pos="relative"
     >
       <Container>
-        <Div m={{ b: "8rem" }} d={{ xs: "none", md: "block" }}>
-          <Row>
-            {Object.keys(footerLinks).map((key, index) => {
-              return (
-                <Col
-                  size={{ xs: 6, md: 2 }}
-                  offset={{ xs: 0, md: index === 0 && 1 }}
-                >
-                  <Div
-                    p={{ l: { md: "2.5rem" }, b: { xs: "1.5rem", md: "0" } }}
-                    textColor="medium"
-                  >
-                    <Text
-                      m={{ b: "1rem" }}
-                      textColor="black"
-                      textTransform="capitalize"
-                      textWeight="500"
-                    >
-                      {key}
-                    </Text>
-                    {footerLinks[key].map((link, i) => {
-                      if (link.anchor) {
-                        return (
-                          <Anchor
-                            m={{ b: "0.5rem" }}
-                            textColor="medium"
-                            hoverTextColor="info800"
-                            d="block"
-                            href={link.link}
-                            target="_blank"
-                            textWeight="400"
-                          >
-                            {link.name}
-                          </Anchor>
-                        )
-                      }
-                    })}
-                  </Div>
-                </Col>
-              )
-            })}
-          </Row>
-        </Div>
-
         <Div d="flex" align="center" justify="center" flexDir="column">
           <Text
             tag="h2"

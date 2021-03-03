@@ -2,13 +2,6 @@ import React, { useEffect, useState } from "react";
 
 import { Button, Container, Text, Div, Icon, Input, Anchor } from "atomize";
 
-import boy from "../../images/avatar/boy.png";
-import cardImg from "../../images/hero-illustration/card-img.png";
-import FollowCard from "./uicomponents/FollowCard";
-import UserEdit from "./uicomponents/UserEdit";
-import Buttons from "./uicomponents/Buttons";
-import CardComponent from "./uicomponents/CardComponent";
-import LoginForm from "./uicomponents/LoginForm";
 import { Link, Route, Switch, useHistory } from 'react-router-dom';
 
 import { useDispatch, useSelector } from 'react-redux';
@@ -30,7 +23,7 @@ function HeroSection() {
         localStorage.removeItem('loginstate');
         localStorage.removeItem('userid');
         localStorage.removeItem('username');
-        
+
         dispatch(setUserLogout());
 
         // Firebase 로그아웃
@@ -44,19 +37,27 @@ function HeroSection() {
     }
   };
 
-    return (
-      <>
-        <Div tag="section" p={{ t: { xs: "6rem", md: "10rem" } }}>
-          <Container d="flex" flexDir="column" align="center">
-            <Text
-              tag="h1"
-              textWeight="800"
-              textAlign="center"
-              textSize="display3"
-              fontFamily="ko"
-              m={{ b: "1rem" }}
-            >
-              개인투자자만을 위한 공간
+  return (
+    <>
+      <Div
+        tag="section"
+        w="100vw"
+        p={{ t: { xs: "6rem", md: "10rem" } }}
+      >
+        <Container
+          d="flex"
+          flexDir="column"
+          align="center"
+        >
+          <Text
+            tag="h1"
+            textWeight="800"
+            textAlign="center"
+            textSize="display3"
+            fontFamily="ko"
+            m={{ b: "1rem" }}
+          >
+            개인투자자만을 위한 공간
             </Text>
           <Text
             tag="h2"
@@ -78,30 +79,30 @@ function HeroSection() {
             flexDir={{ xs: "column", sm: "row" }}
           >
 
-            { loginstate ?
-            //   <Button
-            //     h="3rem"
-            //     w={{ xs: "50%", sm: "11rem" }}
-            //     bg="transparent"
-            //     hoverBg="gray200"
-            //     border="1px solid"
-            //     borderColor="gray400"
-            //     hoverBorderColor="gray600"
-            //     rounded="lg"
-            //     p={{ l: "0.5rem", r: "1rem" }}
-            //     textColor="medium"
-            //     prefix={
-            //       <Icon
-            //         name="Play"
-            //         size="18px"
-            //         m={{ r: "0.5rem" }}
-            //         color="black400"
-            //       />
-            //     }
-            //     onClick={() => { logoutWithKakao(); }}
-            //   >
-            //  로그아웃
-            // </Button>
+            {loginstate ?
+              //   <Button
+              //     h="3rem"
+              //     w={{ xs: "50%", sm: "11rem" }}
+              //     bg="transparent"
+              //     hoverBg="gray200"
+              //     border="1px solid"
+              //     borderColor="gray400"
+              //     hoverBorderColor="gray600"
+              //     rounded="lg"
+              //     p={{ l: "0.5rem", r: "1rem" }}
+              //     textColor="medium"
+              //     prefix={
+              //       <Icon
+              //         name="Play"
+              //         size="18px"
+              //         m={{ r: "0.5rem" }}
+              //         color="black400"
+              //       />
+              //     }
+              //     onClick={() => { logoutWithKakao(); }}
+              //   >
+              //  로그아웃
+              // </Button>
               ""
               :
               <Link to="/Login">
