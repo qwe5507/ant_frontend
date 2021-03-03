@@ -26,6 +26,7 @@ import BlockTest from "./components/test/BlockTest";
 import MainPanels from "./components/ants/MainPanels";
 import Profile from "./components/ants/Profile";
 import ChatPage from "./components/ChatPage/ChatPage";
+import Logout from "./components/ants/Logout";
 
 import { useDispatch } from 'react-redux';
 import { setUserLoginCheck, setUserLogout, setUser } from './redux/actions/user_action';
@@ -114,6 +115,7 @@ function App() {
           <Route exact path="/NewsDetail/:search" component={NewsDetail} />
           <Route exact path="/Stocks" component={Stocks} />
           <Route exact path="/Profile" component={Profile} />
+          <Route exact path="/Logout" component={Logout} />
           <Route exact path="/Test" component={BlockTest} />
 
           <Footer />

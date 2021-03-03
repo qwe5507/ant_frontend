@@ -79,29 +79,30 @@ function HeroSection() {
           >
 
             { loginstate ?
-              <Button
-                h="3rem"
-                w={{ xs: "50%", sm: "11rem" }}
-                bg="transparent"
-                hoverBg="gray200"
-                border="1px solid"
-                borderColor="gray400"
-                hoverBorderColor="gray600"
-                rounded="lg"
-                p={{ l: "0.5rem", r: "1rem" }}
-                textColor="medium"
-                prefix={
-                  <Icon
-                    name="Play"
-                    size="18px"
-                    m={{ r: "0.5rem" }}
-                    color="black400"
-                  />
-                }
-                onClick={() => { logoutWithKakao(); }}
-              >
-             로그아웃
-            </Button>
+            //   <Button
+            //     h="3rem"
+            //     w={{ xs: "50%", sm: "11rem" }}
+            //     bg="transparent"
+            //     hoverBg="gray200"
+            //     border="1px solid"
+            //     borderColor="gray400"
+            //     hoverBorderColor="gray600"
+            //     rounded="lg"
+            //     p={{ l: "0.5rem", r: "1rem" }}
+            //     textColor="medium"
+            //     prefix={
+            //       <Icon
+            //         name="Play"
+            //         size="18px"
+            //         m={{ r: "0.5rem" }}
+            //         color="black400"
+            //       />
+            //     }
+            //     onClick={() => { logoutWithKakao(); }}
+            //   >
+            //  로그아웃
+            // </Button>
+              ""
               :
               <Link to="/Login">
                 <Button
@@ -120,7 +121,6 @@ function HeroSection() {
                   </Text>
                 </Button>
               </Link>
-
             }
 
           </Div>

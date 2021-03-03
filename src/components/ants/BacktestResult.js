@@ -138,8 +138,8 @@ function BacktestResult(props) {
                                             },
                                             type: "time",
                                             time: {
-                                                unit: "day",
-                                                unitStepSize: 1
+                                                unit: "month",
+                                                unitStepSize: 2
                                             },
                                         }
                                     ],

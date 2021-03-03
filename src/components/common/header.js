@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import { Div, Image, Container, Button, Anchor, scrollTo, Icon } from "atomize"
+import { Div, Image, Container, Button, Anchor, scrollTo, Icon, Dropdown } from "atomize"
 import logo from "../../images/logo-title.svg"
 import girl from "../../images/avatar/girl.png"
 import { Link, Route, Switch, useHistory } from 'react-router-dom';
@@ -20,6 +20,30 @@ function Header() {
       window.scrollTo(0, window.scrollY + 1)
     }, 400);
   };
+
+  const profileLink = ['', '/ChatPage', '/PaymentFirst', '/Profile', '/Logout'];
+
+  const profile = (
+    <Div w="max-content" p={{ x: "1rem", y: "0.5rem" }}>
+      {["알림", "채팅", "구독", "마이페이지", "로그아웃"].map(
+        (name, index) => (
+          <Link to={ profileLink[index] }>
+            <Anchor
+              d="block"
+              p={{ y: "0.25rem" }}
+              textSize="title"
+              textWeight="800"
+              textColor="medium"
+              hoverTextColor="black"
+              fontFamily="ko"
+            >
+              {name}
+            </Anchor>
+          </Link>
+        )
+      )}
+    </Div>
+  );
 
   return (
     <>
@@ -160,7 +184,7 @@ function Header() {
               </Anchor>
             </Link>
 
-            {loginstate
+            {/* {loginstate
               ?
               <Link to="/PaymentFirst">
                 <Anchor
@@ -178,7 +202,7 @@ function Header() {
               </Link>
               :
               ' '
-            }
+            } */}
 
             <Link to="/Backtest">
               <Anchor
@@ -195,7 +219,7 @@ function Header() {
               </Anchor>
             </Link>
 
-            {loginstate
+            {/* {loginstate
               ?
               <Link to="/ChatPage">
                 <Anchor
@@ -213,41 +237,28 @@ function Header() {
               </Link>
               :
               ' '
-            }
-
-            {/* {loginstate
-              ?
-              <Link to="/">
-                <Anchor
-                  target="_blank"
-                  m={{ r: "2rem", b: { xs: "1rem", md: "0" } }}
-                  textWeight="800"
-                  textColor="medium"
-                  hoverTextColor="black"
-                  transition
-                  fontFamily="ko"
-                >
-                  마이페이지
-              </Anchor>
-              </Link>
-              :
-              ' '
             } */}
 
             {loginstate
               ?
-              <Link to="/Profile">
-                <Anchor
-                  target="_blank"
-                  m={{ r: "1rem", b: { xs: "1rem", md: "0" } }}
+              // <Link to="/Profile">
+              <Anchor
+                target="_blank"
+                m={{ r: "1rem", b: { xs: "1rem", md: "0" } }}
+                d="flex"
+                flexDir="row"
+              >
+                <Dropdown
+                  w="fit-content"
+                  border="None"
+                  targetHover
+                  menu={profile}
+                  direction="bottomleft"
                   textSize="title"
                   textWeight="800"
                   textColor="medium"
                   hoverTextColor="black"
-                  transition
                   fontFamily="ko"
-                  d="flex"
-                  flexDir="row"
                 >
                   <Div
                     h="2rem"
@@ -261,25 +272,14 @@ function Header() {
                     m={{ r: "0.5rem" }}
                   />
                   {nickname}
-                </Anchor>
-              </Link>
+                </Dropdown>
+              </Anchor>
+              // </Link>
               :
               ' '
             }
 
-            {/* <Anchor
-              m={{ r: "2rem", b: { xs: "1rem", md: "0" } }}
-              textWeight="800"
-              textColor="medium"
-              hoverTextColor="black"
-              transition
-              fontFamily="ko"
-              onClick={() => scrollTo("#features")}
-            >
-              클릭시 해당 아이디로 이동 앵커
-              </Anchor> */}
-
-            <Icon name="Notification" size="20px" />
+            {/* <Icon name="Notification" size="20px" /> */}
 
           </Div>
         </Container>
