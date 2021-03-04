@@ -216,7 +216,7 @@ export class MainPanel extends Component {
                     height: '450px',
                     border: '.2rem solid #ececec',
                     borderRadius: '4px',
-                //    padding: '1rem',
+                    background: '#f5f5f5',
                     marginBottom: '1rem',
                     overflowY: 'auto'
                 }}>

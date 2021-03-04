@@ -268,57 +268,60 @@
             
             </Container>
             {hits.map(function(data){
-          return(
-            
-          <Div  m = {{ xs: "0", md: "-1.5rem" }}>
+        return(
           
-          <Div
-          bg="white" 
-          d="inline-block" align="center"
+        <Div  m = {{ xs: "1.5rem", md: "-1.5rem" }}>
         
-          >
         <Div
-        h = {{ xs: "11rem", md: "6rem" }}
+        bg="white" 
+        d="inline-block" align="center"
+        >
+       <Div
+        h = {{ xs: "3rem", md: "6rem" }}
         w = {{ xs: "25rem", md: "70rem" }}
-        
+      
         border={{ b: "1px solid" }}
         borderColor="gray400"
         pos = "flex"
         d={{ xs: "inline-block", md: "inline-block", lg: "inline-block" }}
-        
-        >         
-            <Div
-            align="flex-start"
-            h = {{xs : "7rem" ,md : "auto"}}
-            m={{ t: "-1.5rem", b: "-1.5rem" }}
-            onClick = {() => {moveHref(data['_source']['news_url'])}}
-            >
-              <Text
-                  textAlign="left"
-                  textSize="subheader"
-                  m={{ t: "0.5rem", b: "0.5rem" }}
-                  textWeight="800"
-                  fontFamily="ko"
-                >
-                {data['_source']['news_title']}
-                </Text>
-                <Text
-                  m={{xs : "7rem" ,md : "auto"}}
-                  textAlign="left"  
-                  textColor="gray900"
-                >{data['_source']['news_group']} | {data['_source']['news_source']} | {data['_source']['news_date'].substring(0,10)} | </Text>  
-              
-            </Div>
+       >
 
-        </Div>
-      </Div>
-      </Div>
-  )})}
+           <Div
+           align="flex-start"
+           h = {{xs : "5rem" ,md : "auto"}}
+           m={{ t: "-1.5rem", b: "-1.5rem" }}
+           onClick = {() => {moveHref(data['_source']['news_url'])}}
+           >
+            <Text
+                textAlign="left"
+                textSize="subheader"
+                m={{ t: "1rem", b: "0" }}
+                textWeight="800"
+                fontFamily="ko"
+              >
+               {data['_source']['news_title']}
+               </Text>
+               <Text
+                m={{xs : "1.5rem" ,md : "auto"}}
+                textAlign="left"  
+                textColor="gray900"
+               >{data['_source']['news_group']} | {data['_source']['news_source']} | {data['_source']['news_date'].substring(0,10)} | </Text>  
             
-        </div>
-        
-      )
+           </Div>
+       
+       </Div>
+    </Div>
+    
+    </Div>
+ 
 
-  }
+)})}
+      </div>
+      
+    )
+
+}
+
+
 
   export default IndicatorDetailExeFor;
