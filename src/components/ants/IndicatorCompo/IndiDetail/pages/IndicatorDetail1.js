@@ -16,6 +16,7 @@ function IndicatorDetail1(props) {
     let [result, resultbyun] = useState("");
     let [hits, hitsbyun] = useState([]); 
 
+    let [inds, indsbyun] = useState([]); 
     let [nums, numsbyun] = useState('')
     let [dates, datesbyun] = useState('')
     let [title, titlebyun] = useState('')
@@ -23,6 +24,13 @@ function IndicatorDetail1(props) {
     let [chart2, chartShow2 ] = useState(false);
     let [chart3, chartShow3 ] = useState(false);
     let {tableName} = useParams();
+    let [symboli, symbolibyun] = useState({tableName})
+
+    let [ind1, ind1byun] = useState('')
+    let [ind2, ind2byun] = useState('')
+    let [ind3, ind3byun] = useState('')
+    let [ind4, ind4byun] = useState('')
+    let [ind5, ind5byun] = useState('')
     
     function moveHref(url){
       console.log("moveHref호출")
@@ -49,14 +57,11 @@ function IndicatorDetail1(props) {
       console.log("제목변경",title)
       IndApi.indicators2(tableName, 1)
       .then(res =>{
-        
         numsbyun(res.data[0]["price"])
         datesbyun(res.data[0]["dates"].substring(0,10))
-        
         axios.get("http://localhost:8000/news/searchmatchparse", { params :{id : res.data[0]["keyword"].split("/")[0], id: res.data[0]["keyword"].split("/")[1], id:res.data[0]["keyword"].split("/")[2]}})
         .then(response =>{
-          result=response.data
-          
+          result=response.data   
           var hits2 = result['hits']['hits']
           hitsbyun(hits2)     
           if(hits2.length > 9)
@@ -77,11 +82,27 @@ function IndicatorDetail1(props) {
 
     }
 
+    function corrAbs(){
+      console.log("들어갈것 확인",symboli)
+      console.log("확인2",symboli["tableName"].toLowerCase())
+      IndApi.corrAbs(symboli["tableName"].toLowerCase(), 5)
+      .then(res=>{
+        console.log("상관관계 확인", res.data)
+        indsbyun(res.data)
+        console.log("확인확인",res.data[0][symboli["tableName"].toLowerCase()])
+        ind1byun(res.data[0][symboli["tableName"].toLowerCase()])
+        ind2byun(res.data[0][symboli["tableName"].toLowerCase()])
+        ind3byun(res.data[0][symboli["tableName"].toLowerCase()])
+        ind4byun(res.data[0][symboli["tableName"].toLowerCase()])
+        ind5byun(res.data[0][symboli["tableName"].toLowerCase()])
+      })
+    }
 
     useEffect(() => {
       window.scrollTo(0, 0)
       
       searchmatchparse()
+      corrAbs()
     }, []);
 
   
@@ -219,20 +240,18 @@ function IndicatorDetail1(props) {
         <Table >
           <TableHead>
             <TableRow>
-              <TableCell align="center">FistName1</TableCell>
-              <TableCell align="center">FistName1</TableCell>
-              <TableCell align="center">LastName1</TableCell>
-              <TableCell align="center">FistName1</TableCell>
-              <TableCell align="center">LastName1</TableCell>
+            {inds.map(ind => 
+                <TableCell align="center"><b>{ind.indiname}</b></TableCell>                   
+                )}  
             </TableRow>
           </TableHead>
           <TableBody>
               <TableRow>
-                <TableCell></TableCell>
-                <TableCell ></TableCell>
-                <TableCell ></TableCell>
-                <TableCell></TableCell>
-                <TableCell ></TableCell>
+              <TableCell  align="center">{ind1}</TableCell>                   
+              <TableCell  align="center">{ind2}</TableCell>
+              <TableCell  align="center">{ind3}</TableCell>
+              <TableCell  align="center">{ind4}</TableCell>
+              <TableCell  align="center">{ind5}</TableCell>
               </TableRow>         
               </TableBody>
         </Table>
@@ -244,7 +263,7 @@ function IndicatorDetail1(props) {
                 m={{ t: "2rem", b: "0rem" }}
                 textWeight="800"
                 fontFamily="ko"
-              >
+          >
                 뉴스 목록
               </Text>
         
