@@ -52,7 +52,6 @@
             id1byun(name.split("/")[0].split(" ")[0])
         id2byun(name.split("/")[0].split(" ")[1])
 
-        //console.log(id1)
         axios.get("http://localhost:8000/news/searchmatchparsesort", { params :{id : id1, id:id2}})
         .then(response =>{
           result=response.data
@@ -76,8 +75,7 @@
         
           })
 
-          return "res"
-        
+          return "res"    
       }
       
       function corrAbs(){
@@ -244,21 +242,18 @@
               <TableRow>
               {inds.map(ind => 
                 <TableCell align="center"><b>{ind.indiname}</b></TableCell>                   
-                )
-            }  
+                )}  
               </TableRow>
             </TableHead>
             <TableBody>
-                <TableRow>
-                       
+                <TableRow>       
                 <TableCell  align="center">{ind1}</TableCell>                   
                 <TableCell  align="center">{ind2}</TableCell>
                 <TableCell  align="center">{ind3}</TableCell>
                 <TableCell  align="center">{ind4}</TableCell>
                 <TableCell  align="center">{ind5}</TableCell>
-
                 </TableRow>         
-                </TableBody>
+              </TableBody>
           </Table>
           </Container>
             <Text
@@ -317,10 +312,7 @@
 
         </Div>
       </Div>
-      
       </Div>
-  
-
   )})}
             
         </div>

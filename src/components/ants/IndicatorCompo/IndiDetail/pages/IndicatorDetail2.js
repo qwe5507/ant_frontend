@@ -16,7 +16,7 @@ function IndicatorDetail2(props) {
 
     let [result, resultbyun] = useState("");
     let [hits, hitsbyun] = useState([]); 
-
+    let [inds, indsbyun] = useState([]); 
     let [nums, numsbyun] = useState('')
     let [dates, datesbyun] = useState('')
     let [title, titlebyun] = useState('')
@@ -24,7 +24,17 @@ function IndicatorDetail2(props) {
     let [chart2, chartShow2 ] = useState(false);
     let [chart3, chartShow3 ] = useState(false);
     let {tableName} = useParams();
+    let [symboli, symbolibyun] = useState({tableName})
     
+    let [flag, isflag] = useState('')
+
+    let [ind1, ind1byun] = useState('')
+    let [ind2, ind2byun] = useState('')
+    let [ind3, ind3byun] = useState('')
+    let [ind4, ind4byun] = useState('')
+    let [ind5, ind5byun] = useState('')
+
+
     function moveHref(url){
       console.log("moveHref호출")
      window.open(url)
@@ -42,10 +52,10 @@ function IndicatorDetail2(props) {
       console.log("제목변경",title)
       IndApi.indicators1(tableName, 1)
       .then(res =>{
-       
         numsbyun(res.data[0]["price"])
         datesbyun(res.data[0]["dates"].substring(0,10))
         console.log(res.data[0]["keyword"])
+        isflag("fla")
         axios.get("http://localhost:8000/news/searchmatchparse", { params :{id : res.data[0]["keyword"].split("/")[0], id: res.data[0]["keyword"].split("/")[1], id:res.data[0]["keyword"].split("/")[2]}})
         .then(response =>{
           result=response.data
@@ -56,8 +66,7 @@ function IndicatorDetail2(props) {
           {
             hitsbyun([result['hits']['hits'][0], result['hits']['hits'][1], result['hits']['hits'][2], result['hits']['hits'][3], result['hits']['hits'][4], result['hits']['hits'][5], result['hits']['hits'][6], result['hits']['hits'][7], result['hits']['hits'][8]])
           }
-          
-         
+
         })
         .catch(error=>{
           console.log(error);
@@ -66,15 +75,31 @@ function IndicatorDetail2(props) {
       )
       .catch(err => {
         console.error('1일 수치 확인 오류', err);
-      
         })
+        
+    }
+
+    function corrAbs(){
+      console.log("들어갈것 확인",symboli)
+      console.log("확인2",symboli["tableName"].toLowerCase())
+      IndApi.corrAbs(symboli["tableName"].toLowerCase(), 5)
+      .then(res=>{
+        console.log("상관관계 확인", res.data)
+        indsbyun(res.data)
+        console.log("확인확인",res.data[0][symboli["tableName"].toLowerCase()])
+        ind1byun(res.data[0][symboli["tableName"].toLowerCase()])
+        ind2byun(res.data[0][symboli["tableName"].toLowerCase()])
+        ind3byun(res.data[0][symboli["tableName"].toLowerCase()])
+        ind4byun(res.data[0][symboli["tableName"].toLowerCase()])
+        ind5byun(res.data[0][symboli["tableName"].toLowerCase()])
+      })
     }
 
     useEffect(() => {
       window.scrollTo(0, 0)
       searchmatchparse()
+      corrAbs()
     }, []);
-
   
     return (     
       
@@ -207,25 +232,23 @@ function IndicatorDetail2(props) {
         </Text>
         </Container>
         <Container  m={{ t: "-1rem", b: "0" }}>
-        <Table >
+        <Table>
           <TableHead>
             <TableRow>
-              <TableCell align="center">FistName1</TableCell>
-              <TableCell align="center">FistName1</TableCell>
-              <TableCell align="center">LastName1</TableCell>
-              <TableCell align="center">FistName1</TableCell>
-              <TableCell align="center">LastName1</TableCell>
+            {inds.map(ind => 
+                <TableCell align="center"><b>{ind.indiname}</b></TableCell>                   
+                )}  
             </TableRow>
           </TableHead>
           <TableBody>
               <TableRow>
-                <TableCell></TableCell>
-                <TableCell ></TableCell>
-                <TableCell ></TableCell>
-                <TableCell></TableCell>
-                <TableCell ></TableCell>
+              <TableCell  align="center">{ind1}</TableCell>                   
+              <TableCell  align="center">{ind2}</TableCell>
+              <TableCell  align="center">{ind3}</TableCell>
+              <TableCell  align="center">{ind4}</TableCell>
+              <TableCell  align="center">{ind5}</TableCell>
               </TableRow>         
-              </TableBody>
+          </TableBody>
         </Table>
         </Container>
 
