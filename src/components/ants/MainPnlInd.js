@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 
-import { Text, Div, Image } from "atomize"
+import { Text, Div, Image, Radiobox, Label } from "atomize"
 import flagKo from "../../images/flags/ko.png"
 import flagUs from "../../images/flags/us.png"
 
@@ -12,7 +12,9 @@ import { Line } from 'react-chartjs-2';
 
 function MainPnlInd() {
 
+  let [chartName, chartNameChange] = useState([]);
   let [chartData, chartDataChange] = useState([]);
+  let [sortNews, sortNewsChange] = useState('상승순');
 
   useEffect(() => {
 
@@ -23,75 +25,71 @@ function MainPnlInd() {
         delete temp.dates;
         var sortedTemp = sortByValue(temp);
 
-        // var tableList = [];
-        // for (var i = sortedTemp.length - 1; i > sortedTemp.length - 4; i--) {
-        //   tableList.push(sortedTemp[i][1]);
-        // }
-
-        // console.log(tableList);
-
-        // TestApi.mainIndicatorCall(tableList)
-        //   .then(res => {
-
-        //   })
-        //   .catch(err => {
-        //     console.log('경제 지표 하루 변동률 목록 가져오기 에러', err);
-        //   });
-
+        var tempChartName = [];
         var tempChartData = [];
 
-          for (var i = sortedTemp.length - 1; i > sortedTemp.length - 4; i--) {
-            TestApi.mainIndicatorCall(sortedTemp[i][1])
-              .then(res => {
+        for (var i = sortedTemp.length - 1; i > sortedTemp.length - 5; i--) {
+          tempChartName.push(sortedTemp[i][1]);
+          TestApi.mainIndicatorCall(sortedTemp[i][1])
+            .then(res => {
 
-                const temp = res.data;
-                var labels = [];
-                var data = [];
+              const temp = res.data;
+              var labels = [];
+              var data = [];
 
-                // 값 저장
-                for (var i = 0; i < temp.length; i++) {
-                  labels.push(temp[i]['dates']);
-                  data.push(temp[i]['price']);
-                }
-                // 날짜 전처리
-                for (var j = 0; j < labels.length; j++) {
-                  labels[j] = labels[j].substring(0, 10)
-                }
+              // 값 저장
+              for (var j = 0; j < temp.length; j++) {
+                labels.push(temp[j]['dates']);
+                data.push(temp[j]['price']);
+              }
+              // 날짜 전처리
+              for (var k = 0; k < labels.length; k++) {
+                labels[k] = labels[k].substring(0, 10)
+              }
 
-                var dataSet = {
-                  labels: labels,
-                  datasets: [
-                    {
-                      datasetStrokeWidth: 10,
-                      type: "line",
-                      borderCapStyle: "round",
-                      borderColor: "rgba(2, 132, 254, 1)",
-                      borderWidth: 3,
-                      backgroundColor: "rgba(179, 218, 255, 1)",
-                      pointHoverRadius: 0,
-                      pointDot: false,
-                      pointRadius: 0,
-                      pointDotRadius: 0,
-                      data: data
-                    }
-                  ]
-                }
+              var dataSet = {
+                labels: labels,
+                datasets: [
+                  {
+                    datasetStrokeWidth: 10,
+                    type: "line",
+                    borderCapStyle: "round",
+                    borderColor: temp[0]['changedate'] > 0 ? "rgba(244, 84, 29, 1)" : "rgba(2, 132, 254, 1)",
+                    borderWidth: 3,
+                    backgroundColor: temp[0]['changedate'] > 0 ? "rgba(251, 207, 208, 1)" : "rgba(179, 218, 255, 1)",
+                    pointHoverRadius: 0,
+                    pointDot: false,
+                    pointRadius: 0,
+                    pointDotRadius: 0,
+                    data: data
+                  }
+                ]
+              }
 
-                tempChartData.push(dataSet);
-                console.log(tempChartData);
+              var changeDateCalc = Math.round(temp[0]['changedate'] * 100) / 100
 
-                chartDataChange(tempChartData);
-                console.log(chartData);
-              })
-              .catch(err => {
-                console.log('mainIndicatorCall ERROR', err);
-              })
-          }
-        })
-        .catch(err => {
-          console.log('경제 지표 하루 변동률 목록 가져오기 에러', err);
-        });
-      }, []);
+              var wholeData = {
+                name: sortedTemp[i][1],
+                price: temp[0]['price'],
+                changedate: changeDateCalc,
+                dataSet: dataSet
+              }
+
+              tempChartData.push(wholeData);
+            })
+            .catch(err => {
+              console.log('mainIndicatorCall ERROR', err);
+            })
+        }
+        setTimeout(() => {
+          chartNameChange(tempChartName);
+          chartDataChange(tempChartData);
+        }, 400);
+      })
+      .catch(err => {
+        console.log('경제 지표 하루 변동률 목록 가져오기 에러', err);
+      });
+  }, []);
 
 
   // JSON Value 정렬
@@ -117,15 +115,17 @@ function MainPnlInd() {
         b: { xs: "2rem", sm: "1.5rem" },
         t: "1.5rem",
       }}
-      h="24rem"
+      h="28rem"
       bg="white"
       shadow="4"
       rounded="xl"
 
     >
       <Div
-        flexGrow="1"
-        textAlign="center"
+        d="flex"
+        align="center"
+        justify="space-between"
+        flexDir="row"
       >
         <Text
           m={{ t: "1rem", b: "0.5rem" }}
@@ -134,13 +134,51 @@ function MainPnlInd() {
           fontFamily="ko"
         >
           경제 지표
-            </Text>
+        </Text>
+        <Div
+          d="flex"
+          flexDir="row"
+        >
+          <Label
+            align="center"
+            textWeight="500"
+            fontFamily="ko"
+            m={{ t: "0.4rem", r: "0.5rem" }}
+          >
+            <Radiobox
+              onChange={() => sortNewsChange('상승순')}
+              checked={sortNews === '상승순'}
+              name="count"
+            />
+                상승순
+            </Label>
+          <Label
+            align="center"
+            textWeight="500"
+            fontFamily="ko"
+            m={{ t: "0.4rem" }}
+          >
+            <Radiobox
+              onChange={() => sortNewsChange('하락순')}
+              checked={sortNews === '하락순'}
+              name="count"
+            />
+                하락순
+            </Label>
+        </Div>
+      </Div>
+      <Div
+        flexGrow="1"
+        textAlign="center"
+      >
         <Text
           m={{ b: "0.5rem" }}
           textWeight="800"
           fontFamily="ko"
+          textAlign="left"
+          m={{ b:"1rem" }}
         >
-          하루동안 상승률이 높은 지표입니다. (실시간 아님)
+          지난 하루 변동폭이 큰 지표입니다. (오전 9시 기준)
         </Text>
 
         {/* 반복문 */}
@@ -169,29 +207,35 @@ function MainPnlInd() {
                 <Text
                   textWeight="800"
                   fontFamily="ko"
+                  textAlign="left"
+                  w="3rem"
                 >
-                  EUR/USD
-                    </Text>
+                  {chartName[i]}
+                </Text>
                 <Text
                   textWeight="800"
                   fontFamily="ko"
+                  textAlign="left"
+                  w="3rem"
                 >
-                  {/* { today } */}
+                  {a.price}
                 </Text>
 
                 <Text
                   textWeight="800"
                   fontFamily="ko"
-                  textColor="info700"
+                  textColor={a.changedate > 0 ? "danger700" : "info700"}
+                  textAlign="left"
+                  w="3rem"
                 >
-                  +3.50%
-                    </Text>
+                  {a.changedate > 0 ? '+' : '-'}{a.changedate} %
+                </Text>
                 <Div
                   w="2rem"
                   overflow="hidden"
                 >
                   <Line
-                    data={a}
+                    data={a.dataSet}
                     options={{
                       animation: {
                         duration: 2000
@@ -244,6 +288,7 @@ function MainPnlInd() {
             textWeight="800"
             textSize="subheader"
             fontFamily="ko"
+            m={{ t: "1.5rem" }}
           >
             지표 더보기 →
           </Text>

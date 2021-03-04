@@ -17,7 +17,7 @@ const MainPnlCmp3 = () => (
             b: { xs: "2rem", sm: "1.5rem" },
             t: "1.5rem",
         }}
-        h="24rem"
+        h="28rem"
         bg="white"
         shadow="4"
         rounded="xl"
