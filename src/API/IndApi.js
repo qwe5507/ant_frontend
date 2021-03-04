@@ -8,6 +8,7 @@ const USER_API_BASE_URL_CHART_EURUSD = "http://localhost:8000/indicator/labelDal
 const USER_API_BASE_URL_CHART = "http://localhost:8000/indicator/chart";
 const USER_API_BASE_URL_INDI1 = "http://localhost:8000/indicator/indi1";
 const USER_API_BASE_URL_INDI2 = "http://localhost:8000/indicator/indi2";
+const USER_API_BASE_URL_CORRABS = "http://localhost:8000/indicator/corrAbs";
 
 
 class IndApiService {
@@ -56,6 +57,11 @@ class IndApiService {
     return axios.get(USER_API_BASE_URL_INDI2  + '/' + tableName + '/' + num);
     }
 
+    //상관관계 절대값으로 최상위값 표현
+    corrAbs(indi, num) {
+    num = parseInt(num);
+    return axios.get(USER_API_BASE_URL_CORRABS  + '/' + indi + '/' + num);
+    }
 
 
 

@@ -1,10 +1,14 @@
 import React, {useState, useEffect, useRef } from "react"
-import { Text, Div,  Button, Input, Container} from "atomize";
+import { Text, Div,  Button, Icon, Container} from "atomize";
 import { useParams } from 'react-router-dom';
 import ChartIndi2 from "../chart/ChartIndi2"
 
 import IndApi from "../../../../../api/IndApi";
-
+import Table from '@material-ui/core/Table'
+import TableBody from '@material-ui/core/TableBody'
+import TableCell from '@material-ui/core/TableCell'
+import TableHead from '@material-ui/core/TableHead'
+import TableRow from '@material-ui/core/TableRow'
 import axios from "axios";
 
 function IndicatorDetail2(props) {
@@ -75,7 +79,7 @@ function IndicatorDetail2(props) {
     return (     
       
       <div align = "center">
-       <Container d="flex" flexDir="column" m={{ x: { xs: '0', md: '0' }, y: { xs: '5.5rem', md: '3.5rem' }}} >
+       <Container d="flex" flexDir="column" m={{ x: { xs: '0', md: '0' }, y: { xs: '5.5rem', md: '4rem' }}} >
        
        <Text
                textAlign="left"
@@ -179,12 +183,56 @@ function IndicatorDetail2(props) {
             ? <ChartIndi2 num={180} tableName={tableName}/>
             : null
           }
-         
+         <Text
+            textAlign="left"
+            textSize="title"
+            m={{ t: "0rem", b: "0rem" }}
+            textWeight="800"
+            fontFamily="ko"
+         >
+          관련지표
+        </Text>
+        <Container d="flex" flexDir="row">
+        <Icon name="Checked" size="20px"  m={{ t: "0.5rem", b: "1rem" }}/>
+        <Text
+            fontColor="dark"
+            textAlign="left"
+            textSize="subheader"
+            m={{ t: "0.5rem", b: "1rem" }}
+            textWeight="600"
+            fontFamily="ko"
+         >
+          상관관계가 높은 5개의 지표와 상관계수입니다.
+          상관계수는 1에 가까울수록 비례 관계를, -1에 가까울수록 반비례 관계를 보입니다.
+        </Text>
+        </Container>
+        <Container  m={{ t: "-1rem", b: "0" }}>
+        <Table >
+          <TableHead>
+            <TableRow>
+              <TableCell align="center">FistName1</TableCell>
+              <TableCell align="center">FistName1</TableCell>
+              <TableCell align="center">LastName1</TableCell>
+              <TableCell align="center">FistName1</TableCell>
+              <TableCell align="center">LastName1</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+              <TableRow>
+                <TableCell></TableCell>
+                <TableCell ></TableCell>
+                <TableCell ></TableCell>
+                <TableCell></TableCell>
+                <TableCell ></TableCell>
+              </TableRow>         
+              </TableBody>
+        </Table>
+        </Container>
 
           <Text
                 textAlign="left"
                 textSize="title"
-                m={{ t: "0.5rem", b: "0.5rem" }}
+                m={{ t: "2rem", b: "0rem" }}
                 textWeight="800"
                 fontFamily="ko"
               >
@@ -214,12 +262,13 @@ function IndicatorDetail2(props) {
            <Div
            align="flex-start"
            h = {{xs : "7rem" ,md : "auto"}}
+           m={{ t: "-1.5rem", b: "-1.5rem" }}
            onClick = {() => {moveHref(data['_source']['news_url'])}}
            >
             <Text
                 textAlign="left"
                 textSize="subheader"
-                m={{ t: "0.5rem", b: "0.5rem" }}
+                m={{ t: "0", b: "0" }}
                 textWeight="800"
                 fontFamily="ko"
               >
