@@ -1,14 +1,21 @@
 import React, {useState, useEffect, useRef } from "react"
-import { Text, Div, Button, Container } from "atomize";
+import { Text, Div, Button, Container, Icon } from "atomize";
 import ChartKor from "../chart/ChartKor"
 import IndApi from "../../../../../api/IndApi";
-
+import Table from '@material-ui/core/Table'
+import TableBody from '@material-ui/core/TableBody'
+import TableCell from '@material-ui/core/TableCell'
+import TableHead from '@material-ui/core/TableHead'
+import TableRow from '@material-ui/core/TableRow'
 import axios from "axios";
+import { indigo } from "@material-ui/core/colors";
 
 function IndicatorDetail() {
-    console.log('asdasd')
+    
     let [result, resultbyun] = useState("");
     let [hits, hitsbyun] = useState([]); 
+
+    let [inds, indsbyun] = useState([]); 
 
     let [nums, numsbyun] = useState('')
     let [date, datesbyun] = useState('')
@@ -40,13 +47,21 @@ function IndicatorDetail() {
       });
     }
 
+    function corrAbs(){
+      IndApi.corrAbs("usdkrw", 5)
+      .then(res=>{
+        console.log("상관관계 확인", res.data)
+        indsbyun(res.data)
+      })
+    }
+
     useEffect(() => {
       window.scrollTo(0, 0)
       IndApi.chartIndi(1)
       .then(res =>{
         numsbyun(res.data[0]["price"])
         datesbyun(res.data[0]["dates"].substring(0,10))
-             
+        
       }
       )
       .catch(err => {
@@ -54,13 +69,14 @@ function IndicatorDetail() {
       
         })
         searchmatchparse()
+        corrAbs()
      }, []);
 
     
     return (     
       
       <div align = "center">
-        <Container d="flex" flexDir="column" m={{ x: { xs: '0', md: '0' }, y: { xs: '5.5rem', md: '3.5rem' }}} >
+        <Container d="flex" flexDir="column" m={{ x: { xs: '0', md: '0' }, y: { xs: '5.5rem', md: '4rem' }}} >
        
         <Text
                 textAlign="left"
@@ -166,11 +182,55 @@ function IndicatorDetail() {
             ? <ChartKor nums={180}/>
             : null
           }
-
+           <Text
+            textAlign="left"
+            textSize="title"
+            m={{ t: "0rem", b: "0rem" }}
+            textWeight="800"
+            fontFamily="ko"
+         >
+          관련지표
+        </Text>
+        <Container d="flex" flexDir="row">
+        <Icon name="Checked" size="20px"  m={{ t: "0.5rem", b: "1rem" }}/>
+        <Text
+            fontColor="dark"
+            textAlign="left"
+            textSize="subheader"
+            m={{ t: "0.5rem", b: "1rem" }}
+            textWeight="600"
+            fontFamily="ko"
+         >
+          상관관계가 높은 5개의 지표와 상관계수입니다.
+          상관계수는 1에 가까울수록 비례 관계를, -1에 가까울수록 반비례 관계를 보입니다.
+        </Text>
+        </Container>
+        <Container  m={{ t: "-1rem", b: "0" }}>
+        <Table >
+        
+          <TableHead>
+          <TableRow>
+          {inds.map(ind => 
+              <TableCell align="center"><b>{ind.indiname}</b></TableCell>                   
+              )
+          }     
+           </TableRow>
+          </TableHead>
+          <TableBody>
+              <TableRow>
+              {inds.map(ind => 
+              <TableCell align="center">{ind.usdkrw}</TableCell>                   
+              )
+          }  
+              </TableRow> 
+           
+              </TableBody>
+        </Table>
+        </Container>
           <Text
                 textAlign="left"
                 textSize="title"
-                m={{ t: "0rem", b: "0rem" }}
+                m={{ t: "2rem", b: "0rem" }}
                 textWeight="800"
                 fontFamily="ko"
               >
@@ -202,12 +262,13 @@ function IndicatorDetail() {
            <Div
            align="flex-start"
            h = {{xs : "7rem" ,md : "auto"}}
+           m={{ t: "-1.5rem", b: "-1.5rem" }}
            onClick = {() => {moveHref(data['_source']['news_url'])}}
            >
             <Text
                 textAlign="left"
                 textSize="subheader"
-                m={{ t: "0.5rem", b: "0.5rem" }}
+                m={{ t: "0", b: "0" }}
                 textWeight="800"
                 fontFamily="ko"
               >
@@ -223,9 +284,8 @@ function IndicatorDetail() {
        
        </Div>
     </Div>
-    
+   
     </Div>
- 
 
 )})}
           
