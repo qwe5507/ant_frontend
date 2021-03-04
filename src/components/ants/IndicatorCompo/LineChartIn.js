@@ -104,14 +104,13 @@ const LineChartIn = () => {
                     unitStepSize: 1
                   },
                   ticks: {
-                    
                     fontSize: 10
                   }
                 }
               ],
               yAxes: [
                 {
-                  display: false,
+                  display: true,
                   scaleLabel: {
                     display: false,              
                   },

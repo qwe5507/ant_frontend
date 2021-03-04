@@ -110,7 +110,7 @@ const LineChartIn2 = () => {
               ],
               yAxes: [
                 {
-                  display: false,
+                  display: true,
                   scaleLabel: {
                     display: false,              
                   },

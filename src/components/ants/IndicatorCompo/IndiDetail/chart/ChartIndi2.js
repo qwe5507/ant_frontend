@@ -19,32 +19,10 @@ const Title = styled.h1`
   text-align: center;
 `;
 
-
 const Canvas = styled.div`
-@media all and (min-width: 550px){
-  width: 380px;
-  }
-
-@media all and (min-width: 700px){
-  width: 500px;
-  }
- 
-@media all and (min-width:1000px){
-  width: 600px;
-  }
- 
-  @media all and (min-width:1140px){
-    width: 900px;
-  }
-
-  @media all and (min-width:1300px){
-    width: 1140px;
-  }
-  
-  display: flex;
- justify-content: center;
+  justify-content: center;
   align-items: center;
-  
+  width: 1140px;
   height: 350px;
 `;
 

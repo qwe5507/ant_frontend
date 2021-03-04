@@ -133,6 +133,8 @@ const NewsForm2 = () => (
     maxW="100%"
     pos={{ xs: "static", md: "absolute" }}
     m={{ xs: "1rem", md: "-2rem" }}
+    //left="0"
+    //right="0"
     top="0"
     rounded="xl"
     h={{ lg: "24rem" }}
@@ -159,6 +161,7 @@ const NewsForm2 = () => (
           
             align="center"
             textWeight="600"
+            // m={{ b: "1rem" }}
             >
       <Icon name="Add" size="30px" />
       </Label>

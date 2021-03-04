@@ -76,7 +76,7 @@ function IndicatorDetail() {
     return (     
       
       <div align = "center">
-        <Container d="flex" flexDir="column" m={{ x: { xs: '0', md: '0' }, y: { xs: '4rem', md: '4rem' }}} >
+        <Container d="flex" flexDir="column" m={{ x: { xs: '0', md: '0' }, y: { xs: '5.5rem', md: '4rem' }}} >
        
         <Text
                 textAlign="left"
@@ -166,7 +166,7 @@ function IndicatorDetail() {
           </Button>
         
           </Container>
-          
+      
           {
             chart1 === true
             ? <ChartKor nums={30}/>
@@ -182,7 +182,6 @@ function IndicatorDetail() {
             ? <ChartKor nums={180}/>
             : null
           }
-          
            <Text
             textAlign="left"
             textSize="title"
@@ -229,52 +228,54 @@ function IndicatorDetail() {
         </Table>
         </Container>
           <Text
-            textAlign="left"
-            textSize="title"
-            m={{ t: "2rem", b: "0rem" }}
-            textWeight="800"
-            fontFamily="ko"
-          >
+                textAlign="left"
+                textSize="title"
+                m={{ t: "2rem", b: "0rem" }}
+                textWeight="800"
+                fontFamily="ko"
+              >
                 뉴스 목록
               </Text> 
           
           </Container>
-          {hits.map(function(data){
+       {hits.map(function(data){
         return(
           
-        <Div  m = {{ xs: "1.5rem", md: "-1.5rem" }}>
+        <Div  m = {{ xs: "0", md: "-1.5rem" }}>
         
         <Div
         bg="white" 
         d="inline-block" align="center"
+       
         >
        <Div
-        h = {{ xs: "3rem", md: "6rem" }}
-        w = {{ xs: "25rem", md: "70rem" }}
+      h = {{ xs: "11rem", md: "6rem" }}
+       w = {{ xs: "25rem", md: "70rem" }}
       
-        border={{ b: "1px solid" }}
-        borderColor="gray400"
-        pos = "flex"
-        d={{ xs: "inline-block", md: "inline-block", lg: "inline-block" }}
+       border={{ b: "1px solid" }}
+       borderColor="gray400"
+       pos = "flex"
+       d={{ xs: "inline-block", md: "inline-block", lg: "inline-block" }}
+       
        >
 
            <Div
            align="flex-start"
-           h = {{xs : "rem" ,md : "auto"}}
-           m = {{ xs: "-1rem", md: "-1.5rem" }}
+           h = {{xs : "7rem" ,md : "auto"}}
+           m={{ t: "-1.5rem", b: "-1.5rem" }}
            onClick = {() => {moveHref(data['_source']['news_url'])}}
            >
             <Text
                 textAlign="left"
                 textSize="subheader"
-                m = {{ xs: "-1rem", md: "0" }}
+                m={{ t: "0", b: "0" }}
                 textWeight="800"
                 fontFamily="ko"
               >
                {data['_source']['news_title']}
                </Text>
                <Text
-                m = {{ xs: "1rem", md: "0" }}
+                m={{xs : "7rem" ,md : "auto"}}
                 textAlign="left"  
                 textColor="gray900"
                >{data['_source']['news_group']} | {data['_source']['news_source']} | {data['_source']['news_date'].substring(0,10)} | </Text>  
@@ -283,15 +284,15 @@ function IndicatorDetail() {
        
        </Div>
     </Div>
-    
+   
     </Div>
 
 )})}
+          
       </div>
       
     )
 
 }
-
 
 export default IndicatorDetail;

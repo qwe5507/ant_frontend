@@ -19,35 +19,12 @@ const Title = styled.h1`
   text-align: center;
 `;
 
-
 const Canvas = styled.div`
-@media all and (min-width: 550px){
-  width: 380px;
-  }
-
-@media all and (min-width: 700px){
-  width: 500px;
-  }
- 
-@media all and (min-width:1000px){
-  width: 600px;
-  }
- 
-  @media all and (min-width:1140px){
-    width: 900px;
-  }
-
-  @media all and (min-width:1300px){
-    width: 1140px;
-  }
-  
-  display: flex;
- justify-content: center;
+  justify-content: center;
   align-items: center;
-  
+  width: 1140px;
   height: 350px;
 `;
-
 
 const ChartKor = (props) => {
   let labeleurusd = []
@@ -56,7 +33,8 @@ const ChartKor = (props) => {
   const chartContainer = useRef(null);
 
   const reloadJipyoList = () => {
-
+    let temp = []
+    //var num = 90
     IndApi.chartIndi(props.nums)
      .then(res =>{
  
@@ -152,7 +130,9 @@ const ChartKor = (props) => {
          console.error('지표리스트 오류', err);
          alert('조회오류');
          })
-   
+    //   jipyos = ["1960", "1970", "1980", "1990", "2000", "2010", "2020"];
+    //  jipyos = temp
+     
      }
  
      useEffect(() => {

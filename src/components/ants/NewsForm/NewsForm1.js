@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from "react"
-import { Text, Div, Col, Row, Switch, Label } from "atomize"
-
+import { Text, Div, Icon, Anchor, Button, Input, Col, Row, Switch, Label } from "atomize"
+import { makeStyles } from '@material-ui/core/styles';
+import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-
+import Divider from '@material-ui/core/Divider';
+import ListItemText from '@material-ui/core/ListItemText';
 import Paper from '@material-ui/core/Paper';
-
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import Avatar from '@material-ui/core/Avatar';
+import Typography from '@material-ui/core/Typography';
 import { FixedSizeList } from 'react-window';
 const Column = () => {
   // props의 구조는 { data, style, index, isScrolling }으로 되어있다.

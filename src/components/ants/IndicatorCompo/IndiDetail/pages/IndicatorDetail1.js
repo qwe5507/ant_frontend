@@ -213,7 +213,6 @@ function IndicatorDetail1(props) {
             ? <ChartIndi1 num={180} tableName={tableName}/>
             : null
           }
-
            <Text
             textAlign="left"
             textSize="title"
@@ -268,18 +267,18 @@ function IndicatorDetail1(props) {
                 뉴스 목록
               </Text>
         
-              </Container>
-          {hits.map(function(data){
+        </Container>
+        {hits.map(function(data){
         return(
           
-        <Div  m = {{ xs: "1.5rem", md: "-1.5rem" }}>
+        <Div  m = {{ xs: "0", md: "-1.5rem" }}>
         
         <Div
         bg="white" 
         d="inline-block" align="center"
         >
        <Div
-        h = {{ xs: "3rem", md: "6rem" }}
+        h = {{ xs: "11rem", md: "6rem" }}
         w = {{ xs: "25rem", md: "70rem" }}
       
         border={{ b: "1px solid" }}
@@ -290,21 +289,21 @@ function IndicatorDetail1(props) {
 
            <Div
            align="flex-start"
-           h = {{xs : "5rem" ,md : "auto"}}
+           h = {{xs : "7rem" ,md : "auto"}}
            m={{ t: "-1.5rem", b: "-1.5rem" }}
            onClick = {() => {moveHref(data['_source']['news_url'])}}
            >
             <Text
                 textAlign="left"
                 textSize="subheader"
-                m={{ t: "1rem", b: "0" }}
+                m={{ t: "0", b: "0" }}
                 textWeight="800"
                 fontFamily="ko"
               >
                {data['_source']['news_title']}
                </Text>
                <Text
-                m={{xs : "1.5rem" ,md : "auto"}}
+                m={{xs : "7rem" ,md : "auto"}}
                 textAlign="left"  
                 textColor="gray900"
                >{data['_source']['news_group']} | {data['_source']['news_source']} | {data['_source']['news_date'].substring(0,10)} | </Text>  
@@ -323,7 +322,5 @@ function IndicatorDetail1(props) {
     )
 
 }
-
-
 
 export default IndicatorDetail1;
