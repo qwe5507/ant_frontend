@@ -1,118 +1,20 @@
-import React, { useState, Component } from "react"
+import React, { useState } from "react"
 import NewsForm1 from "./NewsForm/NewsForm1"
 import NewsForm2 from "./NewsForm/NewsForm2"
 import NewsForm3 from "./NewsForm/NewsForm3"
 import { BrowserRouter as Router, Route, Link, useHistory } from "react-router-dom";
 import { Switch, Label, Example, Div, Br, Text, Container, Anchor, Input, Icon, Button, props, girl, rest, boy } from "atomize";
 import axios from "axios";
-import qs from 'query-string';
-import NewsDetail from "./NewsDetail";
-
-// function listKeyword(){
-//   axios.get("http://localhost:8000/news/upsert")
-//   .then(response =>{
-//     console.log(response);
-//   })
-//   .catch(error=>{
-//     console.log(error);
-//   });
-// }
 
 function News() {
 
-  let [search, search변경] = useState("");
-  let [countlist, countlist변경] = useState("");
-  let history = useHistory();
-  const onClick = () => {
-    upsertKeyword()
-
-
-    history.push("/NewsDetail/" + search)
-  };
-
-  const onKeyPress = (e) => {
-    if (e.key == 'Enter') {
-      onClick();
-    }
-  }
-
-
-  const onChange = e => {
-    search변경(e.target.value)
-    console.log(e.target.value)
-  }
-
-  const sendParam = { search }
-
-  function upsertKeyword() {
-    axios.get("http://localhost:8000/news/upsert", { params: { id: { search } } })
-      .then(response => {
-        console.log(response);
-
-        console.log("??")
-      })
-      .catch(error => {
-        console.log(error);
-      });
-
-  }
-
-  function searchCount() {
-    countlist = axios.get("http://localhost:8000/news/searchcount")
-    console.log(countlist)
-  }
-
-
-
   return (
     <Div>
-      {searchCount()}
-      <Div
-        tag="section"
-        w="100vw"
-        p={{ t: { xs: "6rem", md: "6rem" } }}
-        overflow="hidden"
-        d="flex"
-        justify="center"
-      // border="1px solid"
-      // borderColor="info700"
-      >
-
-        <Input
-          placeholder="Search"
-          // p={{ x: "30.5rem" }}
-          w={{ xs: "38rem", md: "20rem" }}
-          h={{ xs: "3rem", md: "3rem" }}
-          onChange={onChange}
-          onKeyPress={onKeyPress}
-
-          // border="1px solid"
-          // borderColor="info700"
-          pos="static"
-          suffix={
-            <Icon
-
-              onClick={onClick}
-              name="Search"
-              size="20px"
-              cursor="pointer"
-              pos="absolute"
-
-              top="50%"
-              right="1rem"
-              transform="translateY(-50%)"
-            />
-          }
-        />
-
-      </Div>
-
       <Div
         tag="section"
         w="100vw"
         p={{ t: { xs: "3rem", md: "8rem" } }}
         overflow="hidden"
-
       >
         <Container>
           <Div
@@ -121,13 +23,13 @@ function News() {
             p={{ b: "10.5rem" }}
             border={{ b: "1px solid" }}
             borderColor="gray300"
-
           >
             <Div
-              minW={{ xs: "100%", md: "44rem", lg: "70rem" }}
+              minW={{ xs: "100%", md: "80rem" }}
               d="flex"
               align="center"
-              flexDir="column"
+              justify="center"
+              flexDir={{ xs: "column", md: "row" }}
               h={{ xs: "auto", md: "21rem", lg: "20rem" }}
               pos="relative"
             >

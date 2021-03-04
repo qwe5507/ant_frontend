@@ -4,11 +4,6 @@ import { Link } from 'react-router-dom';
 
 import BoardApiService from "../../api/BoardApi";
 
-import intro1 from "../../images/icons/intro1.svg"
-import intro2 from "../../images/icons/intro2.svg"
-import intro3 from "../../images/icons/intro3.svg"
-import intro4 from "../../images/icons/intro4.svg"
-
 function Intoducing() {
 
   let [board, boardChange] = useState([]);

@@ -1,7 +1,7 @@
 import React, { useState, Component } from "react";
 
 import MainPnlCmp1 from "./MainPnlCmp1";
-import MainPnlCmp2 from "./MainPnlCmp2";
+import MainPnlInd from "./MainPnlInd";
 import MainPnlCmp3 from "./MainPnlCmp3";
 
 import { BrowserRouter as Router, Route, Link, useHistory } from "react-router-dom";
@@ -28,7 +28,7 @@ function MainPanels() {
                         borderColor="gray300"
                     >
                         <Div
-                            minW={{ xs: "100%", md: "44rem", lg: "59rem" }}
+                            minW={{ xs: "100%", md: "80rem" }}
                             d="flex"
                             align="center"
                             justify="center"
@@ -39,7 +39,7 @@ function MainPanels() {
 
                             {/* Form Component */}
                             <MainPnlCmp1 />
-                            <MainPnlCmp2 />
+                            <MainPnlInd />
                             <MainPnlCmp3 />
 
                         </Div>

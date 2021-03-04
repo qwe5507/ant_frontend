@@ -6,9 +6,6 @@ import producthunt from "../../images/logo-producthunt.svg"
 import { Link, Route, useHistory, useParams } from 'react-router-dom';
 //import Modal from 'react-modal';
 import axios from "axios";
-import 'react-calendar/dist/Calendar.css';
-import 'react-date-range/dist/styles.css'; // main style file
-import 'react-date-range/dist/theme/default.css'; // theme css file
 function NewsDetail(){
 
     let { search } = useParams();

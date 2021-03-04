@@ -7,7 +7,7 @@ const MainPnlCmp3 = () => (
     <Div
         border="1px solid"
         borderColor="gray200"
-        w={{ xs: "100%", md: "19.5rem" }}
+        w={{ xs: "100%", md: "22rem" }}
         maxW="100%"
         pos={{ xs: "static", md: "relative" }}
         m={{ xs: "1rem", md: "1rem" }}
