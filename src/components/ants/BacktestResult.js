@@ -52,9 +52,6 @@ function BacktestResult(props) {
             dataArr.push(dataSet);
         }
 
-        console.log(typeof (dataArr));
-        console.log(dataArr);
-
         chartDataChange(dataArr);
 
     }, []);

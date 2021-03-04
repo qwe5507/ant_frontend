@@ -8,7 +8,7 @@ const MainPnlCmp1 = () => (
     <Div
         border="1px solid"
         borderColor="gray200"
-        w={{ xs: "100%", md: "19.5rem" }}
+        w={{ xs: "100%", md: "22rem" }}
         maxW="100%"
         pos={{ xs: "static", md: "relative" }}
         m={{ xs: "1rem", md: "1rem" }}
@@ -18,7 +18,7 @@ const MainPnlCmp1 = () => (
             b: { xs: "2rem", sm: "1.5rem" },
             t: "1.5rem",
         }}
-        h="24rem"
+        h="28rem"
         bg="white"
         shadow="4"
         rounded="xl"
