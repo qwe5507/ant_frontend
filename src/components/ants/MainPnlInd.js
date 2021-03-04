@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react"
 
 import { Text, Div, Image, Radiobox, Label } from "atomize"
+
+import { nanoid } from 'nanoid';
+
 import flagKo from "../../images/flags/ko.png"
 import flagUs from "../../images/flags/us.png"
 
@@ -12,7 +15,6 @@ import { Line } from 'react-chartjs-2';
 
 function MainPnlInd() {
 
-  let [chartName, chartNameChange] = useState([]);
   let [chartData, chartDataChange] = useState([]);
   let [sortNews, sortNewsChange] = useState('상승순');
 
@@ -69,12 +71,12 @@ function MainPnlInd() {
               var changeDateCalc = Math.round(temp[0]['changedate'] * 100) / 100
 
               var wholeData = {
-                name: sortedTemp[i][1],
+                id: nanoid(),
+                name: '',
                 price: temp[0]['price'],
                 changedate: changeDateCalc,
                 dataSet: dataSet
               }
-
               tempChartData.push(wholeData);
             })
             .catch(err => {
@@ -82,15 +84,17 @@ function MainPnlInd() {
             })
         }
         setTimeout(() => {
-          chartNameChange(tempChartName);
+          for (var i = 0; i < tempChartData.length; i++) {
+            tempChartData[i]['name'] = tempChartName[i];
+          }
+          console.log(tempChartData);
           chartDataChange(tempChartData);
-        }, 400);
+        }, 500);
       })
       .catch(err => {
         console.log('경제 지표 하루 변동률 목록 가져오기 에러', err);
       });
   }, []);
-
 
   // JSON Value 정렬
   function sortByValue(jsonObj) {
@@ -100,6 +104,12 @@ function MainPnlInd() {
     }
     return sortedArray.sort(); // Value 를 역순 정렬 (오름차순)
   }
+
+  // 동기 지연
+  // function sleep(ms) {
+  //   const wakeUpTime = Date.now() + ms
+  //   while (Date.now() < wakeUpTime) {}
+  // }
 
   return (
     <Div
@@ -176,13 +186,13 @@ function MainPnlInd() {
           textWeight="800"
           fontFamily="ko"
           textAlign="left"
-          m={{ b:"1rem" }}
+          m={{ b: "1rem" }}
         >
           지난 하루 변동폭이 큰 지표입니다. (오전 9시 기준)
         </Text>
 
         {/* 반복문 */}
-        {chartData.map((a, i) => {
+        {chartData && chartData.map((a, i) => {
           return (
             <Div
               p="1rem"
@@ -190,6 +200,7 @@ function MainPnlInd() {
               shadow="2"
               rounded="xl"
               m={{ b: "0.5rem" }}
+              key={ a.id }
             >
               <Div
                 d="flex"
@@ -210,7 +221,7 @@ function MainPnlInd() {
                   textAlign="left"
                   w="3rem"
                 >
-                  {chartName[i]}
+                  {a.name}
                 </Text>
                 <Text
                   textWeight="800"
@@ -220,7 +231,6 @@ function MainPnlInd() {
                 >
                   {a.price}
                 </Text>
-
                 <Text
                   textWeight="800"
                   fontFamily="ko"
