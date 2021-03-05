@@ -13,9 +13,11 @@ import { Link } from 'react-router-dom';
 
 import { Line } from 'react-chartjs-2';
 
+import MainPnlIndCard from './MainPnlIndCard';
+
 function MainPnlInd() {
 
-  let [chartData, chartDataChange] = useState([]);
+  let [chartData, chartDataChange] = useState();
   let [sortNews, sortNewsChange] = useState('상승순');
 
   useEffect(() => {
@@ -23,73 +25,58 @@ function MainPnlInd() {
     // 경제 지표 하루 변동률 목록 가져오기
     TestApi.indicatorRank()
       .then(res => {
-        var temp = res.data[0];
-        delete temp.dates;
-        var sortedTemp = sortByValue(temp);
+        var temp = res.data;
+        console.log(temp);
 
-        var tempChartName = [];
         var tempChartData = [];
 
-        for (var i = sortedTemp.length - 1; i > sortedTemp.length - 5; i--) {
-          tempChartName.push(sortedTemp[i][1]);
-          TestApi.mainIndicatorCall(sortedTemp[i][1])
-            .then(res => {
+        for (var i = 0; i < temp.length; i++) {
 
-              const temp = res.data;
-              var labels = [];
-              var data = [];
+          var labels = [];
+          var data = [];
 
-              // 값 저장
-              for (var j = 0; j < temp.length; j++) {
-                labels.push(temp[j]['dates']);
-                data.push(temp[j]['price']);
-              }
-              // 날짜 전처리
-              for (var k = 0; k < labels.length; k++) {
-                labels[k] = labels[k].substring(0, 10)
-              }
-
-              var dataSet = {
-                labels: labels,
-                datasets: [
-                  {
-                    datasetStrokeWidth: 10,
-                    type: "line",
-                    borderCapStyle: "round",
-                    borderColor: temp[0]['changedate'] > 0 ? "rgba(244, 84, 29, 1)" : "rgba(2, 132, 254, 1)",
-                    borderWidth: 3,
-                    backgroundColor: temp[0]['changedate'] > 0 ? "rgba(251, 207, 208, 1)" : "rgba(179, 218, 255, 1)",
-                    pointHoverRadius: 0,
-                    pointDot: false,
-                    pointRadius: 0,
-                    pointDotRadius: 0,
-                    data: data
-                  }
-                ]
-              }
-
-              var changeDateCalc = Math.round(temp[0]['changedate'] * 100) / 100
-
-              var wholeData = {
-                id: nanoid(),
-                name: '',
-                price: temp[0]['price'],
-                changedate: changeDateCalc,
-                dataSet: dataSet
-              }
-              tempChartData.push(wholeData);
-            })
-            .catch(err => {
-              console.log('mainIndicatorCall ERROR', err);
-            })
-        }
-        setTimeout(() => {
-          for (var i = 0; i < tempChartData.length; i++) {
-            tempChartData[i]['name'] = tempChartName[i];
+          // 값 저장
+          for (var j = 0; j < temp.length; j++) {
+            labels.push(temp[i][j]['dates']);
+            data.push(temp[i][j]['price']);
           }
-          console.log(tempChartData);
-          chartDataChange(tempChartData);
-        }, 500);
+          // 날짜 전처리
+          for (var j = 0; j < labels.length; j++) {
+            labels[j] = labels[j].substring(0, 10)
+          }
+
+          console.log(temp[i][0]['changedate']);
+
+          var dataSet = {
+            labels: labels,
+            datasets: [
+              {
+                datasetStrokeWidth: 10,
+                type: "line",
+                borderCapStyle: "round",
+                borderColor: temp[i][0]['changedate'] > 0 ? "rgba(244, 84, 29, 1)" : "rgba(2, 132, 254, 1)",
+                borderWidth: 3,
+                backgroundColor: temp[i][0]['changedate'] > 0 ? "rgba(251, 207, 208, 1)" : "rgba(179, 218, 255, 1)",
+                pointHoverRadius: 0,
+                pointDot: false,
+                pointRadius: 0,
+                pointDotRadius: 0,
+                data: data
+              }
+            ]
+          }
+
+          var changeDateCalc = Math.round(temp[i][0]['changedate'] * 100) / 100
+
+          var wholeData = {
+            name: temp[i][0]['tableName'],
+            price: temp[i][0]['price'],
+            changedate: changeDateCalc,
+            dataSet: dataSet
+          }
+          tempChartData.push(wholeData);
+        }
+        chartDataChange(tempChartData);
       })
       .catch(err => {
         console.log('경제 지표 하루 변동률 목록 가져오기 에러', err);
@@ -194,103 +181,12 @@ function MainPnlInd() {
         {/* 반복문 */}
         {chartData && chartData.map((a, i) => {
           return (
-            <Div
-              p="1rem"
-              bg="white"
-              shadow="2"
-              rounded="xl"
-              m={{ b: "0.5rem" }}
-              key={ a.id }
-            >
-              <Div
-                d="flex"
-                align="center"
-                justify="space-between"
-                pos="relative"
-                flexDir="row"
-              >
-                <Image
-                  src={flagUs}
-                  rounded="circle"
-                  h="1.5rem"
-                  w="1.5rem"
-                />
-                <Text
-                  textWeight="800"
-                  fontFamily="ko"
-                  textAlign="left"
-                  w="3rem"
-                >
-                  {a.name}
-                </Text>
-                <Text
-                  textWeight="800"
-                  fontFamily="ko"
-                  textAlign="left"
-                  w="3rem"
-                >
-                  {a.price}
-                </Text>
-                <Text
-                  textWeight="800"
-                  fontFamily="ko"
-                  textColor={a.changedate > 0 ? "danger700" : "info700"}
-                  textAlign="left"
-                  w="3rem"
-                >
-                  {a.changedate > 0 ? '+' : '-'}{a.changedate} %
-                </Text>
-                <Div
-                  w="2rem"
-                  overflow="hidden"
-                >
-                  <Line
-                    data={a.dataSet}
-                    options={{
-                      animation: {
-                        duration: 2000
-                      },
-                      responsive: true,
-                      maintainAspectRatio: true,
-                      legend: {
-                        display: false
-                      },
-                      scales: {
-                        xAxes: [
-                          {
-                            display: false,
-                            gridLines: {
-                              display: false,
-                            },
-                            scaleLabel: {
-                              display: false,
-                            },
-                            type: "time",
-                            time: {
-                              unit: "day",
-                              unitStepSize: 1
-                            },
-                          }
-                        ],
-                        yAxes: [
-                          {
-                            display: false,
-                            gridLines: {
-                              display: false,
-                            },
-                            scaleLabel: {
-                              display: false,
-                            },
-                          }
-                        ]
-                      }
-                    }}
-                  />
-                </Div>
-              </Div>
+            <Div>
+              <MainPnlIndCard key={nanoid()} chartData={ a } />
             </Div>
-          );
-        })}
+          )
+        })
+        }
 
         {/* 지표 더보기 버튼 */}
         <Link to="/Indicators">
