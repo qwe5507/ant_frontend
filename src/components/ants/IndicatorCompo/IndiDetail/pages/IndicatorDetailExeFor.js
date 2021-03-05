@@ -72,7 +72,6 @@
         )
         .catch(err => {
           console.error('1일 수치 확인 오류(국내환율)', err);
-        
           })
 
           return "res"    
@@ -310,10 +309,8 @@
            </Div>
        
        </Div>
+    </Div>    
     </Div>
-    
-    </Div>
- 
 
 )})}
       </div>

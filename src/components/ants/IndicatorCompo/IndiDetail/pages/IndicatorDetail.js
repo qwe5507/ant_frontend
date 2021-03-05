@@ -280,17 +280,12 @@ function IndicatorDetail() {
                >{data['_source']['news_group']} | {data['_source']['news_source']} | {data['_source']['news_date'].substring(0,10)} | </Text>  
             
            </Div>
-       
        </Div>
     </Div>
-    
     </Div>
-
 )})}
-      </div>
-      
+      </div> 
     )
-
 }
 
 

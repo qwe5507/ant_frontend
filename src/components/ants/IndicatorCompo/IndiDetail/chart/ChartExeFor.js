@@ -145,17 +145,13 @@ const ChartKor = (props) => {
             }
           }
         });
-       // console.log(typeof res.data)
-       // jipyos = res.data
-        // this.setState({jipyos: res.data});
+      
          })        
          .catch(err => {
          console.error('지표리스트 오류', err);
          alert('조회오류');
          })
-    //   jipyos = ["1960", "1970", "1980", "1990", "2000", "2010", "2020"];
-    //  jipyos = temp
-     
+   
      }
  
      useEffect(() => {
