@@ -6,14 +6,19 @@ import producthunt from "../../images/logo-producthunt.svg"
 import { Link, Route, useHistory, useParams } from 'react-router-dom';
 import { Divider } from "@material-ui/core"
 import BoardApiService from "../../api/BoardApi";
+import CommentApiService from "../../api/CommentApi";
+import UserApiService from "../../api/UserApi";
 import { useDispatch, useSelector } from 'react-redux';
 
 function CommunityBoard() {
     const loginid = useSelector(state => state.user.userid);
     let [liked,likedchange] = useState(false);
+    let [commentliked,commentlikedchange] = useState(false);
  console.log('게시판로딩')
 
  let [board ,board변경] = useState({}); 
+
+ let [commentlist,commentlist변경] = useState([]);
 
  let { boardid } = useParams();
 
@@ -24,7 +29,6 @@ function CommunityBoard() {
         console.log(board['board_LikeNum']);
         board['board_LikeNum'] = board['board_LikeNum'] - 1;
         BoardApiService.editBoard(board);
-
         let UserLikeBoard = {
             board_id : board['board_id'],
             userid : loginid
@@ -47,6 +51,21 @@ function CommunityBoard() {
      }
     
      console.log(board)
+ }
+
+ function boardlikedcheck(UserLikeBoard){
+    BoardApiService.fetchLikeUserBoardCheck(UserLikeBoard)
+    .then(res => {
+        console.log(res.data)
+        if(res.data == 1 ){
+            likedchange(true);
+        }else{
+            likedchange(false);
+        }
+    })
+    .catch(err => {
+        console.log('***** Community fetchBoardByID error:', err);
+    }); 
  }
 
  function timecal(data) {
@@ -74,15 +93,18 @@ function CommunityBoard() {
  }
 
     useEffect(() => {
+        console.log('게시판로딩2')
         let listtemp = sessionStorage.getItem('boardviewlist');
         if(listtemp == null ){  // 세션스토리지에 list가 없을떄 
             sessionStorage.setItem('boardviewlist', JSON.stringify([boardid]) );
             BoardApiService.fetchBoardByID(boardid+"/count")
             .then(res => {
-            console.log(res.data);
-            // console.log('asdasdadadads');
             board변경(res.data);
-            
+            let UserLikeBoard = {
+                board_id : res.data['board_id'],
+                userid : loginid
+                }
+                boardlikedcheck(UserLikeBoard);
             })
             .catch(err => {
                 console.log('***** Community fetchBoardByID error:', err);
@@ -95,15 +117,12 @@ function CommunityBoard() {
                sessionStorage.setItem('boardviewlist', JSON.stringify(viewedBoardList) );
                BoardApiService.fetchBoardByID(boardid+"/count")
                .then(res => {
-                console.log(res.data);
                 board변경(res.data);
-                // console.log('asdasdadadads');
                 let UserLikeBoard = {
-                    board_id : board['board_id'],
+                    board_id : res.data['board_id'],
                     userid : loginid
                     }
-                    console.log(BoardApiService.fetchLikeUserBoardCheck(UserLikeBoard));
-                    
+                    boardlikedcheck(UserLikeBoard);
                 })
                 .catch(err => {
                     console.log('***** Community fetchBoardByID error:', err);
@@ -112,23 +131,14 @@ function CommunityBoard() {
                 console.log('세션 스토리지에 게시물 번호가 포함되어 있음')
                 BoardApiService.fetchBoardByID(boardid)
                 .then(res => {
-                console.log(res.data);
                 board변경(res.data);
                 // console.log('asdasdadadads');
                 let UserLikeBoard = {
                     board_id : res.data.board_id,
                     userid : loginid
                     }
-                    BoardApiService.fetchLikeUserBoardCheck(UserLikeBoard)
-                    .then(res => {
-                        console.log(res.data)
-                        if(res.data ==1 ){
-                            likedchange(true);
-                        }
-                    })
-                    .catch(err => {
-                        console.log('***** Community fetchBoardByID error:', err);
-                    }); 
+                    boardlikedcheck(UserLikeBoard);
+
 
                 })
                 .catch(err => {
@@ -137,6 +147,34 @@ function CommunityBoard() {
             }
         }
     },[]);
+    useEffect(() => {
+        console.log('댓글로딩')
+        CommentApiService.fetchCommentsByBoardID(boardid)
+        .then(res => {
+            commentlist변경(res.data);
+            })
+            .catch(err => {
+                console.log('***** Community fetchCommentsByBoardID error:', err);
+            }); 
+    },[]);
+    function commentlikedClick(comment){
+        
+        if(commentliked == false){
+            // var temp = {...comment}
+            comment.comment_LikeNum += 1
+            CommentApiService.editComment(comment);
+            commentlikedchange(!commentliked);
+
+            UserApiService.editUserLikedComment(loginid,comment.comment_id)
+            
+        }else{
+            // var temp = {...comment}
+            comment.comment_LikeNum -= 1
+            CommentApiService.editComment(comment);
+            commentlikedchange(!commentliked);
+        }
+    }
+
     return (
 <>
     <Div  
@@ -146,21 +184,13 @@ function CommunityBoard() {
          d={{ xs: "flex", md: "flex" }}
          >
                <Div
-                //   shadow="4"
-                //   border="1px solid"
-                //   borderColor="gray200"
                   bg="white"
-                //   rounded="lg"
                   d="inline-block" align="center"
                 >
                         <Div
                         // h="10rem"
                         h = {{ xs: "11rem", md: "9rem" }}
                         w = {{ xs: "25rem", md: "47rem" }}
-                        // bg="black"
-                        // rounded="md"
-                        // border="1px solid"
-                        // borderColor="gray200"
                         border={{ b: "1px solid" }}
                         borderColor="gray400"
                         pos = "flex"
@@ -279,7 +309,7 @@ function CommunityBoard() {
                                 textColor = "gray"
                                 m={{r : "1rem"}}
                                 >
-                                121
+                                {commentlist.length}
                                 </Text>
                                 {/* <Div 
                                 // pos="relative"
@@ -361,7 +391,7 @@ function CommunityBoard() {
                                             name= "Message"
                                             color= "black"
                                             size="23px"
-                                            cursor="pointer"
+                                            // cursor="pointer"
                                             m={{r : "0.4rem"}}
                                         />
                                         <Text
@@ -372,7 +402,7 @@ function CommunityBoard() {
                                         textColor = "black"
                                         m={{r : "1rem"}}
                                         >
-                                        121
+                                        {commentlist.length}
                                         </Text>
                                     </Div>
                         </Div>  
@@ -380,14 +410,13 @@ function CommunityBoard() {
                         m={{t : "0.5rem"}}
                         h="10rem"
                         w="47rem"
-                        // d = "flex"
                         d="inline-block" align="center"
                         // bg="black"
                         // rounded="md"
                         // border="1px solid"
                         // borderColor="gray200"
                         >
-                            <Text
+                            {/* <Text
                             textAlign="left"
                             textSize="subheader"
                             textWeight="600"
@@ -397,7 +426,7 @@ function CommunityBoard() {
                             m={{r : "1rem"}}
                             >
                                 댓글 21
-                            </Text>
+                            </Text> */}
                             <Input
                                 placeholder="댓글을 남겨주세요."
                                 p={{ x: "2.5rem" }}
@@ -418,6 +447,8 @@ function CommunityBoard() {
                                 }
                                 />
                                 {/* 댓글부분시작 */}
+                                {commentlist.map(function(data,i){
+                                 return(
                                <Div
                                 p={{ x: "2.5rem", t :"0.7rem"}}
                                 m={{ t : "0.5rem"}}
@@ -426,12 +457,9 @@ function CommunityBoard() {
                                 border= {{t : "1px solid", b :"1px solid"}}
                                 borderColor="gray400"
                                 d = "flex"
-                                
+                                bg =  { i % 2 != 0 ? "gray200":null}
                                 >
                                     <Div
-                                    // p={{ x: "2.5rem", t :"1rem"}}
-                                    // m={{ t : "0.5rem"}}
-                                    // h = "7rem"
                                     w = {{xs : "25rem", md : "auto"}}
                                     d = "inline-block"
                                     >
@@ -440,7 +468,7 @@ function CommunityBoard() {
                                             textColor = "gray"
                                             >
                                             <Text>
-                                            이진강
+                                            {data.nickname}
                                             </Text>
                                         </Div>
                                         <Div
@@ -450,7 +478,7 @@ function CommunityBoard() {
                                             textWeight="600"
                                             textSize="subheader"
                                             >
-                                            css의 지옥
+                                            {data.comment_content}
                                             </Text>
                                         </Div>
 
@@ -462,7 +490,7 @@ function CommunityBoard() {
                                                 name= "Timestamp"
                                                 color= "gray"
                                                 size="15px"
-                                                cursor="pointer"
+                                                // cursor="pointer"
                                                 m={{r : "0.4rem"}}
                                             />
                                             <Text
@@ -474,15 +502,18 @@ function CommunityBoard() {
                                             m={{r : "1rem"}}
                                             
                                             >
-                                            14시간
+                                           {timecal(data['comment_createdata'])}
                                             </Text>
                                             <Icon
                                                 transition
-                                                name= "Heart"
-                                                color= "gray"
+                                                // name= "Heart"
+                                                // color= "gray"
                                                 size="15px"
                                                 cursor="pointer"
                                                 m={{r : "0.4rem"}}
+                                                onClick={() => commentlikedClick(data)}
+                                                name={commentliked ? "HeartSolid" : "Heart"}
+                                                color={commentliked ? "danger700" : "gray"}
                                             />
                                             <Text
                                             textAlign="left"
@@ -492,30 +523,10 @@ function CommunityBoard() {
                                             m={{r : "1rem"}}
                                             textColor = "gray"
                                             >
-                                            3
+                                            {data.comment_LikeNum}
                                             </Text>
-                                            <Icon
-                                                transition
-                                                name= "Message"
-                                                color= "gray"
-                                                size="15px"
-                                                cursor="pointer"
-                                                m={{r : "0.4rem"}}
-                                            />
-                                            <Text
-                                            textAlign="left"
-                                            textSize="Typography"
-                                            textWeight="600"
-                                            fontFamily="secondary"
-                                            textColor = "gray"
-                                            m={{r : "1rem"}}
-                                            >
-                                            1
-                                            </Text>
+
                                             <Div 
-                                            // pos="relative"
-                                            // top="0"
-                                            // m={{l : "30rem"}}
                                             m={{
                                                 l: { xs: '7rem', md: '30rem' }
                                             }}
@@ -526,128 +537,15 @@ function CommunityBoard() {
                                         </Div>    
                                     </Div>
                                 </Div>
-                                <Div
-                                p={{ x: "3.3rem", t :"0.7rem" }}
-                                bg = "gray200"
-                                // m={{t : "0.5rem"}}
-                                h = "7rem"
-                                w = {{xs : "25rem", md : "auto"}}
-                                border= {{t : "1px solid", b :"1px solid"}}
-                                borderColor="gray400"
-                                >
-                                    <Div
-                                    // p={{ x: "2.5rem", t :"1rem"}}
-                                    // m={{ t : "0.5rem"}}
-                                    // h = "7rem"
-                                    w = {{xs : "20rem", md : "43rem"}}
-                                    d = "inline-block"
-                                    >
-                                        <Div
-                                            textWeight="300"
-                                            textColor = "gray"
-                                            >
-                                            <Text>
-                                            이진소프트
-                                            </Text>
-                                        </Div>
-                                        <Div
-                                        m={{ t : "0.3rem"}}
-                                            >
-                                            <Text
-                                            textWeight="600"
-                                            textSize="subheader"
-                                            >
-                                            카카오의 지옥
-                                            </Text>
-                                        </Div>
+                                 )}
+                                )}
 
-                                        <Div d="flex" align="center"
-                                        m={{t : "0.4rem"}}
-                                        >
-                                            <Icon
-                                                transition
-                                                name= "Timestamp"
-                                                color= "gray"
-                                                size="15px"
-                                                cursor="pointer"
-                                                m={{r : "0.4rem"}}
-                                            />
-                                            <Text
-                                            textAlign="left"
-                                            textSize="Typography"
-                                            textWeight="600"
-                                            fontFamily="secondary"
-                                            textColor = "gray"
-                                            m={{r : "1rem"}}
-                                            
-                                            >
-                                            오천만년전
-                                            </Text>
-                                            <Icon
-                                                transition
-                                                name= "Heart"
-                                                color= "gray"
-                                                size="15px"
-                                                cursor="pointer"
-                                                m={{r : "0.4rem"}}
-                                            />
-                                            <Text
-                                            textAlign="left"
-                                            textSize="Typography"
-                                            textWeight="600"
-                                            fontFamily="secondary"
-                                            m={{r : "1rem"}}
-                                            textColor = "gray"
-                                            >
-                                            18
-                                            </Text>
-                                            <Div 
-                                            // pos="relative"
-                                            // top="0"
-                                            // m={{l : "30rem"}}
-                                            m={{
-                                                l: { xs: '7rem', md: '30rem' }
-                                            }}
-                                            >
-                                            <Icon name="Options" size="20px" />
-                                            </Div>
-                                        </Div>    
-                                    </Div>
-
-                                </Div>
-                                <Div
-                                p={{ x: "2.5rem" }}
-                                // m={{t : "0.5rem"}}
-                                h = "7rem"
-                                w = {{xs : "25rem", md : "auto"}}
-                                border= {{t : "1px solid", b :"1px solid"}}
-                                borderColor="gray400"
-                                >
-                                    이런 ㅜ..
-                                </Div>
-                                <Div
-                                bg = "gray200"
-                                p={{ x: "2.5rem" }}
-                                // m={{t : "0.5rem"}}
-                                h = "7rem"
-                                w = {{xs : "25rem", md : "auto"}}
-                                border= {{t : "1px solid", b :"1px solid"}}
-                                borderColor="gray400"
-                                >
-                                    후아..
-                                </Div>
                                 {/* 댓글 끝 */}
                         </Div>
-                
-                
-                
                 
                 </Div>
 
                 <Div
-                //   shadow="4"
-                //   border="1px solid"
-                //   borderColor="gray200"
                   bg="white"
                 //   rounded="lg"
                   d="inline-block" align="center"
@@ -663,35 +561,8 @@ function CommunityBoard() {
                         rounded="lg"
                        
                         >추천글</Div>
-                    {/* <Div
-                        shadow="4"
-                        h="25rem"
-                        w="20rem"
-                        border="1px solid"
-                        borderColor="gray200"
-                        d={{ xs: "none", md: "flex" }}
-                        bg="white"
-                        rounded="lg"
-                        >추천 컨텐츠</Div> */}
+
                 </Div>
-            {/* <Row>
-              <Col size={{ xs: 12, md: 9 }} pos="relative"
-                border="1px solid"
-                d= "flex"
-                borderColor="gray200">
-                    asdasd
-                </Col>
-            <Col size={{ xs: "none", md: 3}} pos="relative"
-               d={{ xs: "none", md: "flex" }}
-               h="3rem"
-            
-                border="1px solid"
-                borderColor="gray200">
-                    asdasd
-            </Col>
-            </Row> */}
-
-
       </Div>
     </>
   )
