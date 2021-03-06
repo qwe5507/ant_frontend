@@ -5,6 +5,7 @@ import logo from "../../images/logo.svg"
 import producthunt from "../../images/logo-producthunt.svg"
 import { Link, Route, useHistory, useParams } from 'react-router-dom';
 import BoardApiService from "../../api/BoardApi";
+import CommentApiService from "../../api/CommentApi";
 import { AddAlarmSharp } from "@material-ui/icons"
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -22,7 +23,7 @@ function CommunityMain(props) {
 
   let [saved,savedchange] = useState(false);
   let { die } = useParams();
-  
+
   const dispatch = useDispatch();
   
   let [boardlist ,boardlist변경] = useState(); 
@@ -81,7 +82,7 @@ function CommunityMain(props) {
       BoardApiService.fetchBoards()
       .then(res => {
         boardlist변경(res.data);
-        console.log('64');
+        console.log('641111');
       })
       .catch(err => {
         console.log('***** Community fetchBoards error:', err);
@@ -100,18 +101,19 @@ function CommunityMain(props) {
   }
 
   useEffect(() => {
-    boardlist변경([]);
+    console.log('333333');
+    // boardlist변경([]);
     boardtotalget()
   },[props.ordered]);
 
   useEffect(() => {
-    boardlist변경([]);
+    // boardlist변경([]);
     if(props.saved){ // 게시물 가져오기 
     BoardApiService.fetchSavedUserBoard(loginid)
     .then(res => {
       boardlist변경(res.data);
       console.log(res.data)
-      console.log('64');
+      console.log('64222');
     })
     .catch(err => {
       console.log('***** Community fetchBoards error:', err);
@@ -126,8 +128,23 @@ function CommunityMain(props) {
     useEffect(() => {
         savedboardChange(savedboardtemp);
         console.log('22')
- 
+      console.log(props.saved);
     });
+
+// function commentlength(boardid) {
+//   var temp 
+//   CommentApiService.fetchCommentsByBoardID(boardid)
+//   .then(res => {
+//     // console.log("길이제기")
+//     // console.log(res.data.length)
+//     temp = res.data.length
+//     console.log(temp)
+//     })
+//     .catch(err => {
+//         console.log('***** Community fetchCommentsByBoardID error:', err);
+//     }); 
+//     return temp
+// }
 
     return (
 <>
@@ -274,7 +291,7 @@ function CommunityMain(props) {
                             fontFamily="secondary"
                             m={{r : "1rem"}}
                             >
-                            121
+                            {data['board_count']}
                             </Text>
                               </Div>
                           </Div>

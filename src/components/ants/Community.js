@@ -26,9 +26,6 @@ function Community() {
     };
     function saveBoardChangeClick(data) {
       saveBoardstateChange(data);
-      if(data){
-
-      }
     }
 
     return (
@@ -185,13 +182,13 @@ function Community() {
                     </Text>
               </Anchor>
             </Link>
-            <Link to="/Community">
+            <Link to="/Community/saved">
               <Anchor
                 target="_blank"
                 textWeight="800"
                 textColor="medium"
                 hoverTextColor="black"
-                transition
+                // transition
                 // fontFamily="ko"
               >
                     <Text
@@ -233,8 +230,8 @@ function Community() {
           </Div>
 
          {/* 게시판시작부분 */}
-         {((typeof boardid != "undefined") && (typeof boardid.valueOf() == "string")) && (boardid.length > 0) ?
-         <CommunityBoard></CommunityBoard>: <CommunityMain ordered = {selectedSwitchValue} saved = {saveBoardstate}></CommunityMain>  }
+         {((typeof boardid != "undefined") && (typeof boardid.valueOf() == "string")) && (boardid.length > 0)  ?
+        boardid =="saved" ?<CommunityMain ordered = {selectedSwitchValue} saved = {true}></CommunityMain> : <CommunityBoard></CommunityBoard>: <CommunityMain ordered = {selectedSwitchValue} saved = {saveBoardstate}></CommunityMain>  }
          
        {/* 게시판끝부분 */}
     
