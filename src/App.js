@@ -29,8 +29,10 @@ import Profile from "./components/ants/Profile";
 import ChatPage from "./components/ChatPage/ChatPage";
 import Logout from "./components/ants/Logout";
 
+import BoardApiService from "./api/BoardApi";
+
 import { useDispatch, useSelector } from 'react-redux';
-import { setUserLoginCheck, setUserLogout, setUser } from './redux/actions/user_action';
+import { setUserLoginCheck, setUserLogout, setUser, setSavedBoards } from './redux/actions/user_action';
 
 import firebase from "./firebase";
 
@@ -41,8 +43,9 @@ function App() {
   const loginstate = useSelector(state => state.user.loginstate);
 
   useEffect(() => {
+    // console.log("1")
     initializeUserInfo();
-  });
+  },[]);
 
   // 새로고침시 Redux State 세팅
   function initializeUserInfo() {
@@ -80,6 +83,16 @@ function App() {
         .catch(err => {
           console.log('***** App.js fetchUserByID error:', err);
         });
+// 여기 
+        BoardApiService.fetchSavedUserBoardCheck(user_id)
+        .then(res =>{
+            var data = { savedBoards: res.data };
+            dispatch(setSavedBoards(data));
+            console.log('App.js dispatch')
+        })
+        .catch(err =>{
+          console.log('***** Community fetchSavedUserBoardCheck error:', err);
+        })
     }
   };
 

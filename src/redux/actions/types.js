@@ -17,3 +17,6 @@ export const SET_USER_POSTS = "set_user_posts";
 
 // Search
 export const SET_SEARCHWORD = "set_searchword";
+
+// Community
+export const SET_USER_SAVED_BOARDS = "set_user_saved_boards";

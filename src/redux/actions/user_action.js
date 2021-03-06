@@ -7,7 +7,8 @@ import {
     SET_USER,               // Chat
     CLEAR_USER,             // Chat
     SET_PHOTO_URL,          // Chat
-    SET_SEARCHWORD          // 검색어
+    SET_SEARCHWORD,         // 검색어
+    SET_USER_SAVED_BOARDS   // 커뮤니티 사용자 저장 글
 } from './types';
 
 export function setUserNew(userinfo) {
@@ -68,5 +69,12 @@ export function setSearchWord(searchWord) {     // Chat
     return  {
         type: SET_SEARCHWORD,
         payload: searchWord
+    }
+}
+
+export function setSavedBoards(savedBoards) {     // 커뮤니티
+    return  {
+        type: SET_USER_SAVED_BOARDS,
+        payload: savedBoards
     }
 }
