@@ -8,18 +8,30 @@ import BoardApiService from "../../api/BoardApi";
 import { AddAlarmSharp } from "@material-ui/icons"
 import { useDispatch, useSelector } from 'react-redux';
 
+import { setSavedBoards } from '../../redux/actions/user_action';
+
 function CommunityMain(props) {
   let [showMobileHeaderMenu, showMobileHeaderMenuChange] = useState(false);
   let [selectedSwitchValue,selectedSwitchValueChange] = useState(false);
   let [liked,likedchange] = useState(false);
-  let [savedboard,savedboardChange] = useState([]);
+  let [savedboard,savedboardChange] = useState();
+
   const loginid = useSelector(state => state.user.userid);
+  const savedboardtemp = useSelector(state => state.user.savedBoards);
+  const loginstate = useSelector(state => state.user.loginstate);
+  
   let [hoit ,hoit변경] = useState(false);
 
   let [saved,savedchange] = useState(false);
   let { die } = useParams();
+  
+  const dispatch = useDispatch();
+  
+  let [boardlist ,boardlist변경] = useState(); 
 
-  let [boardlist ,boardlist변경] = useState([{board_content : ""}]); 
+
+
+  // [{board_content : ""}]
   // selectedSwitchValueChange(props.orderswitch);
   function toggleHeaderMenu(value) {
     showMobileHeaderMenuChange(value);
@@ -41,28 +53,33 @@ function CommunityMain(props) {
       BoardApiService.addSaveddUserBoard(UserSavedBoard);
       let templist = [...savedboard]
       templist.push(board['board_id']);
-      savedboardChange(templist);
+      dispatch(setSavedBoards(templist));
+      console.log('Comm.js dispatch');
       hoit변경(!hoit);
     }
 
   }
   
+  
+
   useEffect(() => {
-    console.log(props.savedstate);
+    // console.log(props.savedstate);
     if(!props.ordered){ // 추천순 게시물 가져오기 
     BoardApiService.fetchBoards()
     .then(res => {
       boardlist변경(res.data);
-      console.log(res.data[0].userid);
+      console.log('64');
+      // console.log(res.data[0].userid);
       // console.log('asdasdadadads');
-        BoardApiService.fetchSavedUserBoardCheck(loginid)
-        .then(res =>{
-            console.log(res.data);
-            savedboardChange(res.data);
-        })
-        .catch(err =>{
-          console.log('***** Community fetchSavedUserBoardCheck error:', err);
-        })
+        // BoardApiService.fetchSavedUserBoardCheck(loginid)
+        // .then(res =>{
+        //     console.log(res.data);
+        //     savedboardChange(res.data);
+        // })
+        // .catch(err =>{
+        //   console.log('***** Community fetchSavedUserBoardCheck error:', err);
+        // })
+        
     })
     .catch(err => {
       console.log('***** Community fetchBoards error:', err);
@@ -71,16 +88,18 @@ function CommunityMain(props) {
     BoardApiService.fetchBoardsLiked()
     .then(res => {
       boardlist변경(res.data);
-      console.log(res.data[0].userid);
+      console.log('87');
+      // console.log(res.data[0].userid);
       // console.log('asdasdadadads');
-          BoardApiService.fetchSavedUserBoardCheck(loginid)
-          .then(res =>{
-              console.log(res.data);
-              savedboardChange(res.data);
-          })
-          .catch(err =>{
-            console.log('***** Community fetchSavedUserBoardCheck error:', err);
-          })
+          // BoardApiService.fetchSavedUserBoardCheck(loginid)
+          // .then(res =>{
+          //     console.log(res.data);
+          //     savedboardChange(res.data);
+          // })
+          // .catch(err =>{
+          //   console.log('***** Community fetchSavedUserBoardCheck error:', err);
+          // })
+          
     })
     .catch(err => {
       console.log('***** Community fetchBoards error:', err);
@@ -90,21 +109,23 @@ function CommunityMain(props) {
   },[props.ordered]);
 
   useEffect(() => {
-    console.log(props.ordered);
+    // console.log(props.ordered);
     if(!props.ordered){ // 추천순 게시물 가져오기 
     BoardApiService.fetchBoards()
     .then(res => {
       boardlist변경(res.data);
-      console.log(res.data[0].userid);
+      console.log('110');
+      // console.log(res.data[0].userid);
       // console.log('asdasdadadads');
-        BoardApiService.fetchSavedUserBoardCheck(loginid)
-        .then(res =>{
-            console.log(res.data);
-            savedboardChange(res.data);
-        })
-        .catch(err =>{
-          console.log('***** Community fetchSavedUserBoardCheck error:', err);
-        })
+        // BoardApiService.fetchSavedUserBoardCheck(loginid)
+        // .then(res =>{
+        //     console.log(res.data);
+        //     savedboardChange(res.data);
+        // })
+        // .catch(err =>{
+        //   console.log('***** Community fetchSavedUserBoardCheck error:', err);
+        // })
+       
     })
     .catch(err => {
       console.log('***** Community fetchBoards error:', err);
@@ -113,16 +134,19 @@ function CommunityMain(props) {
     BoardApiService.fetchBoardsLiked()
     .then(res => {
       boardlist변경(res.data);
+      console.log('133');
       console.log(res.data[0].userid);
       // console.log('asdasdadadads');
-          BoardApiService.fetchSavedUserBoardCheck(loginid)
-          .then(res =>{
-              console.log(res.data);
-              savedboardChange(res.data);
-          })
-          .catch(err =>{
-            console.log('***** Community fetchSavedUserBoardCheck error:', err);
-          })
+          // BoardApiService.fetchSavedUserBoardCheck(loginid)
+          // .then(res =>{
+          //     console.log(res.data);
+          //     savedboardChange(res.data);
+          // })
+          // .catch(err =>{
+          //   console.log('***** Community fetchSavedUserBoardCheck error:', err);
+          // })
+
+          
     })
     .catch(err => {
       console.log('***** Community fetchBoards error:', err);
@@ -130,6 +154,17 @@ function CommunityMain(props) {
     }
 
   },[]);
+    // 아래코드 있으니 새로고침 해도 저장한글이 표시됨.
+    
+
+    useEffect(() => {
+      
+        savedboardChange(savedboardtemp);
+        console.log('22')
+      
+          
+    });
+
     return (
 <>
 <Div pos = "relative" 
@@ -138,7 +173,7 @@ function CommunityMain(props) {
              
             <Row>
            {
-            boardlist.map(function(data){
+            boardlist && savedboard && boardlist.map(function(data){
               var nowtime = new Date()
               var boardtime = new Date(data['board_createdata'])
               var elapsedtime = nowtime.getTime() - boardtime.getTime()

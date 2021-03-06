@@ -11,7 +11,8 @@ import {
     SET_USER,               // Chat
     CLEAR_USER,             // Chat
     SET_PHOTO_URL,          // Chat
-    SET_SEARCHWORD          // 검색어
+    SET_SEARCHWORD,          // 검색어
+    SET_USER_SAVED_BOARDS   // 커뮤니티 사용자 저장 글
 } from '../actions/types';
 
 const userInfoDefault = {
@@ -24,7 +25,8 @@ const userInfoDefault = {
     pass: '',
     currentUser: null,
     isLoading: true,
-    searchWord: ''
+    searchWord: '',
+    savedBoards: ''
 };
 
 export default function (state = userInfoDefault, action) {
@@ -101,6 +103,11 @@ export default function (state = userInfoDefault, action) {
 
         case SET_SEARCHWORD:
             copy['searchWord'] = action.payload['searchWord'];
+            return copy;
+        
+        case SET_USER_SAVED_BOARDS:
+            copy['savedBoards'] =  action.payload['savedBoards'];
+            console.log(copy['savedBoards']);
             return copy;
 
         default:
