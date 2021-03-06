@@ -13,7 +13,7 @@ function Community() {
     let [showMobileHeaderMenu, showMobileHeaderMenuChange] = useState(false);
     let [selectedSwitchValue,selectedSwitchValueChange] = useState(false);
     let [liked,likedchange] = useState(false);
-    let [saveBoardstate,saveBoardstateChange] = useState("total");
+    let [saveBoardstate,saveBoardstateChange] = useState(false);
 
     let { boardid } = useParams();
 
@@ -24,6 +24,12 @@ function Community() {
         window.scrollTo(0, window.scrollY + 1)
       }, 400);
     };
+    function saveBoardChangeClick(data) {
+      saveBoardstateChange(data);
+      if(data){
+
+      }
+    }
 
     return (
 <>
@@ -150,7 +156,7 @@ function Community() {
               >
                     <Text
                         textSize="title"
-                        onClick={() => saveBoardstateChange("total")}
+                        onClick={() => saveBoardChangeClick(false)}
                         m={{ b: "0.25rem" ,r : "2.5rem" , l : "2.5rem" }}
                         textWeight="1000"
                         textAlign="center"
@@ -189,7 +195,7 @@ function Community() {
                 // fontFamily="ko"
               >
                     <Text
-                        onClick={() => saveBoardstateChange("saveboard")}
+                        onClick={() => saveBoardChangeClick(true)}
                         textSize="title"
                         m={{ b: "0.25rem" }}
                         textWeight="1000"
@@ -210,7 +216,7 @@ function Community() {
             // m={{ b: "1rem" }}
             >
 
-            {((typeof boardid != "undefined") && (typeof boardid.valueOf() == "string")) && (boardid.length > 0) ?
+            {((typeof boardid != "undefined") && (typeof boardid.valueOf() == "string")) && (boardid.length > 0) || saveBoardstate ?
             null :
             <Switch
                 checked={selectedSwitchValue}
@@ -218,7 +224,7 @@ function Community() {
                 activeColor="success700"
                 activeShadow="5"
             />}
-            {((typeof boardid != "undefined") && (typeof boardid.valueOf() == "string")) && (boardid.length > 0) ?
+            {((typeof boardid != "undefined") && (typeof boardid.valueOf() == "string")) && (boardid.length > 0) || saveBoardstate  ?
             null :
             selectedSwitchValue ? 
             <Text>추천순</Text> : <Text>최신순</Text>}
@@ -228,9 +234,7 @@ function Community() {
 
          {/* 게시판시작부분 */}
          {((typeof boardid != "undefined") && (typeof boardid.valueOf() == "string")) && (boardid.length > 0) ?
-         <CommunityBoard></CommunityBoard>: 
-         saveBoardstate.indexOf("saveboard") > 0 ? 
-         <CommunityMainSaved ordered = {selectedSwitchValue}></CommunityMainSaved> : <CommunityMain ordered = {selectedSwitchValue}></CommunityMain>  }
+         <CommunityBoard></CommunityBoard>: <CommunityMain ordered = {selectedSwitchValue} saved = {saveBoardstate}></CommunityMain>  }
          
        {/* 게시판끝부분 */}
     

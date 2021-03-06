@@ -19,8 +19,6 @@ function CommunityMain(props) {
   const loginid = useSelector(state => state.user.userid);
   const savedboardtemp = useSelector(state => state.user.savedBoards);
   const loginstate = useSelector(state => state.user.loginstate);
-  
-  let [hoit ,hoit변경] = useState(false);
 
   let [saved,savedchange] = useState(false);
   let { die } = useParams();
@@ -42,127 +40,93 @@ function CommunityMain(props) {
 
   function savedClick(savetruefalse,board){
     if(savetruefalse){ // 저장 되있을때 클릭
-      
+      var result = window.confirm("저장한 게시물을 취소 하시겠습니까?");
+      if(result){
+        let UserSavedBoard = {
+          board_id : board['board_id'],
+          userid : loginid
+          }
+          BoardApiService.deleteSaveddUserBoard(UserSavedBoard);
+          let templist = [...savedboard]
+          console.log(templist);
+          console.log(String(board['board_id']));
+          templist.splice(templist.indexOf(String(board['board_id'])),1);
+          console.log(templist);
+          var data = { savedBoards: templist };
+          dispatch(setSavedBoards(data));
+          console.log('Comm.js dispatch');
+        }
     }else{ // 저장 안되있을때 
       // savedchange(!saved);
-      console.log(board);
-      let UserSavedBoard = {
-        board_id : board['board_id'],
-        userid : loginid
+      var result = window.confirm("해당 게시물을 저장 하시겠습니까?");
+      if(result){
+        console.log(board);
+        let UserSavedBoard = {
+          board_id : board['board_id'],
+          userid : loginid
+          }
+        BoardApiService.addSaveddUserBoard(UserSavedBoard);
+        let templist = [...savedboard]
+        templist.push(String(board['board_id']));
+        var data = { savedBoards: templist };
+        dispatch(setSavedBoards(data));
+        console.log('Comm.js dispatch');
         }
-      BoardApiService.addSaveddUserBoard(UserSavedBoard);
-      let templist = [...savedboard]
-      templist.push(board['board_id']);
-      dispatch(setSavedBoards(templist));
-      console.log('Comm.js dispatch');
-      hoit변경(!hoit);
-    }
+      }
 
   }
   
+  function boardtotalget(){
+    if(!props.ordered && !props.saved){ // 최신순 게시물 가져오기 && 전체
+      BoardApiService.fetchBoards()
+      .then(res => {
+        boardlist변경(res.data);
+        console.log('64');
+      })
+      .catch(err => {
+        console.log('***** Community fetchBoards error:', err);
+      }); 
+      }else if(props.ordered && !props.saved){   // 추천순 게시물 가져오기 && 전체
+      BoardApiService.fetchBoardsLiked()
+      .then(res => {
+        boardlist변경(res.data);
+        console.log('87');
   
+      })
+      .catch(err => {
+        console.log('***** Community fetchBoards error:', err);
+      }); 
+      }
+  }
 
   useEffect(() => {
-    // console.log(props.savedstate);
-    if(!props.ordered){ // 추천순 게시물 가져오기 
-    BoardApiService.fetchBoards()
-    .then(res => {
-      boardlist변경(res.data);
-      console.log('64');
-      // console.log(res.data[0].userid);
-      // console.log('asdasdadadads');
-        // BoardApiService.fetchSavedUserBoardCheck(loginid)
-        // .then(res =>{
-        //     console.log(res.data);
-        //     savedboardChange(res.data);
-        // })
-        // .catch(err =>{
-        //   console.log('***** Community fetchSavedUserBoardCheck error:', err);
-        // })
-        
-    })
-    .catch(err => {
-      console.log('***** Community fetchBoards error:', err);
-    }); 
-    }else{          // 추천순 게시물 가져오기
-    BoardApiService.fetchBoardsLiked()
-    .then(res => {
-      boardlist변경(res.data);
-      console.log('87');
-      // console.log(res.data[0].userid);
-      // console.log('asdasdadadads');
-          // BoardApiService.fetchSavedUserBoardCheck(loginid)
-          // .then(res =>{
-          //     console.log(res.data);
-          //     savedboardChange(res.data);
-          // })
-          // .catch(err =>{
-          //   console.log('***** Community fetchSavedUserBoardCheck error:', err);
-          // })
-          
-    })
-    .catch(err => {
-      console.log('***** Community fetchBoards error:', err);
-    }); 
-    }
-
+    boardlist변경([]);
+    boardtotalget()
   },[props.ordered]);
 
   useEffect(() => {
-    // console.log(props.ordered);
-    if(!props.ordered){ // 추천순 게시물 가져오기 
-    BoardApiService.fetchBoards()
+    boardlist변경([]);
+    if(props.saved){ // 게시물 가져오기 
+    BoardApiService.fetchSavedUserBoard(loginid)
     .then(res => {
       boardlist변경(res.data);
-      console.log('110');
-      // console.log(res.data[0].userid);
-      // console.log('asdasdadadads');
-        // BoardApiService.fetchSavedUserBoardCheck(loginid)
-        // .then(res =>{
-        //     console.log(res.data);
-        //     savedboardChange(res.data);
-        // })
-        // .catch(err =>{
-        //   console.log('***** Community fetchSavedUserBoardCheck error:', err);
-        // })
-       
+      console.log(res.data)
+      console.log('64');
     })
     .catch(err => {
       console.log('***** Community fetchBoards error:', err);
     }); 
-    }else{          // 추천순 게시물 가져오기
-    BoardApiService.fetchBoardsLiked()
-    .then(res => {
-      boardlist변경(res.data);
-      console.log('133');
-      console.log(res.data[0].userid);
-      // console.log('asdasdadadads');
-          // BoardApiService.fetchSavedUserBoardCheck(loginid)
-          // .then(res =>{
-          //     console.log(res.data);
-          //     savedboardChange(res.data);
-          // })
-          // .catch(err =>{
-          //   console.log('***** Community fetchSavedUserBoardCheck error:', err);
-          // })
-
-          
-    })
-    .catch(err => {
-      console.log('***** Community fetchBoards error:', err);
-    }); 
+    }else{
+      boardtotalget();
     }
+  },[props.saved]);
 
-  },[]);
+
     // 아래코드 있으니 새로고침 해도 저장한글이 표시됨.
-    
-
     useEffect(() => {
-      
         savedboardChange(savedboardtemp);
         console.log('22')
-      
-          
+ 
     });
 
     return (

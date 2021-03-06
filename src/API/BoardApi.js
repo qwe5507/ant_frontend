@@ -44,6 +44,12 @@ class BoardApiService {
     addSaveddUserBoard(UserSavedBoard){
         return axios.post(Board_API_BASE_URL + "/saved", UserSavedBoard);
     }
+
+    deleteSaveddUserBoard(UserSavedBoard){
+        return axios.delete(Board_API_BASE_URL + "/saved/"+UserSavedBoard.board_id+"/"+UserSavedBoard.userid);
+    }
+
+
     fetchSavedUserBoard(userid) {
         return axios.get(Board_API_BASE_URL + '/savedboard'+"/"+userid);
     }
