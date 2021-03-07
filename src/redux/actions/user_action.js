@@ -8,7 +8,8 @@ import {
     CLEAR_USER,             // Chat
     SET_PHOTO_URL,          // Chat
     SET_SEARCHWORD,         // 검색어
-    SET_USER_SAVED_BOARDS   // 커뮤니티 사용자 저장 글
+    SET_USER_SAVED_BOARDS,   // 커뮤니티 사용자 저장 글
+    SET_USER_LIKED_COMMENTS  // 커뮤니티 사용자 좋아요한 댓글
 } from './types';
 
 export function setUserNew(userinfo) {
@@ -76,5 +77,11 @@ export function setSavedBoards(savedBoards) {     // 커뮤니티
     return  {
         type: SET_USER_SAVED_BOARDS,
         payload: savedBoards
+    }
+}
+export function setLikedComments(likedComments) {     // 커뮤니티
+    return  {
+        type: SET_USER_LIKED_COMMENTS,
+        payload: likedComments
     }
 }

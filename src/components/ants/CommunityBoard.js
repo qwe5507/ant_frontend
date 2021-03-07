@@ -9,18 +9,25 @@ import BoardApiService from "../../api/BoardApi";
 import CommentApiService from "../../api/CommentApi";
 import UserApiService from "../../api/UserApi";
 import { useDispatch, useSelector } from 'react-redux';
+import { setLikedComments } from '../../redux/actions/user_action';
+import Communitydeclare from './Communitydeclare';
 
 function CommunityBoard() {
     const loginid = useSelector(state => state.user.userid);
     let [liked,likedchange] = useState(false);
     let [commentliked,commentlikedchange] = useState(false);
+    // let [userlikecomment,userlikecomment변경] = useState([]);
+    let [showModal,showModal변경] = useState(false);
  console.log('게시판로딩')
+
+ const dispatch = useDispatch();
 
  let [board ,board변경] = useState({}); 
 
  let [commentlist,commentlist변경] = useState([]);
 
  let { boardid } = useParams();
+ const LikedCommentsList = useSelector(state => state.user.likedComments);
 
  function likedClick(board) {
     // 눌려져있을떄  
@@ -36,7 +43,6 @@ function CommunityBoard() {
         BoardApiService.deleteLikedUserBoard(UserLikeBoard);
         // BoardApiService.deleteLikedUserBoard(UserLikeBoard);
             
-        console.log(loginid)
     } // 안 눌려져있을떄 
      else{
         likedchange(!liked);
@@ -50,10 +56,12 @@ function CommunityBoard() {
         BoardApiService.addLikedUserBoard(UserLikeBoard);
      }
     
-     console.log(board)
  }
 
  function boardlikedcheck(UserLikeBoard){
+     console.log("게시물 좋아요 체크 요청 ")
+     console.log(UserLikeBoard.board_id)
+     console.log(UserLikeBoard.userid)
     BoardApiService.fetchLikeUserBoardCheck(UserLikeBoard)
     .then(res => {
         console.log(res.data)
@@ -64,7 +72,7 @@ function CommunityBoard() {
         }
     })
     .catch(err => {
-        console.log('***** Community fetchBoardByID error:', err);
+        console.log('***** Community fetchLikeUserBoardCheck error:', err);
     }); 
  }
 
@@ -91,6 +99,37 @@ function CommunityBoard() {
     }
     return resulttime;
  }
+
+ function commentlikedClick(comment){
+    
+    if(!LikedCommentsList.includes(String(comment.comment_id))){
+        // var temp = {...comment}
+        comment.comment_LikeNum += 1
+        CommentApiService.editComment(comment);
+        // commentlikedchange(!commentliked);
+
+        UserApiService.editUserLikedComment(loginid,comment.comment_id)
+
+        var temp = [...LikedCommentsList]
+        temp.push(String(comment.comment_id))
+        var data = { likedComments: temp };
+        dispatch(setLikedComments(data));
+        
+    }else{
+        // var temp = {...comment}
+        comment.comment_LikeNum -= 1
+        CommentApiService.editComment(comment);
+        // commentlikedchange(!commentliked);
+
+        UserApiService.editUserLikedComment(loginid,comment.comment_id)
+
+        var temp = [...LikedCommentsList]
+        temp.splice(temp.indexOf(String(comment.comment_id)),1);
+        var data = { likedComments: temp };
+        dispatch(setLikedComments(data));
+        
+    }
+}
 
     useEffect(() => {
         console.log('게시판로딩2')
@@ -146,33 +185,38 @@ function CommunityBoard() {
                 }); 
             }
         }
-    },[]);
+    },[loginid]);
     useEffect(() => {
+
+        
+        commentloading();
+    },[]);
+
+    function commentloading(){
         console.log('댓글로딩')
         CommentApiService.fetchCommentsByBoardID(boardid)
         .then(res => {
-            commentlist변경(res.data);
-            })
-            .catch(err => {
-                console.log('***** Community fetchCommentsByBoardID error:', err);
-            }); 
-    },[]);
-    function commentlikedClick(comment){
+        commentlist변경(res.data);
+        })
+        .catch(err => {
+            console.log('***** Community fetchCommentsByBoardID error:', err);
+        }); 
+    }
+    function commentdelete(comment) {
+        var result = window.confirm("해당 댓글을 삭제 하시겠습니까?");
+        if(result){
+            CommentApiService.deleteComment(comment.comment_id)
+            .then(res => {
+                console.log("deleteComment 성공");
+                commentloading();
+                })
+                .catch(err => {
+                    console.log('***** Community deleteComment error:', err);
+                });
+            }
+    }
+    function commentdeclare(comment) {
         
-        if(commentliked == false){
-            // var temp = {...comment}
-            comment.comment_LikeNum += 1
-            CommentApiService.editComment(comment);
-            commentlikedchange(!commentliked);
-
-            UserApiService.editUserLikedComment(loginid,comment.comment_id)
-            
-        }else{
-            // var temp = {...comment}
-            comment.comment_LikeNum -= 1
-            CommentApiService.editComment(comment);
-            commentlikedchange(!commentliked);
-        }
     }
 
     return (
@@ -311,20 +355,9 @@ function CommunityBoard() {
                                 >
                                 {commentlist.length}
                                 </Text>
-                                {/* <Div 
-                                // pos="relative"
-                                // top="0"
-                                // m={{l : "30rem"}}
-                                m={{
-                                    l: { xs: '7rem', md: '22rem' }
-                                }}
-                                >
-                                <Icon name="Options" size="20px" />
-                                </Div> */}
                             </Div>    
                             
                             </Div>
-                                         
                         
                         </Div>
                         <Div
@@ -354,8 +387,6 @@ function CommunityBoard() {
                                     p={{ t: "3rem", b : "2rem" }}
                                     w = {{xs: "auto", md: "40rem"}}
                                     textAlign="left"
-                                    // border= "1px solid"
-                                    // borderColor="gray400"
                                     >
                                     {board['board_content']}
                                 </Text>
@@ -411,22 +442,7 @@ function CommunityBoard() {
                         h="10rem"
                         w="47rem"
                         d="inline-block" align="center"
-                        // bg="black"
-                        // rounded="md"
-                        // border="1px solid"
-                        // borderColor="gray200"
                         >
-                            {/* <Text
-                            textAlign="left"
-                            textSize="subheader"
-                            textWeight="600"
-                            fontFamily="secondary"
-                            textColor = "black"
-                            
-                            m={{r : "1rem"}}
-                            >
-                                댓글 21
-                            </Text> */}
                             <Input
                                 placeholder="댓글을 남겨주세요."
                                 p={{ x: "2.5rem" }}
@@ -458,10 +474,10 @@ function CommunityBoard() {
                                 borderColor="gray400"
                                 d = "flex"
                                 bg =  { i % 2 != 0 ? "gray200":null}
+                                justify="space-between"
                                 >
                                     <Div
                                     w = {{xs : "25rem", md : "auto"}}
-                                    d = "inline-block"
                                     >
                                         <Div
                                             textWeight="300"
@@ -512,8 +528,8 @@ function CommunityBoard() {
                                                 cursor="pointer"
                                                 m={{r : "0.4rem"}}
                                                 onClick={() => commentlikedClick(data)}
-                                                name={commentliked ? "HeartSolid" : "Heart"}
-                                                color={commentliked ? "danger700" : "gray"}
+                                                name={ LikedCommentsList.includes(String(data['comment_id'])) ? "HeartSolid" : "Heart"}
+                                                color={ LikedCommentsList.includes(String(data['comment_id'])) ? "danger700" : "black"}
                                             />
                                             <Text
                                             textAlign="left"
@@ -525,21 +541,34 @@ function CommunityBoard() {
                                             >
                                             {data.comment_LikeNum}
                                             </Text>
-
-                                            <Div 
+                                        </Div> 
+                                        </Div>
+                                        <Div 
                                             m={{
                                                 l: { xs: '7rem', md: '30rem' }
                                             }}
                                             >
-                                            <Icon name="Options" size="20px" />
-                                            </Div>
-
-                                        </Div>    
-                                    </Div>
+                                                {data.userid == loginid ? 
+                                                <Icon name="Delete" size="20px" 
+                                                cursor="pointer"
+                                                onClick={() => commentdelete(data)}
+                                                /> :
+                                                <Icon name="Info" size="20px" 
+                                                cursor="pointer"
+                                                onClick={() => showModal변경(true)}
+                                                // onClick={() => commentdeclare(data)}
+                                                />
+                                                }
+                                        </Div>
+                                        
                                 </Div>
                                  )}
                                 )}
-
+                                
+                                <Communitydeclare
+                                isOpen={showModal}
+                                onClose={() => showModal변경(false)}
+                                />
                                 {/* 댓글 끝 */}
                         </Div>
                 
@@ -559,9 +588,7 @@ function CommunityBoard() {
                         d={{ xs: "none", md: "flex" }}
                         bg="white"
                         rounded="lg"
-                       
                         >추천글</Div>
-
                 </Div>
       </Div>
     </>

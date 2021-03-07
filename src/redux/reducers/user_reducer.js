@@ -12,7 +12,8 @@ import {
     CLEAR_USER,             // Chat
     SET_PHOTO_URL,          // Chat
     SET_SEARCHWORD,          // 검색어
-    SET_USER_SAVED_BOARDS   // 커뮤니티 사용자 저장 글
+    SET_USER_SAVED_BOARDS,   // 커뮤니티 사용자 저장 글
+    SET_USER_LIKED_COMMENTS  // 커뮤니티 사용자 좋아요한 댓글
 } from '../actions/types';
 
 const userInfoDefault = {
@@ -26,7 +27,8 @@ const userInfoDefault = {
     currentUser: null,
     isLoading: true,
     searchWord: '',
-    savedBoards: ''
+    savedBoards: '',
+    likedComments: ''
 };
 
 export default function (state = userInfoDefault, action) {
@@ -109,7 +111,10 @@ export default function (state = userInfoDefault, action) {
             copy['savedBoards'] =  action.payload['savedBoards'];
             console.log(copy['savedBoards']);
             return copy;
-
+        case SET_USER_LIKED_COMMENTS:
+                copy['likedComments'] =  action.payload['likedComments'];
+                console.log(copy['likedComments']);
+                return copy;
         default:
             return state;
     }
