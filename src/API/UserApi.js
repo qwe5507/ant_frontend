@@ -26,6 +26,9 @@ class UserApiService {
     editUserLikedComment(loginid,comment_id) {
         return axios.put(USER_API_BASE_URL + '/UserLikedComment/' + loginid + '/' + comment_id)
     }
+    fetchUserLikedCommentList(userID) {
+        return axios.get(USER_API_BASE_URL + '/UserLikedCommentList/' + userID);
+    }
 }
 
 export default new UserApiService();

@@ -32,7 +32,7 @@ import Logout from "./components/ants/Logout";
 import BoardApiService from "./api/BoardApi";
 
 import { useDispatch, useSelector } from 'react-redux';
-import { setUserLoginCheck, setUserLogout, setUser, setSavedBoards } from './redux/actions/user_action';
+import { setUserLoginCheck, setUserLogout, setUser, setSavedBoards, setLikedComments } from './redux/actions/user_action';
 
 import firebase from "./firebase";
 
@@ -93,6 +93,16 @@ function App() {
         .catch(err =>{
           console.log('***** Community fetchSavedUserBoardCheck error:', err);
         })
+//좋아요한 댓글리스트 가져오기 
+        UserApiService.fetchUserLikedCommentList(user_id)
+        .then(res => {
+        console.log("자기가 좋아요한 댓글 ")
+        var data = { likedComments: res.data };
+        dispatch(setLikedComments(data));
+        })
+        .catch(err => {
+        console.log('***** Community fetchUserLikedCommentList error:', err);
+        }); 
     }
   };
 

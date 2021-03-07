@@ -26,7 +26,7 @@ class BoardApiService {
     }
         
     fetchLikeUserBoardCheck(UserLikeBoard) {
-        return axios.get(Board_API_BASE_URL + '/like'+"/"+UserLikeBoard.board_id+"/"+UserLikeBoard.userid);
+        return axios.get(Board_API_BASE_URL +"/"+UserLikeBoard.board_id+"/"+UserLikeBoard.userid+ '/likecheck');
     }
 
     addLikedUserBoard(UserLikeBoard){

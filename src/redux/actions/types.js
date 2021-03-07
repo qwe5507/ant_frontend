@@ -20,3 +20,4 @@ export const SET_SEARCHWORD = "set_searchword";
 
 // Community
 export const SET_USER_SAVED_BOARDS = "set_user_saved_boards";
+export const SET_USER_LIKED_COMMENTS = "set_user_liked_comments";
