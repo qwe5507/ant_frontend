@@ -37,8 +37,9 @@ function MainPnlIndCard(props) {
                 <Text
                     textWeight="800"
                     fontFamily="ko"
+                    textSize="body"
                     textAlign="left"
-                    w="3rem"
+                    w="3.5rem"
                 >
                     {props.chartData.name}
                 </Text>

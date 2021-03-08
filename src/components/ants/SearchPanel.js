@@ -31,7 +31,7 @@ function SearchPanel() {
 
     const onClick = () => {
         upsertKeyword()
-        history.push("/NewsDetail/" + search)
+        history.push("/SearchResult/" + search)
     };
 
     function upsertKeyword() {

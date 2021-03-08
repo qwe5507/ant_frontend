@@ -21,9 +21,10 @@ import PaymentSub from "./components/ants/PaymentSub";
 import PaymentFirst from "./components/ants/PaymentFirst";
 import Community from "./components/ants/Community";
 import News from "./components/ants/News";
+import NewsDetail from "./components/ants/NewsDetail";
 import Stocks from "./components/ants/Stocks";
 import UserApiService from "./api/UserApi";
-import NewsDetail from "./components/ants/NewsDetail";
+import SearchResult from "./components/ants/SearchResult";
 import BlockTest from "./components/test/BlockTest";
 import Profile from "./components/ants/Profile";
 import ChatPage from "./components/ChatPage/ChatPage";
@@ -145,8 +146,9 @@ function App() {
           <Route exact path="/Payment" component={Payment} />
           <Route exact path="/PaymentSub" component={PaymentSub} />
           <Route exact path="/ChatPage" component={ChatPage} />
+          <Route exact path="/SearchResult/:search" component={SearchResult} />
           <Route exact path="/News" component={News} />
-          <Route exact path="/NewsDetail/:search" component={NewsDetail} />
+          <Route exact path="/NewsDetail" component={NewsDetail} />
           <Route exact path="/Stocks" component={Stocks} />
           <Route exact path="/Profile" component={Profile} />
           <Route exact path="/Logout" component={Logout} />

@@ -22,6 +22,13 @@ function MainPnlInd() {
 
   useEffect(() => {
 
+    const tableList = {
+      bitcoin: '비트코인',
+      goldfor: '금',
+      bond10: '국채10년',
+      wti: '원유'
+    }
+
     // 경제 지표 하루 변동률 목록 가져오기
     TestApi.indicatorRank()
       .then(res => {
@@ -69,7 +76,7 @@ function MainPnlInd() {
           var changeDateCalc = Math.round(temp[i][0]['changedate'] * 100) / 100
 
           var wholeData = {
-            name: temp[i][0]['tableName'],
+            name: tableList[temp[i][0]['tableName']],
             price: temp[i][0]['price'],
             changedate: changeDateCalc,
             dataSet: dataSet
