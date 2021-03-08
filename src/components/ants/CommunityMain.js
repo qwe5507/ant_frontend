@@ -21,7 +21,7 @@ function CommunityMain(props) {
   const savedboardtemp = useSelector(state => state.user.savedBoards);
   const loginstate = useSelector(state => state.user.loginstate);
 
-  let [saved,savedchange] = useState(false);
+  // let [saved,savedchange] = useState(false);
   let { die } = useParams();
 
   const dispatch = useDispatch();
@@ -130,21 +130,6 @@ function CommunityMain(props) {
         console.log('22')
       console.log(props.saved);
     });
-
-// function commentlength(boardid) {
-//   var temp 
-//   CommentApiService.fetchCommentsByBoardID(boardid)
-//   .then(res => {
-//     // console.log("길이제기")
-//     // console.log(res.data.length)
-//     temp = res.data.length
-//     console.log(temp)
-//     })
-//     .catch(err => {
-//         console.log('***** Community fetchCommentsByBoardID error:', err);
-//     }); 
-//     return temp
-// }
 
     return (
 <>

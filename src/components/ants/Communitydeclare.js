@@ -23,9 +23,9 @@ function Communitydeclare(props){
         </Div>
       );
 
-      function declareSubmit(data){
+      function declareSubmit(data,props_commentdata_comment_id){
          let declaredata = {
-            comment_id : props.commentdata.comment_id,
+            comment_id : props_commentdata_comment_id,
             // board_id : 7,
             declared_type : data
             }
@@ -82,7 +82,7 @@ function Communitydeclare(props){
         >
           Cancel
         </Button>
-        <Button onClick={() => declareSubmit(hovername)} bg="info700">
+        <Button onClick={() => declareSubmit(hovername,props.commentdata.comment_id)} bg="info700">
           Yes, Submit
         </Button>
       </Div>
