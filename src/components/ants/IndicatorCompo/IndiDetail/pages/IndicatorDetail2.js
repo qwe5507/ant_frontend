@@ -88,10 +88,10 @@ function IndicatorDetail2(props) {
         indsbyun(res.data)
         console.log("확인확인",res.data[0][symboli["tableName"].toLowerCase()])
         ind1byun(res.data[0][symboli["tableName"].toLowerCase()])
-        ind2byun(res.data[0][symboli["tableName"].toLowerCase()])
-        ind3byun(res.data[0][symboli["tableName"].toLowerCase()])
-        ind4byun(res.data[0][symboli["tableName"].toLowerCase()])
-        ind5byun(res.data[0][symboli["tableName"].toLowerCase()])
+        ind2byun(res.data[1][symboli["tableName"].toLowerCase()])
+        ind3byun(res.data[2][symboli["tableName"].toLowerCase()])
+        ind4byun(res.data[3][symboli["tableName"].toLowerCase()])
+        ind5byun(res.data[4][symboli["tableName"].toLowerCase()])
       })
     }
 
