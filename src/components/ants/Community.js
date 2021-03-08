@@ -9,6 +9,8 @@ import CommunityBoard from './CommunityBoard';
 import CommunityMain from './CommunityMain';
 import CommunityMainSaved from './CommunityMainSaved';
 
+import CommunityRegister from './CommunityRegister';
+
 function Community() {
     let [showMobileHeaderMenu, showMobileHeaderMenuChange] = useState(false);
     let [selectedSwitchValue,selectedSwitchValueChange] = useState(false);
@@ -98,13 +100,18 @@ function Community() {
             align="center"
             textWeight="600"
             >
+              {boardid =="registe" ?
+                  null
+                      :
             <Switch
                 checked={selectedSwitchValue}
-                inactiveColor="success400"
-                activeColor="success700"
+                inactiveColor="warning400"
+                activeColor="warning800"
                 activeShadow="5"
-            />
-            {selectedSwitchValue ? <Text>추천순</Text> : <Text>최신순</Text>}
+            />}
+            {boardid =="registe" ?
+                  null
+                      :selectedSwitchValue ? <Text>추천순</Text> : <Text>최신순</Text>}
             </Label>
 
           {/* Links for Desktop */}
@@ -116,6 +123,7 @@ function Community() {
             flexDir={{ xs: "column", md: "row" }}
             pos={{ xs: "absolute", md: "relative" }}
             w = "1100px"
+            justify="space-between"
             p={{
               t: { xs: "6rem", md: "0" },
               b: { xs: "2rem", md: "5%" },
@@ -140,7 +148,7 @@ function Community() {
             border={{ b: "1px solid" }}
             borderColor="black"
           >
-            
+            <Div d="flex">
             <Link to="/Community">
               <Anchor
                 // href = "/Community"
@@ -202,36 +210,75 @@ function Community() {
                     </Text>
               </Anchor>
             </Link>
+            </Div>
+            <Div d="flex">
+              
+              <Label
+              m={{ l: "5rem" , r: "2rem"}}
+              onClick={() =>
+                  selectedSwitchValueChange( !selectedSwitchValue)
+              }
+              align="center"
+              textWeight="600"
+              // m={{ b: "1rem" }}
+              >
 
-            <Label
-             m={{ l: "40rem" ,t : "0.2rem" }}
-            onClick={() =>
-                selectedSwitchValueChange( !selectedSwitchValue)
-            }
-            align="center"
-            textWeight="600"
-            // m={{ b: "1rem" }}
-            >
-
-            {((typeof boardid != "undefined") && (typeof boardid.valueOf() == "string")) && (boardid.length > 0) || saveBoardstate ?
-            null :
-            <Switch
-                checked={selectedSwitchValue}
-                inactiveColor="success400"
-                activeColor="success700"
-                activeShadow="5"
-            />}
-            {((typeof boardid != "undefined") && (typeof boardid.valueOf() == "string")) && (boardid.length > 0) || saveBoardstate  ?
-            null :
-            selectedSwitchValue ? 
-            <Text>추천순</Text> : <Text>최신순</Text>}
-            </Label>
-
+              {((typeof boardid != "undefined") && (typeof boardid.valueOf() == "string")) && (boardid.length > 0) || saveBoardstate ?
+              null :
+              <Switch
+                  checked={selectedSwitchValue}
+                  inactiveColor="warning400"
+                  activeColor="warning800"
+                  activeShadow="5"
+              />}
+              {((typeof boardid != "undefined") && (typeof boardid.valueOf() == "string")) && (boardid.length > 0) || saveBoardstate  ?
+              null :
+              selectedSwitchValue ? 
+              <Text>추천순</Text> : <Text>최신순</Text>}
+              </Label>
+              {boardid =="registe" ?
+                  null
+                      :
+              <Link to="/Community/registe">
+                <Anchor
+                  target="_blank"
+                  textWeight="800"
+                  textColor="medium"
+                  hoverTextColor="black"
+                  // transition
+                  // fontFamily="ko"
+                >
+                  
+                    <Button
+                      prefix={
+                        <Icon
+                          name="Edit"
+                          size="22px"
+                          color="white"
+                          m={{ r: "0.5rem" }}
+                        />
+                      }
+                      textWeight="900"
+                      textSize="title"
+                      bg="warning700"
+                      hoverBg="warning800"
+                      rounded="md"
+                      m={{ r: "1rem" }}
+                      p={{ r: "1.5rem", l: "1rem" }}
+                      shadow="3"
+                      hoverShadow="4"
+                    >
+                      글 작성
+                    </Button>
+                </Anchor>
+              </Link>
+                }
+            </Div>
           </Div>
 
          {/* 게시판시작부분 */}
          {((typeof boardid != "undefined") && (typeof boardid.valueOf() == "string")) && (boardid.length > 0)  ?
-        boardid =="saved" ?<CommunityMain ordered = {selectedSwitchValue} saved = {true}></CommunityMain> : <CommunityBoard></CommunityBoard>: <CommunityMain ordered = {selectedSwitchValue} saved = {saveBoardstate}></CommunityMain>  }
+        boardid =="saved" ?<CommunityMain ordered = {selectedSwitchValue} saved = {true}></CommunityMain> : boardid =="registe" ?<CommunityRegister></CommunityRegister>  : <CommunityBoard></CommunityBoard>: <CommunityMain ordered = {selectedSwitchValue} saved = {saveBoardstate}></CommunityMain>  }
          
        {/* 게시판끝부분 */}
     
