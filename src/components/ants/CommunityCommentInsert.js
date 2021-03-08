@@ -2,42 +2,36 @@ import { Div, Button, Modal, Icon, Text, Dropdown, Anchor ,Notification } from "
 import React, { useState, useEffect } from "react"
 import { useDispatch, useSelector } from 'react-redux';
 import DeclareApiService from "../../api/DeclareApi";
+import CommentApiService from "../../api/CommentApi";
 
 
-
-function Communitydeclare(props){ 
+function CommunityCommentInsert(props){ 
     const loginid = useSelector(state => state.user.userid);
     // let [isOpens,isOpens변경] = useState(false);
     // let [onCloses,onCloses변경] = useState(false);
-    let [hovername,hovername변경] = useState("욕설");
+    // let [hovername,hovername변경] = useState("욕설");/
     
 
-    const menuList = (
-        <Div p={{ x: "1rem", y: "0.5rem" }}>
-          {["욕설", "부적절인 내용", "기타"].map((name, index) => (
-            <Anchor d="block" p={{ y: "0.25rem" }} onClick = {()=>{hovername변경(name)}}>
-              {name}
-              {/* {props.commentdata.comment_id} */}
-            </Anchor>
-          ))}
-        </Div>
-      );
-
-      function declareSubmit(data){
-         let declaredata = {
-            comment_id : props.commentdata.comment_id,
-            // board_id : 7,
-            declared_type : data
-            }
-        DeclareApiService.addDeclare(declaredata)
-        .then(res => {
-            console.log("신고하기 접수 성공")
-            props.successDardChange(true);
-        })
-        .catch(err => {
-            console.log('***** Community addDeclare error:', err);
-        }); 
+      function commentinsert(boardid,comment_content){
+       if(!(((typeof comment_content != "undefined") && (typeof comment_content.valueOf() == "string")) && (comment_content.length > 0))){
+          props.문자열alert();
+          console.log("문자열비어있음.")
+          props.onClose();
+       }else{
+        console.log(boardid)
+        console.log(comment_content)
+        console.log(typeof comment_content)
+        let commentata = {
+          board_id : boardid,
+          userid : loginid,
+          comment_content : comment_content
+          }
+        CommentApiService.addComment(commentata)
+        props.문자열등록성공();
+        props.문자열등록성공시초기화();
         props.onClose();
+       }
+       
       }
   return (
     <Modal
@@ -62,16 +56,11 @@ function Communitydeclare(props){
           m={{ t: "0.35rem", r: "0.5rem" }}
         />
         <Text p={{ l: "0.5rem", t: "0.25rem" }} textSize="subheader">
-          신고유형을 선택해주세요.
+          댓글을 등록하시겠습니까?
         </Text>
 
       </Div>
       <Div>
-      <Dropdown targetHover menu={menuList}
-      m={{ b: "2rem" }}
-      >
-          {hovername}
-        </Dropdown>
     </Div>
       <Div d="flex" justify="flex-end">
         <Button
@@ -82,7 +71,7 @@ function Communitydeclare(props){
         >
           Cancel
         </Button>
-        <Button onClick={() => declareSubmit(hovername)} bg="info700">
+        <Button onClick={() => commentinsert(props.boardid,props.comment_content)} bg="info700">
           Yes, Submit
         </Button>
       </Div>
@@ -91,4 +80,4 @@ function Communitydeclare(props){
   );
 };
 
-export default Communitydeclare;
+export default CommunityCommentInsert;
