@@ -45,7 +45,7 @@ function App() {
   useEffect(() => {
     // console.log("1")
     initializeUserInfo();
-  },[]);
+  },[localStorage.getItem('userid')]);
 
   // 새로고침시 Redux State 세팅
   function initializeUserInfo() {
