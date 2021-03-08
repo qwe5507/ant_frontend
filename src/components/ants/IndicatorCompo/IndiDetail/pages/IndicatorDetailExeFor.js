@@ -88,10 +88,10 @@
           //console.log(symboli["symbol"].toLowerCase())
           console.log("확인3", res.data[0][symboli.toLowerCase()])
           ind1byun(res.data[0][symboli.toLowerCase()])
-          ind2byun(res.data[0][symboli.toLowerCase()])
-          ind3byun(res.data[0][symboli.toLowerCase()])
-          ind4byun(res.data[0][symboli.toLowerCase()])
-          ind5byun(res.data[0][symboli.toLowerCase()])
+          ind2byun(res.data[1][symboli.toLowerCase()])
+          ind3byun(res.data[2][symboli.toLowerCase()])
+          ind4byun(res.data[3][symboli.toLowerCase()])
+          ind5byun(res.data[4][symboli.toLowerCase()])
         })
       }
 
