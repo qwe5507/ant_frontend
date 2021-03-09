@@ -44,13 +44,12 @@ function SearchResult() {
   }
 
   const sortResult = (
-    <Div
-    >
+    <Div>
       {['최신순', '추천순'].map((name, index) => (
         <Anchor
           d="block"
           p={{ y: "0.25rem", l: "0.75rem" }}
-
+          fontFamily="ko"
           onClick={() => sortPeriodClicked(name)}
         >
           {name}
@@ -60,13 +59,12 @@ function SearchResult() {
   );
 
   const sortPeriod = (
-    <Div
-    >
+    <Div>
       {['1주일', '1개월', '3개월', '6개월', '1년'].map((name, index) => (
         <Anchor
           d="block"
           p={{ y: "0.25rem", l: "0.75rem" }}
-
+          fontFamily="ko"
           onClick={() => sortPeriodClicked(name)}
         >
           {name}
@@ -225,9 +223,108 @@ function SearchResult() {
       <Div
         tag="section"
         w="100vw"
-        p={{ t: { xs: "3rem", md: "8rem" } }}
+        p={{ t: { xs: "3rem", md: "3rem" } }}
         overflow="hidden"
       >
+        {/* 검색 결과 페이지 */}
+        {/* 구성: 관련 종목, 뉴스 */}
+
+        {/* 관련 종목 */}
+        <Container>
+          <Div
+            d="flex"
+            justify="center"
+            p={{ b: "5rem" }}
+            m={{ t: { xs: "5rem" } }}
+            border={{ b: "1px solid" }}
+            borderColor="gray300"
+          >
+            <Div
+              minW={{ xs: "100%", md: "80rem" }}
+              d="flex"
+              align="center"
+              flexDir="column"
+              h="auto"
+            >
+              {/* 타이틀바 */}
+              <Div
+                w={{ xs: "100%", md: "60rem" }}
+                p={{ t: "0.5rem" }}
+                d="flex"
+                align="center"
+                flexDir="row"
+                justify="space-between"
+              >
+                <Text
+                  textSize="display1"
+                  textWeight="800"
+                  fontFamily="ko"
+                  p={{ l: "0.5rem" }}
+                  m={{ r: "1.5rem" }}
+                >
+                  종목
+                </Text>
+              </Div>
+
+            <Div
+              d="flex"
+              flexDir="row"
+              w={{ xs: "100%", md: "60rem" }}
+            >
+              {/* 종목 목록 */}
+              <Div
+                    border="1px solid"
+                    borderColor="gray200"
+                    w={{ xs: "100%", md: "10rem" }}
+                    maxW="100%"
+                    h="100%"
+                    flexDir="column"
+                    m={{ xs: "1rem", md: "1rem" }}
+                    top="0"
+                    p={{
+                      x: { xs: "2rem", sm: "1.5rem" },
+                      b: { xs: "2rem", sm: "1.5rem" },
+                      t: "1rem",
+                    }}
+                    bg="white"
+                    shadow="2"
+                    rounded="xl"
+                    d="flex"
+                    hoverBg="info200"
+                    cursor="pointer"
+              >
+                테스트
+              </Div>
+              <Div
+                    border="1px solid"
+                    borderColor="gray200"
+                    w={{ xs: "100%", md: "10rem" }}
+                    maxW="100%"
+                    h="100%"
+                    flexDir="column"
+                    m={{ xs: "1rem", md: "1rem" }}
+                    top="0"
+                    p={{
+                      x: { xs: "2rem", sm: "1.5rem" },
+                      b: { xs: "2rem", sm: "1.5rem" },
+                      t: "1rem",
+                    }}
+                    bg="white"
+                    shadow="2"
+                    rounded="xl"
+                    d="flex"
+                    hoverBg="info200"
+                    cursor="pointer"
+              >
+                테스트
+              </Div>
+            </Div>
+
+            </Div>
+          </Div>
+        </Container>
+
+        {/* 뉴스 */}
         <Container>
           <Div
             d="flex"
@@ -236,42 +333,65 @@ function SearchResult() {
             border={{ b: "1px solid" }}
             borderColor="gray300"
           >
-
             <Div
               minW={{ xs: "100%", md: "80rem" }}
               d="flex"
               align="center"
               flexDir="column"
               h="auto"
-              pos="relative"
             >
+              {/* 타이틀바 */}
               <Div
+                w={{ xs: "100%", md: "60rem" }}
+                p={{ t: "0.5rem" }}
                 d="flex"
-                align="right"
+                align="center"
+                flexDir="row"
+                justify="space-between"
               >
-                <Dropdown
-                  w={{ xs: "90%", sm: "8rem" }}
-                  m={{ b: "1.5rem", r: "1.5rem" }}
-                  isOpen={showsortResult}
-                  onClick={() =>
-                    showsortResultChange(!showsortResult)
-                  }
-                  menu={sortResult}
+                <Text
+                  textSize="display1"
+                  textWeight="800"
+                  fontFamily="ko"
+                  p={{ l: "0.5rem" }}
+                  m={{ r: "1.5rem" }}
                 >
-                  {sortResultSel}
-                </Dropdown>
-                <Dropdown
-                  w={{ xs: "90%", sm: "8rem" }}
-                  m={{ b: "1.5rem" }}
-                  isOpen={showsortPeriod}
-                  onClick={() =>
-                    showsortPeriodChange(!showsortPeriod)
-                  }
-                  menu={sortPeriod}
+                  뉴스
+                </Text>
+                <Div
+                  d="flex"
+                  flexDir="row"
                 >
-                  {sortPeriodSel}
-                </Dropdown>
+                  <Dropdown
+                    w={{ xs: "90%", sm: "7rem" }}
+                    border="0"
+                    fontFamily="ko"
+                    textSize="subheader"
+                    isOpen={showsortResult}
+                    onClick={() =>
+                      showsortResultChange(!showsortResult)
+                    }
+                    menu={sortResult}
+                  >
+                    {sortResultSel}
+                  </Dropdown>
+                  <Dropdown
+                    w={{ xs: "90%", sm: "7rem" }}
+                    border="0"
+                    fontFamily="ko"
+                    textSize="subheader"
+                    isOpen={showsortPeriod}
+                    onClick={() =>
+                      showsortPeriodChange(!showsortPeriod)
+                    }
+                    menu={sortPeriod}
+                  >
+                    {sortPeriodSel}
+                  </Dropdown>
+                </Div>
               </Div>
+              
+              {/* 뉴스 목록 */}
               {hits.map(function (data) {
                 return (
                   <Div
@@ -279,59 +399,77 @@ function SearchResult() {
                     borderColor="gray200"
                     w={{ xs: "100%", md: "60rem" }}
                     maxW="100%"
-                    pos={{ xs: "static", md: "relative" }}
+                    h="100%"
+                    flexDir="column"
                     m={{ xs: "1rem", md: "1rem" }}
                     top="0"
                     p={{
                       x: { xs: "2rem", sm: "1.5rem" },
                       b: { xs: "2rem", sm: "1.5rem" },
-                      t: "1.5rem",
+                      t: "1rem",
                     }}
                     bg="white"
-                    shadow="4"
+                    shadow="2"
                     rounded="xl"
+                    d="flex"
+                    hoverBg="info200"
+                    cursor="pointer"
+                    onClick={() => { moveHref(data['_source']['news_url']) }}
                   >
                     <Div
                       flexGrow="1"
-                      textAlign="center"
                     >
                       <Text
                         textAlign="left"
-                        cursor="pointer"
-                        textSize="heading"
+                        textSize={{ xs: "title", md: "heading" }}
                         textWeight="750"
-                        fontFamily="secondary"
-                        justify="flex-start"
+                        fontFamily="ko"
                         m={{ b: "0rem" }}
-                        pos={{ xs: "absolute", md: "static" }}
-                        onClick={() => { moveHref(data['_source']['news_url']) }}
                       >
                         {data['_source']['news_title']}
                       </Text>
-                      <Text
-                        m={{ b: "1rem" }}
+                      <Div
+                        d="flex"
+                        align="center"
                       >
-                        {data['_source']['news_group']} | {data['_source']['news_source']}
-                      </Text>
+                        <Text
+                          textWeight="800"
+                          textAlign="left"
+                          fontFamily="ko"
+                          p={{ r: "0.5rem", b: "0.1rem" }}
+                        >
+                          {data['_source']['news_source']}
 
-                      <Div d="flex" align="center">
-
+                        </Text>
+                        <Text
+                          textWeight="800"
+                          fontFamily="ko"
+                          bg="gray400"
+                          rounded="circle"
+                          textColor="black600"
+                          p={{ l: "0.5rem", r: "0.5rem", b: "0.1rem" }}
+                        >
+                          #키워드
+                        </Text>
+                      </Div>
+                      <Div
+                        d="flex"
+                        align="center"
+                      >
                         <Icon
                           transition
                           name="Timestamp"
                           color="gray"
                           size="18px"
-                          cursor="pointer"
                           m={{ r: "0.4rem" }}
                         />
                         <Text
                           textAlign="left"
                           textSize="body"
                           textWeight="600"
-                          fontFamily="secondary"
+                          fontFamily="ko"
                           textColor="gray"
                           m={{ r: "1rem" }}
-
                         >
                           {timecal(data['_source']['news_date'])}
                         </Text>
@@ -340,14 +478,14 @@ function SearchResult() {
                           name="Eye"
                           color="gray"
                           size="18px"
-                          cursor="pointer"
+                          fontFamily="ko"
                           m={{ r: "0.4rem" }}
                         />
                         <Text
                           textAlign="left"
                           textSize="body"
                           textWeight="600"
-                          fontFamily="secondary"
+                          fontFamily="ko"
                           m={{ r: "1rem" }}
                           textColor="gray"
                         >
@@ -357,15 +495,14 @@ function SearchResult() {
                           transition
                           name="Message"
                           color="gray"
-                          size="33px"
-                          cursor="pointer"
+                          size="18px"
                           m={{ r: "0.4rem" }}
                         />
                         <Text
                           textAlign="left"
                           textSize="body"
                           textWeight="600"
-                          fontFamily="secondary"
+                          fontFamily="ko"
                           textColor="gray"
                           m={{ r: "1rem" }}
                         >
@@ -373,6 +510,7 @@ function SearchResult() {
                         </Text>
                       </Div>
                     </Div>
+
                   </Div>
                 )
               })}
