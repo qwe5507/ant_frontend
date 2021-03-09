@@ -266,59 +266,59 @@ function SearchResult() {
                 </Text>
               </Div>
 
-            <Div
-              d="flex"
-              flexDir="row"
-              w={{ xs: "100%", md: "60rem" }}
-            >
-              {/* 종목 목록 */}
               <Div
-                    border="1px solid"
-                    borderColor="gray200"
-                    w={{ xs: "100%", md: "10rem" }}
-                    maxW="100%"
-                    h="100%"
-                    flexDir="column"
-                    m={{ xs: "1rem", md: "1rem" }}
-                    top="0"
-                    p={{
-                      x: { xs: "2rem", sm: "1.5rem" },
-                      b: { xs: "2rem", sm: "1.5rem" },
-                      t: "1rem",
-                    }}
-                    bg="white"
-                    shadow="2"
-                    rounded="xl"
-                    d="flex"
-                    hoverBg="info200"
-                    cursor="pointer"
+                d="flex"
+                flexDir="row"
+                w={{ xs: "100%", md: "60rem" }}
               >
-                테스트
+                {/* 종목 목록 */}
+                <Div
+                  border="1px solid"
+                  borderColor="gray200"
+                  w={{ xs: "100%", md: "10rem" }}
+                  maxW="100%"
+                  h="100%"
+                  flexDir="column"
+                  m={{ xs: "1rem", md: "1rem" }}
+                  top="0"
+                  p={{
+                    x: { xs: "2rem", sm: "1.5rem" },
+                    b: { xs: "2rem", sm: "1.5rem" },
+                    t: "1rem",
+                  }}
+                  bg="white"
+                  shadow="2"
+                  rounded="xl"
+                  d="flex"
+                  hoverBg="info200"
+                  cursor="pointer"
+                >
+                  테스트
               </Div>
-              <Div
-                    border="1px solid"
-                    borderColor="gray200"
-                    w={{ xs: "100%", md: "10rem" }}
-                    maxW="100%"
-                    h="100%"
-                    flexDir="column"
-                    m={{ xs: "1rem", md: "1rem" }}
-                    top="0"
-                    p={{
-                      x: { xs: "2rem", sm: "1.5rem" },
-                      b: { xs: "2rem", sm: "1.5rem" },
-                      t: "1rem",
-                    }}
-                    bg="white"
-                    shadow="2"
-                    rounded="xl"
-                    d="flex"
-                    hoverBg="info200"
-                    cursor="pointer"
-              >
-                테스트
+                <Div
+                  border="1px solid"
+                  borderColor="gray200"
+                  w={{ xs: "100%", md: "10rem" }}
+                  maxW="100%"
+                  h="100%"
+                  flexDir="column"
+                  m={{ xs: "1rem", md: "1rem" }}
+                  top="0"
+                  p={{
+                    x: { xs: "2rem", sm: "1.5rem" },
+                    b: { xs: "2rem", sm: "1.5rem" },
+                    t: "1rem",
+                  }}
+                  bg="white"
+                  shadow="2"
+                  rounded="xl"
+                  d="flex"
+                  hoverBg="info200"
+                  cursor="pointer"
+                >
+                  테스트
               </Div>
-            </Div>
+              </Div>
 
             </Div>
           </Div>
@@ -390,128 +390,130 @@ function SearchResult() {
                   </Dropdown>
                 </Div>
               </Div>
-              
+
               {/* 뉴스 목록 */}
               {hits.map(function (data) {
                 return (
-                  <Div
-                    border="1px solid"
-                    borderColor="gray200"
-                    w={{ xs: "100%", md: "60rem" }}
-                    maxW="100%"
-                    h="100%"
-                    flexDir="column"
-                    m={{ xs: "1rem", md: "1rem" }}
-                    top="0"
-                    p={{
-                      x: { xs: "2rem", sm: "1.5rem" },
-                      b: { xs: "2rem", sm: "1.5rem" },
-                      t: "1rem",
-                    }}
-                    bg="white"
-                    shadow="2"
-                    rounded="xl"
-                    d="flex"
-                    hoverBg="info200"
-                    cursor="pointer"
-                    onClick={() => { moveHref(data['_source']['news_url']) }}
-                  >
+                  <Link to={"/NewsDetail/" + data['news_id']} style={{ color: '#000' }}>
                     <Div
-                      flexGrow="1"
+                      border="1px solid"
+                      borderColor="gray200"
+                      w={{ xs: "100%", md: "60rem" }}
+                      maxW="100%"
+                      h="100%"
+                      flexDir="column"
+                      m={{ xs: "1rem", md: "1rem" }}
+                      top="0"
+                      p={{
+                        x: { xs: "2rem", sm: "1.5rem" },
+                        b: { xs: "2rem", sm: "1.5rem" },
+                        t: "1rem",
+                      }}
+                      bg="white"
+                      shadow="2"
+                      rounded="xl"
+                      d="flex"
+                      hoverBg="info200"
+                      cursor="pointer"
+                    // onClick={() => { moveHref(data['_source']['news_url']) }}
                     >
-                      <Text
-                        textAlign="left"
-                        textSize={{ xs: "title", md: "heading" }}
-                        textWeight="750"
-                        fontFamily="ko"
-                        m={{ b: "0rem" }}
-                      >
-                        {data['_source']['news_title']}
-                      </Text>
                       <Div
-                        d="flex"
-                        align="center"
+                        flexGrow="1"
                       >
                         <Text
-                          textWeight="800"
                           textAlign="left"
+                          textSize={{ xs: "title", md: "heading" }}
+                          textWeight="750"
                           fontFamily="ko"
-                          p={{ r: "0.5rem", b: "0.1rem" }}
+                          m={{ b: "0rem" }}
                         >
-                          {data['_source']['news_source']}
+                          {data['_source']['news_title']}
+                        </Text>
+                        <Div
+                          d="flex"
+                          align="center"
+                        >
+                          <Text
+                            textWeight="800"
+                            textAlign="left"
+                            fontFamily="ko"
+                            p={{ r: "0.5rem", b: "0.1rem" }}
+                          >
+                            {data['_source']['news_source']}
 
+                          </Text>
+                          <Text
+                            textWeight="800"
+                            fontFamily="ko"
+                            bg="gray400"
+                            rounded="circle"
+                            textColor="black600"
+                            p={{ l: "0.5rem", r: "0.5rem", b: "0.1rem" }}
+                          >
+                            #키워드
                         </Text>
-                        <Text
-                          textWeight="800"
-                          fontFamily="ko"
-                          bg="gray400"
-                          rounded="circle"
-                          textColor="black600"
-                          p={{ l: "0.5rem", r: "0.5rem", b: "0.1rem" }}
+                        </Div>
+                        <Div
+                          d="flex"
+                          align="center"
                         >
-                          #키워드
+                          <Icon
+                            transition
+                            name="Timestamp"
+                            color="gray"
+                            size="18px"
+                            m={{ r: "0.4rem" }}
+                          />
+                          <Text
+                            textAlign="left"
+                            textSize="body"
+                            textWeight="600"
+                            fontFamily="ko"
+                            textColor="gray"
+                            m={{ r: "1rem" }}
+                          >
+                            {timecal(data['_source']['news_date'])}
+                          </Text>
+                          <Icon
+                            transition
+                            name="Eye"
+                            color="gray"
+                            size="18px"
+                            fontFamily="ko"
+                            m={{ r: "0.4rem" }}
+                          />
+                          <Text
+                            textAlign="left"
+                            textSize="body"
+                            textWeight="600"
+                            fontFamily="ko"
+                            m={{ r: "1rem" }}
+                            textColor="gray"
+                          >
+                            0
                         </Text>
+                          <Icon
+                            transition
+                            name="Message"
+                            color="gray"
+                            size="18px"
+                            m={{ r: "0.4rem" }}
+                          />
+                          <Text
+                            textAlign="left"
+                            textSize="body"
+                            textWeight="600"
+                            fontFamily="ko"
+                            textColor="gray"
+                            m={{ r: "1rem" }}
+                          >
+                            0
+                        </Text>
+                        </Div>
                       </Div>
-                      <Div
-                        d="flex"
-                        align="center"
-                      >
-                        <Icon
-                          transition
-                          name="Timestamp"
-                          color="gray"
-                          size="18px"
-                          m={{ r: "0.4rem" }}
-                        />
-                        <Text
-                          textAlign="left"
-                          textSize="body"
-                          textWeight="600"
-                          fontFamily="ko"
-                          textColor="gray"
-                          m={{ r: "1rem" }}
-                        >
-                          {timecal(data['_source']['news_date'])}
-                        </Text>
-                        <Icon
-                          transition
-                          name="Eye"
-                          color="gray"
-                          size="18px"
-                          fontFamily="ko"
-                          m={{ r: "0.4rem" }}
-                        />
-                        <Text
-                          textAlign="left"
-                          textSize="body"
-                          textWeight="600"
-                          fontFamily="ko"
-                          m={{ r: "1rem" }}
-                          textColor="gray"
-                        >
-                          0
-                        </Text>
-                        <Icon
-                          transition
-                          name="Message"
-                          color="gray"
-                          size="18px"
-                          m={{ r: "0.4rem" }}
-                        />
-                        <Text
-                          textAlign="left"
-                          textSize="body"
-                          textWeight="600"
-                          fontFamily="ko"
-                          textColor="gray"
-                          m={{ r: "1rem" }}
-                        >
-                          0
-                        </Text>
-                      </Div>
+
                     </Div>
-
-                  </Div>
+                  </Link>
                 )
               })}
             </Div>
