@@ -38,11 +38,6 @@ function SearchResult() {
     }
   ]);
 
-  function moveHref(url) {
-    console.log("moveHref호출")
-    window.location.href = url;
-  }
-
   const sortResult = (
     <Div>
       {['최신순', '추천순'].map((name, index) => (
@@ -391,10 +386,17 @@ function SearchResult() {
                 </Div>
               </Div>
 
+              <Div m={{ b: {xs: "1rem", md: "1rem"} }}></Div>
+
               {/* 뉴스 목록 */}
               {hits.map(function (data) {
                 return (
-                  <Link to={"/NewsDetail/" + data['_source']['news_id']} style={{ color: '#000' }}>
+                  <Div
+                    m={{ b: {xs: "1rem", md: "1rem"} }}
+                  >
+                  <Link to={"/NewsDetail/" + data['_source']['news_id']} 
+                    style={{ color: '#000' }}
+                  >
                     <Div
                       border="1px solid"
                       borderColor="gray200"
@@ -402,7 +404,6 @@ function SearchResult() {
                       maxW="100%"
                       h="100%"
                       flexDir="column"
-                      m={{ xs: "1rem", md: "1rem" }}
                       top="0"
                       p={{
                         x: { xs: "2rem", sm: "1.5rem" },
@@ -415,23 +416,23 @@ function SearchResult() {
                       d="flex"
                       hoverBg="info200"
                       cursor="pointer"
-                    // onClick={() => { moveHref(data['_source']['news_url']) }}
                     >
                       <Div
                         flexGrow="1"
                       >
                         <Text
                           textAlign="left"
-                          textSize={{ xs: "title", md: "heading" }}
-                          textWeight="750"
+                          textSize={{ xs: "title", md: "title" }}
+                          textWeight="800"
                           fontFamily="ko"
-                          m={{ b: "0rem" }}
+                          m={{ b: "0.5rem" }}
                         >
                           {data['_source']['news_title']}
                         </Text>
                         <Div
                           d="flex"
                           align="center"
+                          m={{ b: "0.5rem" }}
                         >
                           <Text
                             textWeight="800"
@@ -514,6 +515,7 @@ function SearchResult() {
 
                     </Div>
                   </Link>
+                  </Div>
                 )
               })}
             </Div>
