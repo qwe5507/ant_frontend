@@ -394,7 +394,7 @@ function SearchResult() {
               {/* 뉴스 목록 */}
               {hits.map(function (data) {
                 return (
-                  <Link to={"/NewsDetail/" + data['news_id']} style={{ color: '#000' }}>
+                  <Link to={"/NewsDetail/" + data['_source']['news_id']} style={{ color: '#000' }}>
                     <Div
                       border="1px solid"
                       borderColor="gray200"

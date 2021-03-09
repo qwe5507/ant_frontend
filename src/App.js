@@ -148,7 +148,7 @@ function App() {
           <Route exact path="/ChatPage" component={ChatPage} />
           <Route exact path="/SearchResult/:search" component={SearchResult} />
           <Route exact path="/News" component={News} />
-          <Route exact path="/NewsDetail" component={NewsDetail} />
+          <Route exact path="/NewsDetail/:newsId" component={NewsDetail} />
           <Route exact path="/Stocks" component={Stocks} />
           <Route exact path="/Profile" component={Profile} />
           <Route exact path="/Logout" component={Logout} />

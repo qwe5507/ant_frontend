@@ -2,28 +2,12 @@ import axios from 'axios';
 
 const USER_API_BASE_URL = "http://localhost:8000/news";
 
-class NewsApiService {
+class NewsApi {
 
-    // fetchUsers() {
-    //     return axios.get(USER_API_BASE_URL);
-    // }
-
-    // fetchUserByID(userID) {
-    //     return axios.get(USER_API_BASE_URL + '/' + userID);
-    // }
-
-    // deleteUser(userID) {
-    //     return axios.delete(USER_API_BASE_URL + '/' + userID);
-    // }
-
-    // addUser(user) {
-    //     return axios.post(USER_API_BASE_URL, user);
-    // }
-
-    // editUser(user) {
-    //     return axios.put(USER_API_BASE_URL + '/' + user.id, user)
-    // }
+    selectByNewsId(newsId) {
+        return axios.get(USER_API_BASE_URL + '/' + newsId);
+    }
  
 }
 
-export default new NewsApiService();
+export default new NewsApi();
