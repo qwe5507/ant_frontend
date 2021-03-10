@@ -8,6 +8,10 @@ class NewsApi {
         return axios.get(USER_API_BASE_URL + '/' + newsId);
     }
  
+    selectKeywordByNewsId(searchResult) {
+        return axios.get(USER_API_BASE_URL+ '/keywords/' + searchResult);
+    }
+
 }
 
 export default new NewsApi();

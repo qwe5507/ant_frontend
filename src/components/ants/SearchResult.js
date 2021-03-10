@@ -1,22 +1,52 @@
 import PropTypes from "prop-types"
 import React, { useState, useEffect } from "react"
 import { Input, Div, Image, Container, Button, Anchor, Dropdown, scrollTo, Icon, Text, Radiobox, Label, Switch, Row, Col, logoSketch, logoReact } from "atomize"
-import logo from "../../images/logo.svg"
-import producthunt from "../../images/logo-producthunt.svg"
 import { Link, Route, useHistory, useParams } from 'react-router-dom';
-//import Modal from 'react-modal';
 import axios from "axios";
+
+import NewsApiService from "../../api/NewsApi";
+
 function SearchResult() {
 
   let { search } = useParams();
   let [result, result변경] = useState("");
-  let [hits, hits변경] = useState([]);
-
+  let [hits, hits변경] = useState();
+  let [keywords, keywordsChange] = useState();
 
   let [sortResultSel, sortResultSelChange] = useState('정렬');
   let [sortPeriodSel, sortPeriodSelChange] = useState('기간');
   let [showsortResult, showsortResultChange] = useState(false);
   let [showsortPeriod, showsortPeriodChange] = useState(false);
+
+  // 검색결과
+  useEffect(() => {
+    searchmatchparse();
+    console.log('1');
+  }, []);
+
+  // 검색결과 출력 후 keywords 받아오기
+  useEffect(() => {
+    
+    if(hits){
+    console.log('체크',hits);
+    
+    var searchResult = "";
+    
+    for(var i=0; i< hits.length; i++){
+      searchResult += hits[i]['_source']['news_id'] + ",";
+    }
+    
+    NewsApiService.selectKeywordByNewsId(searchResult)
+      .then(res => {
+        console.log('로딩', res.data);
+        keywordsChange(res.data);
+        console.log('로딩', keywords);
+      })
+      .catch(err => {
+        console.log('***** SearchResult.js selectKeywordByNewsId error:', err);
+      });
+    }
+  },[hits]);
 
   let today = new Date();
   let year = today.getFullYear(); // 년도
@@ -149,19 +179,11 @@ function SearchResult() {
         result = response.data
         var hits2 = result['hits']['hits']
         hits변경(hits2)
-        console.log(hits2)
       })
       .catch(error => {
         console.log(error);
       });
   }
-
-
-  console.log("test")
-  useEffect(() => {
-    searchmatchparse()
-
-  }, [])
 
   function timecal(data) {
     var nowtime = new Date()
@@ -386,36 +408,34 @@ function SearchResult() {
                 </Div>
               </Div>
 
-              <Div m={{ b: {xs: "1rem", md: "1rem"} }}></Div>
+              <Div m={{ b: { xs: "1rem", md: "1rem" } }}></Div>
 
               {/* 뉴스 목록 */}
-              {hits.map(function (data) {
+              { hits && keywords && hits.map(function (data, idx) {
                 return (
                   <Div
-                    m={{ b: {xs: "1rem", md: "1rem"} }}
+                    border="1px solid"
+                    borderColor="gray200"
+                    w={{ xs: "100%", md: "60rem" }}
+                    m={{ b: { xs: "1rem", md: "1rem" } }}
+                    maxW="100%"
+                    h="100%"
+                    flexDir="column"
+                    top="0"
+                    p={{
+                      x: { xs: "2rem", sm: "1.5rem" },
+                      b: { xs: "2rem", sm: "1.5rem" },
+                      t: "1rem",
+                    }}
+                    bg="white"
+                    shadow="2"
+                    rounded="xl"
+                    d="flex"
+                    hoverBg="info200"
+                    cursor="pointer"
                   >
-                  <Link to={"/NewsDetail/" + data['_source']['news_id']} 
-                    style={{ color: '#000' }}
-                  >
-                    <Div
-                      border="1px solid"
-                      borderColor="gray200"
-                      w={{ xs: "100%", md: "60rem" }}
-                      maxW="100%"
-                      h="100%"
-                      flexDir="column"
-                      top="0"
-                      p={{
-                        x: { xs: "2rem", sm: "1.5rem" },
-                        b: { xs: "2rem", sm: "1.5rem" },
-                        t: "1rem",
-                      }}
-                      bg="white"
-                      shadow="2"
-                      rounded="xl"
-                      d="flex"
-                      hoverBg="info200"
-                      cursor="pointer"
+                    <Link to={"/NewsDetail/" + data['_source']['news_id']}
+                      style={{ color: '#000' }}
                     >
                       <Div
                         flexGrow="1"
@@ -440,19 +460,27 @@ function SearchResult() {
                             fontFamily="ko"
                             p={{ r: "0.5rem", b: "0.1rem" }}
                           >
-                            {data['_source']['news_source']}
+                            { data['_source']['news_source'] }
 
                           </Text>
-                          <Text
-                            textWeight="800"
-                            fontFamily="ko"
-                            bg="gray400"
-                            rounded="circle"
-                            textColor="black600"
-                            p={{ l: "0.5rem", r: "0.5rem", b: "0.1rem" }}
-                          >
-                            #키워드
-                        </Text>
+                        
+                          {/* 키워드 반복 함수 */}
+                          { hits && keywords && keywords[idx].map(function (a, seq) {
+                          return (
+                            <Text
+                              textWeight="800"
+                              fontFamily="ko"
+                              bg="gray400"
+                              rounded="circle"
+                              textColor="black600"
+                              p={{ l: "0.5rem", r: "0.5rem", b: "0.1rem" }}
+                              m={{ r: "0.5rem" }}
+                            >
+                              #{ a.keyword }
+                            </Text>
+                          )})}
+                          {/* 키워드 반복 함수 끝 */}
+
                         </Div>
                         <Div
                           d="flex"
@@ -512,10 +540,9 @@ function SearchResult() {
                         </Text>
                         </Div>
                       </Div>
-
-                    </Div>
-                  </Link>
+                    </Link>
                   </Div>
+
                 )
               })}
             </Div>
