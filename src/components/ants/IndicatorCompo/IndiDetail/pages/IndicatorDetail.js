@@ -1,5 +1,6 @@
 import React, {useState, useEffect, useRef } from "react"
 import { Text, Div, Button, Container, Icon } from "atomize";
+import { Link } from 'react-router-dom';
 import ChartKor from "../chart/ChartKor"
 import IndApi from "../../../../../api/IndApi";
 import Table from '@material-ui/core/Table'
@@ -8,7 +9,6 @@ import TableCell from '@material-ui/core/TableCell'
 import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
 import axios from "axios";
-import { indigo } from "@material-ui/core/colors";
 
 function IndicatorDetail() {
     
@@ -212,9 +212,30 @@ function IndicatorDetail() {
           <TableHead>
           <TableRow>
           {inds.map(ind => 
-              <TableCell align="center"><b>{ind.indiname}</b></TableCell>                   
-              )
-          }     
+                <TableCell align="center">
+                 {
+                  (ind.indiname == '달러인덱스') || (ind.indiname == '비트코인') || (ind.indiname == '미 10년 채권수익률') || (ind.indiname == '미 2년 채권수익률')
+                  ?
+                  (
+                    <Link to={`/IndicatorDetail1/${ind.indicator}`} ><button>{ind.indiname}</button></Link>
+                  ) : (
+                    (ind.indiname == '국제 금') || (ind.indiname == 'WTI') 
+                    ?
+                    (
+                      <Link to={`/IndicatorDetail2/${ind.indicator}`} ><button>{ind.indiname}</button></Link>
+                    ) : (
+                      (ind.indiname == '달러/유로') || (ind.indiname == '영국 파운드/달러') || (ind.indiname == '일본 엔/달러') || (ind.indiname == '중국 위안/달러')
+                      ?
+                      (
+                        <Link to={`/IndicatorDetailExeFor/${ind.indicator}`} ><button>{ind.indiname}</button></Link>
+                      ) :
+                      ''
+                    )
+                  )
+                 
+                }
+                  </TableCell>                   
+                )}     
            </TableRow>
           </TableHead>
           <TableBody>

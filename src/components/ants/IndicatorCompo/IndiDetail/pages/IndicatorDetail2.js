@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useRef } from "react"
 import { Text, Div,  Button, Icon, Container} from "atomize";
-import { useParams } from 'react-router-dom';
+import { useParams, Link, useHistory } from 'react-router-dom';
 import ChartIndi2 from "../chart/ChartIndi2"
 
 import IndApi from "../../../../../api/IndApi";
@@ -12,6 +12,7 @@ import TableRow from '@material-ui/core/TableRow'
 import axios from "axios";
 
 function IndicatorDetail2(props) {
+
     console.log('시작')
 
     let [result, resultbyun] = useState("");
@@ -93,6 +94,10 @@ function IndicatorDetail2(props) {
         ind4byun(res.data[3][symboli["tableName"].toLowerCase()])
         ind5byun(res.data[4][symboli["tableName"].toLowerCase()])
       })
+    }
+
+    function links(indicator){
+      window.location.replace(`/IndicatorDetail2/${indicator}`)
     }
 
     useEffect(() => {
@@ -236,8 +241,35 @@ function IndicatorDetail2(props) {
           <TableHead>
             <TableRow>
             {inds.map(ind => 
-                <TableCell align="center"><b>{ind.indiname}</b></TableCell>                   
-                )}  
+                <TableCell align="center">
+                 {
+                  (ind.indiname == '달러인덱스') || (ind.indiname == '비트코인') || (ind.indiname == '미 10년 채권수익률') || (ind.indiname == '미 2년 채권수익률')
+                  ?
+                  (
+                    <Link to={`/IndicatorDetail1/${ind.indicator}`} ><button>{ind.indiname}</button></Link>
+                  ) : (
+                    (ind.indiname == '국제 금') || (ind.indiname == 'WTI') 
+                    ?
+                    (
+                      <button onClick={ () => links(ind.indicator)}>{ind.indiname}</button>
+                    ) : (
+                      (ind.indiname == '달러/유로') || (ind.indiname == '영국 파운드/달러') || (ind.indiname == '일본 엔/달러') || (ind.indiname == '중국 위안/달러')
+                      ?
+                      (
+                        <Link to={`/IndicatorDetailExeFor/${ind.indicator}`} ><button>{ind.indiname}</button></Link>
+                      ) :
+                      (ind.indiname == '원/달러')
+                      ?
+                      (
+                        <Link to="/IndicatorDetail"><button>{ind.indiname}</button></Link>
+                      ) :
+                      ''
+                    )
+                  )
+                 
+                }
+                  </TableCell>                   
+                )}   
             </TableRow>
           </TableHead>
           <TableBody>
