@@ -17,6 +17,8 @@ function Stocks() {
          symbol="KOSPI" 
          theme={Themes.DARK}
          locale="fr"
+         height="2000"
+         autosize
          />
         </div>
         </Div>

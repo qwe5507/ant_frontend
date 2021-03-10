@@ -4,25 +4,49 @@ import { Container, Div, Text, Icon, Button, Input } from "atomize";
 
 import NewsApiService from "../../api/NewsApi";
 
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 
 function NewsDetail() {
+
+    let history = useHistory();
 
     let { newsId } = useParams();
 
     let [newsData, newsDataChange] = useState();
+    let [keywords, keywordsChange] = useState();
 
     useEffect(() => {
+        console.log(newsId)
         NewsApiService.selectByNewsId(newsId)
             .then(res => {
-                console.log('NewsDetail 결과', res.data);
+                console.log('NewsDetail 결과2', res.data);
                 newsDataChange(res.data);
             })
             .catch(err => {
                 console.log('***** NewsDetail.js selectByNewsId error:', err);
             });
 
+        
     }, []);
+
+    useEffect(() => {
+        if(newsData){
+        NewsApiService.selectKeywordByNewsId(newsId)
+            .then(res => {
+                console.log('로딩1', res.data);
+                keywordsChange(res.data);
+                
+            })
+            .catch(err => {
+                console.log('***** SearchResult.js selectKeywordByNewsId error:', err);
+            });
+        }
+    },[newsData]);
+
+    function handleClick(keyword){
+        console.log(keyword);
+        history.push('/SearchResult/'+keyword)
+    }
 
     function moveHref(url) {
         window.open(url); // 클릭 시 별도 창 오픈
@@ -145,16 +169,24 @@ function NewsDetail() {
                                             align="center"
                                             m={{ b: "0.5rem" }}
                                         >
-                                            <Text
-                                                textWeight="800"
-                                                fontFamily="ko"
-                                                bg="gray400"
-                                                rounded="circle"
-                                                textColor="black600"
-                                                p={{ l: "0.5rem", r: "0.5rem", b: "0.1rem" }}
-                                            >
-                                                #키워드
-                                        </Text>
+                                        { newsData && keywords && keywords[0].map(function(data){
+                                                 return(
+                                                    <Text
+                                                        textWeight="800"
+                                                        fontFamily="ko"
+                                                        bg="gray400"
+                                                        rounded="circle"
+                                                        textColor="black600"
+                                                        p={{ l: "0.5rem", r: "0.5rem", b: "0.1rem" }}
+                                                        m={{ r: "0.5rem" }}
+                                                        cursor="pointer"
+                                                        onClick={ () => handleClick(data.keyword)}
+                                                    >
+                                                        #{data.keyword}
+                                                </Text> 
+                                        )})}
+                                      
+                                       
                                         </Div>
                                         <Div
                                             d="flex"

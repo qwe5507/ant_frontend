@@ -38,9 +38,7 @@ function SearchResult() {
     
     NewsApiService.selectKeywordByNewsId(searchResult)
       .then(res => {
-        console.log('로딩', res.data);
         keywordsChange(res.data);
-        console.log('로딩', keywords);
       })
       .catch(err => {
         console.log('***** SearchResult.js selectKeywordByNewsId error:', err);
