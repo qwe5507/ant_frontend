@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setLikedComments } from '../../redux/actions/user_action';
 import Communitydeclare from './Communitydeclare';
 import CommunityCommentInsert from './CommunityCommentInsert';
+import "./CommunityBoard.css";
 
 function CommunityBoard() {
     const loginid = useSelector(state => state.user.userid);
@@ -383,6 +384,7 @@ function CommunityBoard() {
                         // }}
                         border={{ b: "1px solid" }}
                         borderColor="gray400"
+
                     // p={{
                     //     b: { xs : '1rem' }
                     // }}
@@ -399,7 +401,14 @@ function CommunityBoard() {
                             w={{ xs: "auto", md: "40rem" }}
                             textAlign="left"
                         >
-                            {board['board_content']}
+
+                            <div
+
+                                style={{ width: "100%", height: "100%" }}
+                                dangerouslySetInnerHTML={{ __html: board['board_content'] }}>
+                            </div>
+
+                            {/* {board['board_content']} */}
                         </Text>
                         <Div d="flex" align="center"
                             // border="1px solid"

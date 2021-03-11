@@ -10,6 +10,7 @@ import { AddAlarmSharp } from "@material-ui/icons"
 import { useDispatch, useSelector } from 'react-redux';
 
 import { setSavedBoards } from '../../redux/actions/user_action';
+import "./CommunityMain.css";
 
 function CommunityMain(props) {
   let [showMobileHeaderMenu, showMobileHeaderMenuChange] = useState(false);
@@ -198,15 +199,39 @@ function CommunityMain(props) {
                             </Div>
 
                               <Link to={"/Community/"+data['board_id']}  style={{ color: '#000' }}>
-                              <Text
-                              textAlign="left"
-                              textSize="body"
-                              textWeight="500"
-                              fontFamily="secondary"
-                              m={{ b: "1rem" }}
-                              >
-                            {data['board_content'].length > 77 ? data['board_content'].substring(0,70)+"..." :data['board_content'] }
-                              </Text>
+                                <Div d = "flex" justify="space-between">
+                                  <Text
+                                  textAlign="left"
+                                  textSize="body"
+                                  textWeight="500"
+                                  fontFamily="secondary"
+                                  m={{ b: "1rem" }}
+                                  >
+                                    <div
+                                      className = "boardcon"
+                                    // style={{ width: "100%", height: "100%" }}
+                                    // dangerouslySetInnerHTML={{ __html: (data['board_content'].length > 77 ? data['board_content'].substring(0,70)+"..." :data['board_content'] ) }}>
+                                    dangerouslySetInnerHTML={{ __html: data['board_content'] }} > 
+                                    </div>
+                                
+                                  </Text>
+                                  {/* {data['board_content']} */}
+                                  <Div 
+                                  // m={{t :{ md : "5%"}, l :{ md : "-80%"}}}
+                                  // pos = {{ xs : "absolute"}}
+                                  pos={{ xs: 'absolute', lg: 'static' }}
+                                  right = "5rem"
+                                  righ
+                                  >
+                                  {/* {data['board_content'].indexOf("<img") ==-1 ? null :data['board_content'].substring(data['board_content'].indexOf("<img"),data['board_content'].indexOf("px;")+5)} */}
+                                  <div
+                                      className = "boardconimg"
+                                    // style={{ width: "100%", height: "100%" }}
+                                    // dangerouslySetInnerHTML={{ __html: (data['board_content'].length > 77 ? data['board_content'].substring(0,70)+"..." :data['board_content'] ) }}>
+                                    dangerouslySetInnerHTML={{ __html: data['board_content'].indexOf("<img") ==-1 ? '<div class="boardconimg"></div>' :data['board_content'].substring(data['board_content'].indexOf("<img"),data['board_content'].indexOf('">')+2) }} > 
+                                  </div> 
+                                  </Div>
+                              </Div>
                               </Link>
                           </Div>
 
