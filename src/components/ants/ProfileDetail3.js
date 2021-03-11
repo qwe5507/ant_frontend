@@ -1,8 +1,40 @@
-import React from "react"
-
+import React, { Component } from "react"
+import UserApiService from "../../api/UserApi";
 import { Text, Div, Icon, Anchor, Button, Input } from "atomize"
 import Paper from '@material-ui/core/Paper';
-const ProfileDetail3 = () => (
+class ProfileDetail3 extends Component{
+
+    constructor(props){
+        console.log('constro run');
+        super(props);
+        this.state ={
+          boards : [],
+          message : null
+        };
+      }
+
+      componentDidMount(){
+        console.log('comdid run');
+        this.reloadBoardList();
+      }
+
+    reloadBoardList = () => {
+        UserApiService.boardShow(window.localStorage.getItem("userid"))
+          .then(res =>{
+            this.setState({boards: res.data})
+          })
+          .catch(err => {
+            console.error('게시글 조회 오류', err);
+            alert('조회 오류입니다. 관리자에게 문의 부탁드립니다.');
+        })
+    }
+
+    componentWillUnmount(){
+    
+    }   
+
+    render(){
+    return(
     <Div
         border="1px solid"
         borderColor="gray200"
@@ -22,6 +54,7 @@ const ProfileDetail3 = () => (
         rounded="xl"
 
     >
+        
         <Div
             flexGrow="1"
             textAlign="center"
@@ -34,29 +67,30 @@ const ProfileDetail3 = () => (
             >
                 게시물
             </Text>
+            {this.state.boards.map(board => 
             <Paper>
 
             <Text
             textAlign="left"
             m={{ t: "0.5rem", b: "0.5rem" }}
             textWeight="600"
-            textSize="subtitle"
+            textSize="subheader"
+            fontFamily="ko"
             >
-            [외환브리핑]위험자산 선호 심리 둔화 속 美中 갈등..1100원 중반대 전망
+            {board.board_title}
             </Text>
         <Text
+        textColor="gray900"
+        textAlign="right"
+        m={{ t: "0.5rem", b: "0.5rem" }}
         fontFamily="ko"
-        textWeight="650"
-        >
-        원·달러 환율이 1100원 중반대에서 지지부진한 흐름을 이어갈 전망이다.
-    </Text>
-    <Text
-    textColor="gray900"
-    >이데일리 | 2021-02-19 08:08</Text>
+        >{board.board_createdata.substring(0,19)}</Text>
 
-    </Paper>
+    </Paper>)}
         </Div>
     </Div>
-)
+        )
+    }
+}
 
-export default ProfileDetail3;
+export default  ProfileDetail3;
