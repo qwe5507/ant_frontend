@@ -1,7 +1,7 @@
 import React from "react"
 
 import { Text, Div, Icon, Anchor, Button, Input } from "atomize"
-
+import Paper from '@material-ui/core/Paper';
 const ProfileDetail3 = () => (
     <Div
         border="1px solid"
@@ -34,6 +34,27 @@ const ProfileDetail3 = () => (
             >
                 게시물
             </Text>
+            <Paper>
+
+            <Text
+            textAlign="left"
+            m={{ t: "0.5rem", b: "0.5rem" }}
+            textWeight="600"
+            textSize="subtitle"
+            >
+            [외환브리핑]위험자산 선호 심리 둔화 속 美中 갈등..1100원 중반대 전망
+            </Text>
+        <Text
+        fontFamily="ko"
+        textWeight="650"
+        >
+        원·달러 환율이 1100원 중반대에서 지지부진한 흐름을 이어갈 전망이다.
+    </Text>
+    <Text
+    textColor="gray900"
+    >이데일리 | 2021-02-19 08:08</Text>
+
+    </Paper>
         </Div>
     </Div>
 )
