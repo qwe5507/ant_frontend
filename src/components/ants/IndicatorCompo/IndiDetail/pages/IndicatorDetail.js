@@ -2,6 +2,7 @@ import React, {useState, useEffect, useRef } from "react"
 import { Text, Div, Button, Container, Icon } from "atomize";
 import { Link } from 'react-router-dom';
 import ChartKor from "../chart/ChartKor"
+import CorrKor from "../chart/CorrKor"
 import IndApi from "../../../../../api/IndApi";
 import Table from '@material-ui/core/Table'
 import TableBody from '@material-ui/core/TableBody'
@@ -173,13 +174,29 @@ function IndicatorDetail() {
             : null
           }
           {
+            chart1 === true
+            ? <CorrKor nums={30}/>
+            : null
+          }
+
+          {
             chart2 === true
             ? <ChartKor nums={90}/>
             : null
           }
           {
+            chart2 === true
+            ? <CorrKor nums={90}/>
+            : null
+          }
+          {
             chart3 === true
             ? <ChartKor nums={180}/>
+            : null
+          }
+           {
+            chart3 === true
+            ? <CorrKor nums={180}/>
             : null
           }
           
@@ -192,6 +209,7 @@ function IndicatorDetail() {
          >
           관련지표
         </Text>
+        
         <Container d="flex" flexDir="row">
         <Icon name="Checked" size="20px"  m={{ t: "0.5rem", b: "1rem" }}/>
         <Text
@@ -202,8 +220,7 @@ function IndicatorDetail() {
             textWeight="600"
             fontFamily="ko"
          >
-          상관관계가 높은 5개의 지표와 상관계수입니다.
-          상관계수는 1에 가까울수록 비례 관계를, -1에 가까울수록 반비례 관계를 보입니다.
+          전체 기간에서 상관관계가 높은 5개의 지표와 상관계수입니다.
         </Text>
         </Container>
         <Container  m={{ t: "-1rem", b: "0" }}>

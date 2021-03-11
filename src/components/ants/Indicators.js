@@ -8,7 +8,7 @@ import IndiTable2 from "./IndicatorCompo/IndiTable2"
 import IndiTable3 from "./IndicatorCompo/IndiTable3"
 import IndiTable4 from "./IndicatorCompo/IndiTable4"
 import IndiTable5 from "./IndicatorCompo/IndiTable5"
-
+import IndApi from "../../api/IndApi";
 function Indicators() {
 
   let [indi1, indiShow1 ] = useState(true);
@@ -53,7 +53,6 @@ function Indicators() {
               
               <IndicatorForm1 />
               <IndicatorForm2 />
-              
               <IndicatorForm3 />
               
               
@@ -67,6 +66,7 @@ function Indicators() {
           align="center"
           m={{ xs: "-8.5rem", md: "-3.5rem" }}
           >  
+      
           <Button onClick={() => {indiShow1(true); indiShow2(false); indiShow3(false); indiShow4(false);indiShow5(false);} } 
               h="3rem"
                 w={{ xs: "100%", sm: "11rem" }}
@@ -145,7 +145,7 @@ function Indicators() {
            
            </Container>
            <Div>
-
+       
       <Container>
       {
         indi1 === true
