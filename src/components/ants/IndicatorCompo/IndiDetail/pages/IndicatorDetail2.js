@@ -2,7 +2,7 @@ import React, {useState, useEffect, useRef } from "react"
 import { Text, Div,  Button, Icon, Container} from "atomize";
 import { useParams, Link, useHistory } from 'react-router-dom';
 import ChartIndi2 from "../chart/ChartIndi2"
-
+import Corr2 from "../chart/Corr2"
 import IndApi from "../../../../../api/IndApi";
 import Table from '@material-ui/core/Table'
 import TableBody from '@material-ui/core/TableBody'
@@ -203,14 +203,29 @@ function IndicatorDetail2(props) {
             ? <ChartIndi2 num={30} tableName={tableName}/>
             : null
           }
+           {
+            chart1 === true
+            ? <Corr2 nums={30} tableName={tableName}/>
+            : null
+            }
           {
             chart2 === true
             ? <ChartIndi2 num={90} tableName={tableName}/>
             : null
           }
+           {
+            chart2 === true
+            ? <Corr2 nums={90} tableName={tableName}/>
+            : null
+            }
           {
             chart3 === true
             ? <ChartIndi2 num={180} tableName={tableName}/>
+            : null
+          }
+          {
+            chart3 === true
+            ? <Corr2 nums={180} tableName={tableName}/>
             : null
           }
          <Text

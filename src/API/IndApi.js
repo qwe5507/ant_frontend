@@ -68,10 +68,19 @@ class IndApiService {
     }
 
     corrExe(co) {
-        console.log("api")
+        
         return axios.post(TEST_API_BASE_URL_DJANGO+ "/corrExe", co);
     }
 
+    corr1(co) {
+       
+        return axios.post(TEST_API_BASE_URL_DJANGO+ "/corr1", co);
+    }
+
+    corr2(co) {
+       
+        return axios.post(TEST_API_BASE_URL_DJANGO+ "/corr2", co);
+    }
     //차트라벨_EURUSD
     //labelDalAllList() {
     //    return axios.get(USER_API_BASE_URL_LABEL_EURUSD);
