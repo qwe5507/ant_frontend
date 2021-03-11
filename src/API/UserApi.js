@@ -1,6 +1,8 @@
 import axios from 'axios';
 
 const USER_API_BASE_URL = "http://localhost:8000/user";
+const USER_API_BASE_URL_PROFILE = "http://localhost:8000/user/profile";
+const USER_API_BASE_URL_PROFILE_BOARD = "http://localhost:8000/user/board";
 
 class UserApiService {
 
@@ -29,6 +31,24 @@ class UserApiService {
     fetchUserLikedCommentList(userID) {
         return axios.get(USER_API_BASE_URL + '/UserLikedCommentList/' + userID);
     }
+
+    //마이페이지-개인정보 보여주기
+    profileShow(id){
+        return axios.get(USER_API_BASE_URL_PROFILE + '/' + id);
+    }
+
+    //마이페이지-개인정보 수정
+    profileEdit(user){
+        return axios.put(USER_API_BASE_URL_PROFILE + '/' + + user.userid, user);
+    }
+
+    //마이페이지-나의 글 3개-제목보기
+    boardShow(userid) {
+        userid = parseInt(userid);
+        return axios.get(USER_API_BASE_URL_PROFILE_BOARD + '/' + userid);
+    }
+
+
 }
 
 export default new UserApiService();
