@@ -2,6 +2,7 @@
   import { Text, Div,  Button,  Container, Icon} from "atomize";
   import { useParams, Link, useHistory } from 'react-router-dom';
   import ChartExeFor from "../chart/ChartExeFor"
+  import CorrKorExe from "../chart/CorrKorExe"
   import IndApi from "../../../../../api/IndApi";
   import Table from '@material-ui/core/Table'
   import TableBody from '@material-ui/core/TableBody'
@@ -206,14 +207,29 @@
               : null
             }
             {
+            chart1 === true
+            ? <CorrKorExe nums={30} symbol={symbol}/>
+            : null
+            }
+            {
               chart2 === true
               ? <ChartExeFor nums={90} symbol={symbol}/>
               : null
             }
             {
+            chart2 === true
+            ? <CorrKorExe nums={90} symbol={symbol}/>
+            : null
+            }
+            {
               chart3 === true
               ? <ChartExeFor nums={180} symbol={symbol}/>
               : null
+            }
+            {
+            chart3 === true
+            ? <CorrKorExe nums={180} symbol={symbol}/>
+            : null
             }
           <Text
               textAlign="left"
