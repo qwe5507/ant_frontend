@@ -39,7 +39,7 @@ function MainPnlIndCard(props) {
                     fontFamily="ko"
                     textSize="body"
                     textAlign="left"
-                    w="3.5rem"
+                    w="4.4rem"
                 >
                     {props.chartData.name}
                 </Text>
@@ -58,7 +58,7 @@ function MainPnlIndCard(props) {
                     textAlign="left"
                     w="3rem"
                 >
-                    {props.chartData.changedate > 0 ? '+' : '-'}{props.chartData.changedate} %
+                    {props.chartData.changedate > 0 ? '+' : ''}{props.chartData.changedate} %
                 </Text>
                 <Div
                     w="2rem"

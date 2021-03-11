@@ -33,7 +33,6 @@ function NewsDetail() {
         if(newsData){
         NewsApiService.selectKeywordByNewsId(newsId)
             .then(res => {
-                console.log('로딩1', res.data);
                 keywordsChange(res.data);
                 
             })
@@ -44,7 +43,6 @@ function NewsDetail() {
     },[newsData]);
 
     function handleClick(keyword){
-        console.log(keyword);
         history.push('/SearchResult/'+keyword)
     }
 
@@ -174,9 +172,11 @@ function NewsDetail() {
                                                     <Text
                                                         textWeight="800"
                                                         fontFamily="ko"
-                                                        bg="gray400"
-                                                        rounded="circle"
                                                         textColor="black600"
+                                                        bg="gray400"
+                                                        hoverTextColor="white"
+                                                        hoverBg="info700"
+                                                        rounded="circle"
                                                         p={{ l: "0.5rem", r: "0.5rem", b: "0.1rem" }}
                                                         m={{ r: "0.5rem" }}
                                                         cursor="pointer"

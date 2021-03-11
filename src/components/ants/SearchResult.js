@@ -1,6 +1,8 @@
 import PropTypes from "prop-types"
 import React, { useState, useEffect } from "react"
 import { Input, Div, Image, Container, Button, Anchor, Dropdown, scrollTo, Icon, Text, Radiobox, Label, Switch, Row, Col, logoSketch, logoReact } from "atomize"
+import SearchShimmer from "./SearchShimmer";
+
 import { Link, Route, useHistory, useParams } from 'react-router-dom';
 import axios from "axios";
 
@@ -21,30 +23,27 @@ function SearchResult() {
   // 검색결과
   useEffect(() => {
     searchmatchparse();
-    console.log('1');
   }, []);
 
   // 검색결과 출력 후 keywords 받아오기
   useEffect(() => {
-    
-    if(hits){
-    console.log('체크',hits);
-    
-    var searchResult = "";
-    
-    for(var i=0; i< hits.length; i++){
-      searchResult += hits[i]['_source']['news_id'] + ",";
+
+    if (hits) {
+      var searchResult = "";
+
+      for (var i = 0; i < hits.length; i++) {
+        searchResult += hits[i]['_source']['news_id'] + ",";
+      }
+
+      NewsApiService.selectKeywordByNewsId(searchResult)
+        .then(res => {
+          keywordsChange(res.data);
+        })
+        .catch(err => {
+          console.log('***** SearchResult.js selectKeywordByNewsId error:', err);
+        });
     }
-    
-    NewsApiService.selectKeywordByNewsId(searchResult)
-      .then(res => {
-        keywordsChange(res.data);
-      })
-      .catch(err => {
-        console.log('***** SearchResult.js selectKeywordByNewsId error:', err);
-      });
-    }
-  },[hits]);
+  }, [hits]);
 
   let today = new Date();
   let year = today.getFullYear(); // 년도
@@ -408,8 +407,46 @@ function SearchResult() {
 
               <Div m={{ b: { xs: "1rem", md: "1rem" } }}></Div>
 
+              {/* 뉴스 목록 뜨기 전 로딩 loading shimmer */}
+              {hits && keywords ?
+                ""
+                :
+                <Div
+                  minW={{ xs: "100%", md: "80rem" }}
+                  d="flex"
+                  align="center"
+                  flexDir="column"
+                  h="auto"
+                >
+                  <SearchShimmer />
+                  <SearchShimmer />
+                  <SearchShimmer />
+                  <SearchShimmer />
+                </Div>
+              }
+
+              {/* 검색 결과 없음 페이지 */}
+              {hits && keywords && hits.length == 0 ?
+                <Text
+                  textAlign="left"
+                  textSize={{ xs: "title", md: "title" }}
+                  textWeight="800"
+                  fontFamily="ko"
+                  m={{ t: "1rem", b: "0.5rem" }}
+                >
+                  '{search}'에 대한 검색결과가 없습니다.
+                  {/* 단어의 철자가 정확한지 확인해 보세요.
+                      한글을 영어로 혹은 영어를 한글로 입력했는지 확인해 보세요.
+                      검색어의 단어 수를 줄이거나, 보다 일반적인 검색어로 다시 검색해 보세요.
+                      두 단어 이상의 검색어인 경우, 띄어쓰기를 확인해 보세요. 네이버 맞춤법 검사기
+                      검색 옵션을 변경해서 다시 검색해 보세요. */}
+                </Text>
+                :
+                ""
+              }
+
               {/* 뉴스 목록 */}
-              { hits && keywords && hits.map(function (data, idx) {
+              {hits && keywords && hits.map(function (data, idx) {
                 return (
                   <Div
                     border="1px solid"
@@ -458,25 +495,26 @@ function SearchResult() {
                             fontFamily="ko"
                             p={{ r: "0.5rem", b: "0.1rem" }}
                           >
-                            { data['_source']['news_source'] }
+                            {data['_source']['news_source']}
 
                           </Text>
-                        
+
                           {/* 키워드 반복 함수 */}
-                          { hits && keywords && keywords[idx].map(function (a, seq) {
-                          return (
-                            <Text
-                              textWeight="800"
-                              fontFamily="ko"
-                              bg="gray400"
-                              rounded="circle"
-                              textColor="black600"
-                              p={{ l: "0.5rem", r: "0.5rem", b: "0.1rem" }}
-                              m={{ r: "0.5rem" }}
-                            >
-                              #{ a.keyword }
-                            </Text>
-                          )})}
+                          {hits && keywords && keywords[idx].map(function (a, seq) {
+                            return (
+                              <Text
+                                textWeight="800"
+                                fontFamily="ko"
+                                bg="gray400"
+                                rounded="circle"
+                                textColor="black600"
+                                p={{ l: "0.5rem", r: "0.5rem", b: "0.1rem" }}
+                                m={{ r: "0.5rem" }}
+                              >
+                                #{ a.keyword}
+                              </Text>
+                            )
+                          })}
                           {/* 키워드 반복 함수 끝 */}
 
                         </Div>

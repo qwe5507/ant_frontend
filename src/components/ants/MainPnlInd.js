@@ -4,9 +4,7 @@ import { Text, Div, Image, Radiobox, Label } from "atomize"
 
 import { nanoid } from 'nanoid';
 
-import flagKo from "../../images/flags/ko.png"
-import flagUs from "../../images/flags/us.png"
-
+import MainPnlIndShimmer from "./MainPnlIndShimmer";
 import TestApi from "../../api/TestApi";
 
 import { Link } from 'react-router-dom';
@@ -24,17 +22,22 @@ function MainPnlInd() {
 
     const tableList = {
       bitcoin: '비트코인',
-      goldfor: '금',
       bond10: '국채10년',
+      bond2: '국채2년',
+      dolleridx: '달러인덱스',
+      eurusd: '유로달러',
+      goldfor: '금',
+      usdcny: '달러위안',
+      usdgbp: '달러파운드',
+      usdjpy: '달러엔',
+      usdkrw: '달러원',
       wti: '원유'
     }
 
     // 경제 지표 하루 변동률 목록 가져오기
-    TestApi.indicatorRank()
+    TestApi.indicatorRank(sortNews)
       .then(res => {
         var temp = res.data;
-        console.log(temp);
-
         var tempChartData = [];
 
         for (var i = 0; i < temp.length; i++) {
@@ -51,8 +54,6 @@ function MainPnlInd() {
           for (var j = 0; j < labels.length; j++) {
             labels[j] = labels[j].substring(0, 10)
           }
-
-          console.log(temp[i][0]['changedate']);
 
           var dataSet = {
             labels: labels,
@@ -88,7 +89,7 @@ function MainPnlInd() {
       .catch(err => {
         console.log('경제 지표 하루 변동률 목록 가져오기 에러', err);
       });
-  }, []);
+  }, [sortNews]);
 
   // JSON Value 정렬
   function sortByValue(jsonObj) {
@@ -109,7 +110,7 @@ function MainPnlInd() {
     <Div
       border="1px solid"
       borderColor="gray200"
-      w={{ xs: "100%", md: "22rem" }}
+      w={{ xs: "100%", md: "25rem" }}
       maxW="100%"
       pos={{ xs: "static", md: "relative" }}
       m={{ xs: "1rem", md: "1rem" }}
@@ -185,11 +186,24 @@ function MainPnlInd() {
           지난 하루 변동폭이 큰 지표입니다. (오전 9시 기준)
         </Text>
 
+        {/* 지표 목록 뜨기 전 로딩 loading shimmer */}
+        {chartData ?
+          ""
+          :
+          <Div>
+            <MainPnlIndShimmer />
+            <MainPnlIndShimmer />
+            <MainPnlIndShimmer />
+            <MainPnlIndShimmer />
+          </Div>
+        }
+
+
         {/* 반복문 */}
         {chartData && chartData.map((a, i) => {
           return (
             <Div>
-              <MainPnlIndCard key={nanoid()} chartData={ a } />
+              <MainPnlIndCard key={nanoid()} chartData={a} />
             </Div>
           )
         })
