@@ -10,6 +10,7 @@ import CommunityMain from './CommunityMain';
 import CommunityMainSaved from './CommunityMainSaved';
 
 import CommunityRegister from './CommunityRegister';
+import CommunityBoardUpdate from './CommunityBoardUpdate';
 
 function Community() {
     let [showMobileHeaderMenu, showMobileHeaderMenuChange] = useState(false);
@@ -18,7 +19,8 @@ function Community() {
     let [saveBoardstate,saveBoardstateChange] = useState(false);
 
     let { boardid } = useParams();
-
+    let { updateboardid } = useParams();
+    
     function toggleHeaderMenu(value) {
       showMobileHeaderMenuChange(value);
       
@@ -100,7 +102,7 @@ function Community() {
             align="center"
             textWeight="600"
             >
-              {boardid =="registe" ?
+              {boardid =="registe" || (typeof updateboardid != "undefined")?
                   null
                       :
             <Switch
@@ -109,7 +111,7 @@ function Community() {
                 activeColor="warning800"
                 activeShadow="5"
             />}
-            {boardid =="registe" ?
+            {boardid =="registe"|| (typeof updateboardid != "undefined")  ?
                   null
                       :selectedSwitchValue ? <Text>추천순</Text> : <Text>최신순</Text>}
             </Label>
@@ -223,7 +225,7 @@ function Community() {
               // m={{ b: "1rem" }}
               >
 
-              {((typeof boardid != "undefined") && (typeof boardid.valueOf() == "string")) && (boardid.length > 0) || saveBoardstate ?
+              {((typeof boardid != "undefined") && (typeof boardid.valueOf() == "string")) && (boardid.length > 0) || saveBoardstate || (typeof updateboardid != "undefined") ?
               null :
               <Switch
                   checked={selectedSwitchValue}
@@ -231,12 +233,12 @@ function Community() {
                   activeColor="warning800"
                   activeShadow="5"
               />}
-              {((typeof boardid != "undefined") && (typeof boardid.valueOf() == "string")) && (boardid.length > 0) || saveBoardstate  ?
+              {((typeof boardid != "undefined") && (typeof boardid.valueOf() == "string")) && (boardid.length > 0) || saveBoardstate || (typeof updateboardid != "undefined") ?
               null :
               selectedSwitchValue ? 
               <Text>추천순</Text> : <Text>최신순</Text>}
               </Label>
-              {boardid =="registe" ?
+              {boardid =="registe" || (typeof updateboardid != "undefined")?
                   null
                       :
               <Link to="/Community/registe">
@@ -275,10 +277,20 @@ function Community() {
                 }
             </Div>
           </Div>
-
+          {/* {typeof boardid} */}
+          {/* {updateboardid} */}
+          {/* updateboardid == update */}
+          {/* {((typeof updateboardid != "undefined") && (typeof updateboardid.valueOf() == "string")) && (updateboardid.length > 0)?
+          <CommunityBoardUpdate></CommunityBoardUpdate>: null
+        } */}
          {/* 게시판시작부분 */}
-         {((typeof boardid != "undefined") && (typeof boardid.valueOf() == "string")) && (boardid.length > 0)  ?
-        boardid =="saved" ?<CommunityMain ordered = {selectedSwitchValue} saved = {true}></CommunityMain> : boardid =="registe" ?<CommunityRegister></CommunityRegister>  : <CommunityBoard></CommunityBoard>: <CommunityMain ordered = {selectedSwitchValue} saved = {saveBoardstate}></CommunityMain>  }
+
+         {((typeof boardid != "undefined") && (typeof boardid.valueOf() == "string")) && (boardid.length > 0) ?
+        boardid =="saved" ?<CommunityMain ordered = {selectedSwitchValue} saved = {true}></CommunityMain> : boardid =="registe" ?
+        <CommunityRegister></CommunityRegister>  : <CommunityBoard></CommunityBoard>:((typeof updateboardid != "undefined") && (typeof updateboardid.valueOf() == "string")) && (updateboardid.length > 0)?
+        <CommunityBoardUpdate></CommunityBoardUpdate>: <CommunityMain ordered = {selectedSwitchValue} saved = {saveBoardstate}></CommunityMain>
+        
+        }
          
        {/* 게시판끝부분 */}
     
