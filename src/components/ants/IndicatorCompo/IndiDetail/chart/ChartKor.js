@@ -59,7 +59,7 @@ const ChartKor = (props) => {
 
     IndApi.chartIndi(props.nums)
      .then(res =>{
- 
+        
         charteurusd = res.data      
             
         for (var i = 0; i < charteurusd.length ; i++){
@@ -164,7 +164,6 @@ const ChartKor = (props) => {
   return (
     <Section>
       <Container>
-        
         <Canvas>
           <canvas ref={chartContainer} />
         </Canvas>

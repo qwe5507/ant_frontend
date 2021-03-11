@@ -9,7 +9,7 @@ const USER_API_BASE_URL_CHART = "http://localhost:8000/indicator/chart";
 const USER_API_BASE_URL_INDI1 = "http://localhost:8000/indicator/indi1";
 const USER_API_BASE_URL_INDI2 = "http://localhost:8000/indicator/indi2";
 const USER_API_BASE_URL_CORRABS = "http://localhost:8000/indicator/corrAbs";
-
+const TEST_API_BASE_URL_DJANGO = "http://localhost:7000/api";
 
 class IndApiService {
 
@@ -63,6 +63,9 @@ class IndApiService {
     return axios.get(USER_API_BASE_URL_CORRABS  + '/' + indi + '/' + num);
     }
 
+    corrAbs2(co) {
+    return axios.post(TEST_API_BASE_URL_DJANGO+ "/requestCorr2", co);
+    }
 
 
     //차트라벨_EURUSD
