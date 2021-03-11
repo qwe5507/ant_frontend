@@ -2,6 +2,7 @@ import React, {useState, useEffect, useRef } from "react"
 import { Text, Div, Icon, Anchor, Input, Container, Button} from "atomize";
 import { useParams, Link, useHistory } from 'react-router-dom';
 import ChartIndi1 from "../chart/ChartIndi1"
+import Corr1 from "../chart/Corr1"
 import IndApi from "../../../../../api/IndApi";
 import Table from '@material-ui/core/Table'
 import TableBody from '@material-ui/core/TableBody'
@@ -209,15 +210,30 @@ function IndicatorDetail1(props) {
             : null
           }
           {
+            chart1 === true
+            ? <Corr1 nums={30} tableName={tableName}/>
+            : null
+            }
+          {
             chart2 === true
             ? <ChartIndi1 num={90} tableName={tableName}/>
             : null
           }
           {
+            chart2 === true
+            ? <Corr1 nums={90} tableName={tableName}/>
+            : null
+            }
+          {
             chart3 === true
             ? <ChartIndi1 num={180} tableName={tableName}/>
             : null
           }
+          {
+            chart3 === true
+            ? <Corr1 nums={180} tableName={tableName}/>
+            : null
+            }
 
            <Text
             textAlign="left"
@@ -238,8 +254,7 @@ function IndicatorDetail1(props) {
             textWeight="600"
             fontFamily="ko"
          >
-          상관관계가 높은 5개의 지표와 상관계수입니다.
-          상관계수는 1에 가까울수록 비례 관계를, -1에 가까울수록 반비례 관계를 보입니다.
+          전체 기간에서 상관관계가 높은 5개의 지표와 상관계수입니다.
         </Text>
         </Container>
         <Container  m={{ t: "-1rem", b: "0" }}>
