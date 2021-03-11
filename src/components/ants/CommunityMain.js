@@ -123,7 +123,7 @@ function CommunityMain(props) {
     }else{
       boardtotalget();
     }
-  },[props.saved]);
+  },[savedboardtemp]);
 
 
     // 아래코드 있으니 새로고침 해도 저장한글이 표시됨.
