@@ -635,7 +635,7 @@ function CommunityBoard() {
                                             <Text>
                                                 {datas.nickname}
                                             </Text>
-                                            { loginid == board.userid ? 
+                                            { datas.userid == board.userid ? 
                                             <Text
                                             m={{ l : "0.3rem" ,t: "0.2rem" }}
                                             textSize="caption"
