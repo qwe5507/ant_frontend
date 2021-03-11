@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setLikedComments } from '../../redux/actions/user_action';
 import Communitydeclare from './Communitydeclare';
 import CommunityCommentInsert from './CommunityCommentInsert';
+import CommunityBoardDelete from './CommunityBoardDelete';
 import "./CommunityBoard.css";
 
 function CommunityBoard() {
@@ -27,8 +28,10 @@ function CommunityBoard() {
     let [문자열등록성공알람, 문자열등록성공알람변경] = useState(false);
     let [댓글삭제실패, 댓글삭제실패변경] = useState(false);
     let [신고할데이터, 신고할데이터변경] = useState();
+    let [게시판삭제실패,게시판삭제실패변경] = useState(false);
+    let [commentdeleteModal,commentdeleteModal변경] = useState(false);
 
-    let alerttext = ['빈 글자는 등록할수 없습니다.', '댓글이 등록되었습니다.', '해당 글은 신고 접수되어 삭제할 수 없습니다. 관리자에게 문의하세요.']
+    let alerttext = ['빈 글자는 등록할수 없습니다.', '댓글이 등록되었습니다.', '해당 글은 신고 접수되어 삭제할 수 없습니다. 관리자에게 문의하세요.','삭제 할 수없습니다. 관리자에게 문의하세요.']
     console.log('게시판로딩')
 
     const dispatch = useDispatch();
@@ -49,10 +52,10 @@ function CommunityBoard() {
             BoardApiService.editBoard(board);
             let UserLikeBoard = {
                 board_id: board['board_id'],
+                board_LikeNum : board['board_LikeNum'],
                 userid: loginid
             }
             BoardApiService.deleteLikedUserBoard(UserLikeBoard);
-            // BoardApiService.deleteLikedUserBoard(UserLikeBoard);
 
         } // 안 눌려져있을떄 
         else {
@@ -62,6 +65,7 @@ function CommunityBoard() {
 
             let UserLikeBoard = {
                 board_id: board['board_id'],
+                board_LikeNum : board['board_LikeNum'],
                 userid: loginid
             }
             BoardApiService.addLikedUserBoard(UserLikeBoard);
@@ -411,12 +415,14 @@ function CommunityBoard() {
                             {/* {board['board_content']} */}
                         </Text>
                         <Div d="flex" align="center"
+                        justify="space-between"
                             // border="1px solid"
                             // borderColor="gray200"
                             p={{ b: "20px" }}
                             d={{ xs: "none", md: "flex" }}
                             h="3rem"
                         >
+                            <Div d="flex" >
                             <Icon
                                 transition
                                 onClick={() => likedClick(board)}
@@ -455,6 +461,34 @@ function CommunityBoard() {
                             >
                                 {commentlist.length}
                             </Text>
+                            </Div>
+                            {board.userid == loginid?
+                            <Div
+                            d="flex">
+                                <Link to={"/Community/update/"+board.board_id}>
+                                    <Button
+                                    // pos={{ xs: "static", md: "absolute" }}
+                                    onClick={() => commentaddModal변경(true)}
+                                    bg="warning800"
+                                    hoverBg="warning600"
+                                    rounded="md"
+                                    m={{ r: "0.5rem" }}
+                                >
+                                    수정
+                                </Button>
+                                </Link>
+                                    <Button
+                                    // pos={{ xs: "static", md: "absolute" }}
+                                    onClick={() => commentdeleteModal변경(true)}
+                                    bg="gray600"
+                                    hoverBg="gray900"
+                                    rounded="md"
+                                >
+                                    삭제
+                                    </Button>
+                            </Div>:
+                            null
+                            }
                         </Div>
                     </Div>
                     <Div
@@ -548,6 +582,20 @@ function CommunityBoard() {
                         >
                             {alerttext[2]}
                         </Notification>
+                       <Notification
+                            m={{ t: "5rem" }}
+                            bg="warning700"
+                            isOpen={게시판삭제실패}
+                            onClose={() => 게시판삭제실패변경(false)}
+                            prefix={
+                                <Icon
+                                    name="Success"
+                                    color="white"
+                                    size="18px"
+                                    m={{ r: "0.5rem" }}
+                                />
+                            }
+                        >{alerttext[3]}</Notification>
                         <CommunityCommentInsert
                             boardid={board['board_id']}
                             comment_content={commentinput}
@@ -556,6 +604,11 @@ function CommunityBoard() {
                             문자열등록성공={() => 문자열등록성공알람변경(true)}
                             문자열등록성공시초기화={() => commentinput변경("")}
                             onClose={() => commentaddModal변경(false)}></CommunityCommentInsert>
+                        <CommunityBoardDelete
+                            boardid={board['board_id']}
+                            isOpen={commentdeleteModal}
+                            게시판삭제실패 = {() => 게시판삭제실패변경(true)}
+                            onClose={() => commentdeleteModal변경(false)}></CommunityBoardDelete>
 
                         {/* 댓글부분시작 */}
                         {commentlist.map(function (datas, i) {

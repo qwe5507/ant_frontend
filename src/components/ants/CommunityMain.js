@@ -102,13 +102,14 @@ function CommunityMain(props) {
   }
 
   useEffect(() => {
-    console.log('333333');
+    console.log('props.ordered가 usestate인것 :  가져오는것');
     // boardlist변경([]);
     boardtotalget()
   },[props.ordered]);
 
   useEffect(() => {
     // boardlist변경([]);
+    console.log('props.saved가 usestate인것 :  가져오는것')
     if(props.saved){ // 게시물 가져오기 
     BoardApiService.fetchSavedUserBoard(loginid)
     .then(res => {
@@ -221,7 +222,7 @@ function CommunityMain(props) {
                                   // pos = {{ xs : "absolute"}}
                                   pos={{ xs: 'absolute', lg: 'static' }}
                                   right = "5rem"
-                                  righ
+                                  
                                   >
                                   {/* {data['board_content'].indexOf("<img") ==-1 ? null :data['board_content'].substring(data['board_content'].indexOf("<img"),data['board_content'].indexOf("px;")+5)} */}
                                   <div

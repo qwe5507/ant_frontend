@@ -17,7 +17,9 @@ class BoardApiService {
     fetchBoardByID(boardID) {
         return axios.get(Board_API_BASE_URL + '/' + boardID);
     }
-
+    deleteBoard(boardID) {
+        return axios.delete(Board_API_BASE_URL + '/' + boardID);
+    }
     editBoard(board) {
         return axios.put(Board_API_BASE_URL + '/' + board.board_id, board)
     }
@@ -61,9 +63,7 @@ class BoardApiService {
     //     return axios.post(Board_API_BASE_URL, user);
     // }
     
-    // deleteUser(userID) {
-    //     return axios.delete(Board_API_BASE_URL + '/' + userID);
-    // }
+
 
 
     // editUser(user) {
