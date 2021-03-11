@@ -630,10 +630,21 @@ function CommunityBoard() {
                                         <Div
                                             textWeight="300"
                                             textColor="gray"
+                                            d = "flex"
                                         >
                                             <Text>
                                                 {datas.nickname}
                                             </Text>
+                                            { loginid == board.userid ? 
+                                            <Text
+                                            m={{ l : "0.3rem" ,t: "0.2rem" }}
+                                            textSize="caption"
+                                            textColor="danger700"
+                                            textWeight="800"
+                                            >
+                                                작성자
+                                            </Text> : null
+                                            }
                                         </Div>
                                         <Div
                                             m={{ t: "0.3rem" }}
