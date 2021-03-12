@@ -2,10 +2,11 @@ import React, { Component } from "react"
 import UserApiService from "../../api/UserApi";
 import { Text, Div, Icon, Anchor, Button, Input } from "atomize"
 import Paper from '@material-ui/core/Paper';
+import { Link } from 'react-router-dom';
 class ProfileDetail3 extends Component{
 
     constructor(props){
-        console.log('constro run');
+       // console.log('constro run');
         super(props);
         this.state ={
           boards : [],
@@ -13,8 +14,10 @@ class ProfileDetail3 extends Component{
         };
       }
 
+     
+
       componentDidMount(){
-        console.log('comdid run');
+       // console.log('comdid run');
         this.reloadBoardList();
       }
 
@@ -22,6 +25,7 @@ class ProfileDetail3 extends Component{
         UserApiService.boardShow(window.localStorage.getItem("userid"))
           .then(res =>{
             this.setState({boards: res.data})
+          
           })
           .catch(err => {
             console.error('게시글 조회 오류', err);
@@ -35,6 +39,7 @@ class ProfileDetail3 extends Component{
 
     render(){
     return(
+        
     <Div
         border="1px solid"
         borderColor="gray200"
@@ -68,6 +73,7 @@ class ProfileDetail3 extends Component{
                 게시물
             </Text>
             {this.state.boards.map(board => 
+            <Link to={`/Community/${board.board_id}`} >
             <Paper>
 
             <Text
@@ -77,7 +83,7 @@ class ProfileDetail3 extends Component{
             textSize="subheader"
             fontFamily="ko"
             >
-            {board.board_title}
+            {board.board_title.substring(0,15)}
             </Text>
         <Text
         textColor="gray900"
@@ -86,7 +92,8 @@ class ProfileDetail3 extends Component{
         fontFamily="ko"
         >{board.board_createdata.substring(0,19)}</Text>
 
-    </Paper>)}
+    </Paper>
+    </Link>)}
         </Div>
     </Div>
         )

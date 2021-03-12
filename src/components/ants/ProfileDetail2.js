@@ -1,7 +1,7 @@
 import React, { Component } from "react"
-import { Text, Div, Icon, Anchor, Button, Input } from "atomize"
+import { Text, Div, Icon, Anchor, Button,  Notification } from "atomize"
 import UserApiService from "../../api/UserApi";
-
+import $ from 'jquery';
 import TextField from '@material-ui/core/TextField'
 class ProfileDetail2 extends Component{
 
@@ -21,12 +21,21 @@ class ProfileDetail2 extends Component{
         managestat : '',
         commentlist : '',
         message : null,
-        showPassword: false
+        showPassword: false,
+        coInputError : false,
+        coDuplicateError : false,
+        coPassError : false,
+        coPassLenError : false,
+        coNameError : false,
+        coEmailError : false,
+        coPhoneError : false,
+        re : /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i
         }
       }
 
       componentDidMount(){
         this.loadUser();
+        
       }
 
       loadUser = () => {
@@ -54,35 +63,84 @@ class ProfileDetail2 extends Component{
 
       saveUser = (e) =>{
         e.preventDefault();
-  
-        let user ={
-          userid: this.state.userid,
-          email : this.state.email,
-          pass : this.state.pass,
-          nickname : this.state.nickname,
-          phone : this.state.phone,
+        
+   if( $.trim($('#nickname').val()).length == 0 || $.trim($('#email').val()).length == 0 ||$.trim($('#phone').val()).length == 0 ||$.trim($('#pass').val()).length == 0 || $.trim($ ('#passCon').val()).length == 0)
+    {
+          this.setState({
+            coInputError : true
+          })
+        }
+  else if(  $.trim($('#nickname').val()).length < 2)
+        {
+          this.setState({
+            coNameError : true
+          })
+      }   
+    else if( $('#pass').val() != $('#passCon').val())
+    {
+      this.setState({
+        coDuplicateError : true
+      })
+    }
+    else if( $.trim($('#pass').val()).length < 6)
+    {
+      this.setState({
+        coPassLenError : true
+      })
+    }
+    else if( isNaN( $('#phone').val()))
+    {
+      this.setState({
+        coPhoneError : true
+      })
+    }  
+    else if(!this.state.re.test($("#email").val()))
+    {
+      this.setState({
+        coEmailError : true
+      })
+    }
+        else{
+          this.state.coInputError = false
+          let user ={
+            userid: this.state.userid,
+            email : this.state.email,
+            pass : this.state.pass,
+            nickname : this.state.nickname,
+            phone : this.state.phone,
+          }
+          
+          UserApiService.profileEdit( user)
+          .then( res =>{
+            this.setState({
+              message : "수정되었습니다"
+            })
+            console.log(this.state.message);
+            
+            window.location.reload()
+            alert("고객님의 회원정보가 수정되었습니다")
+            //this.props.history.push('/Profile');
+          })
+          .catch(err => {
+            console.log('마이페이지-수정 오류', err);
+          });
         }
         
-        UserApiService.profileEdit( user)
-        .then( res =>{
-          this.setState({
-            message : "수정되었습니다"
-          })
-          console.log(this.state.message);
-          
-          window.location.reload()
-          alert("고객님의 회원정보가 수정되었습니다")
-          //this.props.history.push('/Profile');
-        })
-        .catch(err => {
-          console.log('마이페이지-수정 오류', err);
-        });
+        
       }
   
 
 render(){
+    const { coInputError } = this.state;
     const { showPassword } = this.state;
+    const { coDuplicateError } = this.state;
+    const { coNameError } = this.state;
+    const { coPhoneError } = this.state;
+    const { coPassLenError } = this.state;
+    const { coEmailError  } = this.state;
+    
     return(
+      
     <Div
         border="1px solid"
         borderColor="gray200"
@@ -102,6 +160,102 @@ render(){
         rounded="xl"
 
     >
+        <Notification
+              bg="info700"
+              isOpen={coInputError}
+              onClose={() => this.setState({ coInputError: false })}
+                    prefix={
+                        <Icon
+                            name="AlertSolid"
+                            color="white"
+                            size="18px"
+                            m={{ r: "0.5rem" }}
+                        />
+                    }
+                >
+          모든 작성란을 입력해주세요        
+          </Notification>
+
+          <Notification
+              bg="info700"
+              isOpen={coDuplicateError}
+              onClose={() => this.setState({ coDuplicateError: false })}
+                    prefix={
+                        <Icon
+                            name="AlertSolid"
+                            color="white"
+                            size="18px"
+                            m={{ r: "0.5rem" }}
+                        />
+                    }
+                >
+          비밀번호와 확인란이 동일하지 않습니다        
+          </Notification>
+
+          <Notification
+              bg="info700"
+              isOpen={coNameError}
+              onClose={() => this.setState({ coNameError: false })}
+                    prefix={
+                        <Icon
+                            name="AlertSolid"
+                            color="white"
+                            size="18px"
+                            m={{ r: "0.5rem" }}
+                        />
+                    }
+                >
+          별명은 최소 2자 이상으로 입력해주세요       
+          </Notification>
+
+          <Notification
+              bg="info700"
+              isOpen={coPhoneError}
+              onClose={() => this.setState({ coPhoneError: false })}
+                    prefix={
+                        <Icon
+                            name="AlertSolid"
+                            color="white"
+                            size="18px"
+                            m={{ r: "0.5rem" }}
+                        />
+                    }
+                >
+          전화번호는 숫자로만 입력해주세요       
+          </Notification>
+
+          <Notification
+              bg="info700"
+              isOpen={coPassLenError}
+              onClose={() => this.setState({ coPassLenError: false })}
+                    prefix={
+                        <Icon
+                            name="AlertSolid"
+                            color="white"
+                            size="18px"
+                            m={{ r: "0.5rem" }}
+                        />
+                    }
+                >
+          비밀번호는 6자 이상으로 입력해주세요     
+          </Notification>
+
+          <Notification
+              bg="info700"
+              isOpen={coEmailError }
+              onClose={() => this.setState({ coEmailError : false })}
+                    prefix={
+                        <Icon
+                            name="AlertSolid"
+                            color="white"
+                            size="18px"
+                            m={{ r: "0.5rem" }}
+                        />
+                    }
+                >
+          이메일 형식을 준수해주세요     
+          </Notification>
+
         <form>
         <Div
             flexGrow="1"
@@ -135,6 +289,7 @@ render(){
             value={this.state.nickname}
             onChange={this.onChange}
             name="nickname"
+            id = "nickname"
             />    
             </Div>
             <Div
@@ -157,6 +312,7 @@ render(){
             type={showPassword ? "text" : "password"}
             onChange={this.onChange}
             name="pass"
+            id = "pass"
             />    
             </Div>
             <Div
@@ -198,6 +354,7 @@ render(){
             name="phone"
             value={this.state.phone}
             onChange={this.onChange}
+            id = "phone"
             />    
             </Div>
             <Div
@@ -218,6 +375,7 @@ render(){
            name="email"
             value={this.state.email}
             onChange={this.onChange}
+            id = "email"
             />    
             </Div>
             <div align="center">
