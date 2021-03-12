@@ -147,7 +147,7 @@ const NewsForm3 = () => (
       t: "1.5rem",
     }}
 
-    h="24rem"
+    h="27rem"
     bg="white"
     shadow="4"
     rounded="xl"
@@ -162,22 +162,20 @@ const NewsForm3 = () => (
             textWeight="800"
             fontFamily="ko"
           >
-            구독한 뉴스
+            저장한 뉴스
       </Text>
         </Col>
         <Col size="7">
           <Label
             m={{ l: "8rem" }}
-
             align="center"
             textWeight="600"
-          // m={{ b: "1rem" }}
           >
             <Icon name="BookmarkSolid" size="30px" />
           </Label>
         </Col>
       </Row>
-      <FixedSizeList height={290} width={275} itemSize={46} itemCount={1}>
+      <FixedSizeList height={290} width={"100%"} itemSize={46} itemCount={1}>
         {Column}
       </FixedSizeList>
     </Div>

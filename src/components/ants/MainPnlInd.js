@@ -100,12 +100,6 @@ function MainPnlInd() {
     return sortedArray.sort(); // Value 를 역순 정렬 (오름차순)
   }
 
-  // 동기 지연
-  // function sleep(ms) {
-  //   const wakeUpTime = Date.now() + ms
-  //   while (Date.now() < wakeUpTime) {}
-  // }
-
   return (
     <Div
       border="1px solid"
@@ -133,7 +127,7 @@ function MainPnlInd() {
         flexDir="row"
       >
         <Text
-          m={{ t: "1rem", b: "0.5rem" }}
+          m={{ b: "0.5rem" }}
           textWeight="800"
           textSize="title"
           fontFamily="ko"
@@ -181,7 +175,7 @@ function MainPnlInd() {
           textWeight="800"
           fontFamily="ko"
           textAlign="left"
-          m={{ b: "1rem" }}
+          m={{ b: "1.5rem" }}
         >
           지난 하루 변동폭이 큰 지표입니다. (오전 9시 기준)
         </Text>
@@ -215,7 +209,7 @@ function MainPnlInd() {
             textWeight="800"
             textSize="subheader"
             fontFamily="ko"
-            m={{ t: "1.5rem" }}
+            m={{ t: "2rem" }}
           >
             지표 더보기 →
           </Text>

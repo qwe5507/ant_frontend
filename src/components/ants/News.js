@@ -13,21 +13,22 @@ function News() {
       <Div
         tag="section"
         w="100vw"
-        p={{ t: { xs: "3rem", md: "8rem" } }}
+        p={{ t: { xs: "3rem", md: "3rem" },
+        }}
+        m={{ t: { xs: "5rem", md: "5rem" } }}
         overflow="hidden"
       >
         <Container>
           <Div
             d="flex"
             justify="center"
-            p={{ b: "10.5rem" }}
+            p={{ b: "15rem" }}
             border={{ b: "1px solid" }}
             borderColor="gray300"
           >
             <Div
               minW={{ xs: "100%", md: "80rem" }}
               d="flex"
-              align="center"
               justify="center"
               flexDir={{ xs: "column", md: "row" }}
               h={{ xs: "auto", md: "21rem", lg: "20rem" }}

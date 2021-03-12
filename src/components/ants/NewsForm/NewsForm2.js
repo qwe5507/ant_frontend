@@ -138,7 +138,7 @@ const NewsForm2 = () => (
       t: "1.5rem",
     }}
 
-    h="24rem"
+    h="27rem"
     bg="white"
     shadow="4"
     rounded="xl"

@@ -12,6 +12,10 @@ class NewsApi {
         return axios.get(USER_API_BASE_URL+ '/keywords/' + searchResult);
     }
 
+    searchtodaynews() {
+        return axios.get(USER_API_BASE_URL+ '/searchtodaynews');
+    }
+
 }
 
 export default new NewsApi();
