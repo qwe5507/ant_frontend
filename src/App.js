@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import Layout from "./components/layout";
 import Header from "./components/common/header";
@@ -42,9 +42,10 @@ function App() {
   let history = useHistory();
 
   const loginstate = useSelector(state => state.user.loginstate);
+  let [storageCheck, storageCheckChange] = useState(false);
 
   useEffect(() => {
-    // console.log("1")
+    console.log('1');
     initializeUserInfo();
   },[localStorage.getItem('userid')]);
 
@@ -55,8 +56,10 @@ function App() {
 
     if (!user_id) {
       dispatch(setUserLogout());
+      storageCheckChange(true);
     }
     else {
+      storageCheckChange(false);
       UserApiService.fetchUserByID(user_id)
         .then(res => {
           if (res.data.nickname) {
@@ -84,20 +87,20 @@ function App() {
         .catch(err => {
           console.log('***** App.js fetchUserByID error:', err);
         });
-// 여기 
+        
+        // 저장한 글 가져오기
         BoardApiService.fetchSavedUserBoardCheck(user_id)
         .then(res =>{
             var data = { savedBoards: res.data };
             dispatch(setSavedBoards(data));
-            console.log('App.js dispatch')
         })
         .catch(err =>{
           console.log('***** Community fetchSavedUserBoardCheck error:', err);
         })
-//좋아요한 댓글리스트 가져오기 
+        
+        // 좋아요 한 댓글리스트 가져오기 
         UserApiService.fetchUserLikedCommentList(user_id)
         .then(res => {
-        console.log("자기가 좋아요한 댓글 ")
         var data = { likedComments: res.data };
         dispatch(setLikedComments(data));
         })
@@ -116,20 +119,16 @@ function App() {
 
           <Route exact path="/">
             {
-              loginstate
+              storageCheck
               ?
-              ""
-              :
               <HeroSection />
+              :
+              ""
             }
 
             <SearchPanel />
             <MainPanels component={MainPanels} />
             <Introducing />
-            {/* <Features />
-            <Craft />
-            <DesignDevelopment />
-            <GetStartedBanner /> */}
           </Route>
 
           <Route exact path="/Login" component={Login} />
