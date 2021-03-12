@@ -149,7 +149,7 @@ function App() {
           <Route exact path="/SearchResult/:search" component={SearchResult} />
           <Route exact path="/News" component={News} />
           <Route exact path="/NewsDetail/:newsId" component={NewsDetail} />
-          <Route exact path="/Stocks/:stocksId" component={Stocks} />
+          <Route exact path="/Stocks/:stockId" component={Stocks} />
           <Route exact path="/Profile" component={Profile} />
           <Route exact path="/Logout" component={Logout} />
           <Route exact path="/Test" component={BlockTest} />
