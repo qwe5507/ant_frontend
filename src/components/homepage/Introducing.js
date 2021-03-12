@@ -3,6 +3,7 @@ import { Div, Text, Row, Col, Container, Tag, Icon } from "atomize"
 import { Link } from 'react-router-dom';
 
 import BoardApiService from "../../api/BoardApi";
+import "../ants/CommunityMain.css";
 
 function Intoducing() {
 
@@ -19,7 +20,7 @@ function Intoducing() {
   }, []);
 
   return (
-    <Div tag="section" id="features" p={{ t: "4rem" }}>
+    <Div tag="section" id="features" p={{ t: "4rem" }} >
       <Container>
         <Tag
           bg="black"
@@ -68,29 +69,41 @@ function Intoducing() {
                     p="2rem"
                     shadow="3"
                     rounded="xl"
+                    
                   >
                     <Link to={"/Community/" + data['board_id']} style={{ color: '#000' }}>
-                      <Div flexGrow="1">
+                      <Div flexGrow="1" overflow="hidden">
                         <Text
                           textSize="heading"
                           textWeight="800"
                           fontFamily="ko"
                           m={{ b: "1rem" }}
+                          maxH = "2rem"
                         >
                           {data['board_title']}
+                         
                         </Text>
                         <Text
+                        minH = "8.5rem"
+                        maxH = "8.5rem"
                           textSize="subheader"
                           textWeight="600"
                           fontFamily="ko"
                           m={{ b: "2rem" }}
                         >
-                          {data['board_content'].length > 77 ? data['board_content'].substring(0, 70) + "..." : data['board_content']}
+                          {/* {data['board_content'].length > 77 ? data['board_content'].substring(0, 70) + "..." : data['board_content']} */}
+                          <div
+                                    className="boardcon"
+                                    // style={{ width: "100%", height: "100%" }}
+                                    // dangerouslySetInnerHTML={{ __html: (data['board_content'].length > 77 ? data['board_content'].substring(0,70)+"..." :data['board_content'] ) }}>
+                                    dangerouslySetInnerHTML={{ __html: data['board_content'] }} >
+                            </div>
                         </Text>
                       </Div>
 
                       {/* 메인화면 오늘의 추천 글 아래 조회 / 좋아요 / 댓글 수 표시 */}
                       <Div 
+                       m = {{t : "2rem"}}
                         d="flex" align="center" justify="space-between">
                         <Div d="inline-block" align="center">
                           <Text
@@ -149,7 +162,7 @@ function Intoducing() {
                               fontFamily="secondary"
                               m={{ r: "1rem" }}
                             >
-                              121
+                               {data['board_count']}
                             </Text>
                           </Div>
                         </Div>
