@@ -14,6 +14,7 @@ import Communitydeclare from './Communitydeclare';
 import CommunityCommentInsert from './CommunityCommentInsert';
 import CommunityBoardDelete from './CommunityBoardDelete';
 import "./CommunityBoard.css";
+import LoginRequireModal from './LoginRequireModal';
 
 function CommunityBoard() {
     const loginid = useSelector(state => state.user.userid);
@@ -30,6 +31,7 @@ function CommunityBoard() {
     let [신고할데이터, 신고할데이터변경] = useState();
     let [게시판삭제실패,게시판삭제실패변경] = useState(false);
     let [commentdeleteModal,commentdeleteModal변경] = useState(false);
+    let [showLoginRequireModal,showLoginRequireModal변경] = useState(false);
 
     let alerttext = ['빈 글자는 등록할수 없습니다.', '댓글이 등록되었습니다.', '해당 글은 신고 접수되어 삭제할 수 없습니다. 관리자에게 문의하세요.','삭제 할 수없습니다. 관리자에게 문의하세요.']
     console.log('게시판로딩')
@@ -425,7 +427,7 @@ function CommunityBoard() {
                             <Div d="flex" >
                             <Icon
                                 transition
-                                onClick={() => likedClick(board)}
+                                onClick={loginid ? () => likedClick(board) :() =>  {showLoginRequireModal변경(true)}}
                                 name={liked ? "HeartSolid" : "Heart"}
                                 color={liked ? "danger700" : "black"}
                                 size="23px"
@@ -521,7 +523,7 @@ function CommunityBoard() {
                             suffix={
                                 <Button
                                     pos={{ xs: "static", md: "absolute" }}
-                                    onClick={() => commentaddModal변경(true)}
+                                    onClick={loginid ?() => commentaddModal변경(true):() =>  {showLoginRequireModal변경(true)}}
                                     bg="warning800"
                                     hoverBg="warning600"
                                     w={{ xs: "3rem", md: "6rem" }}
@@ -687,7 +689,7 @@ function CommunityBoard() {
                                                 size="15px"
                                                 cursor="pointer"
                                                 m={{ r: "0.4rem" }}
-                                                onClick={() => commentlikedClick(datas)}
+                                                onClick={loginid ?() => commentlikedClick(datas):() =>  {showLoginRequireModal변경(true)}}
                                                 name={LikedCommentsList.includes(String(datas['comment_id'])) ? "HeartSolid" : "Heart"}
                                                 color={LikedCommentsList.includes(String(datas['comment_id'])) ? "danger700" : "black"}
                                             />
@@ -719,7 +721,7 @@ function CommunityBoard() {
                                             /> :
                                             <Icon name="Info" size="20px"
                                                 cursor="pointer"
-                                                onClick={() => 신고하기클릭(datas)}
+                                                onClick={loginid ? () => 신고하기클릭(datas):() =>  {showLoginRequireModal변경(true)}}
                                             // onClick={() => commentdeclare(data)}
                                             />
                                         }
@@ -775,6 +777,11 @@ function CommunityBoard() {
                         rounded="lg"
                     >추천글</Div>
                 </Div>
+                <LoginRequireModal
+                    isOpen={showLoginRequireModal}
+                    onClose={() => showLoginRequireModal변경(false)}>
+
+                </LoginRequireModal>
             </Div>
         </>
     )

@@ -193,14 +193,7 @@ function CommunityBoardUpdate(props){
                     disableResize: true, 
                     disableResizeEditor: true,
                     toolbar: [
-                      ['style', ['style']],
-                      ['font', ['bold', 'underline', 'clear']],
-                      ['fontname', ['fontname']],
-                      ['para', ['ul', 'ol', 'paragraph']],
-                      ['table', ['table']],
-                      ['color', ['color']],
-                      ['insert', ['link', 'picture']],
-                      ['view', ['fullscreen', 'codeview']]
+                      ['insert', ['link', 'picture']]
                     ]
                   }}
                   onChange={(e) => {onChangea(e)}}

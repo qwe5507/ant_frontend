@@ -1,6 +1,6 @@
 import PropTypes from "prop-types"
 import React, { useState, useEffect } from "react"
-import { Div, Image, Container, Button, Anchor, scrollTo, Icon, Text,Radiobox, Label,Switch,Row,Col,logoSketch,logoReact } from "atomize"
+import { Div, Image, Container, Button,Modal, Anchor, scrollTo, Icon, Text,Radiobox, Label,Switch,Row,Col,logoSketch,logoReact } from "atomize"
 import logo from "../../images/logo.svg"
 import producthunt from "../../images/logo-producthunt.svg"
 import { Link, Route, useHistory, useParams } from 'react-router-dom';
@@ -11,12 +11,18 @@ import CommunityMainSaved from './CommunityMainSaved';
 
 import CommunityRegister from './CommunityRegister';
 import CommunityBoardUpdate from './CommunityBoardUpdate';
+import { useDispatch, useSelector } from 'react-redux';
+import LoginRequireModal from './LoginRequireModal';
 
 function Community() {
     let [showMobileHeaderMenu, showMobileHeaderMenuChange] = useState(false);
     let [selectedSwitchValue,selectedSwitchValueChange] = useState(false);
     let [liked,likedchange] = useState(false);
     let [saveBoardstate,saveBoardstateChange] = useState(false);
+    let [showLoginRequireModal,showLoginRequireModal변경] = useState(false);
+
+    let history =  useHistory();
+    const loginid = useSelector(state => state.user.userid);
 
     let { boardid } = useParams();
     let { updateboardid } = useParams();
@@ -39,10 +45,10 @@ function Community() {
         pos={{ xs: 'relative', md: 'relative' }}
         top="0"
         transition
-        left="10%"
+        left={{ xs: "0%", md: "10%" }}
         right="0"
         zIndex="1"
-        w="80%"
+        w={{ xs: "100%", md: "80%" }}
         align = "space-between"
       >
 
@@ -58,15 +64,16 @@ function Community() {
           zIndex="-1"
           
         ></Div>
-        <Container w="30.5rem" d="static" align="center" justify="center" >
+        <Container w={{ xs: "100%",sm:"100%", md: "30.5rem" }}d="static" align="center" justify="center" >
 
           {/* Icon For Mobile */}
          {/* 모바일일때 생기는탭 */}
           <Div
             d={{ xs: "flex", md: "none" }}
             flexDir="column"
+            cursor="pointer"
             onClick={() => toggleHeaderMenu(!showMobileHeaderMenu)}
-            m={{ t: "5rem"}}
+            m={{ t: "6rem"}}
           >
             <Div
               h="2px"
@@ -201,15 +208,19 @@ function Community() {
                 // transition
                 // fontFamily="ko"
               >
-                    <Text
-                        onClick={() => saveBoardChangeClick(true)}
-                        textSize="title"
-                        m={{ b: "0.25rem" }}
-                        textWeight="1000"
-                        textAlign="center"
-                    >
-                        저장한 글
-                    </Text>
+                { loginid ?
+                      <Text
+                      onClick={() => saveBoardChangeClick(true)}
+                      textSize="title"
+                      m={{ b: "0.25rem" }}
+                      textWeight="1000"
+                      textAlign="center"
+                  >
+                      저장한 글
+                  </Text>
+                  :
+                      null
+                   }
               </Anchor>
             </Link>
             </Div>
@@ -241,7 +252,7 @@ function Community() {
               {boardid =="registe" || (typeof updateboardid != "undefined")?
                   null
                       :
-              <Link to="/Community/registe">
+              // <Link to="/Community/registe">
                 <Anchor
                   target="_blank"
                   textWeight="800"
@@ -269,12 +280,14 @@ function Community() {
                       p={{ r: "1.5rem", l: "1rem" }}
                       shadow="3"
                       hoverShadow="4"
+                      onClick ={loginid ? ()=>{history.push("/Community/registe")}: () =>  {showLoginRequireModal변경(true)}}
                     >
                       글 작성
                     </Button>
                 </Anchor>
-              </Link>
+              // </Link>
                 }
+ 
             </Div>
           </Div>
           {/* {typeof boardid} */}
@@ -293,8 +306,13 @@ function Community() {
         }
          
        {/* 게시판끝부분 */}
-    
+
         </Container>
+        <LoginRequireModal
+            isOpen={showLoginRequireModal}
+            onClose={() => showLoginRequireModal변경(false)}>
+
+          </LoginRequireModal>
       </Div>
     </>
   )
@@ -307,6 +325,8 @@ Community.propTypes = {
 Community.defaultProps = {
   siteTitle: ``,
 }
+
+
 
 
 export default Community;
