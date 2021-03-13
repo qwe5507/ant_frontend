@@ -1,178 +1,156 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { Paper, Tag, Text, Div, Icon, Anchor, Button, Input, Col, Row, Label } from "atomize"
-import { makeStyles } from '@material-ui/core/styles';
-import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import Divider from '@material-ui/core/Divider';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import Avatar from '@material-ui/core/Avatar';
-import Typography from '@material-ui/core/Typography';
-import { FixedSizeList } from 'react-window';
+import NewsApiService from "../../../api/NewsApi";
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import NewsKeywordDelete from "../NewsKeywordDelete";
+import NewsKeyWordAdd from "../NewsKeyWordAdd";
+import '../css/Loading.css';
+function NewsForm2(){
+  const userId = useSelector(state => state.user.userid);
+  let [result, result변경] = useState();
+  let [keyword, keywordChange] = useState();
+  let [updatekeyword, updatekeywordChange] = useState();
+  let history = useHistory();
+  let [commentdeleteModal,commentdeleteModal변경] = useState(false);
+  let [commentaddModal,commentaddModal변경] = useState(false);
 
-const Column = () => {
-  // props의 구조는 { data, style, index, isScrolling }으로 되어있다.
+  console.log('유저아이디',userId)
+  function handleClick(keyword){
+    history.push('/SearchResult/'+keyword)
+  }
 
-  return (
-    <div>
-      <ListItem>
-        <Div
-          bg="gray200"
-          d="flex"
-          align="center"
-          p="0.7rem"
-          m={{
-            l: '-1rem',
-          }}
-          w="70rem"
+  function commentdelete(userId, data) {
+    commentdeleteModal변경(true)
+    updatekeywordChange(data)
+  }
 
-        >
-          금융
-</Div>
+  function commentadd() {
+    commentaddModal변경(true)
+  }
 
-      </ListItem>
-      <ListItem>
-        <Div
-          bg="gray200"
-          d="flex"
-          align="center"
-          p="0.7rem"
-          m={{
-            l: '-1rem',
-          }}
-          w="70rem"
+  function keywordList(){
+    NewsApiService.selectKeywordByUserId(userId)
+      .then(response => {
+        result = response.data
+        console.log(result)
+        keywordChange(result['keyword'].split(',').sort())
+        console.log(keyword)
+      })
+      .catch(error => {
+        console.log("NewsApiService ", error)
+      });
+  
+  }
 
-        >
-          부동산
-</Div>
+  useEffect(() => {
+    keywordList();
+  }, [userId]);
 
-      </ListItem>
-
-
-      <ListItem>
-        <Div
-          bg="gray200"
-          d="flex"
-          align="center"
-          p="0.7rem"
-          m={{
-            l: '-1rem',
-          }}
-          w="70rem"
-
-        >
-          코스닥
-</Div>
-
-      </ListItem>
-
-      <ListItem>
-        <Div
-          bg="gray200"
-          d="flex"
-          align="center"
-          p="0.7rem"
-          m={{
-            l: '-1rem',
-          }}
-          w="70rem"
-
-        >
-          코스피
-</Div>
-
-      </ListItem>
-
-
-      <ListItem>
-        <Div
-          bg="gray200"
-          d="flex"
-          align="center"
-          p="0.7rem"
-          m={{
-            l: '-1rem',
-          }}
-          w="70rem"
-
-        >
-          나스닥
-</Div>
-
-      </ListItem>
-
-
-
-      <ListItem>
-        <Div
-          bg="gray200"
-          d="flex"
-          align="center"
-          p="0.7rem"
-          m={{
-            l: '-1rem',
-          }}
-          w="70rem"
-
-        >
-          다우
-</Div>
-
-      </ListItem>
-    </div>
-  );
-};
-
-const NewsForm2 = () => (
+  return(
   <Div
-    border="1px solid"
-    borderColor="gray200"
-    w={{ xs: "100%", md: "22rem" }}
-    maxW="100%"
-    pos={{ xs: "static", md: "relative" }}
-    m={{ xs: "1rem", md: "1rem" }}
-    top="0"
-    p={{
-      x: { xs: "2rem", sm: "1.5rem" },
-      b: { xs: "2rem", sm: "1.5rem" },
-      t: "1.5rem",
-    }}
+  border="1px solid"
+  borderColor="gray200"
+  w={{ xs: "100%", md: "22rem" }}
+  maxW="100%"
+  pos={{ xs: "static", md: "relative" }}
+  m={{ xs: "1rem", md: "1rem" }}
+  top="0"
+  p={{
+    x: { xs: "2rem", sm: "1.5rem" },
+    b: { xs: "2rem", sm: "1.5rem" },
+    t: "1.5rem",
+  }}
 
-    h="27rem"
-    bg="white"
-    shadow="4"
-    rounded="xl"
-  >
-    <Div flexGrow="1">
-      <Row>
-        <Col size="5">
-          <Text
-            textAlign="center"
-            textSize="title"
-            m={{ t: "0", b: "0" }}
-            textWeight="800"
-            fontFamily="ko"
-          >
-            키워드 뉴스
-      </Text>
-        </Col>
-        <Col size="7">
-          <Label
-            m={{ l: "8rem" }}
-            align="center"
-            textWeight="600"
-          >
-            <Icon name="Add" size="30px" />
-          </Label>
-        </Col>
-      </Row>
-    </Div>
-
-    <FixedSizeList height={290} width={"100%"} itemSize={46} itemCount={1}>
-      {Column}
-    </FixedSizeList>
-
+  h="27rem"
+  bg="white"
+  shadow="4"
+  rounded="xl"
+>
+  <Div flexGrow="1">
+    <Row>
+      <Col size="5">
+        <Text
+          textAlign="center"
+          textSize="title"
+          m={{ t: "0", b: "0" }}
+          textWeight="800"
+          fontFamily="ko"
+        >
+          키워드 뉴스
+    </Text>
+      </Col>
+      <Col size="7">
+        <Label
+          m={{ l: "8rem" }}
+          align="center"
+          textWeight="600"
+        >
+          <Icon 
+          name="Add" 
+          size="30px"
+          onClick={()=> commentadd() }
+          />
+        </Label>
+      </Col>
+    </Row>
   </Div>
+    
+  { keyword && keyword.map(function(data){
+    return(
+      <ListItem>
+      <Div
+        bg="white"
+        d="flex"
+        align="center"
+        p="0.7rem"
+        m={{
+          l: '-1rem',
+        }}
+        w="30rem"
+        cursor="pointer"
+        onClick={ () => handleClick(data)}
+      >
+        # {data}
+
+      </Div>
+      <Icon 
+        name="Cross"
+        cursor="pointer"
+        color="black"
+        onClick={ () => commentdelete(userId, data) } 
+        size="20px" />
+      </ListItem>
+    )
+  })}
+
+ 
+<NewsKeywordDelete
+      keyword={updatekeyword}
+      isOpen={commentdeleteModal}
+      wordlist={() => keywordList() }
+      // 게시판삭제실패 = {() => 키워드삭제실패변경(true)}
+      onClose={() => commentdeleteModal변경(false)}
+>
+</NewsKeywordDelete>
+
+<NewsKeyWordAdd
+      isOpen={commentaddModal}
+      wordlist={() => keywordList() }
+      onClose={() => commentaddModal변경(false)}
+>
+
+</NewsKeyWordAdd>
+ 
+
+</Div>
+
+
 )
+}
+
+ 
+
 
 export default NewsForm2
