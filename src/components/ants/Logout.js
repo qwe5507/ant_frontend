@@ -12,6 +12,9 @@ function Logout() {
     let history = useHistory();
 
     useEffect(() => {
+        if (!window.Kakao.isInitialized()) {
+            window.Kakao.init('fb58ebd76f41eecb94267d2c08ceb73a');
+          }
         if (window.Kakao.Auth.getAccessToken()) {
             window.Kakao.Auth.logout(() => {
                 localStorage.removeItem('loginstate');
