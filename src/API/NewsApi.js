@@ -16,6 +16,17 @@ class NewsApi {
         return axios.get(USER_API_BASE_URL+ '/searchtodaynews');
     }
 
+    selectKeywordByUserId(userId){
+        return axios.get(USER_API_BASE_URL + '/selectkeywords/' + userId);
+    }
+
+    deleteKeywordByUserId(list){
+        return axios.put(USER_API_BASE_URL + '/deletekeywords/' + list.userId +'/'+ list.keyword);
+    }
+
+    updateKeywordByUserId(list){
+        return axios.put(USER_API_BASE_URL + '/updatekeywords/' + list.userId +'/'+ list.keyword);
+    }
 }
 
 export default new NewsApi();
