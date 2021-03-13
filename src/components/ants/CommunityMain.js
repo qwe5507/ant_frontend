@@ -1,6 +1,6 @@
 import PropTypes from "prop-types"
 import React, { useState, useEffect } from "react"
-import { Div, Image, Container, Button, Anchor, scrollTo, Icon, Text, Radiobox, Label, Switch, Row, Col, logoSketch, logoReact } from "atomize"
+import { Div, Image, Container, Button, Anchor, scrollTo, Icon, Text, Radiobox, Label, Switch, Row, Col, logoSketch, logoReact,Tag } from "atomize"
 import logo from "../../images/logo.svg"
 import producthunt from "../../images/logo-producthunt.svg"
 import { Link, Route, useHistory, useParams } from 'react-router-dom';
@@ -11,6 +11,8 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import CommunityShimmer from "./CommunityShimmer";
 import LoginRequireModal from './LoginRequireModal';
+
+import ReactHtmlParser from 'react-html-parser';
 
 import { setSavedBoards } from '../../redux/actions/user_action';
 import "./CommunityMain.css";
@@ -26,6 +28,7 @@ function CommunityMain(props) {
   const loginid = useSelector(state => state.user.userid);
   const savedboardtemp = useSelector(state => state.user.savedBoards);
   const loginstate = useSelector(state => state.user.loginstate);
+  const userlikedboardtemp = useSelector(state => state.user.likedBaords);
 
   // let [saved,savedchange] = useState(false);
   let { die } = useParams();
@@ -34,6 +37,7 @@ function CommunityMain(props) {
 
   let [boardlist, boardlist변경] = useState();
   let [loadingtemp, loadingtemp변경] = useState();
+  let [boardTopMain,boardTopMain변경] = useState([]);
 
   let loadingtemp2 = [1, 2, 3, 4, 5, 6]
 
@@ -88,7 +92,8 @@ function CommunityMain(props) {
     if (!props.ordered && !props.saved) { // 최신순 게시물 가져오기 && 전체
       BoardApiService.fetchBoards()
         .then(res => {
-          boardlist변경(res.data);
+          topmainbaordget(res.data)
+          // boardlist변경(res.data);
           console.log('641111');
         })
         .catch(err => {
@@ -139,6 +144,22 @@ function CommunityMain(props) {
     console.log(props.saved);
   });
 
+  // boardTopMain 가져오기
+  function topmainbaordget(data){
+      BoardApiService.fetchTopMainBoards()
+      .then(res => {
+        boardTopMain변경(res.data)
+        let temp = [...res.data,...data]
+        boardlist변경(temp)
+        // boardTopMain변경(res.data);
+        console.log(res.data)
+      })
+      .catch(err => {
+        console.log('***** Community fetchTopMainBoards error:', err);
+      });
+
+  }
+
   return (
     <>
       <Div pos="relative"
@@ -174,8 +195,9 @@ function CommunityMain(props) {
           </Row>
 
               <Row>
+              
               {
-                boardlist && boardlist.map(function (data) {
+                boardlist && boardlist.map(function (data,i) {
                   var nowtime = new Date()
                   var boardtime = new Date(data['board_createdata'])
                   var elapsedtime = nowtime.getTime() - boardtime.getTime()
@@ -211,6 +233,7 @@ function CommunityMain(props) {
                         <Div p="1rem" d="flex" align="center" justify="space-between">
                           <Div d="inline-block" align="center" justify="space-between"
                             overflow="hidden" >
+
                             <Div d="flex"
                               justify="space-between"
                             // maxW = "100%"
@@ -220,6 +243,7 @@ function CommunityMain(props) {
                                 style={{ color: '#000' }}
                                 textDecor="none"
                               >
+                                
                                 <Text
                                   justify="flex-start"
                                   textAlign="left"
@@ -229,9 +253,33 @@ function CommunityMain(props) {
                                   m={{ b: "1rem" }}
                                 // textDecor="underline"
                                 >
-                                  {data['board_title']}
+                                  
+                            { i == 0 && boardTopMain[0] && boardTopMain[0]['board_id'] == data['board_id'] ?
+                               <Tag
+                               bg={`warning900`}
+                               textColor="white"
+                               // p={{ x: "0.75rem", y: "0.25rem" }}
+                               m={{ r: "0.5rem" }}
+                               textSize="body"
+                               w = "3rem"
+                               h = "1.4rem"
+                             >BEST</Tag>:
+                                null }
+                              { i == 1 && boardTopMain[1] && boardTopMain[1]['board_id'] == data['board_id'] ?
+                               <Tag
+                               bg={`danger900`}
+                               textColor="white"
+                               // p={{ x: "0.75rem", y: "0.25rem" }}
+                               m={{ r: "0.5rem" }}
+                               textSize="body"
+                               w = "3rem"
+                               h = "1.4rem"
+                             >HOT</Tag>:
+                                null }
+                                  {data['board_title']} 
                                 </Text>
                               </Link>
+                              
                               <Div
                                 pos={{ xs: 'absolute', sm: 'absolute', md: 'static' }}
                                 right="2rem">
@@ -248,34 +296,25 @@ function CommunityMain(props) {
                                 <Text
                                   textAlign="left"
                                   textSize="subheader"
-                                  textWeight="500"
+                                  textWeight="600"
                                   fontFamily="ko"
                                   h="5rem"
                                   m={{ b: "1rem" }}
                                 >
-                                  <div
-                                    className="boardcon"
-                                    // style={{ width: "100%", height: "100%" }}
-                                    // dangerouslySetInnerHTML={{ __html: (data['board_content'].length > 77 ? data['board_content'].substring(0,70)+"..." :data['board_content'] ) }}>
-                                    dangerouslySetInnerHTML={{ __html: data['board_content'] }} >
+                                  <div className="boardcon">
+                                  {ReactHtmlParser(data['board_content'])}
                                   </div>
-
                                 </Text>
-                                {/* {data['board_content']} */}
                                 <Div
                                   // m={{t :{ md : "5%"}, l :{ md : "-80%"}}}
                                   // pos = {{ xs : "absolute"}}
                                   // pos={{ xs: 'static', lg: 'static' }}
                                   pos={{ xs: 'absolute', sm: 'absolute', md: 'static' }}
                                   right="2rem"
-
                                 >
-                                  {/* {data['board_content'].indexOf("<img") ==-1 ? null :data['board_content'].substring(data['board_content'].indexOf("<img"),data['board_content'].indexOf("px;")+5)} */}
                                   <div
-                                    className="boardconimg"
-                                    // style={{ width: "100%", height: "100%" }}
-                                    // dangerouslySetInnerHTML={{ __html: (data['board_content'].length > 77 ? data['board_content'].substring(0,70)+"..." :data['board_content'] ) }}>
-                                    dangerouslySetInnerHTML={{ __html: data['board_content'].indexOf("<img") == -1 ? '<div class="boardconimg"></div>' : data['board_content'].substring(data['board_content'].indexOf("<img"), data['board_content'].indexOf('">') + 2) }} >
+                                  className="boardconimg">
+                                  {ReactHtmlParser(data['board_content'].indexOf("<img") == -1 ? '<div class="boardconimg"></div>' : data['board_content'].substring(data['board_content'].indexOf("<img"), data['board_content'].indexOf('">') + 2))}
                                   </div>
                                 </Div>
                               </Div>
@@ -316,10 +355,10 @@ function CommunityMain(props) {
                               <Icon
                                 transition
                                 // onClick={() => likedchange(!liked)}
-                                // name={liked ? "HeartSolid" : "Heart"}
-                                name="Heart"
-                                // color={liked ? "danger700" : "black"}
-                                color="black"
+                                name={userlikedboardtemp.includes(String(data['board_id'])) ? "HeartSolid" : "Heart"}
+                                // name="Heart"
+                                color={userlikedboardtemp.includes(String(data['board_id']))  ? "danger700" : "black"}
+                                // color="black"
                                 size="18px"
                                 // cursor="pointer"
                                 m={{ r: "0.4rem" }}

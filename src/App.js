@@ -31,9 +31,10 @@ import ChatPage from "./components/ChatPage/ChatPage";
 import Logout from "./components/ants/Logout";
 
 import BoardApiService from "./api/BoardApi";
+import DeclareApiService from "./api/DeclareApi";
 
 import { useDispatch, useSelector } from 'react-redux';
-import { setUserLoginCheck, setUserLogout, setUser, setSavedBoards, setLikedComments } from './redux/actions/user_action';
+import { setUserLoginCheck, setUserLogout, setUser, setSavedBoards, setLikedComments, setLikedBoards, setDeclareData } from './redux/actions/user_action';
 
 import firebase from "./firebase";
 
@@ -107,6 +108,37 @@ function App() {
         .catch(err => {
         console.log('***** Community fetchUserLikedCommentList error:', err);
         }); 
+        // 좋아요 한 게시물리스트 가져오기 
+        UserApiService.fetchUserLikedBoardList(user_id)
+        .then(res => {
+        var data = { likedBaords: res.data };
+        dispatch(setLikedBoards(data));
+        })
+        .catch(err => {
+        console.log('***** Community fetchUserLikedBoardList error:', err);
+        }); 
+        // 신고한 데이터리스트 가져오기 
+        DeclareApiService.fetchDeclaredByID(user_id)
+        .then(res => {
+          console.log("시발대체왜")
+          console.log(res.data)
+          let tempcommentlist = [];
+          let tempboardlist = [];
+          for(var i =0;i<res.data.length;i++){
+            tempcommentlist.push(res.data[i]['comment_id'])
+            tempboardlist.push(res.data[i]['board_id'])
+          }
+          console.log(tempcommentlist)
+          console.log(tempboardlist)
+          
+        var data = { declarecomment: tempcommentlist,
+                  declareboard : tempboardlist};
+        
+        dispatch(setDeclareData(data));
+        })
+        .catch(err => {
+        console.log('***** Community fetchDeclaredByID error:', err);
+        });
     }
   };
 

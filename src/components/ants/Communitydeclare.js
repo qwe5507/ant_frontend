@@ -27,11 +27,13 @@ function Communitydeclare(props){
          let declaredata = {
             comment_id : props_commentdata_comment_id,
             // board_id : 7,
+            userid : loginid,
             declared_type : data
             }
         DeclareApiService.addDeclare(declaredata)
         .then(res => {
             console.log("신고하기 접수 성공")
+            
             props.successDardChange(true);
         })
         .catch(err => {

@@ -32,6 +32,9 @@ class UserApiService {
     fetchUserLikedCommentList(userID) {
         return axios.get(USER_API_BASE_URL + '/UserLikedCommentList/' + userID);
     }
+    fetchUserLikedBoardList(userID) {
+        return axios.get(USER_API_BASE_URL + '/UserLikedBoardList/' + userID);
+    }
 
     //마이페이지-개인정보 보여주기
     profileShow(id){

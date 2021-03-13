@@ -14,6 +14,8 @@ import {
     SET_SEARCHWORD,          // 검색어
     SET_USER_SAVED_BOARDS,   // 커뮤니티 사용자 저장 글
     SET_USER_LIKED_COMMENTS,  // 커뮤니티 사용자 좋아요한 댓글
+    SET_USER_LIKED_BOARDS,    // 커뮤니티 사용자 좋아요한 게시물
+    SET_USER_DECLARE_DATA,    // 커뮤니티 사용자 신고한 데이터
     SET_NAME
 } from '../actions/types';
 
@@ -29,7 +31,10 @@ const userInfoDefault = {
     isLoading: true,
     searchWord: '',
     savedBoards: '',
-    likedComments: ''
+    likedComments: '',
+    likedBaords : '',
+    declarecomment : '',
+    declareboard : ''
 };
 
 export default function (state = userInfoDefault, action) {
@@ -123,6 +128,17 @@ export default function (state = userInfoDefault, action) {
                 copy['likedComments'] =  action.payload['likedComments'];
                 console.log(copy['likedComments']);
                 return copy;
+        case SET_USER_LIKED_BOARDS:
+            copy['likedBaords'] =  action.payload['likedBaords'];
+            console.log(copy['likedBaords']);
+            return copy;
+        case SET_USER_DECLARE_DATA:
+            copy['declarecomment'] =  action.payload['declarecomment'];
+            copy['declareboard'] =  action.payload['declareboard'];
+            
+            console.log(copy['declarecomment']);
+            console.log(copy['declareboard']);
+            return copy;
         default:
             return state;
     }

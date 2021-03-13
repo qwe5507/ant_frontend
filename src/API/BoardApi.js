@@ -7,6 +7,9 @@ class BoardApiService {
     fetchBoards() {
         return axios.get(Board_API_BASE_URL);
     }
+    fetchTopMainBoards() {
+        return axios.get(Board_API_BASE_URL + '/fetchtopmainboards');
+    }
     fetchBoardsLiked() {
         return axios.get(Board_API_BASE_URL+'/likedorder');
     }
@@ -58,6 +61,7 @@ class BoardApiService {
     fetchSavedUserBoardLiked(userid) {
         return axios.get(Board_API_BASE_URL + '/savedboardLiked'+"/"+userid);
     }
+
 
     // addUserLikeBoard(user) {
     //     return axios.post(Board_API_BASE_URL, user);

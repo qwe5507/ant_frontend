@@ -22,6 +22,9 @@ class DeclareApiService {
     // deleteComment(commentID) {
     //     return axios.delete(Comment_API_BASE_URL + '/' + commentID);
     // }
+    fetchDeclaredByID(userid) {
+        return axios.get(DECLARE_API_BASE_URL + '/' + userid);
+    }
 }
 
 export default new DeclareApiService();
