@@ -10,6 +10,8 @@ import {
     SET_SEARCHWORD,         // 검색어
     SET_USER_SAVED_BOARDS,   // 커뮤니티 사용자 저장 글
     SET_USER_LIKED_COMMENTS,  // 커뮤니티 사용자 좋아요한 댓글
+    SET_USER_LIKED_BOARDS,    // 커뮤니티 사용자 좋아요한 게시물
+    SET_USER_DECLARE_DATA,    // 커뮤니티 사용자 신고한 데이터
     SET_NAME
 } from './types';
 
@@ -94,5 +96,17 @@ export function setLikedComments(likedComments) {     // 커뮤니티
     return  {
         type: SET_USER_LIKED_COMMENTS,
         payload: likedComments
+    }
+}
+export function setLikedBoards(likedBaords) {     // 커뮤니티
+    return  {
+        type: SET_USER_LIKED_BOARDS,
+        payload: likedBaords
+    }
+}
+export function setDeclareData(declaredata) {     // 커뮤니티
+    return  {
+        type: SET_USER_DECLARE_DATA,
+        payload: declaredata
     }
 }

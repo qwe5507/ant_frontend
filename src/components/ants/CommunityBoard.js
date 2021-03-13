@@ -9,7 +9,7 @@ import BoardApiService from "../../api/BoardApi";
 import CommentApiService from "../../api/CommentApi";
 import UserApiService from "../../api/UserApi";
 import { useDispatch, useSelector } from 'react-redux';
-import { setLikedComments } from '../../redux/actions/user_action';
+import { setLikedComments, setLikedBoards } from '../../redux/actions/user_action';
 import Communitydeclare from './Communitydeclare';
 import CommunityCommentInsert from './CommunityCommentInsert';
 import CommunityBoardDelete from './CommunityBoardDelete';
@@ -18,6 +18,11 @@ import LoginRequireModal from './LoginRequireModal';
 
 function CommunityBoard() {
     const loginid = useSelector(state => state.user.userid);
+    const declarecommentlist = useSelector(state => state.user.declarecomment);
+    const declareboardlist = useSelector(state => state.user.declareboard);
+    // let [declareboards,declareboard변경] = useState();
+    // let [declarecomment,declarecomment변경] = useState();
+    
     let [liked, likedchange] = useState(false);
     let [commentliked, commentlikedchange] = useState(false);
     // let [userlikecomment,userlikecomment변경] = useState([]);
@@ -36,6 +41,7 @@ function CommunityBoard() {
     let alerttext = ['빈 글자는 등록할수 없습니다.', '댓글이 등록되었습니다.', '해당 글은 신고 접수되어 삭제할 수 없습니다. 관리자에게 문의하세요.','삭제 할 수없습니다. 관리자에게 문의하세요.']
     console.log('게시판로딩')
 
+
     const dispatch = useDispatch();
 
     let [board, board변경] = useState({});
@@ -44,6 +50,7 @@ function CommunityBoard() {
 
     let { boardid } = useParams();
     const LikedCommentsList = useSelector(state => state.user.likedComments);
+    const userlikedboardtemp = useSelector(state => state.user.likedBaords);
 
     function likedClick(board) {
         // 눌려져있을떄  
@@ -59,6 +66,11 @@ function CommunityBoard() {
             }
             BoardApiService.deleteLikedUserBoard(UserLikeBoard);
 
+            var temp = [...userlikedboardtemp]
+            temp.splice(temp.indexOf(String(board.board_id)),1)
+            var data = { likedBaords: temp };
+            dispatch(setLikedBoards(data));
+
         } // 안 눌려져있을떄 
         else {
             likedchange(!liked);
@@ -71,6 +83,11 @@ function CommunityBoard() {
                 userid: loginid
             }
             BoardApiService.addLikedUserBoard(UserLikeBoard);
+            
+            var temp = [...userlikedboardtemp]
+            temp.push(String(board.board_id))
+            var data = { likedBaords: temp };
+            dispatch(setLikedBoards(data));
         }
 
     }
@@ -149,7 +166,8 @@ function CommunityBoard() {
     }
 
     useEffect(() => {
-        console.log('게시판로딩2')
+
+
         let listtemp = sessionStorage.getItem('boardviewlist');
         if (listtemp == null) {  // 세션스토리지에 list가 없을떄 
             sessionStorage.setItem('boardviewlist', JSON.stringify([boardid]));
@@ -204,10 +222,12 @@ function CommunityBoard() {
         }
     }, [loginid]);
     useEffect(() => {
-
-
         commentloading();
     }, [문자열등록성공알람]);
+    
+    useEffect(() => {
+        commentloading();
+    }, [showModal]);
 
     function commentloading() {
         console.log('댓글로딩')
@@ -237,6 +257,9 @@ function CommunityBoard() {
         신고할데이터변경(data)
         showModal변경(true)
     }
+    useEffect(() => {
+
+    },[]);
     return (
         <>
             <Div
@@ -718,7 +741,13 @@ function CommunityBoard() {
                                             <Icon name="Delete" size="20px"
                                                 cursor="pointer"
                                                 onClick={() => commentdelete(datas)}
-                                            /> :
+                                            /> : declarecommentlist.includes(datas.comment_id) ?
+                                            <Icon name="InfoSolid" size="20px"
+                                            cursor="not-allowed"
+                                            // onClick={loginid ? () => 신고하기클릭(datas):() =>  {showLoginRequireModal변경(true)}}
+                                            // onClick={() => commentdeclare(data)}
+                                            />
+                                            :
                                             <Icon name="Info" size="20px"
                                                 cursor="pointer"
                                                 onClick={loginid ? () => 신고하기클릭(datas):() =>  {showLoginRequireModal변경(true)}}

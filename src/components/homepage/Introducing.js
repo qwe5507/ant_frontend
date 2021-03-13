@@ -3,11 +3,14 @@ import { Div, Text, Row, Col, Container, Tag, Icon } from "atomize"
 import { Link } from 'react-router-dom';
 
 import BoardApiService from "../../api/BoardApi";
-import "../ants/CommunityMain.css";
+import "../ants/CommunityIntroducing.css";
+import ReactHtmlParser from 'react-html-parser';
+import { useDispatch, useSelector } from 'react-redux';
 
 function Intoducing() {
 
   let [board, boardChange] = useState([]);
+  const userlikedboardtemp = useSelector(state => state.user.likedBaords);
 
   useEffect(() => {
     BoardApiService.fetchBoardsLiked()
@@ -72,31 +75,36 @@ function Intoducing() {
                     
                   >
                     <Link to={"/Community/" + data['board_id']} style={{ color: '#000' }}>
-                      <Div flexGrow="1" overflow="hidden">
+                      <Div flexGrow="1"  flexWrap="wrap" overflow = "hidden">
                         <Text
                           textSize="heading"
                           textWeight="800"
                           fontFamily="ko"
                           m={{ b: "1rem" }}
-                          maxH = "2rem"
+                          // maxH = "2rem"
+                          h = "2.2rem"
+                          overflow="hidden"
                         >
                           {data['board_title']}
                          
                         </Text>
                         <Text
-                        minH = "8.5rem"
-                        maxH = "8.5rem"
-                          textSize="subheader"
+                          h="8.5rem"
+                          textSize="heading"
                           textWeight="600"
                           fontFamily="ko"
                           m={{ b: "2rem" }}
+                          
                         >
                           {/* {data['board_content'].length > 77 ? data['board_content'].substring(0, 70) + "..." : data['board_content']} */}
-                          <div
+                          {/* <div
                                     className="boardcon"
                                     // style={{ width: "100%", height: "100%" }}
                                     // dangerouslySetInnerHTML={{ __html: (data['board_content'].length > 77 ? data['board_content'].substring(0,70)+"..." :data['board_content'] ) }}>
                                     dangerouslySetInnerHTML={{ __html: data['board_content'] }} >
+                            </div> */}
+                            <div className = "introduceimg">
+                            {ReactHtmlParser(data['board_content'])}
                             </div>
                         </Text>
                       </Div>
@@ -134,8 +142,8 @@ function Intoducing() {
                             </Text>
                             <Icon
                               transition
-                              name="HeartSolid"
-                              color="danger700"
+                              name={userlikedboardtemp.includes(String(data['board_id'])) ? "HeartSolid" : "Heart"}
+                              color={userlikedboardtemp.includes(String(data['board_id']))  ? "danger700" : "black"}
                               size="18px"
                               m={{ r: "0.4rem" }}
                             />

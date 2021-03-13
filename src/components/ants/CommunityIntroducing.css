@@ -1,0 +1,13 @@
+.introduceimg img {
+    max-width: 100%;
+    height: auto;
+    display: none;
+  }
+
+.introduceimg p,.introduceimg > p
+{
+  font-size: 19px;
+}
+a,a:hover{
+  text-decoration: none !important;
+}
