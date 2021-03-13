@@ -9,7 +9,8 @@ import {
     SET_PHOTO_URL,          // Chat
     SET_SEARCHWORD,         // 검색어
     SET_USER_SAVED_BOARDS,   // 커뮤니티 사용자 저장 글
-    SET_USER_LIKED_COMMENTS  // 커뮤니티 사용자 좋아요한 댓글
+    SET_USER_LIKED_COMMENTS,  // 커뮤니티 사용자 좋아요한 댓글
+    SET_NAME
 } from './types';
 
 export function setUserNew(userinfo) {
@@ -53,6 +54,13 @@ export function setUser(user) {     // Chat : Firebase Object
     }
 }
 
+export function setName(displayName) {     // Chat : Firebase Object
+    return {
+        type: SET_NAME,
+        payload: displayName
+    }
+}
+
 export function clearUser() {       // Chat
     return {
         type: CLEAR_USER
@@ -72,6 +80,9 @@ export function setSearchWord(searchWord) {     // Chat
         payload: searchWord
     }
 }
+
+
+
 
 export function setSavedBoards(savedBoards) {     // 커뮤니티
     return  {

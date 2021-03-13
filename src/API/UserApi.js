@@ -2,6 +2,7 @@ import axios from 'axios';
 
 const USER_API_BASE_URL = "http://localhost:8000/user";
 const USER_API_BASE_URL_PROFILE = "http://localhost:8000/user/profile";
+const USER_API_BASE_URL_PASSWORD = "http://localhost:8000/user/password";
 const USER_API_BASE_URL_PROFILE_BOARD = "http://localhost:8000/user/board";
 
 class UserApiService {
@@ -48,7 +49,10 @@ class UserApiService {
         return axios.get(USER_API_BASE_URL_PROFILE_BOARD + '/' + userid);
     }
 
-
+    //마이페이지-비밀번호 수정
+    passwordEdit(user){
+        return axios.put(USER_API_BASE_URL_PASSWORD + '/' + + user.userid, user);
+    }
 }
 
 export default new UserApiService();

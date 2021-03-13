@@ -13,7 +13,8 @@ import {
     SET_PHOTO_URL,          // Chat
     SET_SEARCHWORD,          // 검색어
     SET_USER_SAVED_BOARDS,   // 커뮤니티 사용자 저장 글
-    SET_USER_LIKED_COMMENTS  // 커뮤니티 사용자 좋아요한 댓글
+    SET_USER_LIKED_COMMENTS,  // 커뮤니티 사용자 좋아요한 댓글
+    SET_NAME
 } from '../actions/types';
 
 const userInfoDefault = {
@@ -102,6 +103,13 @@ export default function (state = userInfoDefault, action) {
                 currentUser: { ...state.currentUser, photoURL: action.payload },
                 isLoading: false
             }
+        {/*추가 */}
+            case SET_NAME:
+                return {
+                    ...state,
+                    currentUser: {displayName: action.payload },
+                    isLoading: false
+                }
 
         case SET_SEARCHWORD:
             copy['searchWord'] = action.payload['searchWord'];
