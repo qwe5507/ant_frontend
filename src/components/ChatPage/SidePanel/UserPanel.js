@@ -76,7 +76,15 @@ function UserPanel() {
                     src={user && user.photoURL}
                     roundedCircle
                 />
-                <Dropdown>
+                  <Text m={{ xs: "0.2rem", md: "0.3rem" }}
+                        textAlign="right"
+                        textSize="heading"
+                        textWeight="800"
+                        fontFamily="ko"
+                        >
+                        {user && user.displayName}
+                        </Text>
+              {/*  <Dropdown>
                     <Dropdown.Toggle
                         style={{
                             background: 'transparent',
@@ -100,9 +108,9 @@ function UserPanel() {
                         </Dropdown.Item>
                         {/* <Dropdown.Item onClick={handleLogout}>
                             로그아웃
-                        </Dropdown.Item> */}
+                        </Dropdown.Item> 
                     </Dropdown.Menu>
-                </Dropdown>
+                </Dropdown>*/}
             </div>
 
             <input

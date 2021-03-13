@@ -106,12 +106,15 @@ function MessageHeader({ handleSearchChange }) {
             <Container>
                 <Row >
                     <Col>
+                    <Div
+                    d="flex"
+                    flexDir="row">
                             <span>
                             {
                                 isPrivateChatRoom ?
-                                    <FaLock style={{ marginBottom: '10px' }} />
+                                    <FaLock style={{ marginBottom: '10px' }} size="24"/>
                                     :
-                                    <FaLockOpen style={{ marginBottom: '10px' }} />
+                                    <FaLockOpen style={{ marginBottom: '10px' }} size="24"/>
                             }
                             </span>
                             {!isPrivateChatRoom &&
@@ -119,9 +122,9 @@ function MessageHeader({ handleSearchChange }) {
                             <span style={{ cursor: 'pointer'  }} onClick={handleFavorite}>
                             {
                             isFavorited ?
-                            <MdFavorite style={{ borderBottom: '10px' }} />
+                            <MdFavorite style={{ borderBottom: '10px' }} size="24"/>
                             :
-                            <MdFavoriteBorder style={{ borderBottom: '10px' }} />
+                            <MdFavoriteBorder style={{ borderBottom: '10px' }} size="24"/>
                              }
                             </span>
                             }
@@ -137,7 +140,7 @@ function MessageHeader({ handleSearchChange }) {
                             {chatRoom && chatRoom.name}
                             </Text>
                             </span>
-                            
+                            </Div>
                         
                     </Col>
                     <Col>
