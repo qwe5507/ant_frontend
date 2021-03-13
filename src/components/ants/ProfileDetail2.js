@@ -3,8 +3,12 @@ import { Text, Div, Icon, Anchor, Button,  Notification } from "atomize"
 import UserApiService from "../../api/UserApi";
 import $ from 'jquery';
 import TextField from '@material-ui/core/TextField'
-class ProfileDetail2 extends Component{
+import firebase from "../../firebase";
+import { connect } from 'react-redux';
+import { setName } from "../../redux/actions/user_action";
 
+class ProfileDetail2 extends Component{
+  
     constructor(props){
         super(props);
     
@@ -13,6 +17,8 @@ class ProfileDetail2 extends Component{
         userid : '',
         email : '',
         pass : '',
+        currentPassword : '',
+        currentEmail : '',
         kakaoname : '',
         nickname : '',
         phone : '',
@@ -27,9 +33,8 @@ class ProfileDetail2 extends Component{
         coPassError : false,
         coPassLenError : false,
         coNameError : false,
-        coEmailError : false,
         coPhoneError : false,
-        re : /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i
+        chatUserRef: firebase.database().ref("currentUser")
         }
       }
 
@@ -47,7 +52,9 @@ class ProfileDetail2 extends Component{
           email: user.email,
           pass: user.pass,
           nickname: user.nickname,
-          phone: user.phone
+          phone: user.phone,
+          currentPassword : user.pass,
+          currentEmail : user.email
         })
         })
         .catch(err => {
@@ -61,22 +68,15 @@ class ProfileDetail2 extends Component{
         })
       }
 
-      saveUser = (e) =>{
+      byunPass =  async(e)  => {
         e.preventDefault();
-        
-   if( $.trim($('#nickname').val()).length == 0 || $.trim($('#email').val()).length == 0 ||$.trim($('#phone').val()).length == 0 ||$.trim($('#pass').val()).length == 0 || $.trim($ ('#passCon').val()).length == 0)
-    {
-          this.setState({
-            coInputError : true
-          })
-        }
-  else if(  $.trim($('#nickname').val()).length < 2)
+        if( $.trim($('#pass').val()).length == 0 || $.trim($ ('#passCon').val()).length == 0)
         {
-          this.setState({
-            coNameError : true
-          })
-      }   
-    else if( $('#pass').val() != $('#passCon').val())
+              this.setState({
+                coInputError : true
+              })
+         }
+      if( $('#pass').val() != $('#passCon').val())
     {
       this.setState({
         coDuplicateError : true
@@ -88,45 +88,95 @@ class ProfileDetail2 extends Component{
         coPassLenError : true
       })
     }
+    else{
+      
+        let user ={
+         userid: this.state.userid,
+          pass : this.state.pass
+        }
+        
+     
+        await UserApiService.passwordEdit( user)
+          .then( res  =>{
+
+            alert("고객님의 비밀번호가 수정되었습니다")
+          console.log(this.state.message)    
+        })
+        .catch(err => {
+          console.log('마이페이지비밀번호-수정 오류', err);
+        });
+       
+       await firebase.auth()
+        .signInWithEmailAndPassword(this.state.currentEmail, this.state.currentPassword)
+        .then(function(userCredential) {
+          userCredential.user.updatePassword(user.pass)
+         })
+
+
+        }
+      }
+  
+      
+      saveUser =  (e) =>{
+        e.preventDefault();
+        
+   if( $.trim($('#nickname').val()).length == 0 ||$.trim($('#phone').val()).length == 0 )
+    {
+          this.setState({
+            coInputError : true
+          })
+        }
+  else if(  $.trim($('#nickname').val()).length < 2)
+        {
+          this.setState({
+            coNameError : true
+          })
+      }   
+    
     else if( isNaN( $('#phone').val()))
     {
       this.setState({
         coPhoneError : true
       })
     }  
-    else if(!this.state.re.test($("#email").val()))
-    {
-      this.setState({
-        coEmailError : true
-      })
-    }
         else{
-          this.state.coInputError = false
+
           let user ={
             userid: this.state.userid,
-            email : this.state.email,
-            pass : this.state.pass,
             nickname : this.state.nickname,
             phone : this.state.phone,
           }
-          
+        
           UserApiService.profileEdit( user)
-          .then( res =>{
+          .then( res  =>{
+        
             this.setState({
               message : "수정되었습니다"
             })
             console.log(this.state.message);
-            
+  
             window.location.reload()
             alert("고객님의 회원정보가 수정되었습니다")
-            //this.props.history.push('/Profile');
+
           })
           .catch(err => {
             console.log('마이페이지-수정 오류', err);
           });
+
+        
+          this.props.dispatch(setName(user.nickname))
+              
+            firebase.database().ref("users")
+            .child(firebase.auth().currentUser.uid)
+            .update({ name: user.nickname })
+           
+          firebase.auth().currentUser
+          .updateProfile({displayName: user.nickname }).then(
+    
+          )
+
         }
-        
-        
+     
       }
   
 
@@ -137,8 +187,7 @@ render(){
     const { coNameError } = this.state;
     const { coPhoneError } = this.state;
     const { coPassLenError } = this.state;
-    const { coEmailError  } = this.state;
-    
+  
     return(
       
     <Div
@@ -173,7 +222,7 @@ render(){
                         />
                     }
                 >
-          모든 작성란을 입력해주세요        
+          작성란을 입력해주세요        
           </Notification>
 
           <Notification
@@ -240,22 +289,6 @@ render(){
           비밀번호는 6자 이상으로 입력해주세요     
           </Notification>
 
-          <Notification
-              bg="info700"
-              isOpen={coEmailError }
-              onClose={() => this.setState({ coEmailError : false })}
-                    prefix={
-                        <Icon
-                            name="AlertSolid"
-                            color="white"
-                            size="18px"
-                            m={{ r: "0.5rem" }}
-                        />
-                    }
-                >
-          이메일 형식을 준수해주세요     
-          </Notification>
-
         <form>
         <Div
             flexGrow="1"
@@ -263,12 +296,13 @@ render(){
             
         >
             <Text
+                
                 m={{ t: "1rem", b: "0.5rem" }}
                 textWeight="800"
                 textSize="title"
                 fontFamily="ko"
             >
-                개인정보수정
+                회원정보수정
             </Text>
             <Div
             d="flex"
@@ -292,7 +326,52 @@ render(){
             id = "nickname"
             />    
             </Div>
+          
             <Div
+            d="flex"
+            flexDir="row"
+            m={{ b: "0.5rem" }}>
+            <Text
+                w={{ xs: "20%", sm: "5rem" }}
+                p={{ t: "0.3rem" }}
+                textSize="subheader"
+                textWeight="800"
+                textAlign="center"
+                fontFamily="ko"
+            >
+                전화번호
+             </Text>
+             <TextField type="text"
+            name="phone"
+            value={this.state.phone}
+            onChange={this.onChange}
+            id = "phone"
+            />    
+            </Div>
+           
+            <div align="center">
+            <Button
+            
+            h="2rem"
+            w="8rem"
+            bg="black"
+            rounded="circle"
+            m={{ r: "1rem" }}
+            shadow="2"
+            hoverShadow="4"
+            onClick={this.saveUser}
+            >
+            정보 수정
+        </Button>
+        <Text
+                m={{ t: "1rem", b: "0.5rem" }}
+                textWeight="800"
+                textSize="title"
+                fontFamily="ko"
+            >
+                비밀번호수정
+            </Text>
+        <Div
             d="flex"
             flexDir="row"
             m={{ b: "1rem" }}
@@ -318,7 +397,7 @@ render(){
             <Div
             d="flex"
             flexDir="row"
-            m={{ b: "1rem" }}>
+            m={{ b: "0.5rem" }}>
             <Text
                 w={{ xs: "20%", sm: "5rem" }}
                 p={{ t: "0.3rem" }}
@@ -336,61 +415,18 @@ render(){
             onChange={this.onChange}
             />    
             </Div>
-            <Div
-            d="flex"
-            flexDir="row"
-            m={{ b: "1rem" }}>
-            <Text
-                w={{ xs: "20%", sm: "5rem" }}
-                p={{ t: "0.3rem" }}
-                textSize="subheader"
-                textWeight="800"
-                textAlign="center"
-                fontFamily="ko"
-            >
-                전화번호
-             </Text>
-             <TextField type="text"
-            name="phone"
-            value={this.state.phone}
-            onChange={this.onChange}
-            id = "phone"
-            />    
-            </Div>
-            <Div
-            d="flex"
-            flexDir="row"
-            m={{ b: "1rem" }}>
-            <Text
-                w={{ xs: "20%", sm: "5rem" }}
-                p={{ t: "0.3rem" }}
-                textSize="subheader"
-                textWeight="800"
-                textAlign="center"
-                fontFamily="ko"
-            >
-                EMAIL
-             </Text>
-            <TextField type="text"
-           name="email"
-            value={this.state.email}
-            onChange={this.onChange}
-            id = "email"
-            />    
-            </Div>
-            <div align="center">
-            <Button
+        <Button
             
-            h="2.5rem"
+            h="2rem"
             w="8rem"
             bg="black"
             rounded="circle"
             m={{ r: "1rem" }}
             shadow="2"
             hoverShadow="4"
-            onClick={this.saveUser}
+            onClick={this.byunPass}
             >
-            정보 수정
+            비밀번호변경
         </Button>
         </div>
         
@@ -401,6 +437,4 @@ render(){
 }
 }
 
-
-
-export default ProfileDetail2;
+export default connect()(ProfileDetail2);
