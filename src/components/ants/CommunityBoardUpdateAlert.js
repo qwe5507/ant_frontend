@@ -13,13 +13,23 @@ function CommunityBoardUpdateAlert(props){
     
 
       function commentinsert(boardModalClose,title,content,boarddata){
-        
+        var tempcontent1 = content.replace("&nbsp","")
+        // var tempcontent2 = tempcontent1.replace("&nbsp;","")
+        // var tempcontent = tempcontent2.replace("/g","")
+        // var tempcontent2 = tempcontent1.replace(/\s/gi,"");//공백제거 
+        var tempcontent3 = tempcontent1.replace(/&nbsp;/gi,"");//공백제거 
+        var tempcontent = tempcontent3.replace(";","");// 
+        var result = tempcontent.split(/<[^<>]*>/);
+        console.log(result)
+        var search_content = result.join(" ")
+
           let Boarddata = {
             board_id : updateboardid,
             board_title : title,
             board_content : content,
             board_LikeNum : boarddata.board_LikeNum,
-            board_viewnum : boarddata.board_viewnum
+            board_viewnum : boarddata.board_viewnum,
+            board_search_content : title+" "+search_content
           }
           BoardApiService.editBoard(Boarddata)
           .then(res => {

@@ -169,6 +169,7 @@ function App() {
           <Route exact path="/Community" component={Community} />
           <Route exact path="/Community/:boardid" component={Community} />
           <Route exact path="/Community/update/:updateboardid" component={Community} />
+          <Route exact path="/Community/search/:searchkeyword" component={Community} />
           <Route exact path="/IndicatorDetailExeFor/:symbol" component={IndicatorDetailExeFor} />
           <Route exact path="/IndicatorDetail" component={IndicatorDetail} />
           <Route exact path="/IndicatorDetail1/:tableName" component={IndicatorDetail1} />
