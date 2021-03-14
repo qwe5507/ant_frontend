@@ -1,6 +1,6 @@
 import PropTypes from "prop-types"
 import React, { useState, useEffect } from "react"
-import { Div, Image, Container, Button, Anchor, scrollTo, Icon, Text, Radiobox, Label, Switch, Row, Col, logoSketch, logoReact, Input, Notification } from "atomize"
+import { Div, Image, Container, Button, Anchor, scrollTo, Icon, Text, Radiobox, Label, Switch, Row, Col, logoSketch, logoReact,Dropdown, Input, Notification } from "atomize"
 import logo from "../../images/logo.svg"
 import producthunt from "../../images/logo-producthunt.svg"
 import { Link, Route, useHistory, useParams } from 'react-router-dom';
@@ -9,7 +9,7 @@ import BoardApiService from "../../api/BoardApi";
 import CommentApiService from "../../api/CommentApi";
 import UserApiService from "../../api/UserApi";
 import { useDispatch, useSelector } from 'react-redux';
-import { setLikedComments, setLikedBoards } from '../../redux/actions/user_action';
+import { setLikedComments, setLikedBoards ,setSavedBoards} from '../../redux/actions/user_action';
 import Communitydeclare from './Communitydeclare';
 import CommunityCommentInsert from './CommunityCommentInsert';
 import CommunityBoardDelete from './CommunityBoardDelete';
@@ -37,6 +37,8 @@ function CommunityBoard() {
     let [게시판삭제실패,게시판삭제실패변경] = useState(false);
     let [commentdeleteModal,commentdeleteModal변경] = useState(false);
     let [showLoginRequireModal,showLoginRequireModal변경] = useState(false);
+    let [notdeclare,notdeclare변경] = useState(false);
+    let [savedboard, savedboardChange] = useState([]);
 
     let alerttext = ['빈 글자는 등록할수 없습니다.', '댓글이 등록되었습니다.', '해당 글은 신고 접수되어 삭제할 수 없습니다. 관리자에게 문의하세요.','삭제 할 수없습니다. 관리자에게 문의하세요.']
     console.log('게시판로딩')
@@ -51,6 +53,7 @@ function CommunityBoard() {
     let { boardid } = useParams();
     const LikedCommentsList = useSelector(state => state.user.likedComments);
     const userlikedboardtemp = useSelector(state => state.user.likedBaords);
+    const savedboardtemp = useSelector(state => state.user.savedBoards);
 
     function likedClick(board) {
         // 눌려져있을떄  
@@ -257,9 +260,49 @@ function CommunityBoard() {
         신고할데이터변경(data)
         showModal변경(true)
     }
-    useEffect(() => {
-
-    },[]);
+  // 아래코드 있으니 새로고침 해도 저장한글이 표시됨.
+        useEffect(() => {
+                savedboardChange(savedboardtemp);
+                console.log('22')
+                // console.log(props.saved);
+        });
+        function savedClick(savetruefalse, board) {
+            if (savetruefalse) { // 저장 되있을때 클릭
+              var result = window.confirm("저장한 게시물을 취소 하시겠습니까?");
+              if (result) {
+                let UserSavedBoard = {
+                  board_id: board['board_id'],
+                  userid: loginid
+                }
+                BoardApiService.deleteSaveddUserBoard(UserSavedBoard);
+                let templist = [...savedboard]
+                console.log(templist);
+                console.log(String(board['board_id']));
+                templist.splice(templist.indexOf(String(board['board_id'])), 1);
+                console.log(templist);
+                var data = { savedBoards: templist };
+                dispatch(setSavedBoards(data));
+                console.log('Comm.js dispatch');
+              }
+            } else { // 저장 안되있을때 
+              // savedchange(!saved);
+              var result = window.confirm("해당 게시물을 저장 하시겠습니까?");
+              if (result) {
+                console.log(board);
+                let UserSavedBoard = {
+                  board_id: board['board_id'],
+                  userid: loginid
+                }
+                BoardApiService.addSaveddUserBoard(UserSavedBoard);
+                let templist = [...savedboard]
+                templist.push(String(board['board_id']));
+                var data = { savedBoards: templist };
+                dispatch(setSavedBoards(data));
+                console.log('Comm.js dispatch');
+              }
+            }
+        
+          }
     return (
         <>
             <Div
@@ -327,19 +370,22 @@ function CommunityBoard() {
                         <Div
                             // align=""
                             // h="19rem"
-                            w="15rem"
+                            // w="15rem"
                             justify="space-around"
                             // bg="black"
                             // rounded="md"
-                            // border="1px solid"
-                            // borderColor="gray200"
                             // pos= "absolute"
-                            pos={{ xs: "absolute", md: "static" }}
+                            pos={{ xs: "static", md: "static" }}
                             // bottom = "340px"
                             // bottom = "22rem"
                             m="3px"
-
+                            // border="1px solid"
+                            // borderColor="gray200"
                         >
+                         <Div d="flex"  justify="space-between" 
+                        //    border="1px solid"
+                        //    borderColor="gray200"
+                         >
                             <Div d="flex" align="center">
                                 <Icon
                                     transition
@@ -397,7 +443,28 @@ function CommunityBoard() {
                                     {commentlist.length}
                                 </Text>
                             </Div>
-
+                            <Div>
+                            <Icon name="Bookmark" size="20px"
+                                  cursor="pointer"
+                                  onClick={loginid ?() => savedClick(savedboard.includes(String(board['board_id'])), board):() =>  {showLoginRequireModal변경(true)}}
+                                  color={savedboard.includes(String(board['board_id'])) ? "danger700" : "black"}
+                                // color = "black"
+                                />
+                               { board.userid == loginid ?
+                             null : declareboardlist.includes(board.board_id) ?
+                             <Icon name="InfoSolid" size="20px"
+                             cursor="pointer"
+                             m={{ l : "0.7rem", r: "0.7rem" }}
+                             // onClick={loginid ? () => 신고하기클릭(datas):() =>  {showLoginRequireModal변경(true)}}
+                             onClick={() => notdeclare변경(true)}
+                             /> :
+                             <Icon name="Options" size="20px" 
+                             m={{ l : "0.7rem", r: "0.7rem" }}
+                             onClick = {loginid ? () => {신고하기클릭(board)} : () =>  {showLoginRequireModal변경(true)}}
+                              />     
+                               }
+                          </Div>
+                            </Div>
                         </Div>
 
                     </Div>
@@ -743,9 +810,9 @@ function CommunityBoard() {
                                                 onClick={() => commentdelete(datas)}
                                             /> : declarecommentlist.includes(datas.comment_id) ?
                                             <Icon name="InfoSolid" size="20px"
-                                            cursor="not-allowed"
+                                            cursor="pointer"
                                             // onClick={loginid ? () => 신고하기클릭(datas):() =>  {showLoginRequireModal변경(true)}}
-                                            // onClick={() => commentdeclare(data)}
+                                            onClick={() => notdeclare변경(true)}
                                             />
                                             :
                                             <Icon name="Info" size="20px"
@@ -765,6 +832,7 @@ function CommunityBoard() {
                         {/* 댓글 끝 */}
 
                         <Communitydeclare
+                            boarddata = {신고할데이터}
                             commentdata={신고할데이터}
                             isOpen={showModal}
                             successDardChange={successDark변경}
@@ -785,6 +853,22 @@ function CommunityBoard() {
                             }
                         >
                             신고가 접수되었습니다.
+                                </Notification>
+                                <Notification
+                            m={{ t: "5rem" }}
+                            bg="warning700"
+                            isOpen={notdeclare}
+                            onClose={() => notdeclare변경(false)}
+                            prefix={
+                                <Icon
+                                    name="Success"
+                                    color="white"
+                                    size="18px"
+                                    m={{ r: "0.5rem" }}
+                                />
+                            }
+                        >
+                            이미 신고 글입니다.
                                 </Notification>
                     </Div>
 
