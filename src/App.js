@@ -120,7 +120,6 @@ function App() {
         // 신고한 데이터리스트 가져오기 
         DeclareApiService.fetchDeclaredByID(user_id)
         .then(res => {
-          console.log("시발대체왜")
           console.log(res.data)
           let tempcommentlist = [];
           let tempboardlist = [];
