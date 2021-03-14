@@ -5,6 +5,7 @@ import DeclareApiService from "../../api/DeclareApi";
 import CommentApiService from "../../api/CommentApi";
 import BoardApiService from "../../api/BoardApi";
 import { Link, Route, useHistory, useParams } from 'react-router-dom';
+import axios from 'axios';
 
 function CommunityBoardDelete(props){ 
     const loginid = useSelector(state => state.user.userid);
@@ -16,6 +17,18 @@ function CommunityBoardDelete(props){
           .then(res => {
             console.log("게시판 삭제 성공")
             
+            var deldata = {
+              "query": {
+                 "match": { "board_id": props.boardid }
+              }
+            }
+            axios.post("boards/_doc/_delete_by_query" ,deldata)
+            .then(res => {
+              console.log("search 데이터 삭제 성공")
+            })
+            .catch(err => {
+              console.log('***** search 데이터 삭제 error:', err);
+            }); 
             history.push('/Community');
             
           })
