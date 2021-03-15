@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react';
+
 import React, {Component, useState} from 'react';
 import IndApi from "../../../api/IndApi";
 import Table from '@material-ui/core/Table'
@@ -45,13 +45,11 @@ class IndiTable3 extends Component{
 
       reloadForGoldList = () => {
         IndApi.indicators1("goldfor", 5)
-    .then(res =>{
+        .then(res =>{
           this.setState({forgolds: res.data})
-          console.log(res.data)
           })
           .catch(err => {
           console.error('지표리스트(국제금) 오류', err);
-          //alert('조회오류');
           })
   
         }
