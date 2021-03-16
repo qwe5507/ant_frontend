@@ -1,15 +1,16 @@
 import React, {useState, useEffect, useRef,  useCallback } from "react"
 import { Text, Div, Button, Container, Icon, Input, Modal } from "atomize";
-import { useParams, Link } from 'react-router-dom';
+import { useParams, useHistory, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import IndApi from "../../../../../api/IndApi";
 import AlignStartModal from "./AlignStartModal";
 import AlignStartModal2 from "./AlignStartModal2";
 
-function CommentUsdkrw2(props) {
+function CommentExe(props) {
+  let history = useHistory();
   const loginid = useSelector(state => state.user.userid);
   const loginname = useSelector(state => state.user.nickname);
-  const symbolname = "usdkrw"
+  
   let [showModal, showModalb ] = useState(false);
   let [showModala, showModalab ] = useState(false);
 
@@ -31,7 +32,7 @@ function CommentUsdkrw2(props) {
               commentlistbyun(res.data)
           })
           .catch(err => {
-              console.log('댓글 원/달러 리스트 error:', err);
+              console.log('댓글 리스트 error:', err);
     })
    
     }
@@ -44,7 +45,7 @@ function CommentUsdkrw2(props) {
           commentlistbyun(res.data)
       })
       .catch(err => {
-          console.log('댓글 원/달러 리스트 error:', err);
+          console.log('댓글 리스트 error:', err);
         });
       }
     else
@@ -100,7 +101,7 @@ function CommentUsdkrw2(props) {
       let comm = {
         userId : {loginid},
         nickName : {loginname},
-        symbolname : "usdkrw",
+        symbolname : props.tableName,
         comment_content : {comment}
       }
      
@@ -235,14 +236,14 @@ function CommentUsdkrw2(props) {
 
   <nav aria-label="Page navigation example" class="nav justify-content-center">
   <ul className="pagination" align="center">
-    <li className="page-item" align="center"><button onClick={ () => links2("usdkrw", next)}>Previous</button></li>
-    <li className="page-item" align="center"><button onClick={ () => links("usdkrw", next)}>Next</button></li>
+    <li className="page-item" align="center"><button onClick={ () => links2(props.tableName, next)}>Previous</button></li>
+    <li className="page-item" align="center"><button onClick={ () => links(props.tableName, next)}>Next</button></li>
 </ul>
 </nav>
         <AlignStartModal
           userid = {loginid}
           nickname = {loginname}
-          symbolname = "usdkrw"
+          symbolname = {props.tableName}
           content = {comment}
           isOpen={showModal}
           onClose={() =>  showModalb(false)}
@@ -255,4 +256,4 @@ function CommentUsdkrw2(props) {
 }
 
 
-export default CommentUsdkrw2;
+export default CommentExe;

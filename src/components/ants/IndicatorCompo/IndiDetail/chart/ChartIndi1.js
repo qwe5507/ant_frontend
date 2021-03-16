@@ -150,7 +150,6 @@ const ChartIndi1 = (props) => {
          })        
          .catch(err => {
          console.error('지표리스트 오류', err);
-         alert('조회오류');
          })
   
      }
