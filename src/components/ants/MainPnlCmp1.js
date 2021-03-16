@@ -1,27 +1,59 @@
 import React, { useEffect, useState } from "react"
-import { Text, Div, Image, Icon, Anchor, Button, Input, Label, Radiobox } from "atomize"
-import girl from "../../images/avatar/girl.png"
-import flagKo from "../../images/flags/ko.png"
-import flagUs from "../../images/flags/us.png"
+import { Text, Div, Label, Radiobox } from "atomize"
+import { Link } from 'react-router-dom';
+import { nanoid } from 'nanoid';
 import TestApi from "../../api/TestApi";
-
+import MainPnlIndShimmer from "./MainPnlIndShimmer";
+import MainPnlIndCard2 from './MainPnlIndCard2';
 function MainPnlCmp1(){
 
     let [sortStocks, sortStocksChange] = useState("상승순");
     let [stocksData, stocksDataChange] = useState();
 
     useEffect(() => {
-        TestApi.stockRank(sortStocks)
-        .then(res =>{
-            console.log("으잉? axios도달안하냐!!",res.data)
-            
-            
-            stocksDataChange(res.data);
+        // TestApi.stockRank(sortStocks)
+        // .then(res =>{
+        //     console.log("으잉? axios도달안하냐!!",res.data)
+        //     var temp = res.data;
+        //     var tempData = [];
 
-        })
-        .catch(error =>{
-            console.log(error);
-        })
+        //     for (var i = 0; i < temp.length; i++) {
+    
+        //       var dataSet = {
+        //         datasets: [
+        //           {
+        //             datasetStrokeWidth: 10,
+        //             type: "line",
+        //             borderCapStyle: "round",
+        //             borderColor: temp[i]['change'] > 0 ? "rgba(244, 84, 29, 1)" : "rgba(2, 132, 254, 1)",
+        //             borderWidth: 3,
+        //             backgroundColor: temp[i]['change'] > 0 ? "rgba(251, 207, 208, 1)" : "rgba(179, 218, 255, 1)",
+        //             pointHoverRadius: 0,
+        //             pointDot: false,
+        //             pointRadius: 0,
+        //             pointDotRadius: 0,
+        //           }
+        //         ]
+        //       }
+    
+    
+        //       var wholeData = {
+        //         code: temp[i]['code'],
+        //         name: temp[i]['name'],
+        //         price: temp[i]['price'],
+        //         change: temp[i]['change'],
+        //         dataSet: dataSet
+        //       }
+        //       tempData.push(wholeData);
+        //       console.log(tempData)
+        //     }
+        //     stocksDataChange(tempData);
+            
+          
+        // })
+        // .catch(error =>{
+        //     console.log(error);
+        // })
     }, [sortStocks]);
 
     return(
@@ -147,57 +179,37 @@ function MainPnlCmp1(){
                         +3.50%
                     </Text>
                 </Div>
+            
             </Div> */}
-            { stocksData && stocksData.map(function(data){
-                   return(
-                   <Div
-                    p="1rem"
-                    bg="white"
-                    shadow="2"
-                    rounded="xl"
-                    m={{ b: "0.5rem"}}
-                >
-                    <Div
-                        d="flex"
-                        align="center"
-                        justify="space-between"
-                        pos="relative"
-                        flexDir="row"
-                    >
-                        <Image
-                            src={flagKo}
-                            rounded="circle"
-                            h="1.5rem"
-                            w="1.5rem"
-                        />
-                        <Text
-                            textWeight="800"
-                            fontFamily="ko"
-                        >
-                            {data.name}
-                        </Text>
-                        <Text
-                            textWeight="800"
-                            fontFamily="ko"
-                        >
-                             {data.price}
-                        </Text>
-                        <Text
-                            textWeight="800"
-                            fontFamily="ko"
-                            bg="danger700"
-                            rounded="circle"
-                            textColor="success100"
-                            p={{ l:"0.3rem", r:"0.3rem", b:"0.1rem" }}
-                        >
-                             {data.change}
-                        </Text>
+            {stocksData ? 
+            "":
+            <Div>
+            <MainPnlIndShimmer />
+            <MainPnlIndShimmer />
+            <MainPnlIndShimmer />
+            <MainPnlIndShimmer />
+            </Div>
+            }
+            
+            {stocksData && stocksData.map((a,i) =>{
+                return(
+                    <Div>
+                        <MainPnlIndCard2 key={nanoid()} stocksData={a}/>
                     </Div>
-                </Div>
                 )
-            })}
-      
 
+            })}
+
+                <Link to="/StocksList">
+                    <Text
+                        textWeight="800"
+                        textSize="subheader"
+                        fontFamily="ko"
+                        m={{ t:"1.8rem" }}
+                    >
+                        종목 더보기 →
+                </Text>
+                </Link>
         </Div>
         </Div>
     )
