@@ -3,25 +3,75 @@ import React, { useEffect, useState } from "react";
 import { Button, Container, Text, Div, Icon, Input, Anchor } from "atomize";
 
 import { Line } from 'react-chartjs-2';
+import DataTable from 'react-data-table-component';
 
 function BacktestResult(props) {
 
     let [chartData, chartDataChange] = useState([]);
     let [profit, profitChange] = useState();
+    let [win, winChange] = useState();
+    let [tdList, tdListChange] = useState();
+
+    const columns = [
+        {
+            name: '종목코드',
+            selector: 'code',
+            sortable: true
+        },
+        {
+            name: '진입일',
+            selector: 'in',
+            sortable: true
+        },
+        {
+            name: '청산일',
+            selector: 'out',
+            sortable: true
+        },
+        {
+            name: '손익률',
+            selector: 'profit',
+            sortable: true
+        },
+    ]
 
     useEffect(() => {
 
         var len = Object.keys(props.result).length;
 
-        var dataArr = [];
-        
+        // result 구조 : [ ... 차트 데이터, 전체승률, 매매내역]
+        var tradeList = JSON.parse(props.result[len - 1]);
+        var winratio = JSON.parse(props.result[len - 2]);
+
+        winChange(winratio.winratio[0]);
+        // console.log('==3== 매매내역', tradeList);
+
+        var filteredTradeList = [];
+        for (var key in tradeList) {
+            for (var item in tradeList[key]) {
+                if (tradeList[key][item] != null) {
+                    // console.log(key,':',item,':',tradeList[key][item]);
+                    var temp = new Object();
+                    temp.period = key;
+                    temp.code = tradeList[key][item]['종목코드'];
+                    temp.in = tradeList[key][item]['진입일'];
+                    temp.out = tradeList[key][item]['청산일'];
+                    temp.profit = tradeList[key][item]['손익률'];
+                    filteredTradeList.push(temp);
+                }
+            }
+        }
+
+        // console.log('체크체크==', filteredTradeList);
+        tdListChange(filteredTradeList);
+
         // 전체 기간 결과 차트 데이터
-        var chart = JSON.parse(props.result[len - 2]);
+        var chart = JSON.parse(props.result[len - 3]);
 
         var labels = Object.keys(chart['mean']);
         var data = Object.values(chart['mean']);
 
-        profitChange(data[data.length-1]);
+        profitChange(parseFloat(data[data.length - 1]).toFixed(2));
 
         for (var j = 0; j < labels.length; j++) {
             labels[j] = labels[j].substring(0, 10)
@@ -49,48 +99,6 @@ function BacktestResult(props) {
         }
 
         chartDataChange(dataSet);
-
-        // 전체 기간 결과 매매내역
-        var record = JSON.parse(props.result[len - 1]);
-        console.log('==3== 매매내역', record);
-
-        // for (var i = 0; i < len; i++) {
-        //     const temp = JSON.parse(props.result[i]);
-
-        //     console.log('==2==결과', temp);
-
-        // var labels = Object.keys(temp['mean']);
-        // var data = Object.values(temp['mean']);
-
-        // for (var j = 0; j < labels.length; j++) {
-        //     labels[j] = labels[j].substring(0, 10)
-        // }
-
-        // var dataSet = {
-        //     labels: labels,
-        //     datasets: [
-        //         {
-        //             datasetStrokeWidth: 10,
-        //             type: "line",
-        //             borderCapStyle: "round",
-        //             borderColor: "rgba(2, 132, 254, 1)",
-        //             borderWidth: 3,
-        //             backgroundColor: "rgba(179, 218, 255, 1)",
-        //             pointBackgroundColor: "rgba(179, 218, 255, 0.1)",
-        //             pointHoverRadius: 0,
-        //             pointDot: false,
-        //             pointRadius: 0,
-        //             pointDotRadius: 0,
-        //             pointHoverBackgroundColor: "rgba(171, 242, 0, 0.2)",
-        //             data: data
-        //         }
-        //     ]
-        // }
-
-        // dataArr.push(dataSet);
-        // }
-
-        // chartDataChange(dataArr);
 
     }, []);
 
@@ -133,6 +141,8 @@ function BacktestResult(props) {
                     >
                         백테스트 결과
                     </Text>
+
+                    {/* 결과 요약 */}
                     <Div
                         p="1rem"
                         bg="white"
@@ -177,14 +187,21 @@ function BacktestResult(props) {
                             textSize="subheader"
                             fontFamily="ko"
                         >
+                            승률: {win}%
+                        </Text>
+                        <Text
+                            m={{ t: "1rem", b: "0.5rem" }}
+                            textAlign="left"
+                            textWeight="800"
+                            textSize="subheader"
+                            fontFamily="ko"
+                        >
                             MDD: 00%
                         </Text>
 
-                    </Div>
+                    </Div> {/* 결과 요약 종료 */}
 
-
-                    {/* {chartData.map((a, i) => { */}
-                    {/* return ( */}
+                    {/* 수익률(%) 그래프 */}
                     <Div
                         p="1rem"
                         bg="white"
@@ -193,7 +210,7 @@ function BacktestResult(props) {
                         borderColor="gray200"
                         rounded="xl"
                         w={{ xs: "100%", sm: "100%" }}
-                        m={{ b: "0.5rem" }}
+                        m={{ b: "1rem" }}
                     >
                         <Text
                             m={{ t: "1rem", b: "0.5rem" }}
@@ -250,9 +267,61 @@ function BacktestResult(props) {
                                 }
                             }}
                         />
+                    </Div> {/* 수익률(%) 그래프 */}
+
+                    {/* 매매내역 */}
+                    <Div
+                        p="1rem"
+                        bg="white"
+                        shadow="2"
+                        border="1px solid"
+                        borderColor="gray200"
+                        rounded="xl"
+                        w={{ xs: "100%", sm: "100%" }}
+                        m={{ b: "0.5rem" }}
+                    >
+                        <Text
+                            m={{ t: "1rem", b: "0.5rem" }}
+                            textAlign="left"
+                            textWeight="800"
+                            textSize="subheader"
+                            fontFamily="ko"
+                        >
+                            [ 매매내역 ]
+                        </Text>
+                        {tdList
+                            ?
+                            <DataTable
+                                columns={columns}
+                                data={tdList}
+                            />
+                            :
+                            ""
+                        }
+                    </Div> {/* 매매내역 종료 */}
+
+                    {/* 저장하기 */}
+                    <Div
+                        d="flex"
+                        justify="center"
+                    >
+                        <Button
+                            h="3rem"
+                            w={{ xs: "50%", sm: "11rem" }}
+                            bg="info700"
+                            hoverBg="info600"
+                            rounded="lg"
+                        >
+                            <Text
+                                textSize="subheader"
+                                textWeight="800"
+                                fontFamily='ko'
+                            >
+                                저장하기
+                            </Text>
+                        </Button>
                     </Div>
-                    {/* ) */}
-                    {/* })} */}
+
                 </Div>
 
             </Div>

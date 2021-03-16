@@ -726,7 +726,7 @@ function BacktestCondition() {
                                 textWeight="800"
                                 fontFamily='ko'
                             >백테스트
-                        </Text>
+                            </Text>
                         </Button>
                     </Container>
                     : ""} {/* 끝 : 선택 조건 보여주기 */}
