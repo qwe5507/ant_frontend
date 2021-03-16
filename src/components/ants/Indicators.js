@@ -1,4 +1,4 @@
-import React, {useState}  from "react"
+import React, {useState,  useEffect}  from "react"
 import { Text, Div, Link, Button, Input, Container, Row, footerLinks, Col,  mediaLinks } from "atomize";
 import IndicatorForm1 from "./IndicatorCompo/IndicatorForm1"
 import IndicatorForm2 from "./IndicatorCompo/IndicatorForm2"
@@ -18,6 +18,11 @@ function Indicators() {
   let [indi5, indiShow5 ] = useState(false);
 
     console.log('IndiPage Start')
+
+    useEffect(() => {
+      window.scrollTo(0, 0)
+     }, []);
+
     return (     
       
       
