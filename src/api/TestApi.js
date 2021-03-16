@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const TEST_API_BASE_URL = "http://15.165.161.92:8000/main";
+// const TEST_API_BASE_URL = "http://15.165.161.92:8000/main";
+const TEST_API_BASE_URL = "http://localhost:8000/main";
 
 class TestApi {
 

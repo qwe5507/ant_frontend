@@ -1,18 +1,18 @@
 import axios from 'axios';
 
-const USER_API_BASE_URL = "http://15.165.161.92:8000/indicator";
-const USER_API_BASE_URL_FORIGN = "http://15.165.161.92:8000/indicator/exeForeign";
-const USER_API_BASE_URL_KOR = "http://15.165.161.92:8000/indicator/exeKorList";
-const USER_API_BASE_URL_ONE_EURUSD = "http://15.165.161.92:8000/indicator/labelDalOneList";
-const USER_API_BASE_URL_CHART_EURUSD = "http://15.165.161.92:8000/indicator/labelDalAllList";
-const USER_API_BASE_URL_CHART = "http://15.165.161.92:8000/indicator/chart";
-const USER_API_BASE_URL_INDI1 = "http://15.165.161.92:8000/indicator/indi1";
-const USER_API_BASE_URL_INDI2 = "http://15.165.161.92:8000/indicator/indi2";
-const USER_API_BASE_URL_CORRABS = "http://15.165.161.92:8000/indicator/corrAbs";
-const TEST_API_BASE_URL_DJANGO = "http://15.165.161.92:7000/api";
-const INDI_API_COMMENT= "http://15.165.161.92:8000/indicator/input";
-const INDI_API_COMMENT_LIST= "http://15.165.161.92:8000/indicator/comList";
-const INDI_API_COMMENT_LIST2= "http://15.165.161.92:8000/indicator/comList2";
+const USER_API_BASE_URL = "http://localhost:8000/indicator";
+const USER_API_BASE_URL_FORIGN = "http://localhost:8000/indicator/exeForeign";
+const USER_API_BASE_URL_KOR = "http://localhost:8000/indicator/exeKorList";
+const USER_API_BASE_URL_ONE_EURUSD = "http://localhost:8000/indicator/labelDalOneList";
+const USER_API_BASE_URL_CHART_EURUSD = "http://localhost:8000/indicator/labelDalAllList";
+const USER_API_BASE_URL_CHART = "http://localhost:8000/indicator/chart";
+const USER_API_BASE_URL_INDI1 = "http://localhost:8000/indicator/indi1";
+const USER_API_BASE_URL_INDI2 = "http://localhost:8000/indicator/indi2";
+const USER_API_BASE_URL_CORRABS = "http://localhost:8000/indicator/corrAbs";
+const TEST_API_BASE_URL_DJANGO = "http://localhost:7000/api";
+const INDI_API_COMMENT= "http://localhost:8000/indicator/input";
+const INDI_API_COMMENT_LIST= "http://localhost:8000/indicator/comList";
+const INDI_API_COMMENT_LIST2= "http://localhost:8000/indicator/comList2";
 
 
 class IndApiService {

@@ -8,8 +8,6 @@ function SearchShimmer() {
     
     return (
         <Div
-            // border="1px solid"
-            // borderColor="gray200"
             w={{ xs: "100%", md: "60rem" }}
             m={{ b: { xs: "1rem", md: "1rem" } }}
             maxW="100%"
@@ -22,7 +20,6 @@ function SearchShimmer() {
                 t: "1rem",
             }}
             bg="white"
-            shadow="2"
             rounded="xl"
             d="flex"
             hoverBg="info200"
