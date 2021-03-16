@@ -11,49 +11,48 @@ function MainPnlCmp1(){
     let [stocksData, stocksDataChange] = useState();
 
     useEffect(() => {
-        // TestApi.stockRank(sortStocks)
-        // .then(res =>{
-        //     console.log("으잉? axios도달안하냐!!",res.data)
-        //     var temp = res.data;
-        //     var tempData = [];
+        TestApi.stockRank(sortStocks)
+        .then(res =>{
+            var temp = res.data;
+            var tempData = [];
 
-        //     for (var i = 0; i < temp.length; i++) {
+            for (var i = 0; i < temp.length; i++) {
     
-        //       var dataSet = {
-        //         datasets: [
-        //           {
-        //             datasetStrokeWidth: 10,
-        //             type: "line",
-        //             borderCapStyle: "round",
-        //             borderColor: temp[i]['change'] > 0 ? "rgba(244, 84, 29, 1)" : "rgba(2, 132, 254, 1)",
-        //             borderWidth: 3,
-        //             backgroundColor: temp[i]['change'] > 0 ? "rgba(251, 207, 208, 1)" : "rgba(179, 218, 255, 1)",
-        //             pointHoverRadius: 0,
-        //             pointDot: false,
-        //             pointRadius: 0,
-        //             pointDotRadius: 0,
-        //           }
-        //         ]
-        //       }
+              var dataSet = {
+                datasets: [
+                  {
+                    datasetStrokeWidth: 10,
+                    type: "line",
+                    borderCapStyle: "round",
+                    borderColor: temp[i]['change'] > 0 ? "rgba(244, 84, 29, 1)" : "rgba(2, 132, 254, 1)",
+                    borderWidth: 3,
+                    backgroundColor: temp[i]['change'] > 0 ? "rgba(251, 207, 208, 1)" : "rgba(179, 218, 255, 1)",
+                    pointHoverRadius: 0,
+                    pointDot: false,
+                    pointRadius: 0,
+                    pointDotRadius: 0,
+                  }
+                ]
+              }
     
     
-        //       var wholeData = {
-        //         code: temp[i]['code'],
-        //         name: temp[i]['name'],
-        //         price: temp[i]['price'],
-        //         change: temp[i]['change'],
-        //         dataSet: dataSet
-        //       }
-        //       tempData.push(wholeData);
-        //       console.log(tempData)
-        //     }
-        //     stocksDataChange(tempData);
+              var wholeData = {
+                code: temp[i]['code'],
+                name: temp[i]['name'],
+                price: temp[i]['price'],
+                change: temp[i]['change'],
+                dataSet: dataSet
+              }
+              tempData.push(wholeData);
+              console.log(tempData)
+            }
+            stocksDataChange(tempData);
             
           
-        // })
-        // .catch(error =>{
-        //     console.log(error);
-        // })
+        })
+        .catch(error =>{
+            console.log(error);
+        })
     }, [sortStocks]);
 
     return(
