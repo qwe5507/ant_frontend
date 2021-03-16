@@ -29,7 +29,7 @@ function BacktestResult(props) {
             sortable: true
         },
         {
-            name: '손익률',
+            name: '수익률 %',
             selector: 'profit',
             sortable: true
         },
@@ -56,7 +56,7 @@ function BacktestResult(props) {
                     temp.code = tradeList[key][item]['종목코드'];
                     temp.in = tradeList[key][item]['진입일'];
                     temp.out = tradeList[key][item]['청산일'];
-                    temp.profit = tradeList[key][item]['손익률'];
+                    temp.profit = parseFloat(tradeList[key][item]['손익률'].toFixed(2));
                     filteredTradeList.push(temp);
                 }
             }

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const USER_API_BASE_URL = "http://localhost:8000/news";
+const USER_API_BASE_URL = "http://15.165.161.92:8000/news";
 
 class NewsApi {
 
