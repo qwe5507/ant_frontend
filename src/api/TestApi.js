@@ -12,6 +12,10 @@ class TestApi {
         return axios.get(TEST_API_BASE_URL + '/' + tableName);
     }
 
+    stockRank(sortStocks){
+        return axios.get(TEST_API_BASE_URL + '/stockRank/' + sortStocks);
+    }
+
 }
 
 export default new TestApi();
