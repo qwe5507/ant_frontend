@@ -10,6 +10,10 @@ const USER_API_BASE_URL_INDI1 = "http://localhost:8000/indicator/indi1";
 const USER_API_BASE_URL_INDI2 = "http://localhost:8000/indicator/indi2";
 const USER_API_BASE_URL_CORRABS = "http://localhost:8000/indicator/corrAbs";
 const TEST_API_BASE_URL_DJANGO = "http://localhost:7000/api";
+const INDI_API_COMMENT= "http://localhost:8000/indicator/input";
+const INDI_API_COMMENT_LIST= "http://localhost:8000/indicator/comList";
+const INDI_API_COMMENT_LIST2= "http://localhost:8000/indicator/comList2";
+
 
 class IndApiService {
 
@@ -81,6 +85,24 @@ class IndApiService {
        
         return axios.post(TEST_API_BASE_URL_DJANGO+ "/corr2", co);
     }
+
+    //댓글-(input)
+    insertIndicator(comm) {
+        return axios.post(INDI_API_COMMENT, comm);
+    }
+
+   // 댓글(리스트)
+    firstCommentsByIndID(symbolname) {
+        return axios.get(INDI_API_COMMENT_LIST  + '/' + symbolname);
+   }
+
+   // 댓글(리스트)
+   fetchCommentsByIndID(symbolname, num) {
+    return axios.get(INDI_API_COMMENT_LIST2  + '/' + symbolname + '/' + num);
+}
+
+
+//const INDI_API_COMMENT_LIST= "http://localhost:8000/indicator/comList";
     //차트라벨_EURUSD
     //labelDalAllList() {
     //    return axios.get(USER_API_BASE_URL_LABEL_EURUSD);

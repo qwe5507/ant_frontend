@@ -1,7 +1,9 @@
 import React, {useState, useEffect, useRef } from "react"
-import { Text, Div, Button, Container, Icon } from "atomize";
+import { Text, Div, Button, Container, Icon,Modal } from "atomize";
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import ChartKor from "../chart/ChartKor"
+import CommentUsdkrw from "./CommentUsdkrw"
 import CorrKor from "../chart/CorrKor"
 import IndApi from "../../../../../api/IndApi";
 import Table from '@material-ui/core/Table'
@@ -12,7 +14,7 @@ import TableRow from '@material-ui/core/TableRow'
 import axios from "axios";
 
 function IndicatorDetail() {
-    
+
     let [result, resultbyun] = useState("");
     let [hits, hitsbyun] = useState([]); 
 
@@ -23,10 +25,10 @@ function IndicatorDetail() {
     let [chart1, chartShow1 ] = useState(true);
     let [chart2, chartShow2 ] = useState(false);
     let [chart3, chartShow3 ] = useState(false);
-    const usdKrwContainer = useRef(null);
-    
+
+   
     function moveHref(url){
-      console.log("moveHref호출")
+
      window.open(url)
     }
 
@@ -56,8 +58,9 @@ function IndicatorDetail() {
       })
     }
 
+
     useEffect(() => {
-      window.scrollTo(0, 0)
+     window.scrollTo(0, 0)
       IndApi.chartIndi(1)
       .then(res =>{
         numsbyun(res.data[0]["price"])
@@ -71,8 +74,10 @@ function IndicatorDetail() {
         })
         searchmatchparse()
         corrAbs()
+      
      }, []);
 
+     
     
     return (     
       
@@ -320,8 +325,11 @@ function IndicatorDetail() {
            </Div>
        </Div>
     </Div>
+
     </Div>
+    
 )})}
+    <CommentUsdkrw/>
       </div> 
     )
 }

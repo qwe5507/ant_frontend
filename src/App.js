@@ -12,10 +12,15 @@ import Login from "./components/ants/Login/Login";
 import Register from "./components/ants/Login/Register";
 import Indicators from "./components/ants/Indicators";
 import Backtest from "./components/ants/Backtest";
+import Backtest2 from "./components/ants/back/Backtest2";
+import Backtest3 from "./components/ants/back/Backtest3";
 import IndicatorDetail from "./components/ants/IndicatorCompo/IndiDetail/pages/IndicatorDetail";
 import IndicatorDetail1 from "./components/ants/IndicatorCompo/IndiDetail/pages/IndicatorDetail1";
 import IndicatorDetail2 from "./components/ants/IndicatorCompo/IndiDetail/pages/IndicatorDetail2";
 import IndicatorDetailExeFor from "./components/ants/IndicatorCompo/IndiDetail/pages/IndicatorDetailExeFor";
+import CommentUsdkrw2 from "./components/ants/IndicatorCompo/IndiDetail/pages/CommentUsdkrw2";
+
+
 import Payment from "./components/ants/Payment";
 import PaymentSub from "./components/ants/PaymentSub";
 import PaymentFirst from "./components/ants/PaymentFirst";
@@ -166,6 +171,8 @@ function App() {
           <Route exact path="/Register" component={Register} />
           <Route exact path="/Indicators" component={Indicators} />
           <Route exact path="/Backtest" component={Backtest} />
+          <Route exact path="/Backtest2" component={Backtest2} />
+          <Route exact path="/Backtest3" component={Backtest3} />
           <Route exact path="/Community" component={Community} />
           <Route exact path="/Community/:boardid" component={Community} />
           <Route exact path="/Community/update/:updateboardid" component={Community} />
@@ -174,6 +181,7 @@ function App() {
           <Route exact path="/IndicatorDetail" component={IndicatorDetail} />
           <Route exact path="/IndicatorDetail1/:tableName" component={IndicatorDetail1} />
           <Route exact path="/IndicatorDetail2/:tableName" component={IndicatorDetail2} />
+          <Route exact path="/CommentUsdkrw2/:tableName/:num" component={CommentUsdkrw2} />
           <Route exact path="/PaymentFirst" component={PaymentFirst} />
           <Route exact path="/Payment" component={Payment} />
           <Route exact path="/PaymentSub" component={PaymentSub} />
