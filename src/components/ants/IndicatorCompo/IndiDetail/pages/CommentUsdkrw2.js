@@ -4,9 +4,8 @@ import { useParams, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import IndApi from "../../../../../api/IndApi";
 import AlignStartModal from "./AlignStartModal";
-import Pagination from './Pagination';
-import { FilterCenterFocusOutlined } from "@material-ui/icons";
-function CommentUsdkrw2() {
+
+function CommentUsdkrw2(props) {
   const loginid = useSelector(state => state.user.userid);
   const loginname = useSelector(state => state.user.nickname);
   const symbolname = "usdkrw"
@@ -15,35 +14,86 @@ function CommentUsdkrw2() {
     let [comment, commentbyun] = useState("");
     let [commentlist, commentlistbyun] = useState([]);
    
-    let {tableName} = useParams();
-    
+    let {tableName} = useParams();  
     let {num} = useParams();
 
-    let [pre, prebyun] = useState(0)
+    let [next, nextbyun] = useState(2)
+    let [su, subyun] = useState(0)
 
-    const commentloading = async() => {
-      console.log('댓글로딩')
-      
-      IndApi.fetchCommentsByIndID(tableName, num)
+    const commentloading = () => {
+   
+     IndApi.fetchCommentsByIndID(props.tableName, next)
           .then(res => {
-              prebyun(num-1)
+            nextbyun(props.num)
               commentlistbyun(res.data)
-              console.log(pre)
           })
           .catch(err => {
               console.log('댓글 원/달러 리스트 error:', err);
-    });
+    })
    
     }
-
-    function links(symbol, num){
-      
-      window.location.replace(`/CommentUsdkrw2/${symbol}/${num}`)
+  
+    function links(symbol, next){
+      if (next == 0  || next == 1 || next == 2 ){
+      nextbyun(3)
+      IndApi.fetchCommentsByIndID(symbol, 3)
+      .then(res => {
+          commentlistbyun(res.data)
+      })
+      .catch(err => {
+          console.log('댓글 원/달러 리스트 error:', err);
+        });
+      }
+    else
+    {
+      console.log("초기확인1",next)
+      IndApi.fetchCommentsByIndID(symbol, next+1)
+    .then(res => {
+      if(res.data[0] != null){
+        console.log("심볼확인", symbol)
+        console.log("넘버확인", num+1)
+        commentlistbyun(res.data)
+        console.log("아자아자",commentlist)
+        nextbyun(next+1)
+      }
+    })
+    .catch(err => {
+        console.log('댓글 원/달러 리스트 error:', err);});
     }
+  }
+    
+  function links2(symbol, next){
+    if (next == 0  || next == 1 || next == 2 ){
+    nextbyun(2)
+    IndApi.fetchCommentsByIndID(symbol, 2)
+    .then(res => {
+        commentlistbyun(res.data)
+    })
+    .catch(err => {
+        console.log('댓글 원/달러 리스트 error:', err);
+      });
+    }
+  
+  else
+  {
+    
+    console.log("초기확인1",next)
+    IndApi.fetchCommentsByIndID(symbol, next-1)
+  .then(res => {
+      console.log("심볼확인", symbol)
+      console.log("넘버확인", num-1)
+      commentlistbyun(res.data)
+      console.log("아자아자",commentlist)
+      nextbyun(next-1)
+  })
+  .catch(err => {
+      console.log('댓글 원/달러 리스트 error:', err);});
+  }
+}
 
     useEffect(() => {
       commentloading()
-     
+      
      }, []);
 
     function addComment(){
@@ -54,7 +104,6 @@ function CommentUsdkrw2() {
         symbolname : "usdkrw",
         comment_content : {comment}
       }
-      
      
     }
 
@@ -164,22 +213,7 @@ function CommentUsdkrw2() {
          >
         {comment.comment_createData.substring(0,10)}
       </Text>
-      <Icon
-        transition
-        name= "Heart"
-        color= "gray"
-         size="15px"
-        cursor="pointer"
-         m={{ r: "0.4rem" }}
-        />
-        <Text
-        textAlign="left"
-        textSize="Typography"
-         textWeight="600"
-         fontFamily="secondary"
-         m={{ r: "1rem" }}
-         textColor="gray"
-        >{comment.comment_LikeNum}</Text>
+     
         <Icon name="Delete" size="20px"
       cursor="pointer"
       /> 
@@ -189,10 +223,10 @@ function CommentUsdkrw2() {
 
 ))} 
 
-<nav aria-label="Page navigation example" class="nav justify-content-center">
-<ul className="pagination" align="center">
-  <li className="page-item" align="center"><button onClick={ () => links("usdkrw", {num}-1)}>Previous</button></li>
-  <li className="page-item" align="center"><button onClick={ () => links("usdkrw", {num}+1)}>Next</button></li>
+  <nav aria-label="Page navigation example" class="nav justify-content-center">
+  <ul className="pagination" align="center">
+    <li className="page-item" align="center"><button onClick={ () => links2("usdkrw", next)}>Previous</button></li>
+    <li className="page-item" align="center"><button onClick={ () => links("usdkrw", next)}>Next</button></li>
 </ul>
 </nav>
         <AlignStartModal

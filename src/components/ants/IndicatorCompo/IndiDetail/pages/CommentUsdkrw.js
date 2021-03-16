@@ -1,11 +1,12 @@
 import React, {useState, useEffect, useRef,  useCallback } from "react"
 import { Text, Div, Button, Container, Icon, Input, Modal } from "atomize";
-import { Link } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import IndApi from "../../../../../api/IndApi";
 import AlignStartModal from "./AlignStartModal";
 
 function CommentUsdkrw() {
+  let history = useHistory();
   const loginid = useSelector(state => state.user.userid);
   const loginname = useSelector(state => state.user.nickname);
   const symbolname = "usdkrw"
@@ -15,12 +16,9 @@ function CommentUsdkrw() {
     let [commentlist, commentlistbyun] = useState([]);
    
  function commentloading() {
-      console.log('댓글로딩')
       IndApi.firstCommentsByIndID(symbolname)
           .then(res => {
-              console.log(res.data)
               commentlistbyun(res.data)
-              console.log("댓글리스트확인", commentlist)
           })
           .catch(err => {
               console.log('댓글 원/달러 리스트 error:', err);
@@ -28,7 +26,7 @@ function CommentUsdkrw() {
     }
 
   function links(){  
-      window.location.replace("/CommentUsdkrw2/usdkrw/2")
+    history.push("/CommentUsdkrw2/usdkrw/2");    
   }
 
     useEffect(() => {
@@ -58,7 +56,7 @@ function CommentUsdkrw() {
       textWeight="800"
       fontFamily="ko"
     >
-      개미토론방
+      개미's 이야기
       </Text>      
       </Container>
                  
@@ -174,7 +172,6 @@ function CommentUsdkrw() {
       </Div>
 </Div>
 </Div>
-
 
 ))} 
 
