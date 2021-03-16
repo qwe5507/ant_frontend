@@ -13,7 +13,7 @@ const TEST_API_BASE_URL_DJANGO = "http://localhost:7000/api";
 const INDI_API_COMMENT= "http://localhost:8000/indicator/input";
 const INDI_API_COMMENT_LIST= "http://localhost:8000/indicator/comList";
 const INDI_API_COMMENT_LIST2= "http://localhost:8000/indicator/comList2";
-
+const INDI_API_COMMENT_NUMLIST= "http://localhost:8000/indicator/numList";
 
 class IndApiService {
 
@@ -99,8 +99,12 @@ class IndApiService {
    // 댓글(리스트)
    fetchCommentsByIndID(symbolname, num) {
     return axios.get(INDI_API_COMMENT_LIST2  + '/' + symbolname + '/' + num);
-}
+    }
 
+    // 댓글(리스트)-숫자
+    numberCommentsByIndID(symbolname) {
+    return axios.get(INDI_API_COMMENT_NUMLIST  + '/' + symbolname );
+    }
 
 //const INDI_API_COMMENT_LIST= "http://localhost:8000/indicator/comList";
     //차트라벨_EURUSD

@@ -3,7 +3,7 @@ import { Text, Div, Button, Container, Icon,Modal } from "atomize";
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import ChartKor from "../chart/ChartKor"
-import CommentUsdkrw from "./CommentUsdkrw"
+import CommentUsdkrw2 from "./CommentUsdkrw2"
 import CorrKor from "../chart/CorrKor"
 import IndApi from "../../../../../api/IndApi";
 import Table from '@material-ui/core/Table'
@@ -329,7 +329,7 @@ function IndicatorDetail() {
     </Div>
     
 )})}
-    <CommentUsdkrw/>
+    <CommentUsdkrw2 tableName={"usdkrw"} num={2}/>
       </div> 
     )
 }
