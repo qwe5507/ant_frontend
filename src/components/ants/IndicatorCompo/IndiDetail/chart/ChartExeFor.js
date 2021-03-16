@@ -55,7 +55,6 @@ const ChartKor = (props) => {
 
   const reloadJipyoList = () => {
     let temp = []
-    //var num = 90
     IndApi.chartIndiExeFor(props.symbol, props.nums)
      .then(res =>{
  
@@ -149,7 +148,6 @@ const ChartKor = (props) => {
          })        
          .catch(err => {
          console.error('지표리스트 오류', err);
-         alert('조회오류');
          })
    
      }

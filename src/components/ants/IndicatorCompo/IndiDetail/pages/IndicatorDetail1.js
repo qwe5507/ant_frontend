@@ -10,6 +10,7 @@ import TableCell from '@material-ui/core/TableCell'
 import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
 import axios from "axios";
+import CommentExe from "./CommentExe"
 
 function IndicatorDetail1(props) {
     
@@ -367,6 +368,7 @@ function IndicatorDetail1(props) {
  
 
 )})}
+ <CommentExe tableName={tableName} num={2}/>
       </div>
       
     )

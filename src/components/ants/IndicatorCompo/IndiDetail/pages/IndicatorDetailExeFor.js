@@ -10,6 +10,7 @@
   import TableHead from '@material-ui/core/TableHead'
   import TableRow from '@material-ui/core/TableRow'
   import axios from "axios";
+  import CommentExe from "./CommentExe"
 
   function IndicatorDetailExeFor(props) {
       let [result, resultbyun] = useState("");
@@ -238,7 +239,7 @@
               textWeight="800"
               fontFamily="ko"
           >
-            관련지표
+            관련지표 
           </Text>
           <Container d="flex" flexDir="row">
           <Icon name="Checked" size="20px"  m={{ t: "0.5rem", b: "1rem" }}/>
@@ -358,6 +359,7 @@
     </Div>
 
 )})}
+  <CommentExe tableName={symbol} num={2}/>
       </div>
       
     )
