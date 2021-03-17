@@ -42,15 +42,12 @@ function Stocks() {
         return resulttime;
       }
 
-    function searchmatchparse() {
-        console.log('스톡아이디',stockId)
-        console.log('스톡네임', stockName)
-        axios.get("http://localhost:8000/news/searchmatchparse", { params: { id: stockName } })
+    function searchmatchphrase() {
+        NewsApiService.searchmatchphrase(stockName)
           .then(response => {
             let result = response.data
             let hits2 = result['hits']['hits']
             hits변경(hits2)
-            console.log(hits2)
           })
           .catch(error => {
             console.log(error);
@@ -75,7 +72,7 @@ function Stocks() {
 
 
     useEffect(() => {
-        searchmatchparse();
+        searchmatchphrase();
     }, [stockName]);
 
     useEffect(() => {
