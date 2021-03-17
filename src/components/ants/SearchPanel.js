@@ -53,7 +53,7 @@ function SearchPanel() {
         <Div
             tag="section"
             w="100vw"
-            p={{ t: { xs: "6rem", md: "8rem" } }}
+            p={{ t: { xs: "2rem", md: "2rem" } }}
             overflow="hidden"
         >
             <Container>

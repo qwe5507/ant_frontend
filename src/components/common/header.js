@@ -1,17 +1,25 @@
 import React, { useState, useEffect } from "react"
-import { Div, Image, Container, Button, Anchor, scrollTo, Icon, Dropdown } from "atomize"
+import { Div, Image, Container, Anchor, Button, Text } from "atomize"
 import logo from "../../images/logo-title.svg"
 import girl from "../../images/avatar/girl.png"
-import { Link, Route, Switch, useHistory } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 import PropTypes from "prop-types"
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 function Header() {
   const loginstate = useSelector(state => state.user.loginstate);
   const nickname = useSelector(state => state.user.nickname);
+  const location = useLocation();
 
   let [showMobileHeaderMenu, showMobileHeaderMenuChange] = useState(false);
+
+  let [currentLocation, currentLocationChange] = useState();
+
+  useEffect(() => {
+    var temp = location.pathname;
+    currentLocationChange(temp);
+  }, [location]);
 
   function toggleHeaderMenu(value) {
     showMobileHeaderMenuChange(value);
@@ -21,29 +29,11 @@ function Header() {
     }, 400);
   };
 
-  const profileLink = ['', '/ChatPage', '/PaymentFirst', '/Profile', '/Logout'];
+  const menuLink = ['/News', '/Indicators', '/Community', '/Backtest'];
+  const menuName = ['뉴스', '지표', '커뮤니티', '백테스트'];
 
-  const profile = (
-    <Div w="max-content" p={{ x: "1rem", y: "0.5rem" }}>
-      {["알림", "채팅", "구독", "마이페이지", "로그아웃"].map(
-        (name, index) => (
-          <Link to={ profileLink[index] }>
-            <Anchor
-              d="block"
-              p={{ y: "0.25rem" }}
-              textSize="title"
-              textWeight="800"
-              textColor="medium"
-              hoverTextColor="black"
-              fontFamily="ko"
-            >
-              {name}
-            </Anchor>
-          </Link>
-        )
-      )}
-    </Div>
-  );
+  const profileLink = ['/ChatPage', '/PaymentFirst', '/Profile', '/Logout'];
+  const profileName = ["채팅", "구독", "마이페이지", "로그아웃"];
 
   return (
     <>
@@ -51,7 +41,7 @@ function Header() {
         tag="header"
         pos="fixed"
         top="0"
-        transition
+        // transition
         left="0"
         right="0"
         zIndex="100"
@@ -67,8 +57,11 @@ function Header() {
           opacity="1"
           zIndex="-1"
         ></Div>
-        <Container d="flex" align="center" justify="space-between">
-
+        <Container
+          d="flex"
+          align="center"
+          justify="space-between"
+        >
 
           <Link to="/">
             <Image
@@ -78,222 +71,198 @@ function Header() {
             />
           </Link>
 
-
-          {/* Icon For Mobile */}
-
-          <Div
-            d={{ xs: "flex", md: "none" }}
-            flexDir="column"
-            onClick={() => toggleHeaderMenu(!showMobileHeaderMenu)}
-          >
-            <Div
-              h="2px"
-              w="1rem"
-              bg="black"
-              rounded="lg"
-              style={{
-                transform: `translateY(${showMobileHeaderMenu ? "1" : "-2"
-                  }px)rotate(${showMobileHeaderMenu ? "135" : "0"}deg)`,
-              }}
-              transition
-            ></Div>
-            <Div
-              h="2px"
-              w="1rem"
-              bg="black"
-              rounded="lg"
-              style={{
-                transform: `translateY(${showMobileHeaderMenu ? "-1" : "2"
-                  }px)rotate(${showMobileHeaderMenu ? "45" : "0"}deg)`,
-              }}
-              transition
-            ></Div>
-          </Div>
-
-          {/* Links for Desktop */}
           <Div
             d="flex"
-            onClick={() => toggleHeaderMenu(false)}
-            bg={{ xs: "white", md: "transparent" }}
-            align={{ xs: "strech", md: "center" }}
-            flexDir={{ xs: "column", md: "row" }}
-            pos={{ xs: "absolute", md: "static" }}
-            p={{
-              t: { xs: "6rem", md: "0" },
-              b: { xs: "2rem", md: "0" },
-              x: { xs: "1.5rem", md: "0" },
-            }}
-            top="0"
-            left="0"
-            right="0"
-            zIndex={{ xs: "-1", md: "0" }}
-            shadow={{ xs: "4", md: "0" }}
-            opacity={{
-              xs: showMobileHeaderMenu ? "1" : "0",
-              md: "1",
-            }}
-            transform={{
-              xs: `translateY(${showMobileHeaderMenu ? "0" : "-100%"})`,
-              md: "none",
-            }}
-            transition
+            align="center"
+            justify="space-between"
           >
 
-            <Link to="/News">
-              <Anchor
-                target="_blank"
-                m={{ r: "2rem", b: { xs: "1rem", md: "0" } }}
-                textSize="title"
-                textWeight="800"
-                textColor="medium"
-                hoverTextColor="black"
+            {/* Icon For Mobile */}
+            <Div
+              d={{ xs: "flex", md: "none" }}
+              order={{ xs: 3, md: 2 }}
+              flexDir="column"
+              cursor="pointer"
+              onClick={() => toggleHeaderMenu(!showMobileHeaderMenu)}
+            >
+              <Div
+                h="2px"
+                w="1rem"
+                bg="black"
+                rounded="lg"
+                style={{
+                  transform: `translateY(${showMobileHeaderMenu ? "1" : "-2"
+                    }px)rotate(${showMobileHeaderMenu ? "135" : "0"}deg)`,
+                }}
                 transition
-                fontFamily="ko"
-              >
-                뉴스
-              </Anchor>
-            </Link>
-
-            <Link to="/Indicators">
-              <Anchor
-                target="_blank"
-                m={{ r: "2rem", b: { xs: "1rem", md: "0" } }}
-                textSize="title"
-                textWeight="800"
-                textColor="medium"
-                hoverTextColor="black"
+              ></Div>
+              <Div
+                h="2px"
+                w="1rem"
+                bg="black"
+                rounded="lg"
+                style={{
+                  transform: `translateY(${showMobileHeaderMenu ? "-1" : "2"
+                    }px)rotate(${showMobileHeaderMenu ? "45" : "0"}deg)`,
+                }}
                 transition
-                fontFamily="ko"
-              >
-                지표
-              </Anchor>
-            </Link>
+              ></Div>
+            </Div>
 
-            <Link to="/Community">
-              <Anchor
-                target="_blank"
-                m={{ r: "2rem", b: { xs: "1rem", md: "0" } }}
-                textSize="title"
-                textWeight="800"
-                textColor="medium"
-                hoverTextColor="black"
-                transition
-                fontFamily="ko"
-              >
-                커뮤니티
-              </Anchor>
-            </Link>
+            {/* Links for Desktop */}
+            <Div
+              d="flex"
+              onClick={() => toggleHeaderMenu(false)}
+              bg={{ xs: "white", md: "transparent" }}
+              align={{ xs: "strech", md: "center" }}
+              flexDir={{ xs: "column", md: "row" }}
+              pos={{ xs: "absolute", md: "static" }}
+              p={{
+                t: { xs: "4rem", md: "0" },
+                b: { xs: "0", md: "0" },
+                x: { xs: "1.5rem", md: "0" },
+              }}
+              top="0"
+              left="0"
+              right="0"
+              zIndex={{ xs: "-1", md: "0" }}
+              shadow={{ xs: "2", md: "0" }}
+              opacity={{
+                xs: showMobileHeaderMenu ? "1" : "0",
+                md: "1",
+              }}
+              transform={{
+                xs: `translateY(${showMobileHeaderMenu ? "0" : "-100%"})`,
+                md: "none",
+              }}
+              transition
+            >
 
-            {/* {loginstate
-              ?
-              <Link to="/PaymentFirst">
-                <Anchor
-                  target="_blank"
-                  m={{ r: "2rem", b: { xs: "1rem", md: "0" } }}
-                  textSize="title"
-                  textWeight="800"
-                  textColor="medium"
-                  hoverTextColor="black"
-                  transition
-                  fontFamily="ko"
+              {currentLocation && menuName.map(
+                (name, index) => (
+                  <Link
+                    to={menuLink[index]}
+                  >
+                    <Anchor
+                      // target="_blank"
+                      // transform={{
+                      //   xs: `translateY("-100%")`
+                      // }}
+                      // transition
+                      d="block"
+                      p={{ y: "0.25rem" }}
+                      m={{ r: "1rem", b: { xs: "0.2rem", md: "0" } }}
+                      textSize="title"
+                      textWeight="800"
+                      textColor={menuLink[index] == currentLocation ? "black" : "medium"}
+                      hoverTextColor="black"
+                      fontFamily="ko"
+                      border={{ b: { md: menuLink[index] == currentLocation ? "4px solid" : "0" } }}
+                      borderColor="black"
+
+                      hoverBorderColor="black"
+                    >
+                      {name}
+                    </Anchor>
+                  </Link>
+                )
+              )}
+
+              {loginstate && currentLocation && profileName.map(
+                (name, index) => (
+                  <Link
+                    to={profileLink[index]}
+                  >
+                    <Anchor
+                      // target="_blank"
+                      // transform={{
+                      //   xs: `translateY("-100%")`
+                      // }}
+                      // transition
+                      d="block"
+                      p={{ y: "0.25rem" }}
+                      m={{ r: "1rem", b: { xs: "0.2rem", md: "0" } }}
+                      textSize="title"
+                      textWeight="800"
+                      textColor={profileLink[index] == currentLocation ? "black" : "medium"}
+                      hoverTextColor="black"
+                      fontFamily="ko"
+                      border={{ b: { md: profileLink[index] == currentLocation ? "4px solid" : "0" } }}
+                      borderColor="black"
+                      hoverBorderColor="black"
+                    >
+                      {name}
+                    </Anchor>
+                  </Link>
+                )
+              )}
+            </Div>
+
+            <Div
+              order={{ xs: 2, md: 3 }}
+            >
+              {loginstate ?
+                <Link
+                  to="/profile"
                 >
-                  구독
-              </Anchor>
-              </Link>
-              :
-              ' '
-            } */}
-
-            <Link to="/Backtest">
-              <Anchor
-                target="_blank"
-                m={{ r: "2rem", b: { xs: "1rem", md: "0" } }}
-                textSize="title"
-                textWeight="800"
-                textColor="medium"
-                hoverTextColor="black"
-                transition
-                fontFamily="ko"
-              >
-                백테스트
-              </Anchor>
-            </Link>
-
-            {/* {loginstate
-              ?
-              <Link to="/ChatPage">
-                <Anchor
-                  target="_blank"
-                  m={{ r: "2rem", b: { xs: "1rem", md: "0" } }}
-                  textSize="title"
-                  textWeight="800"
-                  textColor="medium"
-                  hoverTextColor="black"
-                  transition
-                  fontFamily="ko"
+                  <Anchor
+                    target="_blank"
+                    m={{ r: "1rem", b: { xs: "0", md: "0" } }}
+                    d="flex"
+                    flexDir="row"
+                  >
+                    <Div
+                      h="2rem"
+                      w="2rem"
+                      bg="gray300"
+                      rounded="circle"
+                      pos="relative"
+                      bgImg={girl}
+                      bgSize="cover"
+                      bgPos="center"
+                      m={{ r: "0.5rem" }}
+                    />
+                    <Text
+                      textSize="title"
+                      textWeight="800"
+                      textColor="medium"
+                      hoverTextColor="black"
+                      fontFamily="ko"
+                    >
+                      {nickname}
+                    </Text>
+                  </Anchor>
+                </Link>
+                :
+                <Link
+                  to="/Login"
                 >
-                  채팅
-              </Anchor>
-              </Link>
-              :
-              ' '
-            } */}
-
-            {loginstate
-              ?
-              // <Link to="/Profile">
-              <Anchor
-                target="_blank"
-                m={{ r: "1rem", b: { xs: "1rem", md: "0" } }}
-                d="flex"
-                flexDir="row"
-              >
-                <Dropdown
-                  w="fit-content"
-                  border="None"
-                  targetHover
-                  menu={profile}
-                  direction="bottomleft"
-                  textSize="title"
-                  textWeight="800"
-                  textColor="medium"
-                  hoverTextColor="black"
-                  fontFamily="ko"
-                >
-                  <Div
+                  <Button
                     h="2rem"
-                    w="2rem"
-                    bg="gray300"
-                    rounded="circle"
-                    pos="relative"
-                    bgImg={girl}
-                    bgSize="cover"
-                    bgPos="center"
-                    m={{ r: "0.5rem" }}
-                  />
-                  {nickname}
-                </Dropdown>
-              </Anchor>
-              // </Link>
-              :
-              ' '
-            }
-
-            {/* <Icon name="Notification" size="20px" /> */}
+                    w={{ xs: "5rem", sm: "7rem", md: "7rem" }}
+                    bg="black"
+                    // hoverBg="black"
+                    rounded="lg"
+                    // maxW="calc(50% - 0.5rem)"
+                    m={{ r: "1rem", b: { xs: "0", sm: "0", md: "0" } }}
+                  >
+                    <Text
+                      textSize="subheader"
+                      textWeight="800"
+                      fontFamily="ko"
+                    >로그인
+                  </Text>
+                  </Button>
+                </Link>
+              }
+            </Div>
 
           </Div>
+
         </Container>
       </Div>
     </>
   )
-}
-
-Header.propTypes = {
-  siteTitle: PropTypes.string,
-}
-
-Header.defaultProps = {
-  siteTitle: ``,
 }
 
 export default Header;

@@ -42,7 +42,7 @@ function HeroSection() {
       <Div
         tag="section"
         w="100vw"
-        p={{ t: { xs: "6rem", md: "10rem" } }}
+        p={{ t: { xs: "10rem", md: "10rem" } }}
       >
         <Container
           d="flex"
@@ -70,50 +70,26 @@ function HeroSection() {
             m={{ b: "2.5rem" }}
           >
             오직 개인투자자만을 위한 똑똑한 개미들의 서비스와 커뮤니티를 경험해보세요!
-            </Text>
+          </Text>
 
-          <Div
+          {/* <Div
             d="flex"
             w="100%"
             justify="center"
-            flexDir={{ xs: "column", sm: "row" }}
           >
-
             {loginstate ?
-              //   <Button
-              //     h="3rem"
-              //     w={{ xs: "50%", sm: "11rem" }}
-              //     bg="transparent"
-              //     hoverBg="gray200"
-              //     border="1px solid"
-              //     borderColor="gray400"
-              //     hoverBorderColor="gray600"
-              //     rounded="lg"
-              //     p={{ l: "0.5rem", r: "1rem" }}
-              //     textColor="medium"
-              //     prefix={
-              //       <Icon
-              //         name="Play"
-              //         size="18px"
-              //         m={{ r: "0.5rem" }}
-              //         color="black400"
-              //       />
-              //     }
-              //     onClick={() => { logoutWithKakao(); }}
-              //   >
-              //  로그아웃
-              // </Button>
               ""
               :
               <Link to="/Login">
                 <Button
                   h="3rem"
-                  w={{ xs: "50%", sm: "11rem" }}
+                  w={{ xs: "11rem", sm: "11rem" }}
                   bg="info700"
                   hoverBg="info600"
                   rounded="lg"
+                  justify="center"
                   // maxW="calc(50% - 0.5rem)"
-                  m={{ r: "1rem", b: { xs: "1rem", sm: "0" } }}
+                  // m={{ r: "1rem", b: { xs: "1rem", sm: "0" } }}
                 >
                   <Text
                     textSize="subheader"
@@ -123,8 +99,7 @@ function HeroSection() {
                 </Button>
               </Link>
             }
-
-          </Div>
+          </Div> */}
 
         </Container>
       </Div>
