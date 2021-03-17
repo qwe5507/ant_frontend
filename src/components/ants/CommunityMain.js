@@ -30,7 +30,6 @@ function CommunityMain(props) {
   const loginstate = useSelector(state => state.user.loginstate);
   const userlikedboardtemp = useSelector(state => state.user.likedBaords);
 
-  // let [saved,savedchange] = useState(false);
   let { die } = useParams();
     let { searchkeyword } = useParams();
 
@@ -42,8 +41,6 @@ function CommunityMain(props) {
 
   let loadingtemp2 = [1, 2, 3, 4, 5, 6]
 
-  // [{board_content : ""}]
-  // selectedSwitchValueChange(props.orderswitch);
   function toggleHeaderMenu(value) {
     showMobileHeaderMenuChange(value);
     setTimeout(() => {
@@ -70,7 +67,6 @@ function CommunityMain(props) {
         console.log('Comm.js dispatch');
       }
     } else { // 저장 안되있을때 
-      // savedchange(!saved);
       var result = window.confirm("해당 게시물을 저장 하시겠습니까?");
       if (result) {
         console.log(board);
@@ -93,8 +89,8 @@ function CommunityMain(props) {
     if (!props.ordered && !props.saved) { // 최신순 게시물 가져오기 && 전체
       BoardApiService.fetchBoards()
         .then(res => {
-          topmainbaordget(res.data)
-          // boardlist변경(res.data);
+          boardTopMain변경([res.data[0],res.data[1]])
+          boardlist변경(res.data);
           console.log('641111');
         })
         .catch(err => {
@@ -115,12 +111,10 @@ function CommunityMain(props) {
 
   useEffect(() => {
     console.log('props.ordered가 usestate인것 :  가져오는것');
-    // boardlist변경([]);
     boardtotalget()
   }, [props.ordered]);
 
   useEffect(() => {
-    // boardlist변경([]);
     console.log('props.saved가 usestate인것 :  가져오는것')
     if (props.saved) { // 게시물 가져오기 
       BoardApiService.fetchSavedUserBoard(loginid)
@@ -141,25 +135,8 @@ function CommunityMain(props) {
   // 아래코드 있으니 새로고침 해도 저장한글이 표시됨.
   useEffect(() => {
     savedboardChange(savedboardtemp);
-    // console.log('22')
-    // console.log(props.saved);
   });
 
-  // boardTopMain 가져오기
-  function topmainbaordget(data){
-      BoardApiService.fetchTopMainBoards()
-      .then(res => {
-        boardTopMain변경(res.data)
-        let temp = [...res.data,...data]
-        boardlist변경(temp)
-        // boardTopMain변경(res.data);
-        console.log(res.data)
-      })
-      .catch(err => {
-        console.log('***** Community fetchTopMainBoards error:', err);
-      });
-
-  }
 
   return (
     <>
@@ -237,8 +214,6 @@ function CommunityMain(props) {
 
                             <Div d="flex"
                               justify="space-between"
-                            // maxW = "100%"
-                            // w = "100re"
                             >
                               <Link to={"/Community/" + data['board_id']}
                                 style={{ color: '#000' }}
@@ -252,27 +227,26 @@ function CommunityMain(props) {
                                   textWeight="1000"
                                   fontFamily="ko"
                                   m={{ b: "1rem" }}
-                                // textDecor="underline"
                                 >
                                   
                             { i == 0 && boardTopMain[0] && boardTopMain[0]['board_id'] == data['board_id'] ?
                                <Tag
                                bg={`warning900`}
                                textColor="white"
-                               // p={{ x: "0.75rem", y: "0.25rem" }}
                                m={{ r: "0.5rem" }}
                                textSize="body"
+                               textWeight="1000"
                                w = "3rem"
                                h = "1.4rem"
                              >BEST</Tag>:
                                 null }
                               { i == 1 && boardTopMain[1] && boardTopMain[1]['board_id'] == data['board_id'] ?
                                <Tag
-                               bg={`danger900`}
+                               bg={`danger700`}
                                textColor="white"
-                               // p={{ x: "0.75rem", y: "0.25rem" }}
                                m={{ r: "0.5rem" }}
                                textSize="body"
+                               textWeight="1000"
                                w = "3rem"
                                h = "1.4rem"
                              >HOT</Tag>:
@@ -307,9 +281,6 @@ function CommunityMain(props) {
                                   </div>
                                 </Text>
                                 <Div
-                                  // m={{t :{ md : "5%"}, l :{ md : "-80%"}}}
-                                  // pos = {{ xs : "absolute"}}
-                                  // pos={{ xs: 'static', lg: 'static' }}
                                   pos={{ xs: 'absolute', sm: 'absolute', md: 'static' }}
                                   right="2rem"
                                 >
@@ -341,7 +312,6 @@ function CommunityMain(props) {
                                 name="Eye"
                                 color="black"
                                 size="18px"
-                                // cursor="pointer"
                                 m={{ r: "0.4rem" }}
                               />
                               <Text
@@ -355,13 +325,9 @@ function CommunityMain(props) {
                               </Text>
                               <Icon
                                 transition
-                                // onClick={() => likedchange(!liked)}
                                 name={userlikedboardtemp.includes(String(data['board_id'])) ? "HeartSolid" : "Heart"}
-                                // name="Heart"
                                 color={userlikedboardtemp.includes(String(data['board_id']))  ? "danger700" : "black"}
-                                // color="black"
                                 size="18px"
-                                // cursor="pointer"
                                 m={{ r: "0.4rem" }}
                               />
                               <Text
@@ -378,7 +344,6 @@ function CommunityMain(props) {
                                 name="Message"
                                 color="black"
                                 size="18px"
-                                // cursor="pointer"
                                 m={{ r: "0.4rem" }}
                               />
                               <Text
@@ -396,7 +361,6 @@ function CommunityMain(props) {
                             <Div
                               h="1.5rem"
                               w="1.5rem"
-                              //   bgImg={girl2}
                               bgSize="cover"
                               bgPos="center"
                               m={{ r: "1rem" }}

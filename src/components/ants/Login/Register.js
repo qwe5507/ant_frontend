@@ -96,6 +96,7 @@ function Register() {
 
   return (
     <Div
+
       d="flex"
       flexDir="column"
       border="1px solid"
@@ -114,6 +115,7 @@ function Register() {
       bg="white"
       shadow="4"
       p="2rem"
+      
     >
       <Div flexGrow="1">
         <Text
