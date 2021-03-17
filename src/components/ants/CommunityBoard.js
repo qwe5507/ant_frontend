@@ -1,6 +1,6 @@
 import PropTypes from "prop-types"
 import React, { useState, useEffect } from "react"
-import { Div, Image, Container, Button, Anchor, scrollTo, Icon, Text, Radiobox, Label, Switch, Row, Col, logoSketch, logoReact,Dropdown, Input, Notification } from "atomize"
+import { Div, Image, Container, Button, Anchor, scrollTo, Icon, Text, Radiobox, Label, Switch, Row, Col, logoSketch, logoReact, Dropdown, Input, Notification } from "atomize"
 import logo from "../../images/logo.svg"
 import producthunt from "../../images/logo-producthunt.svg"
 import { Link, Route, useHistory, useParams } from 'react-router-dom';
@@ -9,7 +9,7 @@ import BoardApiService from "../../api/BoardApi";
 import CommentApiService from "../../api/CommentApi";
 import UserApiService from "../../api/UserApi";
 import { useDispatch, useSelector } from 'react-redux';
-import { setLikedComments, setLikedBoards ,setSavedBoards} from '../../redux/actions/user_action';
+import { setLikedComments, setLikedBoards, setSavedBoards } from '../../redux/actions/user_action';
 import Communitydeclare from './Communitydeclare';
 import CommunityCommentInsert from './CommunityCommentInsert';
 import CommunityBoardDelete from './CommunityBoardDelete';
@@ -20,12 +20,9 @@ function CommunityBoard() {
     const loginid = useSelector(state => state.user.userid);
     const declarecommentlist = useSelector(state => state.user.declarecomment);
     const declareboardlist = useSelector(state => state.user.declareboard);
-    // let [declareboards,declareboard변경] = useState();
-    // let [declarecomment,declarecomment변경] = useState();
-    
+
     let [liked, likedchange] = useState(false);
     let [commentliked, commentlikedchange] = useState(false);
-    // let [userlikecomment,userlikecomment변경] = useState([]);
     let [showModal, showModal변경] = useState(false);
     let [commentaddModal, commentaddModal변경] = useState(false);
     let [successDark, successDark변경] = useState(false);
@@ -34,13 +31,13 @@ function CommunityBoard() {
     let [문자열등록성공알람, 문자열등록성공알람변경] = useState(false);
     let [댓글삭제실패, 댓글삭제실패변경] = useState(false);
     let [신고할데이터, 신고할데이터변경] = useState();
-    let [게시판삭제실패,게시판삭제실패변경] = useState(false);
-    let [commentdeleteModal,commentdeleteModal변경] = useState(false);
-    let [showLoginRequireModal,showLoginRequireModal변경] = useState(false);
-    let [notdeclare,notdeclare변경] = useState(false);
+    let [게시판삭제실패, 게시판삭제실패변경] = useState(false);
+    let [commentdeleteModal, commentdeleteModal변경] = useState(false);
+    let [showLoginRequireModal, showLoginRequireModal변경] = useState(false);
+    let [notdeclare, notdeclare변경] = useState(false);
     let [savedboard, savedboardChange] = useState([]);
 
-    let alerttext = ['빈 글자는 등록할수 없습니다.', '댓글이 등록되었습니다.', '해당 글은 신고 접수되어 삭제할 수 없습니다. 관리자에게 문의하세요.','삭제 할 수없습니다. 관리자에게 문의하세요.']
+    let alerttext = ['빈 글자는 등록할수 없습니다.', '댓글이 등록되었습니다.', '해당 글은 신고 접수되어 삭제할 수 없습니다. 관리자에게 문의하세요.', '삭제 할 수없습니다. 관리자에게 문의하세요.']
     console.log('게시판로딩')
 
 
@@ -55,6 +52,14 @@ function CommunityBoard() {
     const userlikedboardtemp = useSelector(state => state.user.likedBaords);
     const savedboardtemp = useSelector(state => state.user.savedBoards);
 
+    useEffect(() => {
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+            window.dataLayer.push(arguments);
+        }
+        gtag('event', 'page_view', { 'page_path': window.location.pathname + window.location.hash });
+
+    }, []);
     function likedClick(board) {
         // 눌려져있을떄  
         if (liked) {
@@ -64,13 +69,13 @@ function CommunityBoard() {
             BoardApiService.editBoard(board);
             let UserLikeBoard = {
                 board_id: board['board_id'],
-                board_LikeNum : board['board_LikeNum'],
+                board_LikeNum: board['board_LikeNum'],
                 userid: loginid
             }
             BoardApiService.deleteLikedUserBoard(UserLikeBoard);
 
             var temp = [...userlikedboardtemp]
-            temp.splice(temp.indexOf(String(board.board_id)),1)
+            temp.splice(temp.indexOf(String(board.board_id)), 1)
             var data = { likedBaords: temp };
             dispatch(setLikedBoards(data));
 
@@ -82,11 +87,11 @@ function CommunityBoard() {
 
             let UserLikeBoard = {
                 board_id: board['board_id'],
-                board_LikeNum : board['board_LikeNum'],
+                board_LikeNum: board['board_LikeNum'],
                 userid: loginid
             }
             BoardApiService.addLikedUserBoard(UserLikeBoard);
-            
+
             var temp = [...userlikedboardtemp]
             temp.push(String(board.board_id))
             var data = { likedBaords: temp };
@@ -140,10 +145,8 @@ function CommunityBoard() {
     function commentlikedClick(comment) {
 
         if (!LikedCommentsList.includes(String(comment.comment_id))) {
-            // var temp = {...comment}
             comment.comment_LikeNum += 1
             CommentApiService.editComment(comment);
-            // commentlikedchange(!commentliked);
 
             UserApiService.editUserLikedComment(loginid, comment.comment_id)
 
@@ -153,10 +156,8 @@ function CommunityBoard() {
             dispatch(setLikedComments(data));
 
         } else {
-            // var temp = {...comment}
             comment.comment_LikeNum -= 1
             CommentApiService.editComment(comment);
-            // commentlikedchange(!commentliked);
 
             UserApiService.editUserLikedComment(loginid, comment.comment_id)
 
@@ -209,7 +210,6 @@ function CommunityBoard() {
                 BoardApiService.fetchBoardByID(boardid)
                     .then(res => {
                         board변경(res.data);
-                        // console.log('asdasdadadads');
                         let UserLikeBoard = {
                             board_id: res.data.board_id,
                             userid: loginid
@@ -227,7 +227,7 @@ function CommunityBoard() {
     useEffect(() => {
         commentloading();
     }, [문자열등록성공알람]);
-    
+
     useEffect(() => {
         commentloading();
     }, [showModal]);
@@ -260,19 +260,18 @@ function CommunityBoard() {
         신고할데이터변경(data)
         showModal변경(true)
     }
-  // 아래코드 있으니 새로고침 해도 저장한글이 표시됨.
-        useEffect(() => {
-                savedboardChange(savedboardtemp);
-                console.log('22')
-                // console.log(props.saved);
-        });
-        function savedClick(savetruefalse, board) {
-            if (savetruefalse) { // 저장 되있을때 클릭
-              var result = window.confirm("저장한 게시물을 취소 하시겠습니까?");
-              if (result) {
+    // 아래코드 있으니 새로고침 해도 저장한글이 표시됨.
+    useEffect(() => {
+        savedboardChange(savedboardtemp);
+        console.log('22')
+    });
+    function savedClick(savetruefalse, board) {
+        if (savetruefalse) { // 저장 되있을때 클릭
+            var result = window.confirm("저장한 게시물을 취소 하시겠습니까?");
+            if (result) {
                 let UserSavedBoard = {
-                  board_id: board['board_id'],
-                  userid: loginid
+                    board_id: board['board_id'],
+                    userid: loginid
                 }
                 BoardApiService.deleteSaveddUserBoard(UserSavedBoard);
                 let templist = [...savedboard]
@@ -283,15 +282,14 @@ function CommunityBoard() {
                 var data = { savedBoards: templist };
                 dispatch(setSavedBoards(data));
                 console.log('Comm.js dispatch');
-              }
-            } else { // 저장 안되있을때 
-              // savedchange(!saved);
-              var result = window.confirm("해당 게시물을 저장 하시겠습니까?");
-              if (result) {
+            }
+        } else { // 저장 안되있을때 
+            var result = window.confirm("해당 게시물을 저장 하시겠습니까?");
+            if (result) {
                 console.log(board);
                 let UserSavedBoard = {
-                  board_id: board['board_id'],
-                  userid: loginid
+                    board_id: board['board_id'],
+                    userid: loginid
                 }
                 BoardApiService.addSaveddUserBoard(UserSavedBoard);
                 let templist = [...savedboard]
@@ -299,14 +297,14 @@ function CommunityBoard() {
                 var data = { savedBoards: templist };
                 dispatch(setSavedBoards(data));
                 console.log('Comm.js dispatch');
-              }
             }
-        
-          }
+        }
+
+    }
     return (
         <>
             <Div
-                m={{ t: { md: "5%" }, l: { md: "-78%" } }}
+                m={{ t: { xs: "1rem", md: "5%" }, l: { xs: "5%", md: "-78%" } }}
                 w={{ xs: "90vw", md: "248%" }}
                 align="center" justify="space-between"
                 d={{ xs: "flex", md: "flex" }}
@@ -316,9 +314,8 @@ function CommunityBoard() {
                     d="inline-block" align="center"
                 >
                     <Div
-                        // h="10rem"
                         h={{ xs: "11rem", md: "9rem" }}
-                        w={{ xs: "25rem", md: "47rem" }}
+                        w={{ xs: "28rem",sm : "35rem", md: "47rem" }}
                         border={{ b: "1px solid" }}
                         borderColor="gray400"
                         pos="flex"
@@ -327,20 +324,15 @@ function CommunityBoard() {
                     >
                         <Div
                             align="flex-start"
-                            // pos= "absolute"
-                            // bottom = "35rem"
-                            h={{ xs: "7rem", md: "auto" }}
+                            h={{ xs: "5.5rem", md: "auto" }}
                         >
                             <Text
                                 textAlign="left"
                                 textSize="heading"
-                                textWeight="750"
-                                fontFamily="secondary"
+                                textWeight="1000"
+                                fontFamily="ko"
                                 justify="flex-start"
-                                // m={{ b: "1rem" }}
-                                m={{ b: "2rem" }}
                                 pos={{ xs: "absolute", md: "static" }}
-                            // bottom = "32rem"
                             >
                                 {/* kakao mang hera kakao mang herakakao mangrang herakakao mangr */}
                                 {board['board_title']}
@@ -349,12 +341,9 @@ function CommunityBoard() {
                         <Div
                             justify="space-between"
                             align="center"
-                            // pos= "absolute"
                             pos={{ xs: "static", md: "static" }}
-                        // bottom = "32rem"
                         >
                             <Text
-                                // textAlign="left"
                                 textSize="subheader"
                                 textWeight="550"
                                 textColor="gray"
@@ -368,125 +357,143 @@ function CommunityBoard() {
                             </Text>
                         </Div>
                         <Div
-                            // align=""
-                            // h="19rem"
-                            // w="15rem"
                             justify="space-around"
-                            // bg="black"
-                            // rounded="md"
-                            // pos= "absolute"
                             pos={{ xs: "static", md: "static" }}
-                            // bottom = "340px"
-                            // bottom = "22rem"
                             m="3px"
-                            // border="1px solid"
-                            // borderColor="gray200"
                         >
-                         <Div d="flex"  justify="space-between" 
-                        //    border="1px solid"
-                        //    borderColor="gray200"
-                         >
-                            <Div d="flex" align="center">
-                                <Icon
-                                    transition
-                                    name="Timestamp"
-                                    color="gray"
-                                    size="18px"
-                                    cursor="pointer"
-                                    m={{ r: "0.4rem" }}
-                                />
-                                <Text
-                                    textAlign="left"
-                                    textSize="body"
-                                    textWeight="600"
-                                    fontFamily="secondary"
-                                    textColor="gray"
-                                    m={{ r: "1rem" }}
+                            <Div d="flex" justify="space-between"
+                            >
+                                <Div d="flex" align="center">
+                                    <Icon
+                                        transition
+                                        name="Timestamp"
+                                        color="gray"
+                                        size="18px"
+                                        cursor="pointer"
+                                        m={{ r: "0.4rem" }}
+                                    />
+                                    <Text
+                                        textAlign="left"
+                                        textSize="body"
+                                        textWeight="600"
+                                        fontFamily="secondary"
+                                        textColor="gray"
+                                        m={{ r: "1rem" }}
 
-                                >
-                                    {timecal(board['board_createdata'])}
-                                </Text>
-                                <Icon
-                                    transition
-                                    name="Eye"
-                                    color="gray"
-                                    size="18px"
-                                    cursor="pointer"
-                                    m={{ r: "0.4rem" }}
-                                />
-                                <Text
-                                    textAlign="left"
-                                    textSize="body"
-                                    textWeight="600"
-                                    fontFamily="secondary"
-                                    m={{ r: "1rem" }}
-                                    textColor="gray"
-                                >
-                                    {board['board_viewnum']}
-                                </Text>
-                                <Icon
-                                    transition
-                                    name="Message"
-                                    color="gray"
-                                    size="18px"
-                                    cursor="pointer"
-                                    m={{ r: "0.4rem" }}
-                                />
-                                <Text
-                                    textAlign="left"
-                                    textSize="body"
-                                    textWeight="600"
-                                    fontFamily="secondary"
-                                    textColor="gray"
-                                    m={{ r: "1rem" }}
-                                >
-                                    {commentlist.length}
-                                </Text>
-                            </Div>
-                            <Div>
-                            <Icon name="Bookmark" size="20px"
-                                  cursor="pointer"
-                                  onClick={loginid ?() => savedClick(savedboard.includes(String(board['board_id'])), board):() =>  {showLoginRequireModal변경(true)}}
-                                  color={savedboard.includes(String(board['board_id'])) ? "danger700" : "black"}
-                                // color = "black"
-                                />
-                               { board.userid == loginid ?
-                             null : declareboardlist.includes(board.board_id) ?
-                             <Icon name="InfoSolid" size="20px"
-                             cursor="pointer"
-                             m={{ l : "0.7rem", r: "0.7rem" }}
-                             // onClick={loginid ? () => 신고하기클릭(datas):() =>  {showLoginRequireModal변경(true)}}
-                             onClick={() => notdeclare변경(true)}
-                             /> :
-                             <Icon name="Options" size="20px" 
-                             m={{ l : "0.7rem", r: "0.7rem" }}
-                             onClick = {loginid ? () => {신고하기클릭(board)} : () =>  {showLoginRequireModal변경(true)}}
-                              />     
-                               }
-                          </Div>
+                                    >
+                                        {timecal(board['board_createdata'])}
+                                    </Text>
+                                    <Icon
+                                        transition
+                                        name="Eye"
+                                        color="gray"
+                                        size="18px"
+                                        cursor="pointer"
+                                        m={{ r: "0.4rem" }}
+                                    />
+                                    <Text
+                                        textAlign="left"
+                                        textSize="body"
+                                        textWeight="600"
+                                        fontFamily="secondary"
+                                        m={{ r: "1rem" }}
+                                        textColor="gray"
+                                    >
+                                        {board['board_viewnum']}
+                                    </Text>
+                                    <Icon
+                                        transition
+                                        name="Message"
+                                        color="gray"
+                                        size="18px"
+                                        cursor="pointer"
+                                        m={{ r: "0.4rem" }}
+                                    />
+                                    <Text
+                                        textAlign="left"
+                                        textSize="body"
+                                        textWeight="600"
+                                        fontFamily="secondary"
+                                        textColor="gray"
+                                        m={{ r: "1rem" }}
+                                    >
+                                        {commentlist.length}
+                                    </Text>
+                                </Div>
+                                <Div d = "flex"
+                                justify="space-between"
+                                w = "10rem">
+                                    <Div></Div>
+                                    <Div
+                                    d = "flex"
+                                    flexDir="column">
+                                        <Div d = "flex"
+                                            justify="space-between">
+                                                <Div></Div>
+                                    <Icon name="Bookmark" size="20px"
+                                        m = {{r : "0.5rem", b : "0.5rem"}}
+                                        cursor="pointer"
+                                        onClick={loginid ? () => savedClick(savedboard.includes(String(board['board_id'])), board) : () => { showLoginRequireModal변경(true) }}
+                                        color={savedboard.includes(String(board['board_id'])) ? "danger700" : "black"}
+                                    />
+                                    </Div>
+                                    {board.userid == loginid ?
+                                        null : declareboardlist.includes(board.board_id) ?
+                                            // <Icon name="InfoSolid" size="20px"
+                                            //     cursor="pointer"
+                                            //     m={{ l: "0.7rem", r: "0.7rem" }}
+                                            //     onClick={() => notdeclare변경(true)}
+                                            // /> 
+                                            
+                                                <Text
+                                                // m={{ l: "-0.3rem", t: "0.2rem" }}
+                                                // w = "12rem"
+                                                // p = {{r : "2rem"}}
+                                                // m = {{r : "2rem"}}
+                                                textSize="caption"
+                                                textColor="gray"
+                                                textWeight="800"
+                                                fontFamily="ko"
+                                                >
+                                                신고한 글입니다
+                                                </Text>
+                                            :
+                                            // <Icon name="Options" size="20px"
+                                            //     m={{ l: "0.7rem", r: "0.7rem" }}
+                                            //     onClick={loginid ? () => { 신고하기클릭(board) } : () => { showLoginRequireModal변경(true) }}
+                                            // />
+                                            <Div d = "flex"
+                                            // m={{ l: "0.3rem" }}
+                                            >
+                                            {/* <Icon name="Info" size="18px"
+                                                cursor="pointer"
+                                                onClick={loginid ? () => 신고하기클릭(board) : () => { showLoginRequireModal변경(true) }}
+                                            /> */}
+                                            <Text 
+                                                // m={{ l: "0.3rem" }}
+                                                // w = "10rem"
+                                                cursor ="pointer"
+                                                onClick={loginid ? () => 신고하기클릭(board) : () => { showLoginRequireModal변경(true) }}
+                                                textSize="caption"
+                                                textWeight="800"
+                                                fontFamily="ko"
+                                            >
+                                                신고하기</Text>
+                                            </Div>
+                                    }
+                                    </Div>
+                                </Div>
                             </Div>
                         </Div>
 
                     </Div>
                     <Div
                         h={{ xs: "22rem", md: "auto" }}
-                        w={{ xs: "25rem", md: "47rem" }}
-                        // bg="black"
-                        // rounded="md"
-                        // border="1px solid"
-                        // borderColor="gray200"
-                        // m = {{
-                        //     b : {xs : "2rem"}
-                        // }}
+                        w={{ xs: "28rem",sm : "35rem", md: "47rem" }}
                         border={{ b: "1px solid" }}
                         borderColor="gray400"
-
-                    // p={{
-                    //     b: { xs : '1rem' }
-                    // }}
                     >
                         <Text
-                            // textAlign="left"
                             textSize="title"
                             textWeight="400"
                             fontFamily="secondary"
@@ -494,7 +501,7 @@ function CommunityBoard() {
                             justify="flex-end"
                             m={{ b: "1rem" }}
                             p={{ t: "3rem", b: "2rem" }}
-                            w={{ xs: "auto", md: "40rem" }}
+                            w={{ xs: "28rem",sm : "35rem", md: "40rem" }}
                             textAlign="left"
                         >
 
@@ -507,86 +514,84 @@ function CommunityBoard() {
                             {/* {board['board_content']} */}
                         </Text>
                         <Div d="flex" align="center"
-                        justify="space-between"
-                            // border="1px solid"
-                            // borderColor="gray200"
+                            justify="space-between"
                             p={{ b: "20px" }}
                             d={{ xs: "none", md: "flex" }}
                             h="3rem"
                         >
                             <Div d="flex" >
-                            <Icon
-                                transition
-                                onClick={loginid ? () => likedClick(board) :() =>  {showLoginRequireModal변경(true)}}
-                                name={liked ? "HeartSolid" : "Heart"}
-                                color={liked ? "danger700" : "black"}
-                                size="23px"
-                                cursor="pointer"
-                                m={{ r: "0.4rem" }}
-                            ></Icon>
-                            <Text
-                                textAlign="left"
-                                textSize="subheader"
-                                textWeight="600"
-                                fontFamily="secondary"
-                                textColor="black"
-                                m={{ r: "1rem" }}
+                                <Icon
+                                    transition
+                                    onClick={loginid ? () => likedClick(board) : () => { showLoginRequireModal변경(true) }}
+                                    name={liked ? "HeartSolid" : "Heart"}
+                                    color={liked ? "danger700" : "black"}
+                                    size="23px"
+                                    cursor="pointer"
+                                    m={{ r: "0.4rem" }}
+                                ></Icon>
+                                <Text
+                                    textAlign="left"
+                                    textSize="subheader"
+                                    textWeight="600"
+                                    fontFamily="secondary"
+                                    textColor="black"
+                                    m={{ r: "1rem" }}
 
-                            >
-                                좋아요
+                                >
+                                    좋아요
                                         </Text>
-                            <Icon
-                                transition
-                                name="Message"
-                                color="black"
-                                size="23px"
-                                // cursor="pointer"
-                                m={{ r: "0.4rem" }}
-                            />
-                            <Text
-                                textAlign="left"
-                                textSize="subheader"
-                                textWeight="600"
-                                fontFamily="secondary"
-                                textColor="black"
-                                m={{ r: "1rem" }}
-                            >
-                                {commentlist.length}
-                            </Text>
+                                <Icon
+                                    transition
+                                    name="Message"
+                                    color="black"
+                                    size="23px"
+                                    m={{ r: "0.4rem" }}
+                                />
+                                <Text
+                                    textAlign="left"
+                                    textSize="subheader"
+                                    textWeight="600"
+                                    fontFamily="secondary"
+                                    textColor="black"
+                                    m={{ r: "1rem" }}
+                                >
+                                    {commentlist.length}
+                                </Text>
                             </Div>
-                            {board.userid == loginid?
-                            <Div
-                            d="flex">
-                                <Link to={"/Community/update/"+board.board_id}>
-                                    <Button
-                                    // pos={{ xs: "static", md: "absolute" }}
-                                    onClick={() => commentaddModal변경(true)}
-                                    bg="warning800"
-                                    hoverBg="warning600"
-                                    rounded="md"
-                                    m={{ r: "0.5rem" }}
-                                >
-                                    수정
+                            {board.userid == loginid ?
+                                <Div
+                                    d="flex">
+                                    <Link to={"/Community/update/" + board.board_id}>
+                                        <Button
+                                            onClick={() => commentaddModal변경(true)}
+                                            bg="warning800"
+                                            hoverBg="warning600"
+                                            rounded="md"
+                                            m={{ r: "0.5rem" }}
+                                            inactiveColor="black100"
+                                            activeColor="black900"
+                                        >
+                                            수정
                                 </Button>
-                                </Link>
+                                    </Link>
                                     <Button
-                                    // pos={{ xs: "static", md: "absolute" }}
-                                    onClick={() => commentdeleteModal변경(true)}
-                                    bg="gray600"
-                                    hoverBg="gray900"
-                                    rounded="md"
-                                >
-                                    삭제
+                                        onClick={() => commentdeleteModal변경(true)}
+                                        bg="gray600"
+                                        hoverBg="gray900"
+                                        rounded="md"
+                                    >
+                                        삭제
                                     </Button>
-                            </Div>:
-                            null
+                                </Div> :
+                                null
                             }
                         </Div>
                     </Div>
                     <Div
                         m={{ t: "0.5rem" }}
                         h="10rem"
-                        w="47rem"
+                        // w="47rem"
+                        w={{ xs: "28rem",sm : "35rem", md: "47rem" }}
                         d="inline-block" align="center"
                     >
                         <Input
@@ -594,13 +599,12 @@ function CommunityBoard() {
                             p={{ x: "2.5rem" }}
                             m={{ t: "0.5rem" }}
                             h="5rem"
-                            w={{ xs: "25rem", md: "500rem" }}
-                            // value = {commentinput}
+                            w={{ xs: "28rem",sm : "35rem", md: "47rem" }}
                             onChange={(e) => { commentinput변경(e.target.value) }}
                             value={commentinput}
                             prefix={
                                 <Icon
-                                    name="Camera"
+                                    name="Edit"
                                     color="warning800"
                                     size="16px"
                                     cursor="pointer"
@@ -612,15 +616,18 @@ function CommunityBoard() {
                             }
                             suffix={
                                 <Button
-                                    pos={{ xs: "static", md: "absolute" }}
-                                    onClick={loginid ?() => commentaddModal변경(true):() =>  {showLoginRequireModal변경(true)}}
-                                    bg="warning800"
-                                    hoverBg="warning600"
-                                    w={{ xs: "3rem", md: "6rem" }}
-                                    h={{ xs: "5rem", md: "2.5rem" }}
+                                    pos={{ xs: "static", md: "static" }}
+                                    onClick={loginid ? () => commentaddModal변경(true) : () => { showLoginRequireModal변경(true) }}
+                                    bg="black900"
+                                    hoverBg="black100"
+                                    h="auto"
+                                    w={{ xs: "6rem", md: "7rem" }}
                                     bottom="0"
                                     right="0"
                                     rounded="md"
+                                    textSize="title"
+                                    textWeight="700"
+                                    fontFamily="ko"
                                 >
                                     등록
                                     </Button>
@@ -674,7 +681,7 @@ function CommunityBoard() {
                         >
                             {alerttext[2]}
                         </Notification>
-                       <Notification
+                        <Notification
                             m={{ t: "5rem" }}
                             bg="warning700"
                             isOpen={게시판삭제실패}
@@ -699,7 +706,7 @@ function CommunityBoard() {
                         <CommunityBoardDelete
                             boardid={board['board_id']}
                             isOpen={commentdeleteModal}
-                            게시판삭제실패 = {() => 게시판삭제실패변경(true)}
+                            게시판삭제실패={() => 게시판삭제실패변경(true)}
                             onClose={() => commentdeleteModal변경(false)}></CommunityBoardDelete>
 
                         {/* 댓글부분시작 */}
@@ -709,7 +716,7 @@ function CommunityBoard() {
                                     p={{ x: "2.5rem", t: "0.7rem" }}
                                     m={{ t: "0.5rem" }}
                                     h="7rem"
-                                    w={{ xs: "25rem", md: "auto" }}
+                                    w={{ xs: "28rem",sm : "35rem", md: "47rem" }}
                                     border={{ t: "1px solid", b: "1px solid" }}
                                     borderColor="gray400"
                                     d="flex"
@@ -717,34 +724,39 @@ function CommunityBoard() {
                                     justify="space-between"
                                 >
                                     <Div
-                                        w={{ xs: "20rem", md: "auto" }}
+                                        w={{ xs: "23rem",sm : "30rem", md: "47rem" }}
+                                        
                                     >
                                         <Div
                                             textWeight="300"
                                             textColor="gray"
-                                            d = "flex"
+                                            d="flex"
                                         >
                                             <Text>
                                                 {datas.nickname}
                                             </Text>
-                                            { datas.userid == board.userid ? 
-                                            <Text
-                                            m={{ l : "0.3rem" ,t: "0.2rem" }}
-                                            textSize="caption"
-                                            textColor="danger700"
-                                            textWeight="800"
-                                            >
-                                                작성자
+                                            {datas.userid == board.userid ?
+                                                <Text
+                                                    m={{ l: "0.3rem", t: "0.2rem" }}
+                                                    textSize="caption"
+                                                    textColor="danger700"
+                                                    textWeight="800"
+                                                >
+                                                    작성자
                                             </Text> : null
                                             }
                                         </Div>
                                         <Div
                                             m={{ t: "0.3rem" }}
+                                            // w = "auto"
+                                            overflow="hidden"
+                                            w={{ xs: "18rem",sm : "25rem", md: "37rem" }}
                                         >
                                             <Text
                                                 textWeight="600"
                                                 textSize="subheader"
-                                                w={{ xs: "40rem", md: "40rem" }}
+                                                overflow="hidden"
+                                                w={{ xs: "18rem",sm : "25rem", md: "37rem" }}
                                             >
                                                 {datas.comment_content}
                                             </Text>
@@ -758,7 +770,6 @@ function CommunityBoard() {
                                                 name="Timestamp"
                                                 color="gray"
                                                 size="15px"
-                                                // cursor="pointer"
                                                 m={{ r: "0.4rem" }}
                                             />
                                             <Text
@@ -774,12 +785,10 @@ function CommunityBoard() {
                                             </Text>
                                             <Icon
                                                 transition
-                                                // name= "Heart"
-                                                // color= "gray"
                                                 size="15px"
                                                 cursor="pointer"
                                                 m={{ r: "0.4rem" }}
-                                                onClick={loginid ?() => commentlikedClick(datas):() =>  {showLoginRequireModal변경(true)}}
+                                                onClick={loginid ? () => commentlikedClick(datas) : () => { showLoginRequireModal변경(true) }}
                                                 name={LikedCommentsList.includes(String(datas['comment_id'])) ? "HeartSolid" : "Heart"}
                                                 color={LikedCommentsList.includes(String(datas['comment_id'])) ? "danger700" : "black"}
                                             />
@@ -796,30 +805,52 @@ function CommunityBoard() {
                                         </Div>
                                     </Div>
                                     <Div
-                                        // m={{
-                                        //     l: { xs: '7rem', md: '30rem' },
-                                        // }}
                                         m={{
 
                                             r: { xs: '+10rem', md: "0.4rem" }
                                         }}
+                                        w = "12rem"
+                                        d = "flex"
+                                        m={{ l: "0.3rem" }}
                                     >
                                         {datas.userid == loginid ?
                                             <Icon name="Delete" size="20px"
                                                 cursor="pointer"
                                                 onClick={() => commentdelete(datas)}
                                             /> : declarecommentlist.includes(datas.comment_id) ?
-                                            <Icon name="InfoSolid" size="20px"
-                                            cursor="pointer"
-                                            // onClick={loginid ? () => 신고하기클릭(datas):() =>  {showLoginRequireModal변경(true)}}
-                                            onClick={() => notdeclare변경(true)}
-                                            />
-                                            :
-                                            <Icon name="Info" size="20px"
-                                                cursor="pointer"
-                                                onClick={loginid ? () => 신고하기클릭(datas):() =>  {showLoginRequireModal변경(true)}}
-                                            // onClick={() => commentdeclare(data)}
-                                            />
+                                                // <Icon name="InfoSolid" size="20px"
+                                                //     cursor="pointer"
+                                                //     onClick={() => notdeclare변경(true)}
+                                                // />
+                                                <Text
+                                                    m={{ l: "-0.3rem", t: "0.2rem" }}
+                                                    w = "12rem"
+                                                    // p = {{r : "2rem"}}
+                                                    // m = {{r : "2rem"}}
+                                                    textSize="caption"
+                                                    textColor="gray"
+                                                    textWeight="800"
+                                                    fontFamily="ko"
+                                                >
+                                                    신고한 댓글입니다
+                                            </Text>
+                                                :
+                                                <Div d = "flex"
+                                                m={{ l: "0.3rem" }}
+                                                >
+                                                <Icon name="Info" size="18px"
+                                                    cursor="pointer"
+                                                    onClick={loginid ? () => 신고하기클릭(datas) : () => { showLoginRequireModal변경(true) }}
+                                                />
+                                                <Text 
+                                                    m={{ l: "0.3rem" }}
+                                                    w = "10rem"
+                                                    textSize="caption"
+                                                    textWeight="800"
+                                                    fontFamily="ko"
+                                                >
+                                                    신고하기</Text>
+                                                </Div>
                                         }
                                     </Div>
 
@@ -832,7 +863,7 @@ function CommunityBoard() {
                         {/* 댓글 끝 */}
 
                         <Communitydeclare
-                            boarddata = {신고할데이터}
+                            boarddata={신고할데이터}
                             commentdata={신고할데이터}
                             isOpen={showModal}
                             successDardChange={successDark변경}
@@ -854,7 +885,7 @@ function CommunityBoard() {
                         >
                             신고가 접수되었습니다.
                                 </Notification>
-                                <Notification
+                        <Notification
                             m={{ t: "5rem" }}
                             bg="warning700"
                             isOpen={notdeclare}
@@ -876,7 +907,6 @@ function CommunityBoard() {
 
                 <Div
                     bg="white"
-                    //   rounded="lg"
                     d="inline-block" align="center"
                 >
                     <Div

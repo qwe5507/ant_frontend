@@ -8,9 +8,6 @@ class BoardApiService {
     fetchBoards() {
         return axios.get(Board_API_BASE_URL);
     }
-    fetchTopMainBoards() {
-        return axios.get(Board_API_BASE_URL + '/fetchtopmainboards');
-    }
     fetchBoardsLiked() {
         return axios.get(Board_API_BASE_URL+'/likedorder');
     }
@@ -39,9 +36,7 @@ class BoardApiService {
         return axios.post(Board_API_BASE_URL + "/like", UserLikeBoard);
     }
     deleteLikedUserBoard(UserLikeBoard) {
-        // return axios.delete(Board_API_BASE_URL + '/like'+"/?board_id="+UserLikeBoard.board_id+"&userid="+UserLikeBoard.userid);
         return axios.delete(Board_API_BASE_URL + '/like'+"/"+UserLikeBoard.board_id+"/"+UserLikeBoard.userid);
-        // return axios.delete(Board_API_BASE_URL + '/like');
     }
 
     fetchSavedUserBoardCheck(userid) {
@@ -62,19 +57,6 @@ class BoardApiService {
     fetchSavedUserBoardLiked(userid) {
         return axios.get(Board_API_BASE_URL + '/savedboardLiked'+"/"+userid);
     }
-
-
-    // addUserLikeBoard(user) {
-    //     return axios.post(Board_API_BASE_URL, user);
-    // }
-    
-
-
-
-    // editUser(user) {
-    //     return axios.put(Board_API_BASE_URL + '/' + user.id, user)
-    // }
- 
 }
 
 export default new BoardApiService();

@@ -60,8 +60,8 @@ function Login() {
                 }
               })
               .catch(err => {
-                alert('으아아악.')
-                console.log('오이잉', err);
+                alert('로그인실패')
+                console.log('LOGIN errer', err);
               });
 
             localStorage.setItem('userid', ids); // 회원 등록 완료 후 Local Storage에 userid 저장
