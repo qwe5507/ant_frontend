@@ -54,6 +54,7 @@ function SearchPanel() {
             tag="section"
             w="100vw"
             p={{ t: { xs: "2rem", md: "2rem" } }}
+            m={{ t: { xs: "5rem", md: "5rem" } }}
             overflow="hidden"
         >
             <Container>

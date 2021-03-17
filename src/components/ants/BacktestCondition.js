@@ -264,7 +264,6 @@ function BacktestCondition() {
     return (
         <>
             <Div
-                tag="section"
                 w="100vw"
                 p={{ t: { xs: "6rem", md: "8rem" } }}
                 overflow="hidden"
@@ -275,7 +274,6 @@ function BacktestCondition() {
                     align="center"
                 >
                     <Text
-                        tag="h1"
                         textWeight="800"
                         textAlign="center"
                         textSize="display2"
@@ -285,7 +283,6 @@ function BacktestCondition() {
                         한국주식 백테스트
                         </Text>
                     <Text
-                        tag="h2"
                         textWeight="400"
                         maxW="36rem"
                         textSize="subheader"
