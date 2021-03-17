@@ -1,157 +1,131 @@
-
-import React, { useEffect, useRef } from "react";
-import styled from "styled-components";
-import Chartjs from "chart.js";
+import React, { useEffect, useState } from "react";
+import { Button, Container, Text, Div, Icon, Input, Anchor } from "atomize";
+import { Line } from 'react-chartjs-2';
 import IndApi from "../../../api/IndApi";
+function LineChartIn(props) {
 
-const Section = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
+    let [chartData, chartDataChange] = useState([]);
 
-const Container = styled.div`
-  justify-content: center;
-  align-items: center;
-`;
-
-const Title = styled.h1`
-  text-align: center;
-`;
-
-const Canvas = styled.div`
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 210px;
-`;
-
-const LineChartIn = () => {
-  let labeleurusd = []
-  let charteurusd = []
-  const chartContainer = useRef(null);
-
-  const reloadJipyoList = () => {
-    let temp = []
-    IndApi.labelDalAllList()
+    useEffect(() => {
+      IndApi.labelDalAllList()
      .then(res =>{
-        
-        charteurusd = res.data
-         
-         labeleurusd = [charteurusd[0]["dates"], charteurusd[1]["dates"], charteurusd[2]["dates"], charteurusd[3]["dates"], charteurusd[4]["dates"], charteurusd[5]["dates"], charteurusd[6]["dates"]]
-          console.log("마지막 확인")
+      var dataArr = [];
+      let labeleurusd = [res.data[0]["dates"].substring(0,10), res.data[1]["dates"].substring(0,10), res.data[2]["dates"].substring(0,10), res.data[3]["dates"].substring(0,10), res.data[4]["dates"].substring(0,10), res.data[5]["dates"].substring(0,10), res.data[6]["dates"].substring(0,10)]
 
-         let ctx = chartContainer.current.getContext("2d");
-         let gradient = ctx.createLinearGradient(0, 0, 0, 300);
-        gradient.addColorStop(0, "rgba(171, 242, 0, 0.3)");
-        gradient.addColorStop(1, "rgba(171, 242, 0, 0.1)");
-         
-        new Chartjs(ctx, {
-          type: "line",
-          data: {
-            labels: labeleurusd,
-            datasets: [
-              {
-                datasetStrokeWidth : 10,
-                type: "line",         
-                borderCapStyle: "round",
-                borderColor: "rgba(171, 242, 0, 1)",
-                borderWidth : 3,
-                backgroundColor: gradient,
-                pointBackgroundColor: "rgba(171, 242, 0, 0.2)",        
-                pointHoverRadius: 0,
-                pointDot : false,
-                pointRadius: 0, 
-                pointDotRadius: 0,
-                pointHoverBackgroundColor: "rgba(171, 242, 0, 0.2)",
-                data: [
-                  { x: labeleurusd[0].substring(0,10), y: charteurusd[0]["price"]},
-                  { x: labeleurusd[1].substring(0,10), y: charteurusd[1]["price"] },
-                  { x: labeleurusd[2].substring(0,10), y: charteurusd[2]["price"]  },
-                  { x: labeleurusd[3].substring(0,10), y: charteurusd[3]["price"]  }, 
-                  { x: labeleurusd[4].substring(0,10), y: charteurusd[4]["price"]  },
-                  { x: labeleurusd[5].substring(0,10), y: charteurusd[5]["price"]  },
-                  { x: labeleurusd[6].substring(0,10), y: charteurusd[6]["price"]  }
-                
-                ]
-              }
-            ]
-          },
-          options: {
-            animation: {
-              duration: 2000
-            },
-            responsive: true,
-            maintainAspectRatio: false,
-            tooltips: {
-              mode: "x",
-              intersect: false
-            },
-            legend: {
-              display: false
-            },
-            scales: {
-              xAxes: [
-                {
-                  display: true,
-                  scaleLabel: {
-                    display: true,
-                   
-                  },
-                  type: "time",
-                  time: {
-                    unit: "day",
-                    unitStepSize: 1
-                  },
-                  ticks: {
-                    
-                    fontSize: 10
+      let charteurusd = [ res.data[0]["price"],  res.data[1]["price"],  res.data[2]["price"],
+      res.data[3]["price"],  res.data[4]["price"],  res.data[5]["price"], res.data[6]["price"]]
+          var dataSet = {
+              labels: labeleurusd,
+              datasets: [
+                  {
+                      datasetStrokeWidth: 10,
+                      type: "line",
+                      borderCapStyle: "butt",
+                      borderColor: "rgba(89, 105, 255, 1)",
+                      borderWidth: 3,
+                      backgroundColor: "rgba(89, 105, 255, 0.3)",
+                      pointBackgroundColor: "rgba(89, 105, 255, 0.1)",
+                      pointHoverRadius: 0,
+                      pointDot: false,
+                      pointRadius: 2,
+                      pointDotRadius: 0,
+                      pointHoverBackgroundColor: "rgba(89, 105, 255, 0.2)",
+                      data: charteurusd,
+                      lineTension: 0
                   }
-                }
-              ],
-              yAxes: [
-                {
-                  display: false,
-                  scaleLabel: {
-                    display: false,              
-                  },
-                  ticks: {
-                    fontSize: 9,
-                    beginAtZero: false,
-                    callback: function (value, index, values) {
-                      return value;
-                    }
-                  }
-                }
               ]
-            }
           }
-        });
+
+          dataArr.push(dataSet);
       
-         })        
-         .catch(err => {
-         console.error('지표리스트 오류', err);
-         alert('조회오류');
-         })
 
-     }
- 
-     useEffect(() => {
-   
-      reloadJipyoList();
-     
-     }, [chartContainer]);
+      chartDataChange(dataArr);
 
-  return (
-    <Section>
-      <Container>
+    })
         
-        <Canvas>
-          <canvas ref={chartContainer} />
-        </Canvas>
-      </Container>
-    </Section>
-  );
-};
+    }, [props]);
+
+    return (
+      <Div
+      d="flex"
+      justify="center"
+      w={{ xs: "100%", lg: "100%" }}
+  >
+      <Div
+          w={{ xs: "100%", md: "-23rem" }}
+          maxW="120%"
+          maxH="120%"
+          pos={{ xs: "static", md: "static" }}
+          m={{ xs: "1rem", md: "0" }}
+          top="0"
+         
+          h="12rem"
+          
+      >
+          <Div
+              flexGrow="1"
+              textAlign="center"
+          >
+            <div style={{height:"225px"}}>
+                    { chartData.map((a, i) => {
+                        return(    
+                        <Line
+                        
+                            data={ a }
+                            options={{
+                                animation: {
+                                    duration: 2000
+                                },
+                                responsive: true,
+                             //   maintainAspectRatio: true,
+                                maintainAspectRatio: false,
+                                tooltips: {
+                                    mode: "x",
+                                    intersect: false
+                                },
+                                legend: {
+                                    display: false
+                                },
+                                scales: {
+                                    xAxes: [
+                                        {
+                                            display: false,
+                                            gridLines: {
+                                                display: false,
+                                            },
+                                            scaleLabel: {
+                                                display: true,
+
+                                            },
+                                            type: "time",
+                                            time: {
+                                                unit: "day",
+                                                unitStepSize: 1
+                                            },
+                                        }
+                                    ],
+                                    yAxes: [
+                                        {
+                                            display: false,
+                                            gridLines: {
+                                                display: false,
+                                            },
+                                            scaleLabel: {
+                                                display: false,
+                                            },
+                                        }
+                                    ]
+                                }
+                            }}
+                        />
+                        )
+                    })}
+                    </div>
+                </Div>
+                </Div>
+                </Div>
+       
+    )
+}
 
 export default LineChartIn;

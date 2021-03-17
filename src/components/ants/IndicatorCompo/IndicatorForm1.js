@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom';
 class IndicatorForm1 extends Component{
 
   constructor(props){
-    console.log('constro run');
     super(props);
     this.state ={
       dates : '',
@@ -36,11 +35,8 @@ reloadJipyoList = () => {
       })
       .catch(err => {
       console.error('지표리스트 오류(국외환율)', err);
-     // alert('조회오류');
       })
-
     }
-
 
     componentWillUnmount(){
       console.log('comwilunmont run')
@@ -58,23 +54,28 @@ reloadJipyoList = () => {
     pos={{ xs: "static", md: "absolute" }}
     m={{ xs: "1rem", md: "-2rem" }}
     left="0"
-    //right="0"
     top="0"
     rounded="xl"
-    h={{ lg: "24rem" }}
+    h={{ lg: "22rem" }}
     bg="white"
     shadow="4"
     p="2rem"
   >
      <Link to={`/IndicatorDetailExeFor/${this.state.symbol}`}>
-    <Div flexGrow="1">
-   
-    <Div>
+    <Div flexGrow="0">
+    <Div d="flex"
+        flexDir="column"
+        align="center"
+        >
+    <Div d="flex"
+        flexDir="row"
+        textAlign="center"
+        >
    
       <Text
         textAlign="center"
-        textSize="title"
-        m={{ t: "0.5rem", b: "0.5rem" }}
+        textSize="heading"
+        m={{ t: "0rem", b: "0rem" }}
         textWeight="800"
         fontFamily="ko"
         textColor="black"
@@ -83,8 +84,8 @@ reloadJipyoList = () => {
       </Text>
       <Text
         textAlign="center"
-        textSize="title"
-        m={{ t: "0.5rem", b: "0.5rem" }}
+        textSize="heading"
+        m={{ x: { xs: '0.5rem', md: '0.5rem' }, y: { xs: '0', md: '0' }}}
         textWeight="800"
         fontFamily="ko"
         textColor="info700"
@@ -92,6 +93,7 @@ reloadJipyoList = () => {
       >
         {this.state.rates}
       </Text>
+      </Div>
       <Text
         textAlign="center"
         textSize="caption"
@@ -104,8 +106,7 @@ reloadJipyoList = () => {
         ({this.state.dates} 기준)
       </Text>
       </Div>
-      
-      <br/>
+     
       <LineChartIn/>
      </Div>
      </Link>

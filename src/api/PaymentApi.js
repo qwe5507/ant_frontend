@@ -4,7 +4,6 @@ import axios from 'axios';
 const PAYMENT_API_BASE_URL = "http://localhost:8000/payment";
 
 // const PAYMENT_API_BASE_URL_CON = "http://15.165.161.92:8000/payment/confirm";
-const PAYMENT_API_BASE_URL_CON = "http://localhost:8000/payment/confirm";
 
 class PaymentApiService {
 
@@ -17,7 +16,7 @@ class PaymentApiService {
     }
    
     conformSub(userId){
-        return axios.get(PAYMENT_API_BASE_URL_CON + '/' + userId);
+        return axios.get(PAYMENT_API_BASE_URL + '/confirm/' + userId);
     }
  
 }

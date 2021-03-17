@@ -13,7 +13,8 @@ function IndiTable2(){
         return(
           <div>
           
-      <Div  p={{ t: { xs: "9rem", md: "5rem" } }} >
+      <Div p={{ t: { xs: "1rem", md: "5rem" } }}
+        m={{ x: { xs: '0rem', md: '0rem' }, y: { xs: '0rem', md: '2.5rem' }}} >
        
           <IndiTable2_Detail />
          </Div >

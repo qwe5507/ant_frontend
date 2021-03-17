@@ -62,23 +62,25 @@ class IndiTable3 extends Component{
         console.log('render run');
         return(
           <div>
-        <Div  p={{ t: { xs: "9rem", md: "5rem" } }} >
-        <Div  p={{ t: { xs: "2rem", md: "2rem" } }} >
+       
+       <Div  p={{ t: { xs: "1rem", md: "5rem" } }}
+        m={{ x: { xs: '0rem', md: '0rem' }, y: { xs: '0rem', md: '2.5rem' }}}
+        >
         <Div textAlign="left">
         <Text
-          textSize="title"
+          textSize="heading"
           textWeight="800"
           fontFamily='ko'
           >
-          WTI
+          WTI(서부 텍사스유)
         </Text>
         </Div>
-        <Table >
+        <Table size="small" style={{margin:"8px"}}>
         <TableHead>
           <TableRow>
-          <TableCell align="center">구분</TableCell>
-            <TableCell align="center">기준일자</TableCell>          
-            <TableCell align="center">가격</TableCell>
+          <TableCell align="center"><b>구분</b></TableCell>
+            <TableCell align="center"><b>기준일자</b></TableCell>          
+            <TableCell align="center"><b>가격</b></TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -86,8 +88,14 @@ class IndiTable3 extends Component{
             <TableRow>
               <TableCell align="center">
               <Link to={`/IndicatorDetail2/${this.state.wtiid}`} >
-              <Button variant="contained">
+              <Button size="small" variant="contained" style={{boxShadow: 'none', backgroundColor: '#fbe0a1'}}>
+              <Text
+              textSize={{xs:"body", md:"body"}}
+              textWeight="900"
+              fontFamily='ko'
+              >
                 WTI
+                </Text>
                 </Button>
                 </Link>
                 </TableCell>
@@ -101,23 +109,22 @@ class IndiTable3 extends Component{
         </Table>
         </Div >
         
-        <Div  p={{ t: { xs: "2rem", md: "2rem" } }} >
+        <Div  p={{ t: { xs: "1rem", md: "0rem" } }} >
           <Div textAlign="left">
           <Text
-          textSize="title"
+          textSize="heading"
           textWeight="800"
           fontFamily='ko'
           >
-          국제 금
+          국제 금 시세
           </Text>
           </Div>
-        <Table >
+          <Table size="small" style={{margin:"8px"}}>
         <TableHead>
           <TableRow>
-            <TableCell align="center">구분</TableCell>
-            <TableCell align="center">기준일자</TableCell>
-            <TableCell align="center">단위</TableCell>
-            <TableCell align="center">가격</TableCell>
+          <TableCell align="center"><b>구분</b></TableCell>
+            <TableCell align="center"><b>기준일자</b></TableCell>          
+            <TableCell align="center"><b>가격</b></TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -125,13 +132,18 @@ class IndiTable3 extends Component{
           <TableRow>
           <TableCell align="center">
           <Link to={`/IndicatorDetail2/${this.state.forgoldid}`} >
-          <Button variant="contained">
+          <Button size="small" variant="contained" style={{boxShadow: 'none', backgroundColor: '#fbe0a1'}}>
+          <Text
+              textSize={{xs:"body", md:"body"}}
+              textWeight="900"
+              fontFamily='ko'
+              >
             국제 금
+            </Text>
           </Button>
           </Link>
             </TableCell>
-            <TableCell align="center">{forgold.dates.substring(0,10)}</TableCell>
-          <TableCell align="center">달러/트레이온스</TableCell>
+            <TableCell align="center">{forgold.dates.substring(0,10)}</TableCell>   
           <TableCell align="center">{forgold.price}</TableCell>
           </TableRow>         
         )
@@ -139,7 +151,7 @@ class IndiTable3 extends Component{
           </TableBody>
         </Table>
       </Div >
-      </Div>  
+    
           </div>
       )
       }

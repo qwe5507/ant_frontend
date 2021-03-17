@@ -31,6 +31,7 @@ class IndiTable1 extends Component{
       };
     }
 
+
     componentDidMount(){
         this.reloadJipyoList();
       }
@@ -129,26 +130,29 @@ class IndiTable1 extends Component{
     }
 
       render(){
-        console.log('render run');
+       
         return(
             <div>
             
-        <Div  p={{ t: { xs: "9rem", md: "5rem" } }} >
+        <Div  p={{ t: { xs: "1rem", md: "5rem" } }}
+        m={{ x: { xs: '0rem', md: '0rem' }, y: { xs: '0rem', md: '2.5rem' }}}
+        >
         <Div textAlign="left">
         <Text
-          textSize="title"
+          textSize="heading"
           textWeight="800"
           fontFamily='ko'
           >
           최근 1일간 수치
         </Text>
-        </Div>
-        <Table >
+        </Div >
+        <Div >
+        <Table size="small" style={{margin:"8px"}}>
           <TableHead>
             <TableRow>
-              <TableCell align="center">지표명</TableCell>
-              <TableCell align="center">수치</TableCell>
-              <TableCell align="center">기준일</TableCell>
+              <TableCell align="center"><b>지표명</b></TableCell>
+              <TableCell align="center"><b>수치</b></TableCell>
+              <TableCell align="center"><b>기준일</b></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -156,8 +160,14 @@ class IndiTable1 extends Component{
           <TableRow>
              <TableCell align="center">
              <Link to="/IndicatorDetail" >
-              <Button variant="contained">
+             <Button size="small" variant="contained" style={{boxShadow: 'none', backgroundColor: '#fbe0a1'}}>
+             <Text
+              textSize={{xs:"body", md:"body"}}
+              textWeight="900"
+              fontFamily='ko'
+              >
                원/달러
+               </Text>
                </Button>
               </Link>
                </TableCell>
@@ -169,8 +179,12 @@ class IndiTable1 extends Component{
           <TableRow>
              <TableCell align="center">
              <Link to="/IndicatorDetailExeFor/EURUSD" >
-              <Button variant="contained">
-               달러/유로
+              <Button size="small" variant="contained" style={{boxShadow: 'none', backgroundColor: '#fbe0a1'}}>
+              <Text
+              textSize={{xs:"body", md:"body"}}
+              textWeight="900"
+              fontFamily='ko'
+              >달러/유로 </Text>
                </Button>
               </Link>
                </TableCell>
@@ -182,8 +196,12 @@ class IndiTable1 extends Component{
           <TableRow>
              <TableCell align="center">
              <Link to="/IndicatorDetailExeFor/USDGBP" >
-              <Button variant="contained">
-               영국 파운드/달러
+             <Button size="small" variant="contained" style={{boxShadow: 'none', backgroundColor: '#fbe0a1'}}>
+             <Text
+              textSize={{xs:"body", md:"body"}}
+              textWeight="900"
+              fontFamily='ko'
+              >영국 파운드/달러</Text>
                </Button>
               </Link>
               </TableCell>
@@ -195,8 +213,12 @@ class IndiTable1 extends Component{
           <TableRow>
              <TableCell align="center">
              <Link to="/IndicatorDetailExeFor/USDJPY" >
-              <Button variant="contained">
-               일본 엔/달러
+             <Button size="small" variant="contained" style={{boxShadow: 'none', backgroundColor: '#fbe0a1'}}>
+             <Text
+              textSize={{xs:"body", md:"body"}}
+              textWeight="900"
+              fontFamily='ko'
+              > 일본 엔/달러</Text>
                </Button>
               </Link>
                </TableCell>
@@ -208,8 +230,12 @@ class IndiTable1 extends Component{
           <TableRow>
              <TableCell align="center">
              <Link to="/IndicatorDetailExeFor/USDCNY" >
-              <Button variant="contained">
-               중국 위안/달러
+             <Button size="small" variant="contained" style={{boxShadow: 'none', backgroundColor: '#fbe0a1'}}>
+             <Text
+              textSize={{xs:"body", md:"body"}}
+              textWeight="900"
+              fontFamily='ko'
+              > 중국 위안/달러</Text>
                </Button>
               </Link>
                </TableCell>
@@ -221,8 +247,12 @@ class IndiTable1 extends Component{
           <TableRow>
              <TableCell align="center">
              <Link to={"/IndicatorDetail2/wti"} >
-              <Button variant="contained">
-               WTI
+             <Button size="small" variant="contained" style={{boxShadow: 'none', backgroundColor: '#fbe0a1'}}>
+             <Text
+              textSize={{xs:"body", md:"body"}}
+              textWeight="900"
+              fontFamily='ko'
+              > WTI</Text>
                </Button>
                 </Link>
                </TableCell>
@@ -234,8 +264,12 @@ class IndiTable1 extends Component{
           <TableRow>
              <TableCell align="center">
              <Link to={"/IndicatorDetail2/goldfor"} >
-              <Button variant="contained">
-               국제 금
+             <Button size="small" variant="contained" style={{boxShadow: 'none', backgroundColor: '#fbe0a1'}}>
+             <Text
+              textSize={{xs:"body", md:"body"}}
+              textWeight="900"
+              fontFamily='ko'
+              >국제 금</Text>
                </Button>
                 </Link>
                </TableCell>
@@ -247,8 +281,12 @@ class IndiTable1 extends Component{
           <TableRow>
              <TableCell align="center">
              <Link to={"/IndicatorDetail1/bond10"} >
-              <Button variant="contained">
-               미 10년 채권수익률
+             <Button size="small" variant="contained" style={{boxShadow: 'none', backgroundColor: '#fbe0a1'}}>
+             <Text
+              textSize={{xs:"body", md:"body"}}
+              textWeight="900"
+              fontFamily='ko'
+              >미 10년 채권수익률</Text>
                </Button>
                 </Link>
                </TableCell>
@@ -261,8 +299,12 @@ class IndiTable1 extends Component{
           <TableRow>
              <TableCell align="center">
              <Link to={"/IndicatorDetail2/bond2"} >
-              <Button variant="contained">
-               미 2년 채권수익률
+             <Button size="small" variant="contained" style={{boxShadow: 'none', backgroundColor: '#fbe0a1'}}>
+             <Text
+              textSize={{xs:"body", md:"body"}}
+              textWeight="900"
+              fontFamily='ko'
+              >미 2년 채권수익률</Text>
                </Button>
                 </Link>
                </TableCell>
@@ -275,8 +317,12 @@ class IndiTable1 extends Component{
           <TableRow>
              <TableCell align="center">
              <Link to={"/IndicatorDetail2/dolleridx"} >
-              <Button variant="contained">
-               달러인덱스
+             <Button size="small" variant="contained" style={{boxShadow: 'none', backgroundColor: '#fbe0a1'}}>
+             <Text
+              textSize={{xs:"body", md:"body"}}
+              textWeight="900"
+              fontFamily='ko'
+              >달러인덱스</Text>
                </Button>
             </Link>
             </TableCell>
@@ -289,8 +335,12 @@ class IndiTable1 extends Component{
           <TableRow>
              <TableCell align="center">
              <Link to={"/IndicatorDetail2/bitcoin"} >
-              <Button variant="contained">
-               비트코인
+             <Button size="small" variant="contained" style={{boxShadow: 'none', backgroundColor: '#fbe0a1'}}>
+             <Text
+              textSize={{xs:"body", md:"body"}}
+              textWeight="900"
+              fontFamily='ko'
+              >비트코인</Text>
                </Button>
               </Link>
                </TableCell>
@@ -302,7 +352,7 @@ class IndiTable1 extends Component{
           </TableBody>
         
         </Table>
-        
+        </Div>
         </Div >
             </div>
         )
