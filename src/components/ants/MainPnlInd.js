@@ -2,8 +2,6 @@ import React, { useEffect, useState } from "react"
 
 import { Text, Div, Image, Radiobox, Label } from "atomize"
 
-import { nanoid } from 'nanoid';
-
 import MainPnlIndShimmer from "./MainPnlIndShimmer";
 import TestApi from "../../api/TestApi";
 
@@ -197,7 +195,7 @@ function MainPnlInd() {
         {chartData && chartData.map((a, i) => {
           return (
             <Div>
-              <MainPnlIndCard key={nanoid()} chartData={a} />
+              <MainPnlIndCard chartData={a} />
             </Div>
           )
         })

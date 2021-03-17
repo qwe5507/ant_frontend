@@ -2,8 +2,6 @@ import React, { useEffect, useState } from "react"
 
 import { Text, Div, Image, Radiobox, Label } from "atomize"
 
-import { nanoid } from 'nanoid';
-
 import flagKo from "../../images/flags/ko.png"
 import flagUs from "../../images/flags/us.png"
 

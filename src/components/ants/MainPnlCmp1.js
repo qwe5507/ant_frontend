@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { Text, Div, Label, Radiobox } from "atomize"
 import { Link } from 'react-router-dom';
-import { nanoid } from 'nanoid';
 import TestApi from "../../api/TestApi";
 import MainPnlIndShimmer from "./MainPnlIndShimmer";
 import MainPnlIndCard2 from './MainPnlIndCard2';
@@ -193,7 +192,7 @@ function MainPnlCmp1(){
             {stocksData && stocksData.map((a,i) =>{
                 return(
                     <Div>
-                        <MainPnlIndCard2 key={nanoid()} stocksData={a}/>
+                        <MainPnlIndCard2 stocksData={a}/>
                     </Div>
                 )
 
