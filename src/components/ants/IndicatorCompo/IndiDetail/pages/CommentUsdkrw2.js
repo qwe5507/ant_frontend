@@ -119,18 +119,7 @@ function CommentUsdkrw2(props) {
       
       <div align = "center" >
         
-    <Container m ="0">
-    <Text
-      textAlign="left"
-      textSize="title"
-      m={{ t: "2rem", b: "0rem" }}
-      textWeight="800"
-      fontFamily="ko"
-    >
-      개미토론방
-      </Text>      
-      </Container>
-                 
+   
   <Div
     m={{ t: "0.5rem" }}
     h="6rem"
@@ -143,26 +132,26 @@ function CommentUsdkrw2(props) {
       p={{ x: "2.5rem" }}
       m={{ t: "0.5rem" }}
       h="5rem"
-      w={{ xs: "25rem", md: "500rem" }}
+      w={{ xs: "25rem", md: "28rem" }}
       name="commnet_content"
       value={comment}
       onChange={(e) => { commentbyun(e.target.value) }}
-    suffix={
-        <Button
+   
+    />
+    <Button
         pos={{ xs: "static", md: "absolute" }}
-        bg="warning800"
-        hoverBg="warning600"
+        bg="info700"
+        hoverBg="info600"
         w={{ xs: "3rem", md: "6rem" }}
         h={{ xs: "5rem", md: "2.5rem" }}
-        bottom="0"
+        m={{ x: { xs: '1rem', md: '1.5rem' }, y: { xs: '2rem', md: '-1.5rem' }}}
+     
         right="0"
         rounded="md"
         onClick={addComment}
         >
         등록
-     </Button>
- }
-    /></Div>  
+     </Button></Div>  
    
   
     {commentlist.map(comment=>(
@@ -170,7 +159,7 @@ function CommentUsdkrw2(props) {
        p={{ x: "2.5rem", t: "0.7rem" }}
       m={{ t: "0.5rem" }}
       h="7.5rem"
-      w={{ xs: "25rem", md: "70rem" }}
+      w={{ xs: "25rem", md: "28rem" }}
        border={{ t: "1px solid", b: "1px solid" }}
        borderColor="gray400"
        d="flex"
@@ -232,13 +221,36 @@ function CommentUsdkrw2(props) {
 </Div>
 
 ))} 
+<Div  m={{ x: { xs: '1rem', md: '1.5rem' }, y: { xs: '2rem', md: '0.5rem' }}} >
+  <div align-items= "center"  >
+<button style={{backgroundColor: '#0284fe'}}  color="white"onClick={ () => links2("usdkrw", next)}>
+<Text
+        textAlign="left"
+        textSize="Typography"
+        textWeight="600"
+        fontFamily="secondary"
+        textColor="white"
+         >
+  ◀
+  </Text>
+  </button>&nbsp;
+<button style={{backgroundColor: '#0284fe'}} onClick={ () => links("usdkrw", next)}>
+<Text
+        textAlign="left"
+        textSize="Typography"
+        textWeight="600"
+        fontFamily="secondary"
+        textColor="white"
+         >
 
-  <nav aria-label="Page navigation example" class="nav justify-content-center">
-  <ul className="pagination" align="center">
-    <li className="page-item" align="center"><button onClick={ () => links2("usdkrw", next)}>Previous</button></li>
-    <li className="page-item" align="center"><button onClick={ () => links("usdkrw", next)}>Next</button></li>
-</ul>
-</nav>
+  ▶
+</Text>  
+  </button>
+
+</div>
+
+</Div>
+ 
         <AlignStartModal
           userid = {loginid}
           nickname = {loginname}
