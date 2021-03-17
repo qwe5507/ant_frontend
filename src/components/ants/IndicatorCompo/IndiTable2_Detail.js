@@ -12,7 +12,6 @@ import { Link } from 'react-router-dom';
 class IndiTable2_Detail extends Component{
 
     constructor(props){
-        console.log('constro run');
         super(props);
         this.state ={
           indifors : [],
@@ -24,8 +23,6 @@ class IndiTable2_Detail extends Component{
 }
 
     componentDidMount(){
-        
-        console.log('comdid run');
         this.reloadJipyoList();
         this.reloadKorList();
         this.reloadDolIdxList();
@@ -41,7 +38,6 @@ class IndiTable2_Detail extends Component{
         })
         .catch(err => {
         console.error('지표리스트 오류(국외환율)', err);
-       // alert('조회오류');
         })
 
       }
@@ -53,7 +49,6 @@ class IndiTable2_Detail extends Component{
         })
     .catch(err => {
         console.error('지표리스트 오류(국내환율)', err);
-        // alert('조회오류');
         })
     
     }
@@ -65,38 +60,35 @@ class IndiTable2_Detail extends Component{
           })
       .catch(err => {
           console.error('5일 달러인덱스 오류', err);
-          // alert('조회오류');
           })
       
       }
-
-      
+   
       componentWillUnmount(){
         console.log('comwilunmont run')
       }
 
       render(){
-        console.log('render run');
         return(
           <div>
           
-      <Div  p={{ t: { xs: "2rem", md: "2rem" } }} >
+      <Div  p={{ t: { xs: "0rem", md: "0rem" } }} >
         <Div textAlign="left">
         <Text
-        textSize="title"
-        textWeight="800"
-        fontFamily='ko'
-        >
+          textSize="heading"
+          textWeight="800"
+          fontFamily='ko'
+          >
           국제시장 환율
           </Text>
           </Div>
-      <Table >
+          <Table size="small" style={{margin:"8px"}}>
         <TableHead>         
           <TableRow>         
-            <TableCell align="center">통화명</TableCell>
-            <TableCell align="center">심볼</TableCell>
-            <TableCell align="center">매매기준율</TableCell>
-            <TableCell align="center">기준일자</TableCell>
+            <TableCell align="center"><b>통화명</b></TableCell>
+            <TableCell align="center"><b>심볼</b></TableCell>
+            <TableCell align="center"><b>매매기준율</b></TableCell>
+            <TableCell align="center"><b>기준일자</b></TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -105,8 +97,16 @@ class IndiTable2_Detail extends Component{
               
               <TableCell align="center">
               <Link to={`/IndicatorDetailExeFor/${indifor.symbol}`} >
-              <Button variant="contained">
+              <Button size="small" variant="contained" style={{boxShadow: 'none', backgroundColor: '#fbe0a1'}}>
+            
+              <Text
+              textSize={{xs:"caption", md:"body"}}
+              textWeight="900"
+              fontFamily='ko'
+              >
                 {indifor.exechange_Name}
+                </Text>
+             
               </Button>
               </Link>
                 </TableCell>
@@ -120,25 +120,25 @@ class IndiTable2_Detail extends Component{
       </Table>
       </Div >
 
-      <Div  p={{ t: { xs: "2rem", md: "2rem" } }} >
+      <Div  p={{ t: { xs: "1rem", md: "1rem" } }} >
         <Div textAlign="left">
         <Text
-        textSize="title"
-        textWeight="800"
-        fontFamily='ko'
-        >
+          textSize="heading"
+          textWeight="800"
+          fontFamily='ko'
+          >
           달러인덱스
           </Text>
           </Div>
-      <Table >
+          <Table size="small" style={{margin:"8px"}}>
         <TableHead>         
           <TableRow>         
-            <TableCell align="center">통화명</TableCell>
-            <TableCell align="center">기준일자</TableCell>
-            <TableCell align="center">종가</TableCell>
-            <TableCell align="center">오픈</TableCell>
-            <TableCell align="center">고가</TableCell>
-            <TableCell align="center">저가</TableCell>
+            <TableCell align="center"><b>통화명</b></TableCell>
+            <TableCell align="center"><b>기준일자</b></TableCell>
+            <TableCell align="center"><b>종가</b></TableCell>
+            <TableCell align="center"><b>오픈</b></TableCell>
+            <TableCell align="center"><b>고가</b></TableCell>
+            <TableCell align="center"><b>저가</b></TableCell>
             
           </TableRow>
         </TableHead>
@@ -148,8 +148,13 @@ class IndiTable2_Detail extends Component{
               
               <TableCell align="center">
               <Link to={`/IndicatorDetail1/${this.state.dollerid}`} >
-              <Button variant="contained">
-                달러인덱스
+              <Button size="small" variant="contained" style={{boxShadow: 'none', backgroundColor: '#fbe0a1'}}>
+              <Text
+              textSize={{xs:"tiny", md:"body"}}
+              textWeight="800"
+              fontFamily='ko'
+              >
+                달러인덱스</Text>
               </Button>
               </Link>
                 </TableCell>
@@ -166,22 +171,22 @@ class IndiTable2_Detail extends Component{
       </Div >
 
 
-      <Div  p={{ t: { xs: "2rem", md: "5rem" } }} >
+      <Div  p={{ t: { xs: "1rem", md: "1rem" } }} >
         <Div textAlign="left">
         <Text
-        textSize="title"
-        textWeight="800"
-        fontFamily='ko'
-        >
+          textSize="heading"
+          textWeight="800"
+          fontFamily='ko'
+          >
           원/달러 환율
           </Text>
           </Div>
-      <Table >
+      <Table  size="small" style={{margin:"8px"}}>
         <TableHead>         
           <TableRow>
-          <TableCell align="center">통화명</TableCell>
-            <TableCell align="center">기준일자</TableCell>
-            <TableCell align="center">매매기준율</TableCell>
+          <TableCell align="center"><b>통화명</b></TableCell>
+            <TableCell align="center"><b>기준일자</b></TableCell>
+            <TableCell align="center"><b>매매기준율</b></TableCell>
             
           </TableRow>
         </TableHead>
@@ -190,8 +195,14 @@ class IndiTable2_Detail extends Component{
             <TableRow  >        
               <TableCell align="center">
               <Link to="/IndicatorDetail" >
-              <Button variant="contained">
+              <Button size="small" variant="contained" style={{boxShadow: 'none', backgroundColor: '#fbe0a1'}}>
+              <Text
+              textSize={{xs:"caption", md:"body"}}
+              textWeight="900"
+              fontFamily='ko'
+              >
                 원/달러
+                </Text>
               </Button>
                 </Link>
                 </TableCell>      

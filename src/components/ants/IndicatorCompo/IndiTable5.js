@@ -14,7 +14,6 @@ import { Text, Div } from "atomize";
 class IndiTable5 extends Component{
 
     constructor(props){
-        console.log('constro run');
         super(props);
         this.state ={
           bitcoins : [],
@@ -24,7 +23,6 @@ class IndiTable5 extends Component{
 }
 
     componentDidMount(){
-        console.log('comdid run');
         this.reloadBitCoinList();
       }
 
@@ -36,7 +34,6 @@ class IndiTable5 extends Component{
         })
         .catch(err => {
         console.error('지표리스트(비트코인) 오류', err);
-       //alert('조회오류');
         })
 
       }
@@ -46,30 +43,28 @@ class IndiTable5 extends Component{
       }
     
       render(){
-        console.log('render run');
         return(
-          <div>
-          
-      <Div  p={{ t: { xs: "9rem", md: "5rem" } }} >
-      <Div  p={{ t: { xs: "2rem", md: "2rem" } }} >
+          <div>     
+      <Div  p={{ t: { xs: "0rem", md: "6rem" } }} >
+      <Div  p={{ t: { xs: "1rem", md: "2rem" } }} >
         <Div textAlign="left">
         <Text
-          textSize="title"
+          textSize="heading"
           textWeight="800"
           fontFamily='ko'
           >
           비트코인
         </Text>
         </Div>
-        <Table >
+        <Table size="small" style={{margin:"-1px"}}>
         <TableHead>
           <TableRow>
-          <TableCell align="center">구분</TableCell>
-            <TableCell align="center">기준일자</TableCell>
-            <TableCell align="center">종가</TableCell>
-            <TableCell align="center">오픈</TableCell>
-            <TableCell align="center">고가</TableCell>
-            <TableCell align="center">저가</TableCell>
+          <TableCell align="center"><b>구분</b></TableCell>
+            <TableCell align="center"><b>기준일자</b></TableCell>          
+            <TableCell align="center"><b>종가</b></TableCell>
+            <TableCell align="center"><b>오픈</b></TableCell>
+            <TableCell align="center"><b>고가</b></TableCell>
+            <TableCell align="center"><b>저가</b></TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -77,8 +72,14 @@ class IndiTable5 extends Component{
             <TableRow>
               <TableCell align="center">
               <Link to={`/IndicatorDetail1/${this.state.bitcoinid}`} >
-              <Button variant="contained">
+              <Button size="small" variant="contained" style={{boxShadow: 'none', backgroundColor: '#fbe0a1'}}>
+              <Text
+              textSize={{xs:"tiny", md:"body"}}
+              textWeight="900"
+              fontFamily='ko'
+              >
               비트코인
+              </Text>
                 </Button>
                 </Link>
                 </TableCell>

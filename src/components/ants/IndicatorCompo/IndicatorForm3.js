@@ -46,7 +46,7 @@ class   IndicatorForm3 extends Component{
   render(){
   return(
     
-  <Div
+    <Div
     d="flex"
     flexDir="column"
     border="1px solid"
@@ -59,50 +59,57 @@ class   IndicatorForm3 extends Component{
     right="0"
     top="0"
     rounded="xl"
-    h={{ lg: "24rem" }}
+    h={{ lg: "22rem" }}
     bg="white"
     shadow="4"
     p="2rem"
   >
-    <Link to={`/IndicatorDetail2/${this.state.wtiid}`} >
-    <Div flexGrow="1">
-    <Div>
+    <Link to={`/IndicatorDetailExeFor/${this.state.symbol}`}>
+    <Div flexGrow="0">
+ 
+    <Div d="flex"
+        flexDir="column"
+        align="center"
+        >
+    <Div d="flex"
+        flexDir="row"
+        textAlign="center"
+        >
    
-    <Text
-    textAlign="center"
-     textSize="title"
-     m={{ t: "0.5rem", b: "0.5rem" }}
-     textWeight="800"
-     fontFamily="ko"
-     textColor="black"
-   >
+      <Text
+        textAlign="center"
+        textSize="heading"
+        m={{ t: "0rem", b: "0rem" }}
+        textWeight="800"
+        fontFamily="ko"
+        textColor="black"
+      >
     {this.state.name}
-   </Text>
-   <Text
-     textAlign="center"
-     textSize="title"
-     m={{ t: "0.5rem", b: "0.5rem" }}
-     textWeight="800"
-     fontFamily="ko"
-     textColor="info700"
-     
-   >
+    </Text>
+      <Text
+        textAlign="center"
+        textSize="heading"
+        m={{ x: { xs: '0.5rem', md: '0.5rem' }, y: { xs: '0', md: '0' }}}
+        textWeight="800"
+        fontFamily="ko"
+        textColor="info700"
+        
+      >
      {this.state.rates}
-   </Text>
-   <Text
-     textAlign="center"
-     textSize="caption"
-     m={{ t: "0.5rem", b: "0.5rem" }}
-     textWeight="800"
-     fontFamily="ko"
-     textColor="light"
-     
-   >
+     </Text>
+      </Div>
+      <Text
+        textAlign="center"
+        textSize="caption"
+        m={{ t: "0.5rem", b: "0.5rem" }}
+        textWeight="800"
+        fontFamily="ko"
+        textColor="light"
+        
+      >
      ({this.state.dates} 기준)
    </Text>
    </Div>
-   
-   <br/>
    
    <LineChartIn3/>
   </Div>

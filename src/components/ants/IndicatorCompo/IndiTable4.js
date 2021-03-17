@@ -26,7 +26,6 @@ class IndiTable4 extends Component{
 }
 
     componentDidMount(){
-        console.log('comdid run');
         this.reloadBond10List();
         this.reloadBond2List();
     }
@@ -50,7 +49,6 @@ class IndiTable4 extends Component{
             })
             .catch(err => {
             console.error('지표리스트(2년 채권) 오류', err);
-           // alert('조회오류');
             })
     
       }
@@ -60,30 +58,32 @@ class IndiTable4 extends Component{
       }
     
       render(){
-        console.log('render run');
         return(
           <div>
       
-      <Div  p={{ t: { xs: "9rem", md: "5rem" } }} >
-      <Div  p={{ t: { xs: "2rem", md: "2rem" } }} >
-        <Div textAlign="left">
+      <Div  p={{ t: { xs: "1rem", md: "5rem" } }}
+        m={{ x: { xs: '0rem', md: '0rem' }, y: { xs: '0rem', md: '2.5rem' }}}
+        >
+        <Div textAlign="left" m={{ x: { xs: '0rem', md: '0rem' }}}>
+        <Div textAlign="left" m={{ y: { xs: '0.5rem', md: '0.5rem' }}}>
         <Text
-          textSize="title"
+          textSize="heading"
           textWeight="800"
           fontFamily='ko'
           >
           미 10년 채권수익률
         </Text>
         </Div>
-        <Table >
+        </Div>
+        <Table size="small" style={{margin:"-1px"}}>
         <TableHead>
           <TableRow>
-          <TableCell align="center">구분</TableCell>
-            <TableCell align="center">기준일자</TableCell>
-            <TableCell align="center">종가</TableCell>
-            <TableCell align="center">오픈</TableCell>
-            <TableCell align="center">고가</TableCell>
-            <TableCell align="center">저가</TableCell>
+          <TableCell align="center"><b>구분</b></TableCell>
+            <TableCell align="center"><b>기준일자</b></TableCell>          
+            <TableCell align="center"><b>종가</b></TableCell>
+            <TableCell align="center"><b>오픈</b></TableCell>
+            <TableCell align="center"><b>고가</b></TableCell>
+            <TableCell align="center"><b>저가</b></TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -91,8 +91,14 @@ class IndiTable4 extends Component{
             <TableRow>
               <TableCell align="center">
               <Link to={`/IndicatorDetail1/${this.state.bond10id}`} >
-              <Button variant="contained">
-              미 10년 채권수익률
+              <Button size="small" variant="contained" style={{boxShadow: 'none', backgroundColor: '#fbe0a1'}}>
+              <Text
+              textSize={{xs:"tiny", md:"body"}}
+              textWeight="900"
+              fontFamily='ko'
+              >
+              미 10년 채권
+              </Text>
                 </Button>
                 </Link>
                 </TableCell>
@@ -109,25 +115,27 @@ class IndiTable4 extends Component{
         </Table>
         </Div >
         
-        <Div  p={{ t: { xs: "2rem", md: "2rem" } }} >
-        <Div textAlign="left">
+        <Div  p={{ t: { xs: "1rem", md: "1rem" } }} >
+        <Div textAlign="left" m={{ x: { xs: '0rem', md: '0rem' }}}>
+        <Div textAlign="left" m={{ y: { xs: '0.5rem', md: '0.5rem' }}}>
         <Text
-          textSize="title"
+          textSize="heading"
           textWeight="800"
           fontFamily='ko'
           >
           미 2년 채권수익률
         </Text>
         </Div>
-        <Table >
+        </Div>
+        <Table size="small" style={{margin:"-1px"}}>
         <TableHead>
           <TableRow>
-          <TableCell align="center">구분</TableCell>
-            <TableCell align="center">기준일자</TableCell>
-            <TableCell align="center">종가</TableCell>
-            <TableCell align="center">오픈</TableCell>
-            <TableCell align="center">고가</TableCell>
-            <TableCell align="center">저가</TableCell>
+          <TableCell align="center"><b>구분</b></TableCell>
+            <TableCell align="center"><b>기준일자</b></TableCell>          
+            <TableCell align="center"><b>종가</b></TableCell>
+            <TableCell align="center"><b>오픈</b></TableCell>
+            <TableCell align="center"><b>고가</b></TableCell>
+            <TableCell align="center"><b>저가</b></TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -135,8 +143,14 @@ class IndiTable4 extends Component{
             <TableRow>
               <TableCell align="center">
               <Link to={`/IndicatorDetail1/${this.state.bond2id}`} >
-              <Button variant="contained">
-              미 2년 채권수익률
+              <Button size="small" variant="contained" style={{boxShadow: 'none', backgroundColor: '#fbe0a1'}}>
+              <Text
+              textSize={{xs:"caption", md:"body"}}
+              textWeight="900"
+              fontFamily='ko'
+              >
+              미 2년 채권
+              </Text>
                 </Button>
                 </Link>
                 </TableCell>
@@ -153,7 +167,7 @@ class IndiTable4 extends Component{
         </Table>
         </Div >
        
-      </Div >
+    
           </div>
       )
 
