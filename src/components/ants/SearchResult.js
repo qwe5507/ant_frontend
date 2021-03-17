@@ -7,6 +7,8 @@ import { Link, Route, useHistory, useParams } from 'react-router-dom';
 import axios from "axios";
 
 import NewsApiService from "../../api/NewsApi";
+import News from "./News";
+import NewsApi from "../../api/NewsApi";
 
 function SearchResult() {
 
@@ -22,7 +24,7 @@ function SearchResult() {
 
   // 검색결과
   useEffect(() => {
-    searchmatchparse();
+    searchmatchphrase();
   }, []);
 
   // 검색결과 출력 후 keywords 받아오기
@@ -95,29 +97,30 @@ function SearchResult() {
     </Div>
   );
 
+  //날짜 입력 받아서 기간별 검색 쿼리
   function sortPeriodClicked(name) {
     if (name == "1주일") {
-      searchmatchparsedate("7")
+      searchmatchphrasedate("7")
       sortPeriodSelChange(name)
       showsortPeriodChange(!showsortPeriod)
     } else if (name == "1개월") {
-      searchmatchparsedate("30")
+      searchmatchphrasedate("30")
       sortPeriodSelChange(name)
       showsortPeriodChange(!showsortPeriod)
     } else if (name == "3개월") {
-      searchmatchparsedate("90")
+      searchmatchphrasedate("90")
       sortPeriodSelChange(name)
       showsortPeriodChange(!showsortPeriod)
     } else if (name == "6개월") {
-      searchmatchparsedate("180")
+      searchmatchphrasedate("180")
       sortPeriodSelChange(name)
       showsortPeriodChange(!showsortPeriod)
     } else if (name == "1년") {
       sortPeriodSelChange(name)
-      searchmatchparsedate("365")
+      searchmatchphrasedate("365")
       showsortPeriodChange(!showsortPeriod)
     } else if (name == "최신순") {
-      searchSort()
+      searchmatchphrasesort()
       sortResultSelChange(name)
       showsortResultChange(!showsortResult)
     }
@@ -128,50 +131,36 @@ function SearchResult() {
     }
 
   }
-  function searchGroup(group) {
-    axios.get("http://localhost:8000/news/searchgroupmatchphrase", { params: { id: group } })
-      .then(response => {
-        console.log('그룹', group)
-        result = response.data
-        var hits2 = result['hits']['hits']
-        hits변경(hits2)
-        console.log(hits2)
-      })
-      .catch(error => {
-        console.log(error);
-      })
-  }
 
-  function searchSort() {
-    console.log(search)
-    axios.get("http://localhost:8000/news/searchmatchparsesort", { params: { id: search } })
+  //최신순 검색 쿼리
+  function searchmatchphrasesort() {
+      NewsApiService.searchmatchphrasesort(search)
       .then(response => {
         result = response.data
         var hits2 = result['hits']['hits']
         hits변경(hits2)
-        console.log(hits2)
       })
       .catch(error => {
         console.log(error);
       });
   }
 
-  function searchmatchparsedate(date) {
-    console.log(date, search)
-    axios.get("http://localhost:8000/news/searchmatchparsedate", { params: { id: search, id2: date } })
+  //날짜 기준 정렬
+  function searchmatchphrasedate(date) {
+      NewsApiService.searchmatchphrasedate(date, search)
       .then(response => {
         result = response.data
         var hits2 = result['hits']['hits']
         hits변경(hits2)
-        console.log(hits2)
       })
       .catch(error => {
         console.log(error);
       });
   }
 
-  function searchmatchparse() {
-    axios.get("http://localhost:8000/news/searchmatchparse", { params: { id: search } })
+  //유사 키워드 검색
+  function searchmatchphrase() {
+    NewsApiService.searchmatchphrase(search)
       .then(response => {
         result = response.data
         var hits2 = result['hits']['hits']
@@ -205,19 +194,6 @@ function SearchResult() {
       resulttime = String(boardtime.getMonth() + 1) + "." + String(boardtime.getDate())
     }
     return resulttime;
-  }
-
-  function textLengthOverCut(txt, len, lastTxt) {
-    if (len == "" || len == null) { // 기본값
-      len = 78;
-    }
-    if (lastTxt == "" || lastTxt == null) { // 기본값
-      lastTxt = "...";
-    }
-    if (txt.length > len) {
-      txt = txt.substr(0, len) + lastTxt;
-    }
-    return txt;
   }
 
   const customStyles = {

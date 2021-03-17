@@ -30,27 +30,24 @@ function SearchPanel() {
     }
 
     const onClick = () => {
-        upsertKeyword()
+        // upsertKeyword()
         history.push("/SearchResult/" + search)
     };
 
-    function upsertKeyword() {
-        axios.get("http://localhost:8000/news/upsert", { params: { id: { search } } })
-            .then(response => {
-                console.log(response);
+    // 검색 키워드 쌓는 쿼리
+    // function upsertKeyword() {
+    //     axios.get("http://localhost:8000/news/upsert", { params: { id: { search } } })
+    //         .then(response => {
+    //             console.log(response);
 
-                console.log("??")
-            })
-            .catch(error => {
-                console.log(error);
-            });
+    //             console.log("??")
+    //         })
+    //         .catch(error => {
+    //             console.log(error);
+    //         });
 
-    }
+    // }
 
-    function searchCount() {
-        countlist = axios.get("http://localhost:8000/news/searchcount")
-        console.log(countlist)
-    }
 
     return (
         <Div

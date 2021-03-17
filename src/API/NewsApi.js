@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-// const USER_API_BASE_URL = "http://15.165.161.92:8000/news";
 const USER_API_BASE_URL = "http://localhost:8000/news";
+//const USER_API_BASE_URL = "http://localhost:8000/news";
 
 class NewsApi {
 
@@ -27,6 +27,22 @@ class NewsApi {
 
     updateKeywordByUserId(list){
         return axios.put(USER_API_BASE_URL + '/updatekeywords/' + list.userId +'/'+ list.keyword);
+    }
+
+    searchSort(search){
+        return axios.get(USER_API_BASE_URL + '/searchmatchphrasesort/', { params : { id : search } });
+    }
+    
+    searchmatchphrasedate(date, search){
+        return axios.get(USER_API_BASE_URL + '/searchmatchphrasedate/', { params : { id : search, id2 : date } });
+    }
+
+    searchmatchphrase(search){
+        return axios.get(USER_API_BASE_URL + '/searchmatchphrase/', { params : { id : search } })
+    }
+
+    searchmatchphrasesort(search){
+        return axios.get(USER_API_BASE_URL + '/searchmatchphrasesort/', { params : { id : search } })
     }
 }
 
