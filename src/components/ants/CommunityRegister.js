@@ -92,8 +92,8 @@ function CommunityRegister(props) {
     .then(url => {
       console.log("이미지 업로드 성공")
       console.log(url)
-      // $(el).summernote('editor.insertImage', url);
-      // $('#imageBoard > ul').append('<li><img src="'+url+'" width="480" height="auto"/></li>');
+      $(el).summernote('editor.insertImage', url);
+      $('#imageBoard > ul').append('<li><img src="'+url+'" width="480" height="auto"/></li>');
     
     })
     .catch(error => {
@@ -156,11 +156,12 @@ function CommunityRegister(props) {
                       bg="black900"
                       hoverBg="black300"
                       rounded="md"
-                      m={{ r: "1rem" }}
-                      p={{ r: "1.5rem", l: "1rem" }}
+                      // m={{ r: "1rem" }}
+                      // p={{ r: "1.5rem", l: "1rem" }}
                       shadow="3"
                       hoverShadow="4"
-                      w = "12rem"
+                      w = "10rem"
+                      h = "3rem"
                       fontFamily="ko"
                       onClick = {() => { BoardRegit(summerTitle,summerContent)}}
                     >
@@ -169,7 +170,7 @@ function CommunityRegister(props) {
                 </Div>
           </Col>
         </Row>
-        <Row
+        {/* <Row
         p={{ b: "0.5rem"}}>
           <Col size={{ xs: 8, md: 8, lg: 8 }} pos="relative">
             <Div
@@ -187,7 +188,7 @@ function CommunityRegister(props) {
             >
             </Div>
           </Col>
-        </Row>
+        </Row> */}
 
         <Row 
         p={{ b: "0.5rem"}}
@@ -201,7 +202,8 @@ function CommunityRegister(props) {
                   fontFamily="ko"
                   m={{t : "0.5rem"}}
                   h = "3.7rem"
-                  w = {{xs : "25rem", md : "500rem"}}
+                  // w = {{xs : "25rem", md : "500rem"}}
+                  w={{ xs: "80vw",sm:"85vw",md: "70rem"  }}
                   onChange = {(e) => {summerTitle변경(e.target.value)}}
                   />
               </Div>
