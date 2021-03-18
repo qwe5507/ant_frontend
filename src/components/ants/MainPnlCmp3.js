@@ -122,19 +122,22 @@ function MainPnlCmp3() {
             m={{ xs: "1rem", md: "1rem" }}
             top="0"
             p={{
-                x: { xs: "2rem", sm: "1.5rem" },
+                x: { xs: "0.5rem", sm: "1.5rem" },
                 b: { xs: "2rem", sm: "1.5rem" },
                 t: "1.5rem",
             }}
-            h="28rem"
+            h="auto"
             bg="white"
-            shadow="4"
+            shadow="2"
             rounded="xl"
         >
             <Div
                 w="100%"
                 flexGrow="1"
                 textAlign="center"
+                p={{
+                    x: { xs: "0.5rem", sm: "1.5rem" },
+                }}
             >
                 <Text
                     m={{ b: "1rem" }}
@@ -191,12 +194,6 @@ function MainPnlCmp3() {
                                     >
                                         {timecal(data['_source']['news_date'])}
                                     </Text>
-                                    {/* <Icon
-                                        name="Options"
-                                        size="20px"
-                                        color="black300"
-                                        cursor="pointer"
-                                    /> */}
                                 </Div>
                                 <Text
                                     textWeight="800"
@@ -254,7 +251,7 @@ function MainPnlCmp3() {
                         textWeight="800"
                         textSize="subheader"
                         fontFamily="ko"
-                        m={{ t:"1rem" }}
+                        m={{ t: "1rem" }}
                     >
                         뉴스 더보기 →
                 </Text>

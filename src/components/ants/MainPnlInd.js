@@ -108,13 +108,13 @@ function MainPnlInd() {
       m={{ xs: "1rem", md: "1rem" }}
       top="0"
       p={{
-        x: { xs: "2rem", sm: "1.5rem" },
+        x: { xs: "0.5rem", sm: "1.5rem" },
         b: { xs: "2rem", sm: "1.5rem" },
         t: "1.5rem",
       }}
-      h="28rem"
+      h="auto"
       bg="white"
-      shadow="4"
+      shadow="2"
       rounded="xl"
 
     >
@@ -123,10 +123,13 @@ function MainPnlInd() {
         align="center"
         justify="space-between"
         flexDir="row"
+        p={{
+          x: { xs: "0.5rem", sm: "1.5rem" },
+        }}
       >
         <Text
           m={{ b: "0.5rem" }}
-          textWeight="800"
+          textWeight="1000"
           textSize="title"
           fontFamily="ko"
         >
@@ -138,7 +141,7 @@ function MainPnlInd() {
         >
           <Label
             align="center"
-            textWeight="500"
+            textWeight="800"
             fontFamily="ko"
             m={{ t: "0.4rem", r: "0.5rem" }}
           >
@@ -151,7 +154,7 @@ function MainPnlInd() {
             </Label>
           <Label
             align="center"
-            textWeight="500"
+            textWeight="800"
             fontFamily="ko"
             m={{ t: "0.4rem" }}
           >
@@ -169,11 +172,13 @@ function MainPnlInd() {
         textAlign="center"
       >
         <Text
-          m={{ b: "0.5rem" }}
           textWeight="800"
           fontFamily="ko"
           textAlign="left"
-          m={{ b: "1.5rem" }}
+          m={{ b: "1rem" }}
+          p={{
+            x: { xs: "0.5rem", sm: "1.5rem" },
+          }}
         >
           지난 하루 변동폭이 큰 지표입니다. (오전 9시 기준)
         </Text>

@@ -13,8 +13,8 @@ function MainPnlIndCard(props) {
 
     let history = useHistory();
 
-    function handleClick(stockId){
-        history.push('/Stocks/'+stockId)
+    function handleClick(stockId) {
+        history.push('/Stocks/' + stockId)
     }
     return (
         <Div
@@ -39,7 +39,7 @@ function MainPnlIndCard(props) {
                     textAlign="left"
                     w="8.4rem"
                     cursor="pointer"
-                    onClick={ () => handleClick(props.stocksData.code)}
+                    onClick={() => handleClick(props.stocksData.code)}
                 >
                     {props.stocksData.name}
                 </Text>
@@ -56,7 +56,7 @@ function MainPnlIndCard(props) {
                     fontFamily="ko"
                     textColor={props.stocksData.change > 0 ? "danger700" : "info700"}
                     textAlign="center"
-                    w="8rem"    
+                    w="8rem"
                 >
                     {props.stocksData.change > 0 ? '+' : ''}{props.stocksData.change} %
                 </Text>

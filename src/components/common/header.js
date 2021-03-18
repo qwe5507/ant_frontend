@@ -119,7 +119,7 @@ function Header() {
               pos={{ xs: "absolute", md: "static" }}
               p={{
                 t: { xs: "4rem", md: "0" },
-                b: { xs: "0", md: "0" },
+                b: { xs: "0.5rem", md: "0" },
                 x: { xs: "1.5rem", md: "0" },
               }}
               top="0"
@@ -241,14 +241,12 @@ function Header() {
                     h="2rem"
                     w={{ xs: "5rem", sm: "7rem", md: "7rem" }}
                     bg="black"
-                    // hoverBg="black"
                     rounded="lg"
-                    // maxW="calc(50% - 0.5rem)"
-                    m={{ r: "1rem", b: { xs: "0", sm: "0", md: "0" } }}
+                    m={{ r: "1.5rem", b: { xs: "0", sm: "0", md: "0" } }}
                   >
                     <Text
-                      textSize="subheader"
-                      textWeight="800"
+                      textSize={{ xs: "body", sm:"subheader" }}
+                      textWeight="1000"
                       fontFamily="ko"
                     >로그인
                   </Text>
