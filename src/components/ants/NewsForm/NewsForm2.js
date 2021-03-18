@@ -7,6 +7,7 @@ import { useHistory } from 'react-router-dom';
 import NewsKeywordDelete from "../NewsKeywordDelete";
 import NewsKeyWordAdd from "../NewsKeyWordAdd";
 import '../css/Loading.css';
+
 function NewsForm2(){
   const userId = useSelector(state => state.user.userid);
   let [result, result변경] = useState();
@@ -15,6 +16,7 @@ function NewsForm2(){
   let history = useHistory();
   let [commentdeleteModal,commentdeleteModal변경] = useState(false);
   let [commentaddModal,commentaddModal변경] = useState(false);
+  let [totalkeyword, totalkeywordChange] = useState();
 
   console.log('유저아이디',userId)
   function handleClick(keyword){
@@ -27,7 +29,12 @@ function NewsForm2(){
   }
 
   function commentadd() {
-    commentaddModal변경(true)
+    console.log(userId)
+    if(userId)
+      commentaddModal변경(true)
+    else
+      alert('로그인이 필요한 서비스입니다.')
+      history.push('/Login')
   }
 
   function keywordList(){
@@ -35,7 +42,8 @@ function NewsForm2(){
       .then(response => {
         result = response.data
         console.log(result)
-        keywordChange(result['keyword'].split(',').sort())
+        totalkeywordChange(result['keyword'].split(',').sort())
+        
         console.log(keyword)
       })
       .catch(error => {
@@ -63,9 +71,9 @@ function NewsForm2(){
     t: "1.5rem",
   }}
 
-  h="27rem"
+  h="28rem"
   bg="white"
-  shadow="4"
+  shadow="2"
   rounded="xl"
 >
   <Div flexGrow="1">

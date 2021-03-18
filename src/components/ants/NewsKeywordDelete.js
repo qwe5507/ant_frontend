@@ -47,6 +47,7 @@ function NewsKeywordDelete(props){
           name="AlertSolid"
           color="warning700"
           m={{ t: "0.35rem", r: "0.5rem" }}
+          onClick={props.onClose}
         />
         <Text p={{ l: "0.5rem", t: "0.25rem" }} textSize="subheader">
           키워드를 삭제하시겠습니까?
