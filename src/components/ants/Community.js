@@ -1,14 +1,10 @@
 import PropTypes from "prop-types"
 import React, { useState, useEffect } from "react"
 import { Div, Image, Container, Button, Modal, Anchor, scrollTo, Icon, Text, Radiobox, Label, Switch, Row, Col, logoSketch, Input, logoReact } from "atomize"
-import logo from "../../images/logo.svg"
-import producthunt from "../../images/logo-producthunt.svg"
 import { Link, Route, useHistory, useParams } from 'react-router-dom';
-import axios from 'axios';
 
 import CommunityBoard from './CommunityBoard';
 import CommunityMain from './CommunityMain';
-import CommunityMainSaved from './CommunityMainSaved';
 import CommunitySearch from './CommunitySearch';
 
 import CommunityRegister from './CommunityRegister';
@@ -19,7 +15,6 @@ import LoginRequireModal from './LoginRequireModal';
 function Community() {
   let [showMobileHeaderMenu, showMobileHeaderMenuChange] = useState(false);
   let [selectedSwitchValue, selectedSwitchValueChange] = useState(false);
-  let [liked, likedchange] = useState(false);
   let [saveBoardstate, saveBoardstateChange] = useState(false);
   let [showLoginRequireModal, showLoginRequireModal변경] = useState(false);
 
@@ -31,7 +26,6 @@ function Community() {
   let { boardid } = useParams();
   let { updateboardid } = useParams();
   let { searchkeyword } = useParams();
-
 
   function toggleHeaderMenu(value) {
     showMobileHeaderMenuChange(value);
@@ -54,16 +48,6 @@ function Community() {
     history.push("/Community/search/" + search)
   };
 
-  function searchboardmatchpharse() {
-    axios.get("http://localhost:8000/news/searchboardmatchpharse", { params: { id: search } })
-      .then(response => {
-        console.log(response);
-      })
-      .catch(error => {
-        console.log(error);
-      });
-
-  }
   useEffect(() => {
     window.dataLayer = window.dataLayer || [];
     // eslint-disable-next-line
@@ -84,11 +68,10 @@ function Community() {
           left={{ xs: "0%", md: "10%" }}
           right="0"
           zIndex="1"
-          w={{ xs: "100vw",sm:"100vw", md: "80vw" }}
+          w={{ xs: "100vw", sm: "100vw", md: "80vw" }}
           align="space-between"
-          p={{ t: { xs: "4rem",sm:"4rem", md: "1rem" }}}
+          p={{ t: { xs: "4rem", sm: "4rem", md: "1rem" } }}
         >
-
           <Div
             pos="absolute"
             top="0"
@@ -101,41 +84,12 @@ function Community() {
             zIndex="-1"
 
           ></Div>
-          <Container w={{ xs: "100%", sm: "100%", md: "30.5rem" }} d="static" align="center" justify="center" >
-
-            {/* Icon For Mobile */}
-            {/* 모바일일때 생기는탭 */}
-            {/* <Div
-            d={{ xs: "flex", md: "none" }}
-            flexDir="column"
-            cursor="pointer"
-            // onClick={() => toggleHeaderMenu(!showMobileHeaderMenu)}
-            m={{ t: "6rem" }}
+          <Container 
+            w={{ xs: "100%", sm: "100%", md: "30.5rem" }} 
+            d="static" 
+            align="center" 
+            justify="center"
           >
-            <Div
-              h="2px"
-              w="1rem"
-              bg="black"
-              rounded="md"
-              style={{
-                transform: `translateY(${showMobileHeaderMenu ? "1" : "-2"
-                  }px)rotate(${showMobileHeaderMenu ? "135" : "0"}deg)`,
-              }}
-              transition
-            ></Div>
-            <Div
-              h="2px"
-              w="1rem"
-              bg="black"
-              rounded="lg"
-              style={{
-                transform: `translateY(${showMobileHeaderMenu ? "-1" : "2"
-                  }px)rotate(${showMobileHeaderMenu ? "45" : "0"}deg)`,
-              }}
-
-              transition
-            ></Div>
-          </Div> */}
 
             <Label
               d={{ xs: "flex", md: "none" }}
@@ -164,7 +118,6 @@ function Community() {
             <Div
               d="flex"
               bg={{ xs: "white", md: "transparent" }}
-              align={{ xs: "strech", md: "flex-start" }}
               flexDir={{ xs: "column", md: "row" }}
               pos={{ xs: "relative", md: "relative" }}
               w="1100px"
@@ -176,7 +129,7 @@ function Community() {
               }}
               w={{ xs: "100%", md: "1100px" }}
               h={{ xs: "5rem", md: "auto" }}
-              
+
               //마진
               m={{
                 l: { xs: '0%', md: '-80%' },
@@ -190,7 +143,6 @@ function Community() {
               <Div
                 d="flex"
                 justify="space-between"
-                // w = {{  xs: "20rem",sm:"30rem", md: "5rem" }}
               >
                 <Div d="flex">
                   <Link to="/Community">
@@ -201,10 +153,10 @@ function Community() {
                       transition
                     >
                       <Text
-                        textSize={{xs: "subheader", md: "title"}}
+                        textSize={{ xs: "subheader", md: "title" }}
                         onClick={() => saveBoardChangeClick(false)}
-                        m={{  r: "0rem", l: "1rem" }}
-                        w = {{  xs: "3rem",sm:"3rem", md: "5rem" }}
+                        m={{ r: "0rem", l: "1rem" }}
+                        w={{ xs: "3rem", sm: "3rem", md: "5rem" }}
                         textWeight="1000"
                         textAlign="center"
                         fontFamily="ko"
@@ -243,12 +195,12 @@ function Community() {
                       {loginid ?
                         <Text
                           onClick={() => saveBoardChangeClick(true)}
-                          textSize={{xs: "subheader", md: "title"}}
+                          textSize={{ xs: "subheader", md: "title" }}
                           m={{ b: "0.25rem" }}
                           textWeight="1000"
                           textAlign="center"
                           fontFamily="ko"
-                          w = {{  xs: "6rem",sm:"6rem", md: "6rem" }}
+                          w={{ xs: "6rem", sm: "6rem", md: "6rem" }}
                         >
                           저장한 글
                     </Text>
@@ -260,36 +212,35 @@ function Community() {
                 </Div>
                 {/* 추가한 부분 */}
                 <Div d={{ xs: "flex", md: "none" }}
-                m={{ b: "0.5rem" }}
-                p={{ t : "-2rem",b: "0.5rem" }}
-                
+                  m={{ b: "0.5rem" }}
+                  p={{ t: "-2rem", b: "0.5rem" }}
+
                 >
-                
                   <Div
-                  p = {{ l : "0.5vw"}}d = "flex">
-                  <Label
-                    m={{ l: "0rem", r: "1vw" }}
-                    onClick={() =>
-                      selectedSwitchValueChange(!selectedSwitchValue)
-                    }
-                    align="center"
-                    textWeight="700"
-                    fontFamily="ko"
-                  >
-                    {((typeof boardid != "undefined") && (typeof boardid.valueOf() == "string")) && (boardid.length > 0) || saveBoardstate || (typeof updateboardid != "undefined") ?
-                      null :
-                      <Switch
-                        checked={selectedSwitchValue}
-                        inactiveColor="black100"
-                        activeColor="black900"
-                        activeShadow="5"
-                        fontFamily="ko"
-                      />}
-                    {((typeof boardid != "undefined") && (typeof boardid.valueOf() == "string")) && (boardid.length > 0) || saveBoardstate || (typeof updateboardid != "undefined") ?
-                      null :
-                      selectedSwitchValue ?
-                        <Text fontFamily="ko" textSize="paragraph">추천순</Text> : <Text fontFamily="ko" textSize="paragraph">최신순</Text>}
-                  </Label>
+                    p={{ l: "0.5vw" }} d="flex">
+                    <Label
+                      m={{ l: "0rem", r: "1vw" }}
+                      onClick={() =>
+                        selectedSwitchValueChange(!selectedSwitchValue)
+                      }
+                      align="center"
+                      textWeight="700"
+                      fontFamily="ko"
+                    >
+                      {((typeof boardid != "undefined") && (typeof boardid.valueOf() == "string")) && (boardid.length > 0) || saveBoardstate || (typeof updateboardid != "undefined") ?
+                        null :
+                        <Switch
+                          checked={selectedSwitchValue}
+                          inactiveColor="black100"
+                          activeColor="black900"
+                          activeShadow="5"
+                          fontFamily="ko"
+                        />}
+                      {((typeof boardid != "undefined") && (typeof boardid.valueOf() == "string")) && (boardid.length > 0) || saveBoardstate || (typeof updateboardid != "undefined") ?
+                        null :
+                        selectedSwitchValue ?
+                          <Text fontFamily="ko" textSize="paragraph">추천순</Text> : <Text fontFamily="ko" textSize="paragraph">최신순</Text>}
+                    </Label>
                   </Div>
                   {boardid == "registe" || (typeof updateboardid != "undefined") ?
                     null
@@ -307,7 +258,7 @@ function Community() {
                             name="Edit"
                             size="20px"
                             color="white"
-                            // m={{ r: "0.5rem" }}
+                          // m={{ r: "0.5rem" }}
                           />
                         }
                         textWeight="1000"
@@ -316,10 +267,10 @@ function Community() {
                         hoverBg="black400"
                         rounded="md"
                         fontFamily="ko"
-                        m={{ r: "0.5rem" ,b : "0.5rem"}}
-                        p= "auto"
-                        w = {{  xs: "5rem",sm:"8rem", md: "6rem" }}
-                        h = "3rem"
+                        m={{ r: "0.5rem", b: "0.5rem" }}
+                        p="auto"
+                        w={{ xs: "5rem", sm: "8rem", md: "6rem" }}
+                        h="3rem"
                         shadow="3"
                         hoverShadow="4"
                         onClick={loginid ? () => { history.push("/Community/registe") } : () => { showLoginRequireModal변경(true) }}
@@ -360,14 +311,14 @@ function Community() {
                   }
                 />
               </Div>
-              <Div d={{ xs: "none", md: "flex" }} 
-              p = {{t : "0.3rem"}}
-              w = "25rem"
-              justify="space-between"
+              <Div d={{ xs: "none", md: "flex" }}
+                p={{ t: "0.3rem" }}
+                w="25rem"
+                justify="space-between"
               >
 
                 <Label
-                  m={{ l: "5rem", r: "2rem" ,t : "0.7rem"}}
+                  m={{ l: "5rem", r: "2rem", t: "0.7rem" }}
                   onClick={() =>
                     selectedSwitchValueChange(!selectedSwitchValue)
                   }
@@ -386,8 +337,9 @@ function Community() {
                   {((typeof boardid != "undefined") && (typeof boardid.valueOf() == "string")) && (boardid.length > 0) || saveBoardstate || (typeof updateboardid != "undefined") ?
                     null :
                     selectedSwitchValue ?
-                      <Text  fontFamily="ko">추천순</Text> : <Text  fontFamily="ko">최신순</Text>}
+                      <Text fontFamily="ko">추천순</Text> : <Text fontFamily="ko">최신순</Text>}
                 </Label>
+
                 {boardid == "registe" || (typeof updateboardid != "undefined") ?
                   null
                   :
@@ -415,8 +367,8 @@ function Community() {
                       rounded="md"
                       m={{ r: "1rem" }}
                       p={{ r: "1.5rem", l: "1rem" }}
-                      w = "10rem"
-                      h = "3rem"
+                      w="10rem"
+                      h="3rem"
                       shadow="3"
                       hoverShadow="4"
                       onClick={loginid ? () => { history.push("/Community/registe") } : () => { showLoginRequireModal변경(true) }}
@@ -434,7 +386,6 @@ function Community() {
               boardid == "saved" ? <CommunityMain ordered={selectedSwitchValue} saved={true}></CommunityMain> : boardid == "registe" ?
                 <CommunityRegister></CommunityRegister> : <CommunityBoard></CommunityBoard> : ((typeof updateboardid != "undefined") && (typeof updateboardid.valueOf() == "string")) && (updateboardid.length > 0) ?
                 <CommunityBoardUpdate></CommunityBoardUpdate> : searchkeyword ? <CommunitySearch></CommunitySearch> : <CommunityMain ordered={selectedSwitchValue} saved={saveBoardstate}></CommunityMain>
-
             }
 
             {/* 게시판끝부분 */}
@@ -450,16 +401,5 @@ function Community() {
     </>
   )
 }
-
-Community.propTypes = {
-  siteTitle: PropTypes.string,
-}
-
-Community.defaultProps = {
-  siteTitle: ``,
-}
-
-
-
 
 export default Community;

@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const USER_API_BASE_URL = "http://localhost:8000/news";
-//const USER_API_BASE_URL = "http://localhost:8000/news";
+//const USER_API_BASE_URL = "http://15.165.161.92:8000/news";
 
 class NewsApi {
 
@@ -44,6 +44,12 @@ class NewsApi {
     searchmatchphrasesort(search){
         return axios.get(USER_API_BASE_URL + '/searchmatchphrasesort/', { params : { id : search } })
     }
+
+    // CommunitySeach.js 커뮤니티 글 검색
+    searchboardmatchpharse(searchkeyword){
+        return axios.get(USER_API_BASE_URL + '/searchboardmatchpharse', { params: { id: searchkeyword  } })
+    }
+
 }
 
 export default new NewsApi();

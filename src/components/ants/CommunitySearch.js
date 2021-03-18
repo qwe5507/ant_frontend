@@ -4,10 +4,9 @@ import { Div, Image, Container, Button, Anchor, scrollTo, Icon, Text, Radiobox, 
 import logo from "../../images/logo.svg"
 import producthunt from "../../images/logo-producthunt.svg"
 import { Link, Route, useHistory, useParams } from 'react-router-dom';
-import BoardApiService from "../../api/BoardApi";
-import CommentApiService from "../../api/CommentApi";
-import { AddAlarmSharp } from "@material-ui/icons"
 import { useDispatch, useSelector } from 'react-redux';
+
+import NewsApiService from "../../api/NewsApi";
 import axios from 'axios';
 
 import CommunityShimmer from "./CommunityShimmer";
@@ -26,30 +25,16 @@ function CommunitySearch(props) {
 
   let [showLoginRequireModal,showLoginRequireModal변경] = useState(false);
 
-  const loginid = useSelector(state => state.user.userid);
   const savedboardtemp = useSelector(state => state.user.savedBoards);
-  const loginstate = useSelector(state => state.user.loginstate);
-  const userlikedboardtemp = useSelector(state => state.user.likedBaords);
 
   // let [saved,savedchange] = useState(false);
-  let { die } = useParams();
-    let { searchkeyword } = useParams();
-
-  const dispatch = useDispatch();
+  let { searchkeyword } = useParams();
 
   let [boardlist, boardlist변경] = useState();
-  let [loadingtemp, loadingtemp변경] = useState();
-  let [boardTopMain,boardTopMain변경] = useState([]);
 
-  let loadingtemp2 = [1, 2, 3, 4, 5, 6]
-
-  // [{board_content : ""}]
-  // selectedSwitchValueChange(props.orderswitch);
-
-  function searchboardmatchpharse() {
-    axios.get("http://localhost:8000/news/searchboardmatchpharse", { params: { id: searchkeyword  } })
+  function searchboard() {
+    NewsApiService.searchboardmatchpharse(searchkeyword)
         .then(response => {
-            // console.log(response.data.hits.hits[0]['_source']);
             boardlist변경(response.data.hits.hits)
         })
         .catch(error => {
@@ -60,7 +45,7 @@ function CommunitySearch(props) {
   useEffect(() => {
     console.log(searchkeyword)
     console.log("욕하지말자 진현아")
-    searchboardmatchpharse(searchkeyword);
+    searchboard(searchkeyword);
 
   },[searchkeyword]);
   useEffect(() => {
