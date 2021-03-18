@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import {HorizontalBar, Bar} from 'react-chartjs-2';
 import IndApi from "../../../../../api/IndApi";
-function IndicatorForm1(props){
+function CorrKor(props){
 
   let [chartData, chartDataChange] = useState([]);
 
@@ -93,4 +93,4 @@ function IndicatorForm1(props){
     );
   }
 
-export default  IndicatorForm1; 
+export default  CorrKor; 

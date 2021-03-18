@@ -11,10 +11,8 @@ import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
 import axios from "axios";
 import CommentExe from "./CommentExe"
-
+import NewsApi from "../../../../../api/NewsApi";
 function IndicatorDetail1(props) {
-    
-    console.log('시작')
 
     let [result, resultbyun] = useState("");
     let [hits, hitsbyun] = useState([]); 
@@ -62,8 +60,8 @@ function IndicatorDetail1(props) {
       .then(res =>{
         numsbyun(res.data[0]["price"])
         datesbyun(res.data[0]["dates"].substring(0,10))
-        axios.get("http://localhost:8000/news/searchmatchparse", { params :{id : res.data[0]["keyword"].split("/")[0], id: res.data[0]["keyword"].split("/")[1], id:res.data[0]["keyword"].split("/")[2]}})
-        .then(response =>{
+      NewsApi.searchmatchphrasesort(res.data[0]["keyword"].split("/")[0], res.data[0]["keyword"].split("/")[1], res.data[0]["keyword"].split("/")[2])
+      .then(response =>{
           result=response.data   
           var hits2 = result['hits']['hits']
           hitsbyun(hits2)     
@@ -116,11 +114,14 @@ function IndicatorDetail1(props) {
     return (     
       
       <div align = "center">
-       <Container d="flex" flexDir="column" m={{ x: { xs: '0', md: '0' }, y: { xs: '5.5rem', md: '4rem' }}} >
-       
+        <Container d="flex" flexDir="column" 
+        m={{ x: { xs: '0', md: '0' }, y: { xs: '5rem', md: '4rem' }}} 
+        >
+        <Div d="flex" flexDir={{ xs:"column",md:"column" }}>
+        <Div  d="flex"  flexDir={{ xs:"column",md:"row" }} w="100rem">
        <Text
                textAlign="left"
-               textSize="title"
+               textSize="heading"
                m={{ t: "0.5rem", b: "0.5rem" }}
                textWeight="800"
                fontFamily="ko"
@@ -128,115 +129,213 @@ function IndicatorDetail1(props) {
                {title}
              </Text>
          
-         <Div  d="flex" flexDir="row ">
          <Text
               textAlign="left"
-               textSize="title"
-               m={{ t: "0", b: "1rem" }}
-               textWeight="800"
-               fontFamily="ko"
-               textColor="info700"
+              textSize="heading"
+              m={{ x: { xs: '0.5rem', md: '0.5rem' }, y: { xs: '-0.5rem', md: '0.5rem' }}}
+              textWeight="800"
+              fontFamily="ko"
+              textColor="info700"
              >
                {nums}
          </Text>  
          <Text
-             textAlign="left"
-              textSize="caption"
-             m={{ t: "0.5rem", b: "0.5rem" }}
-             textWeight="800"
-             fontFamily="ko"
-             textColor="white"
-       
+             textSize="caption"
+             //   m={{ t: "0.5rem", b: "1rem" }}
+             m={{ x: { xs: '0.5rem', md: '0.5rem' }, y: { xs: '-0.5rem', md: '0.5rem' }}}
+              textWeight="800"
+              fontFamily="ko"
+              textColor="white"
          >
          ((
          </Text> 
          <Text
              textAlign="left"
-              textSize="caption"
-             m={{ t: "0.5rem", b: "0.5rem" }}
-             textWeight="800"
-             fontFamily="ko"
-             textColor="light"
-       
+             textSize="caption"
+        //    m={{ t: "0.5rem", b: "0.5rem" }}
+        m={{ x: { xs: '0rem', md: '-1rem' }, y: { xs: '0rem', md: '0.5rem' }}}
+            textWeight="800"
+            fontFamily="ko"
+            textColor="light"
          >
          ({dates} 기준)
          </Text> 
-         </Div>
-          <Container d="flex" flexDir="row ">
+         <Div>
+          <Div d="flex" flexDir="row "
+           m={{ x: { xs: '1rem', md: '1rem' }, y: { xs: '0rem', md: '0em' }}}
+          >
         <Button onClick={() => {chartShow1(true); chartShow2(false); chartShow3(false);} } 
-            
-            bg="info700"
-            hoverBg="info800"
-            rounded="circle"
-            h={{ xs: '2rem', md: '2rem' }}
-            w={{ xs: '5rem', md: '5rem' }}
-            m='0.5rem'
-            shadow="3"
-            hoverShadow="4"
-          >
+             bg="black"        
+             h={{ xs: '2rem', md: '2rem' }}
+             w={{ xs: '5rem', md: '5rem' }}
+             m='0.5rem'
+             shadow="3"
+             hoverShadow="4"
+           ><Text
+           textSize="subheader"
+           >
             1개월
-          </Button>
+            </Text>
+           
+           </Button>
           <Button onClick={() => {chartShow2(true); chartShow1(false); chartShow3(false);} } 
-            
-            bg="info700"
-            hoverBg="info800"
-            rounded="circle"
-            h={{ xs: '2rem', md: '2rem' }}
-            w={{ xs: '5rem', md: '5rem' }}
-            m='0.5rem'
-            shadow="3"
-            hoverShadow="4"
+             
+             bg="black"
+             h={{ xs: '2rem', md: '2rem' }}
+             w={{ xs: '5rem', md: '5rem' }}
+             m='0.5rem'
+             shadow="3"
+             hoverShadow="4"
           >
+            <Text  textSize="subheader">
             3개월 
+            </Text>
           </Button>
           <Button onClick={() => {chartShow3(true); chartShow1(false); chartShow2(false);} }
-            
-            bg="info700"
-            hoverBg="info800"
-            rounded="circle"
-            h={{ xs: '2rem', md: '2rem' }}
-            w={{ xs: '5rem', md: '5rem' }}
-            m='0.5rem'
-            shadow="3"
-            hoverShadow="4"
+             bg="black"
+             h={{ xs: '2rem', md: '2rem' }}
+             w={{ xs: '5rem', md: '5rem' }}
+             m='0.5rem'
+             shadow="3"
+             hoverShadow="4"
           >
+            <Text  textSize="subheader">
             6개월
+            </Text>
           </Button>
+          </Div>
+          </Div>
+          </Div>
+          </Div>
+          <Div
+            d="flex"
+            flexDir="column"
+            w={{ xs: "100%", md: "50rem" }}
+            maxW="100%"
+            pos={{ xs: "static", md: "absolute" }}
+            m={{ x: { xs: '-1.5rem', md: '22rem' }, y: { xs: '-3rem', md: '8rem' }}}
+            left="0"
+            top="0"
+            rounded="xl"
+            h={{ lg: "25rem" }}
+            bg="white"
+           
+            p="2rem"
+         >
+             <Text
+                textAlign="left"
+                textSize="subheader"
+                textWeight="800"
+                fontFamily="ko"
+                bgColor="red"
+                m={{ x: { xs: '-0.5rem', md: '0' }, y: { xs: '1rem', md: '-2rem' }}}
+                >
+               기간별 수치
+              </Text>
+              <Div flexGrow="1">
+          {
+            chart1 === true
+            ? 
+            <Div  m={{ x: { xs: '0', md: '0' }, y: { xs: '0rem', md: '3rem' }}}>
+            <ChartIndi1 num={30} tableName={tableName}/>
+            </Div>
+            : null
+          }
+           {
+            chart2 === true
+            ? 
+            <Div  m={{ x: { xs: '0', md: '0' }, y: { xs: '0rem', md: '3rem' }}}>
+            <ChartIndi1 num={90} tableName={tableName}/>
+            </Div>
+            : null
+          }
+           {
+            chart3 === true
+            ? 
+            <Div  m={{ x: { xs: '0', md: '0' }, y: { xs: '0rem', md: '3rem' }}}>
+            <ChartIndi1 num={180} tableName={tableName}/>
+            </Div>
+            : null
+          }
+          </Div>
+            </Div>
+              <Div
+         d="flex"
+        flexDir="column"
         
-          </Container>
+          w={{ xs: "100%", md: "23rem" }}
+          maxW="100%"
+          pos={{ xs: "static", md: "absolute" }}
+ 
+    m={{ x: { xs: '-1.5rem', md: '25rem' }, y: { xs: '-3.5rem', md: '8rem' }}}
+   
+    right="0"
+    top="0"
+    rounded="xl"
+    h={{ lg: "25rem" }}
+    bg="white"
+   
+    p="2rem"
+  >
+     <Text
+      textAlign="left"
+      textSize="subheader"
+      textWeight="800"
+      fontFamily="ko"
+      bgColor="red"
+      m={{ x: { xs: '0', md: '0' }, y: { xs: '2rem', md: '-2rem' }}}
+      >
+               기간별 상관관계
+              </Text>
+              <Div flexGrow="0">
+
 
           {
             chart1 === true
-            ? <ChartIndi1 num={30} tableName={tableName}/>
-            : null
-          }
-          {
-            chart1 === true
-            ? <Corr1 nums={30} tableName={tableName}/>
+            ? 
+            <Div  m={{ x: { xs: '0', md: '0' }, y: { xs: '-1.5rem', md: '3rem' }}}>
+            <Corr1 nums={30} tableName={tableName}/>
+            </Div>
             : null
             }
+         
           {
             chart2 === true
-            ? <ChartIndi1 num={90} tableName={tableName}/>
-            : null
-          }
-          {
-            chart2 === true
-            ? <Corr1 nums={90} tableName={tableName}/>
+            ?
+            <Div  m={{ x: { xs: '0', md: '0' }, y: { xs: '-1.5rem', md: '3rem' }}}>
+             <Corr1 nums={90} tableName={tableName}/>
+             </Div>
             : null
             }
+         
           {
             chart3 === true
-            ? <ChartIndi1 num={180} tableName={tableName}/>
-            : null
-          }
-          {
-            chart3 === true
-            ? <Corr1 nums={180} tableName={tableName}/>
+            ?
+            <Div  m={{ x: { xs: '0', md: '0' }, y: { xs: '-1.5rem', md: '3rem' }}}>
+            <Corr1 nums={180} tableName={tableName}/>
+            </Div>
             : null
             }
-
-           <Text
+          </Div>
+          </Div>
+          <Div
+      d="flex"
+      flexDir="column"
+     
+        w={{ xs: "100%", md: "72rem" }}
+        maxW="100%"
+        pos={{ xs: "static", md: "absolute" }}
+         m={{ x: { xs: '-2rem', md: '22rem' }, y: { xs: '2rem', md: '31rem' }}}
+        left="0"
+        top="0"
+        rounded="xl"
+        h={{ lg: "15rem" }}
+        bg="white"
+       
+        p="2rem"
+         >
+            <Div d="flex" flexDir="column">
+            <Text
             textAlign="left"
             textSize="title"
             m={{ t: "0rem", b: "0rem" }}
@@ -245,7 +344,7 @@ function IndicatorDetail1(props) {
          >
           관련지표
         </Text>
-        <Container d="flex" flexDir="row">
+        <Div d="flex" flexDir="row">
         <Icon name="Checked" size="20px"  m={{ t: "0.5rem", b: "1rem" }}/>
         <Text
             fontColor="dark"
@@ -256,9 +355,25 @@ function IndicatorDetail1(props) {
             fontFamily="ko"
          >
           전체 기간에서 상관관계가 높은 5개의 지표와 상관계수입니다.
+          </Text>
+        </Div>
+        <Div d="flex" flexDir="row"
+            m={{ x: { xs: '0rem', md: '0rem' }, y: { xs: '-1rem', md: '-1.5rem' }}}
+        >
+        <Icon name="Checked" size="20px"  m={{ t: "0.5rem", b: "1rem" }}/>
+        <Text
+            fontColor="dark"
+            textAlign="left"
+            textSize="subheader"
+            m={{ t: "0.5rem", b: "1rem" }}
+            textWeight="600"
+            fontFamily="ko"
+         >
+           상관계수는 1에 가까울수록 비례 관계를, -1에 가까울수록 반비례 관계를 보입니다.
         </Text>
-        </Container>
-        <Container  m={{ t: "-1rem", b: "0" }}>
+        </Div>
+        </Div>
+        <Container  m={{ x: { xs: '-2rem', md: '0rem' }, y: { xs: '0rem', md: '0.5rem' }}}>
         <Table >
           <TableHead>
             <TableRow>
@@ -268,22 +383,49 @@ function IndicatorDetail1(props) {
                   (ind.indiname == '달러인덱스') || (ind.indiname == '비트코인') || (ind.indiname == '미 10년 채권수익률') || (ind.indiname == '미 2년 채권수익률')
                   ?
                   (
-                    <button onClick={ () => links(ind.indicator)}>{ind.indiname}</button>
+                    <button onClick={ () => links(ind.indicator)} style={{backgroundColor: '#fbe0a1'}}>
+                      <Text
+                        textSize={{ xs: "caption", md: "body" }}
+                          > {ind.indiname}</Text></button>
                   ) : (
                     (ind.indiname == '국제 금') || (ind.indiname == 'WTI') 
                     ?
                     (
-                      <Link to={`/IndicatorDetail2/${ind.indicator}`} ><button>{ind.indiname}</button></Link>
+                      <Link to={`/IndicatorDetail2/${ind.indicator}`} >
+                        <button style={{backgroundColor: '#fbe0a1'}}>
+                      <Text
+                      textSize={{ xs: "caption", md: "body" }}
+                      >
+                      {ind.indiname}
+                      </Text>
+                      </button></Link>
                     ) : (
                       (ind.indiname == '달러/유로') || (ind.indiname == '영국 파운드/달러') || (ind.indiname == '일본 엔/달러') || (ind.indiname == '중국 위안/달러')
                       ?
                       (
-                        <Link to={`/IndicatorDetailExeFor/${ind.indicator}`} ><button>{ind.indiname}</button></Link>
+                        <Link to={`/IndicatorDetailExeFor/${ind.indicator}`} >
+                          <button style={{backgroundColor: '#fbe0a1'}}>
+                      <Text
+                      textSize={{ xs: "caption", md: "body" }}
+                      >
+                      {ind.indiname}
+                      </Text>
+                      </button>
+                          </Link>
                       ) :
                       (ind.indiname == '원/달러')
                       ?
                       (
-                        <Link to="/IndicatorDetail"><button>{ind.indiname}</button></Link>
+                        <Link to="/IndicatorDetail">
+                         <button style={{backgroundColor: '#fbe0a1'}}>
+                      <Text
+                      textSize={{ xs: "caption", md: "body" }}
+                      >
+                      {ind.indiname}
+                      </Text>
+                      </button>
+                          
+                          </Link>
                       ) :
                       ''
                     )
@@ -308,71 +450,97 @@ function IndicatorDetail1(props) {
         </Table>
         </Container>
 
-          <Text
-                textAlign="left"
-                textSize="title"
-                m={{ t: "2rem", b: "0rem" }}
-                textWeight="800"
-                fontFamily="ko"
+        </Div>
+    <Div
+            d="flex"
+            flexDir="column"
+            border="1px solid"
+            borderColor="gray200"
+            w={{ xs: "100%", md: "36rem" }}
+            maxW="100%"
+            pos={{ xs: "static", md:"static" }}
+            m={{ x: { xs: '0rem', md: '-1rem' }, y: { xs: '-2.5rem', md: '40rem' }}}
+            p={{ x: { xs: '1rem', md: '22rem' }, y: { xs: '2rem', md: '50rem' }}}
+            left="0"
+            top="0"
+            rounded="xl"
+            h={{ lg: "52.5rem" }}
+            bg="white"
+            shadow="4"
+            p="2rem"
+         >
+           <Div flexGrow="1">
+           <Text
+            textAlign="left"
+            textSize="title"
+            m={{ x: { xs: '-1rem', md: '-1rem' }, y: { xs: '1rem', md: '-0.5rem' }}}
+            textWeight="800"
+            fontFamily="ko"
           >
-                뉴스 목록
-              </Text>
-        
-              </Container>
+                  뉴스 목록
+                </Text>   
           {hits.map(function(data){
         return(
-          
-        <Div  m = {{ xs: "1.5rem", md: "-1.5rem" }}>
-        
-        <Div
-        bg="white" 
-        d="inline-block" align="center"
-        >
-       <Div
-        h = {{ xs: "3rem", md: "6rem" }}
-        w = {{ xs: "25rem", md: "70rem" }}
-      
-        border={{ b: "1px solid" }}
-        borderColor="gray400"
-        pos = "flex"
-        d={{ xs: "inline-block", md: "inline-block", lg: "inline-block" }}
-       >
-
-           <Div
-           align="flex-start"
-           h = {{xs : "5rem" ,md : "auto"}}
-           m={{ t: "-1.5rem", b: "-1.5rem" }}
-           onClick = {() => {moveHref(data['_source']['news_url'])}}
-           >
+          <Div
+          align="flex-start"
+          h = {{xs : "rem" ,md : "auto"}}
+          m={{ x: { xs: '0rem', md: '0' }, y: { xs: '0rem', md: '1rem' }}}
+          onClick = {() => {moveHref(data['_source']['news_url'])}}
+          >
             <Text
                 textAlign="left"
                 textSize="subheader"
-                m={{ t: "1rem", b: "0" }}
                 textWeight="800"
                 fontFamily="ko"
               >
                {data['_source']['news_title']}
                </Text>
                <Text
-                m={{xs : "1.5rem" ,md : "auto"}}
-                textAlign="left"  
-                textColor="gray900"
+                 m = {{ xs: "1rem", md: "0" }}
+                 textAlign="left"  
+                 textColor="gray900"
                >{data['_source']['news_group']} | {data['_source']['news_source']} | {data['_source']['news_date'].substring(0,10)} | </Text>  
             
            </Div>
-       
-       </Div>
-    </Div>
-    
-    </Div>
- 
 
 )})}
- <CommentExe tableName={tableName} num={2}/>
+</Div>
+    </Div>    
+    <Div
+           d="flex"
+           flexDir="column"
+           border="1px solid"
+           borderColor="gray200"
+           w={{ xs: "100%", md: "32rem" }}
+           maxW="100%"
+           pos={{ xs: "static", md: "absolute" }}
+           m={{ x: { xs: '0rem', md: '26rem' }, y: { xs: '3rem', md: '47.5rem' }}}
+           p={{ x: { xs: '0rem', md: '0rem' }, y: { xs: '2rem', md: '16rem' }}}
+           right="0"
+           top="0"
+           rounded="xl"
+           h={{ lg: "52.5rem" }}
+           bg="white"
+           shadow="4"
+           p="2rem"
+         >
+           
+           <Div flexGrow="1">
+           <Text
+            textAlign="left"
+            textSize="title"
+            m={{ x: { xs: '-1rem', md: '-1rem' }, y: { xs: '0rem', md: '-0.5rem' }}}
+            textWeight="800"
+            fontFamily="ko"
+          >
+            개미토론방
+              </Text>
+            <CommentExe tableName={tableName} num={2}/>
+          </Div>
+         </Div>
+          </Container>
       </div>
-      
     )
-
 }
 
 

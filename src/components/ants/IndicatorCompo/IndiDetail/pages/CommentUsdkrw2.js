@@ -131,8 +131,8 @@ function CommentUsdkrw2(props) {
       placeholder="댓글을 남겨주세요."
       p={{ x: "2.5rem" }}
       m={{ t: "0.5rem" }}
-      h="5rem"
-      w={{ xs: "25rem", md: "28rem" }}
+      h={{ xs: "6rem", md: "5rem" }}
+      w={{ xs: "23rem", md: "28rem" }}
       name="commnet_content"
       value={comment}
       onChange={(e) => { commentbyun(e.target.value) }}
@@ -157,9 +157,10 @@ function CommentUsdkrw2(props) {
     {commentlist.map(comment=>(
 <Div 
        p={{ x: "2.5rem", t: "0.7rem" }}
-      m={{ t: "0.5rem" }}
+     // m={{ t: "0.5rem" }}
+     m={{ x: { xs: '0.5rem', md: '0.5rem' }, y: { xs: '0.5rem', md: '0.5rem' }}}
       h="7.5rem"
-      w={{ xs: "25rem", md: "28rem" }}
+      w={{ xs: "22rem", md: "28rem" }}
        border={{ t: "1px solid", b: "1px solid" }}
        borderColor="gray400"
        d="flex"
@@ -221,7 +222,7 @@ function CommentUsdkrw2(props) {
 </Div>
 
 ))} 
-<Div  m={{ x: { xs: '1rem', md: '1.5rem' }, y: { xs: '2rem', md: '0.5rem' }}} >
+<Div  m={{ x: { xs: '1rem', md: '1.5rem' }, y: { xs: '1rem', md: '0.5rem' }}} >
   <div align-items= "center"  >
 <button style={{backgroundColor: '#0284fe'}}  color="white"onClick={ () => links2("usdkrw", next)}>
 <Text
@@ -249,8 +250,7 @@ function CommentUsdkrw2(props) {
 
 </div>
 
-</Div>
- 
+</Div> 
         <AlignStartModal
           userid = {loginid}
           nickname = {loginname}
@@ -260,7 +260,6 @@ function CommentUsdkrw2(props) {
           onClose={() =>  showModalb(false)}
         />
 
-        
 </div>
 
     )
