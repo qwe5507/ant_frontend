@@ -17,7 +17,7 @@ function NewsForm2(){
   let [commentdeleteModal,commentdeleteModal변경] = useState(false);
   let [commentaddModal,commentaddModal변경] = useState(false);
   let [totalkeyword, totalkeywordChange] = useState();
-
+  let [rendering, renderingChange] = useState(false);
   console.log('유저아이디',userId)
   function handleClick(keyword){
     history.push('/SearchResult/'+keyword)
@@ -26,25 +26,35 @@ function NewsForm2(){
   function commentdelete(userId, data) {
     commentdeleteModal변경(true)
     updatekeywordChange(data)
+
   }
 
   function commentadd() {
-    console.log(userId)
-    if(userId)
       commentaddModal변경(true)
-    else
-      alert('로그인이 필요한 서비스입니다.')
-      history.push('/Login')
+  }
+  function moveLogin(){
+    alert('로그인이 필요한 서비스입니다.')
+    history.push('/Login')
   }
 
   function keywordList(){
     NewsApiService.selectKeywordByUserId(userId)
       .then(response => {
         result = response.data
-        console.log(result)
-        totalkeywordChange(result['keyword'].split(',').sort())
+        console.log("여긴가?", result)
+        if(result=="" || result==undefined || result==null){
+          keywordChange([]);
+        }
+
+        let list = result['keyword'].split(',').sort();
+
+
+        if(list[0]=="")
+          list.shift()
         
-        console.log(keyword)
+        console.log(list)
+        keywordChange(list)
+        
       })
       .catch(error => {
         console.log("NewsApiService ", error)
@@ -98,7 +108,7 @@ function NewsForm2(){
           <Icon 
           name="Add" 
           size="30px"
-          onClick={()=> commentadd() }
+          onClick={userId ? ()=> commentadd() : () => moveLogin() }
           />
         </Label>
       </Col>

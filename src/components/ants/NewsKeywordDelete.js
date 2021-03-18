@@ -24,8 +24,6 @@ function NewsKeywordDelete(props){
 
           boardModalClose()
        }
-       
-      
   return (
     <Modal
       isOpen={props.isOpen}
