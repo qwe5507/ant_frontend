@@ -86,7 +86,7 @@ function Community() {
           zIndex="1"
           w={{ xs: "100vw",sm:"100vw", md: "80vw" }}
           align="space-between"
-          p={{ t: { xs: "1.4rem",sm:"1rem", md: "1rem" }}}
+          p={{ t: { xs: "4rem",sm:"4rem", md: "1rem" }}}
         >
 
           <Div
@@ -139,7 +139,7 @@ function Community() {
 
             <Label
               d={{ xs: "flex", md: "none" }}
-              m={{ l: "85%", t: "-1rem" }}
+              // m={{ l: "85%", t: "-1rem" }}
               onClick={() =>
                 selectedSwitchValueChange(!selectedSwitchValue)
               }
@@ -170,17 +170,17 @@ function Community() {
               w="1100px"
               justify="space-between"
               p={{
-                t: { xs: "4rem", md: "0" },
-                b: { xs: "2rem", md: "5%" },
+                t: { xs: "2rem", md: "0" },
+                b: { xs: "3.5rem", md: "5%" },
                 x: { xs: "0rem", md: "0" },
               }}
               w={{ xs: "100%", md: "1100px" }}
-              h={{ xs: "8rem", md: "auto" }}
-
+              h={{ xs: "5rem", md: "auto" }}
+              
               //마진
               m={{
                 l: { xs: '0%', md: '-80%' },
-                t: { xs: '0%', md: '20%' }
+                t: { xs: '5%', md: '20%' }
               }}
               shadow={{ xs: "2", md: "2" }}
               transition
@@ -190,6 +190,7 @@ function Community() {
               <Div
                 d="flex"
                 justify="space-between"
+                // w = {{  xs: "20rem",sm:"30rem", md: "5rem" }}
               >
                 <Div d="flex">
                   <Link to="/Community">
@@ -202,8 +203,8 @@ function Community() {
                       <Text
                         textSize={{xs: "subheader", md: "title"}}
                         onClick={() => saveBoardChangeClick(false)}
-                        m={{ b: "0.25rem", r: "1rem", l: "1rem" }}
-                        w = {{  xs: "2rem",sm:"3rem", md: "5rem" }}
+                        m={{  r: "0rem", l: "1rem" }}
+                        w = {{  xs: "3rem",sm:"3rem", md: "5rem" }}
                         textWeight="1000"
                         textAlign="center"
                         fontFamily="ko"
@@ -244,7 +245,7 @@ function Community() {
                           onClick={() => saveBoardChangeClick(true)}
                           textSize={{xs: "subheader", md: "title"}}
                           m={{ b: "0.25rem" }}
-                          textWeight="1200"
+                          textWeight="1000"
                           textAlign="center"
                           fontFamily="ko"
                           w = {{  xs: "6rem",sm:"6rem", md: "6rem" }}
@@ -265,9 +266,9 @@ function Community() {
                 >
                 
                   <Div
-                  p = {{ l : "0.5rem"}}d = "flex">
+                  p = {{ l : "0.5vw"}}d = "flex">
                   <Label
-                    m={{ l: "0rem", r: "1rem" }}
+                    m={{ l: "0rem", r: "1vw" }}
                     onClick={() =>
                       selectedSwitchValueChange(!selectedSwitchValue)
                     }
@@ -287,7 +288,7 @@ function Community() {
                     {((typeof boardid != "undefined") && (typeof boardid.valueOf() == "string")) && (boardid.length > 0) || saveBoardstate || (typeof updateboardid != "undefined") ?
                       null :
                       selectedSwitchValue ?
-                        <Text fontFamily="ko">추천순</Text> : <Text fontFamily="ko">최신순</Text>}
+                        <Text fontFamily="ko" textSize="paragraph">추천순</Text> : <Text fontFamily="ko" textSize="paragraph">최신순</Text>}
                   </Label>
                   </Div>
                   {boardid == "registe" || (typeof updateboardid != "undefined") ?
@@ -304,19 +305,20 @@ function Community() {
                         prefix={
                           <Icon
                             name="Edit"
-                            size="22px"
+                            size="20px"
                             color="white"
-                            m={{ r: "0.5rem" }}
+                            // m={{ r: "0.5rem" }}
                           />
                         }
-                        textWeight="900"
-                        textSize="subheader"
+                        textWeight="1000"
+                        textSize="paragraph"
                         bg="black"
                         hoverBg="black400"
                         rounded="md"
                         fontFamily="ko"
                         m={{ r: "0.5rem" ,b : "0.5rem"}}
-                        w = {{  xs: "8rem",sm:"8rem", md: "6rem" }}
+                        p= "auto"
+                        w = {{  xs: "5rem",sm:"8rem", md: "6rem" }}
                         h = "3rem"
                         shadow="3"
                         hoverShadow="4"
