@@ -92,28 +92,18 @@ function CommunityRegister(props) {
     .then(url => {
       console.log("이미지 업로드 성공")
       console.log(url)
-      $(el).summernote('editor.insertImage', url);
-      $('#imageBoard > ul').append('<li><img src="'+url+'" width="480" height="auto"/></li>');
+      console.log(url.data)
+      
+
+
+      // $(el).summernote('editor.insertImage', url.data);
+      // $('#imageBoard > ul').append('<li><img src="'+url.data+'" width="480" height="auto"/></li>');
     
     })
     .catch(error => {
       console.log("이미지 업로드 실패")
       console.log(error);
     });
-
-    // $.ajax({
-    //   data: form_data,
-    //   type: "POST",
-    //   url: '/image',
-    //   cache: false,
-    //   contentType: false,
-    //   enctype: 'multipart/form-data',
-    //   processData: false,
-    //   success: function(url) {
-    //     $(el).summernote('editor.insertImage', url);
-    //     // $('#imageBoard > ul').append('<li><img src="'+url+'" width="480" height="auto"/></li>');
-    //   }
-    // });
   }
 
 
@@ -233,9 +223,9 @@ function CommunityRegister(props) {
                   onChange={(e) => {onChangea(e)}}
                   onImageUpload={(e,insertImage) => {onImageUpload(e,insertImage)}}
                   callbacks = {
-                    onImageUpload = function(files, editor, welEditable) {
+                    onImageUpload = function(files, insertImage) {
                       for (var i = files.length - 1; i >= 0; i--) {
-                        sendFile(files[i], this);
+                        sendFile(files[i], insertImage);
                         console.log("onomageupload 파일?");
                       }
                     }
