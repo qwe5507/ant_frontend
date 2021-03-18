@@ -27,6 +27,9 @@ class BoardApiService {
     addBoard(board) {
         return axios.post(Board_API_BASE_URL, board);
     }
+    addImage(board) {
+        return axios.post(Board_API_BASE_URL+'/image', board);
+    }
         
     fetchLikeUserBoardCheck(UserLikeBoard) {
         return axios.get(Board_API_BASE_URL +"/"+UserLikeBoard.board_id+"/"+UserLikeBoard.userid+ '/likecheck');

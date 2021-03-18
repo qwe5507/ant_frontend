@@ -84,8 +84,9 @@ function Community() {
           left={{ xs: "0%", md: "10%" }}
           right="0"
           zIndex="1"
-          w={{ xs: "100%", md: "80%" }}
+          w={{ xs: "100vw",sm:"100vw", md: "80vw" }}
           align="space-between"
+          p={{ t: { xs: "1.4rem",sm:"1rem", md: "1rem" }}}
         >
 
           <Div
@@ -199,10 +200,11 @@ function Community() {
                       transition
                     >
                       <Text
-                        textSize={{xs: "title", md: "title"}}
+                        textSize={{xs: "subheader", md: "title"}}
                         onClick={() => saveBoardChangeClick(false)}
-                        m={{ b: "0.25rem", r: "2.5rem", l: "2.5rem" }}
-                        textWeight="1100"
+                        m={{ b: "0.25rem", r: "1rem", l: "1rem" }}
+                        w = {{  xs: "2rem",sm:"3rem", md: "5rem" }}
+                        textWeight="1000"
                         textAlign="center"
                         fontFamily="ko"
                       >
@@ -233,18 +235,19 @@ function Community() {
                   <Link to="/Community/saved">
                     <Anchor
                       target="_blank"
-                      textWeight="800"
+                      textWeight="1000"
                       textColor="medium"
                       hoverTextColor="black"
                     >
                       {loginid ?
                         <Text
                           onClick={() => saveBoardChangeClick(true)}
-                          textSize={{xs: "title", md: "title"}}
+                          textSize={{xs: "subheader", md: "title"}}
                           m={{ b: "0.25rem" }}
                           textWeight="1200"
                           textAlign="center"
                           fontFamily="ko"
+                          w = {{  xs: "6rem",sm:"6rem", md: "6rem" }}
                         >
                           저장한 글
                     </Text>
@@ -284,7 +287,7 @@ function Community() {
                     {((typeof boardid != "undefined") && (typeof boardid.valueOf() == "string")) && (boardid.length > 0) || saveBoardstate || (typeof updateboardid != "undefined") ?
                       null :
                       selectedSwitchValue ?
-                        <Text>추천순</Text> : <Text>최신순</Text>}
+                        <Text fontFamily="ko">추천순</Text> : <Text fontFamily="ko">최신순</Text>}
                   </Label>
                   </Div>
                   {boardid == "registe" || (typeof updateboardid != "undefined") ?
@@ -313,6 +316,7 @@ function Community() {
                         rounded="md"
                         fontFamily="ko"
                         m={{ r: "0.5rem" ,b : "0.5rem"}}
+                        w = {{  xs: "8rem",sm:"8rem", md: "6rem" }}
                         h = "3rem"
                         shadow="3"
                         hoverShadow="4"

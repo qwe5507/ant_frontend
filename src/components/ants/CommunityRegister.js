@@ -48,11 +48,12 @@ function CommunityRegister(props) {
 
   function onImageUpload(images,insertImage){
     console.log(images)
+    console.log(insertImage)
     for (let i = 0; i < images.length; i++) {
       const reader = new FileReader();
 
       reader.onloadend = () => {
-        console.log(reader)
+        console.log(reader.result)
         insertImage(reader.result);
       };
 
@@ -82,6 +83,39 @@ function CommunityRegister(props) {
     console.log(summerNoteDom);
     
   }
+  function sendFile(file, el) {
+    console.log(el)
+    var form_data = new FormData();
+    form_data.append('file', file);
+
+    BoardApiService.addImage(form_data)
+    .then(url => {
+      console.log("이미지 업로드 성공")
+      console.log(url)
+      // $(el).summernote('editor.insertImage', url);
+      // $('#imageBoard > ul').append('<li><img src="'+url+'" width="480" height="auto"/></li>');
+    
+    })
+    .catch(error => {
+      console.log("이미지 업로드 실패")
+      console.log(error);
+    });
+
+    // $.ajax({
+    //   data: form_data,
+    //   type: "POST",
+    //   url: '/image',
+    //   cache: false,
+    //   contentType: false,
+    //   enctype: 'multipart/form-data',
+    //   processData: false,
+    //   success: function(url) {
+    //     $(el).summernote('editor.insertImage', url);
+    //     // $('#imageBoard > ul').append('<li><img src="'+url+'" width="480" height="auto"/></li>');
+    //   }
+    // });
+  }
+
 
   return (
     <>
@@ -196,6 +230,15 @@ function CommunityRegister(props) {
                   }}
                   onChange={(e) => {onChangea(e)}}
                   onImageUpload={(e,insertImage) => {onImageUpload(e,insertImage)}}
+                  callbacks = {
+                    onImageUpload = function(files, editor, welEditable) {
+                      for (var i = files.length - 1; i >= 0; i--) {
+                        sendFile(files[i], this);
+                        console.log("onomageupload 파일?");
+                      }
+                    }
+                  }
+
                 />
               </Div>
           </Col>
