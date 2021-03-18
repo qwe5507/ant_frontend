@@ -204,9 +204,8 @@ function CommunityMain(props) {
                         border="1px solid"
                         borderColor="gray200"
                         rounded="lg"
-                        p="2rem"
-                        m={{ b: { xs: "2rem", md: "1rem" } }}
-                        h="20rem"
+                        p={{xs: "0",sm:"2rem",md: "2rem"  }}
+                        m={{ b: { xs: "0.5rem", md: "1rem" } }}
                       >
                         <Div p="1rem" d="flex" align="center" justify="space-between">
                           <Div d="inline-block" align="center" justify="space-between"
@@ -281,8 +280,9 @@ function CommunityMain(props) {
                                   </div>
                                 </Text>
                                 <Div
-                                  pos={{ xs: 'absolute', sm: 'absolute', md: 'static' }}
+                                  pos={{ xs: 'none', sm: 'absolute', md: 'static' }}
                                   right="2rem"
+                                  h = "3vw"
                                 >
                                   <div
                                   className="boardconimg">

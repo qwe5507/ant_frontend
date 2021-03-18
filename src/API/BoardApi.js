@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // const Board_API_BASE_URL = "http://15.165.161.92:8000/board";
-const Board_API_BASE_URL = "http://localhost:8000/board";
+const Board_API_BASE_URL = "http://192.168.0.56:8000/board";
 
 class BoardApiService {
 
@@ -26,6 +26,9 @@ class BoardApiService {
     }
     addBoard(board) {
         return axios.post(Board_API_BASE_URL, board);
+    }
+    addImage(board) {
+        return axios.post(Board_API_BASE_URL+'/image', board);
     }
         
     fetchLikeUserBoardCheck(UserLikeBoard) {

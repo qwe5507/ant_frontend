@@ -305,7 +305,7 @@ function CommunityBoard() {
         <>
             <Div
                 m={{ t: { xs: "1rem", md: "5%" }, l: { xs: "5%", md: "-78%" } }}
-                w={{ xs: "90vw", md: "248%" }}
+                w={{ xs: "90vw",sm:"90vw", md: "248%" }}
                 align="center" justify="space-between"
                 d={{ xs: "flex", md: "flex" }}
             >
@@ -315,7 +315,8 @@ function CommunityBoard() {
                 >
                     <Div
                         h={{ xs: "11rem", md: "9rem" }}
-                        w={{ xs: "28rem",sm : "35rem", md: "47rem" }}
+                        // w={{ xs: "28rem",sm : "35rem", md: "47rem" }}
+                        w={{ xs: "80vw",sm:"85vw",md: "47rem"  }}
                         border={{ b: "1px solid" }}
                         borderColor="gray400"
                         pos="flex"
@@ -379,7 +380,7 @@ function CommunityBoard() {
                                         fontFamily="secondary"
                                         textColor="gray"
                                         m={{ r: "1rem" }}
-
+                                        minW= "3rem" 
                                     >
                                         {timecal(board['board_createdata'])}
                                     </Text>
@@ -488,10 +489,13 @@ function CommunityBoard() {
 
                     </Div>
                     <Div
-                        h={{ xs: "22rem", md: "auto" }}
-                        w={{ xs: "28rem",sm : "35rem", md: "47rem" }}
+                        h={{ xs: "auto", md: "auto" }}
+                        // w={{ xs: "28rem",sm : "35rem", md: "47rem" }}
+                        w={{ xs: "80vw",sm:"85vw",md: "47rem"  }}
                         border={{ b: "1px solid" }}
                         borderColor="gray400"
+                        d = "flex"
+                        flexDir="column"
                     >
                         <Text
                             textSize="title"
@@ -501,8 +505,10 @@ function CommunityBoard() {
                             justify="flex-end"
                             m={{ b: "1rem" }}
                             p={{ t: "3rem", b: "2rem" }}
-                            w={{ xs: "28rem",sm : "35rem", md: "40rem" }}
+                            w={{ xs: "28vw",sm : "35rem", md: "40rem" }}
                             textAlign="left"
+                            d = "flex"
+                            flexDir="column"
                         >
 
                             <div
@@ -516,7 +522,7 @@ function CommunityBoard() {
                         <Div d="flex" align="center"
                             justify="space-between"
                             p={{ b: "20px" }}
-                            d={{ xs: "none", md: "flex" }}
+                            d={{ xs: "flex", md: "flex" }}
                             h="3rem"
                         >
                             <Div d="flex" >
@@ -589,9 +595,10 @@ function CommunityBoard() {
                     </Div>
                     <Div
                         m={{ t: "0.5rem" }}
-                        h="10rem"
+                        // h="10rem"
                         // w="47rem"
-                        w={{ xs: "28rem",sm : "35rem", md: "47rem" }}
+                        // w={{ xs: "28rem",sm : "35rem", md: "47rem" }}
+                        w={{ xs: "80vw",sm:"85vw",md: "47rem"  }}
                         d="inline-block" align="center"
                     >
                         <Input
@@ -599,7 +606,8 @@ function CommunityBoard() {
                             p={{ x: "2.5rem" }}
                             m={{ t: "0.5rem" }}
                             h="5rem"
-                            w={{ xs: "28rem",sm : "35rem", md: "47rem" }}
+                            // w={{ xs: "28rem",sm : "35rem", md: "47rem" }}
+                            w={{ xs: "60vw",sm:"85vw",md: "47rem"  }}
                             onChange={(e) => { commentinput변경(e.target.value) }}
                             value={commentinput}
                             prefix={
@@ -716,7 +724,8 @@ function CommunityBoard() {
                                     p={{ x: "2.5rem", t: "0.7rem" }}
                                     m={{ t: "0.5rem" }}
                                     h="7rem"
-                                    w={{ xs: "28rem",sm : "35rem", md: "47rem" }}
+                                    // w={{ xs: "28rem",sm : "35rem", md: "47rem" }}
+                                    w={{ xs: "80vw",sm:"85vw",md: "47rem"  }}
                                     border={{ t: "1px solid", b: "1px solid" }}
                                     borderColor="gray400"
                                     d="flex"
@@ -724,7 +733,7 @@ function CommunityBoard() {
                                     justify="space-between"
                                 >
                                     <Div
-                                        w={{ xs: "23rem",sm : "30rem", md: "47rem" }}
+                                        w={{ xs: "45vw",sm:"85vw",md: "47rem"  }}
                                         
                                     >
                                         <Div
@@ -814,10 +823,17 @@ function CommunityBoard() {
                                         m={{ l: "0.3rem" }}
                                     >
                                         {datas.userid == loginid ?
+                                            <Div 
+                                            d="flex"
+                                            justify="space-between"
+                                            >
+                                            <Div w = "3.5rem"></Div>
                                             <Icon name="Delete" size="20px"
                                                 cursor="pointer"
                                                 onClick={() => commentdelete(datas)}
-                                            /> : declarecommentlist.includes(datas.comment_id) ?
+                                            />
+                                            </Div>
+                                             : declarecommentlist.includes(datas.comment_id) ?
                                                 // <Icon name="InfoSolid" size="20px"
                                                 //     cursor="pointer"
                                                 //     onClick={() => notdeclare변경(true)}
@@ -838,18 +854,18 @@ function CommunityBoard() {
                                                 <Div d = "flex"
                                                 m={{ l: "0.3rem" }}
                                                 >
-                                                <Icon name="Info" size="18px"
-                                                    cursor="pointer"
-                                                    onClick={loginid ? () => 신고하기클릭(datas) : () => { showLoginRequireModal변경(true) }}
-                                                />
                                                 <Text 
                                                     m={{ l: "0.3rem" }}
-                                                    w = "10rem"
+                                                    w = "3rem"
                                                     textSize="caption"
                                                     textWeight="800"
                                                     fontFamily="ko"
                                                 >
                                                     신고하기</Text>
+                                                    <Icon name="Info" size="18px"
+                                                    cursor="pointer"
+                                                    onClick={loginid ? () => 신고하기클릭(datas) : () => { showLoginRequireModal변경(true) }}
+                                                />
                                                 </Div>
                                         }
                                     </Div>
