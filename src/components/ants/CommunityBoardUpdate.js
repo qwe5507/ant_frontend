@@ -37,27 +37,37 @@ function CommunityBoardUpdate(props){
   const summerNoteDom = useRef(null);
   let [board, board변경] = useState({});
 
-  function onChangea(content){
-    console.log('onChange',content);
-    console.log('onChange',typeof content);
-    
+  function onChangea(content) {
     summerContent변경(content);
-
   }
 
-  function onImageUpload(images,insertImage){
-    console.log(images)
-    for (let i = 0; i < images.length; i++) {
-      const reader = new FileReader();
-
-      reader.onloadend = () => {
-        console.log(reader)
-        insertImage(reader.result);
-      };
-
-      reader.readAsDataURL(images[i]);
+  function onImageUpload(images, insertImage) {
+    for (var i = images.length - 1; i >= 0; i--) {
+      sendFile(images[i], insertImage);
     }
   };
+
+  function BoardRegit(title, content) {
+    if (((typeof title != "undefined") && (typeof title.valueOf() == "string")) && (title.length > 0) && ((typeof content != "undefined") && (typeof content.valueOf() == "string")) && (content.length > 0)) {
+      console.log("통과")
+      boardaddModal변경(true);
+    } else {
+      notification변경(true);
+    }
+  }
+
+  function sendFile(file, insertImage) {
+    var form_data = new FormData();
+    form_data.append('file', file);
+
+    BoardApiService.addImage(form_data)
+      .then(url => {
+        insertImage(url.data);
+      })
+      .catch(error => {
+        console.log("이미지 업로드 실패", error);
+      });
+  }
 
   // let [summerContent,summerContentChange] = useState("");
   // 아래코드 있으니 새로고침 해도 저장한글이 표시됨.
@@ -190,17 +200,14 @@ function CommunityBoardUpdate(props){
                     lang: 'ko-RU',
                     height: 380,
                     dialogsInBody: true,
-                    disableResize: true, 
+                    disableResize: true,
                     disableResizeEditor: true,
                     toolbar: [
                       ['insert', ['link', 'picture']]
                     ]
                   }}
-                  onChange={(e) => {onChangea(e)}}
-                  onImageUpload={(e,insertImage) => {onImageUpload(e,insertImage)}}
-                  // onImageUpload = {(files) =>
-                  //        uploadSummernoteImageFile(files[0])
-                  //    }
+                  onChange={(e) => { onChangea(e) }}
+                  onImageUpload={(e, insertImage) => { onImageUpload(e, insertImage) }}
                 />
               </Div>
           </Col>
