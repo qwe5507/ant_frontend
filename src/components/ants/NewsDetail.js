@@ -53,7 +53,7 @@ function NewsDetail() {
     function timecal(data) {
         var nowtime = new Date()
         var boardtime = new Date(data)
-        boardtime.setHours(boardtime.getHours() - 9)
+        boardtime.setHours(boardtime.getHours())
         var elapsedtime = nowtime.getTime() - boardtime.getTime()
         let elapsedMin = elapsedtime / 1000 / 60; // 150.0666...
         let elapsedHour = elapsedtime / 1000 / 60 / 60; // 2.501111...

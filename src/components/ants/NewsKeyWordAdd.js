@@ -45,6 +45,7 @@ function NewsKeyWordAdd(props){
       onClose= {props.onClose}
       m={{ y: "4rem", x: { xs: "1rem", lg: "auto" },t: "6rem" }}
       rounded="md"
+
     >
       <Icon
         name="Cross"
@@ -52,6 +53,7 @@ function NewsKeyWordAdd(props){
         top="1rem"
         right="1rem"
         size="16px"
+        onClick={props.onClose}
         // onClick={props.onClose}
         cursor="pointer"
       />

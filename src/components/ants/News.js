@@ -38,7 +38,7 @@ function News() {
               {/* Form Component */}
               <NewsForm1 />
               <NewsForm2 />
-              <NewsForm3 />
+              {/* <NewsForm3 /> */}
 
             </Div>
           </Div>
