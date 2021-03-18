@@ -89,9 +89,10 @@ function IndicatorDetail() {
       
       <div align = "center">
         <Container d="flex" flexDir="column" 
-        m={{ x: { xs: '0', md: '0' }, y: { xs: '4rem', md: '4rem' }}} 
+        m={{ x: { xs: '0', md: '0' }, y: { xs: '5rem', md: '4rem' }}} 
         >
-        <Div  d="flex" flexDir="row " w="100rem">
+      <Div d="flex" flexDir={{ xs:"column",md:"column" }}>
+        <Div  d="flex"  flexDir={{ xs:"column",md:"row" }} w="100rem">
         <Text
                 textAlign="left"
                 textSize="heading"
@@ -101,12 +102,10 @@ function IndicatorDetail() {
                 >
                 원/달러
               </Text>
-          
-         
           <Text
                textAlign="left"
                 textSize="heading"
-                m={{ x: { xs: '1rem', md: '0.5rem' }, y: { xs: '0rem', md: '0.5rem' }}}
+                m={{ x: { xs: '0.5rem', md: '0.5rem' }, y: { xs: '-0.5rem', md: '0.5rem' }}}
                 textWeight="800"
                 fontFamily="ko"
                 textColor="info700"
@@ -116,7 +115,8 @@ function IndicatorDetail() {
           <Text
               textAlign="left"
                textSize="caption"
-                m={{ t: "0.5rem", b: "1rem" }}
+             //   m={{ t: "0.5rem", b: "1rem" }}
+             m={{ x: { xs: '0.5rem', md: '0.5rem' }, y: { xs: '-0.5rem', md: '0.5rem' }}}
               textWeight="800"
               fontFamily="ko"
               textColor="white"
@@ -126,7 +126,8 @@ function IndicatorDetail() {
           <Text
               textAlign="left"
                textSize="caption"
-              m={{ t: "0.5rem", b: "0.5rem" }}
+          //    m={{ t: "0.5rem", b: "0.5rem" }}
+          m={{ x: { xs: '0rem', md: '-1rem' }, y: { xs: '0rem', md: '0.5rem' }}}
               textWeight="800"
               fontFamily="ko"
               textColor="light"
@@ -134,12 +135,12 @@ function IndicatorDetail() {
           >
           ({date} 기준)
           </Text> 
+          <Div>
           <Div d="flex" flexDir="row "
-           m={{ x: { xs: '1rem', md: '0.5rem' }, y: { xs: '0rem', md: '0em' }}}
+           m={{ x: { xs: '1rem', md: '1rem' }, y: { xs: '0rem', md: '0em' }}}
           >
         <Button onClick={() => {chartShow1(true); chartShow2(false); chartShow3(false);} } 
-            bg="black"
-           
+            bg="black"        
             h={{ xs: '2rem', md: '2rem' }}
             w={{ xs: '5rem', md: '5rem' }}
             m='0.5rem'
@@ -182,7 +183,8 @@ function IndicatorDetail() {
           </Button>
         
           </Div>
-        
+          </Div>
+          </Div>
           </Div>
       
           <Div
@@ -191,7 +193,7 @@ function IndicatorDetail() {
             w={{ xs: "100%", md: "50rem" }}
             maxW="100%"
             pos={{ xs: "static", md: "absolute" }}
-            m={{ x: { xs: '1rem', md: '22rem' }, y: { xs: '2rem', md: '8rem' }}}
+            m={{ x: { xs: '-1.5rem', md: '22rem' }, y: { xs: '-3rem', md: '8rem' }}}
             left="0"
             top="0"
             rounded="xl"
@@ -206,7 +208,7 @@ function IndicatorDetail() {
                 textWeight="800"
                 fontFamily="ko"
                 bgColor="red"
-                m={{ x: { xs: '0', md: '0' }, y: { xs: '2rem', md: '-2rem' }}}
+                m={{ x: { xs: '-0.5rem', md: '0' }, y: { xs: '1rem', md: '-2rem' }}}
                 >
                기간별 수치
               </Text>
@@ -214,7 +216,7 @@ function IndicatorDetail() {
           {
            chart1 === true  
            ? 
-           <Div  m={{ x: { xs: '0', md: '0' }, y: { xs: '2rem', md: '3rem' }}}>
+           <Div  m={{ x: { xs: '0', md: '0' }, y: { xs: '0rem', md: '3rem' }}}>
               <ChartKor nums={30}/>
            </Div>
           
@@ -222,12 +224,18 @@ function IndicatorDetail() {
            }
            {
          chart2 === true
-           ? <ChartKor nums={90}/>
+           ? 
+           <Div  m={{ x: { xs: '0', md: '0' }, y: { xs: '0rem', md: '3rem' }}}>
+           <ChartKor nums={90}/>
+           </Div>
            : null
          }
          {
           chart3 === true
-          ? <ChartKor nums={180}/>
+          ? 
+          <Div  m={{ x: { xs: '0', md: '0' }, y: { xs: '0rem', md: '3rem' }}}>
+          <ChartKor nums={180}/>
+          </Div>
          : null
           }
          </Div>
@@ -241,7 +249,7 @@ function IndicatorDetail() {
           maxW="100%"
           pos={{ xs: "static", md: "absolute" }}
  
-    m={{ x: { xs: '1rem', md: '25rem' }, y: { xs: '2rem', md: '8rem' }}}
+    m={{ x: { xs: '-1.5rem', md: '25rem' }, y: { xs: '-3.5rem', md: '8rem' }}}
    
     right="0"
     top="0"
@@ -265,19 +273,25 @@ function IndicatorDetail() {
     {
     chart1 === true
       ? 
-      <Div  m={{ x: { xs: '0', md: '0' }, y: { xs: '2rem', md: '3rem' }}}>
+      <Div  m={{ x: { xs: '0', md: '0' }, y: { xs: '-1.5rem', md: '3rem' }}}>
       <CorrKor nums={30}/>
       </Div>
       : null
      }
       {
         chart2 === true
-        ? <CorrKor nums={90}/>
+        ? 
+        <Div  m={{ x: { xs: '0', md: '0' }, y: { xs: '-1.5rem', md: '3rem' }}}>
+        <CorrKor nums={90}/>
+        </Div>
       : null
       }
       {
         chart3 === true
-        ? <CorrKor nums={180}/>
+        ? 
+        <Div  m={{ x: { xs: '0', md: '0' }, y: { xs: '-1.5rem', md: '3rem' }}}>
+        <CorrKor nums={180}/>
+        </Div>
         : null
       }
   </Div>
@@ -290,7 +304,7 @@ function IndicatorDetail() {
         w={{ xs: "100%", md: "72rem" }}
         maxW="100%"
         pos={{ xs: "static", md: "absolute" }}
-         m={{ x: { xs: '1rem', md: '22rem' }, y: { xs: '2rem', md: '31rem' }}}
+         m={{ x: { xs: '-2rem', md: '22rem' }, y: { xs: '2rem', md: '31rem' }}}
         left="0"
         top="0"
         rounded="xl"
@@ -324,7 +338,7 @@ function IndicatorDetail() {
         </Text>
         </Div>
         <Div d="flex" flexDir="row"
-            m={{ x: { xs: '1rem', md: '0rem' }, y: { xs: '2rem', md: '-1.5rem' }}}
+            m={{ x: { xs: '0rem', md: '0rem' }, y: { xs: '-1rem', md: '-1.5rem' }}}
         >
         <Icon name="Checked" size="20px"  m={{ t: "0.5rem", b: "1rem" }}/>
         <Text
@@ -339,7 +353,7 @@ function IndicatorDetail() {
         </Text>
         </Div>
         </Div>
-        <Container  m={{ x: { xs: '1rem', md: '0rem' }, y: { xs: '2rem', md: '0.5rem' }}}>
+        <Container  m={{ x: { xs: '-2rem', md: '0rem' }, y: { xs: '0rem', md: '0.5rem' }}}>
         <Table >
         
           <TableHead>
@@ -351,17 +365,37 @@ function IndicatorDetail() {
                   (ind.indiname == '달러인덱스') || (ind.indiname == '비트코인') || (ind.indiname == '미 10년 채권수익률') || (ind.indiname == '미 2년 채권수익률')
                   ?
                   (
-                    <Link to={`/IndicatorDetail1/${ind.indicator}`} ><button style={{backgroundColor: '#fbe0a1'}}><b>{ind.indiname}</b></button></Link>
+                    <Link to={`/IndicatorDetail1/${ind.indicator}`} ><button style={{backgroundColor: '#fbe0a1'}}>
+                      <Text
+                      textSize={{ xs: "caption", md: "body" }}
+                      >
+                      {ind.indiname}
+                      </Text>
+                      </button></Link>
                   ) : (
                     (ind.indiname == '국제 금') || (ind.indiname == 'WTI') 
                     ?
                     (
-                      <Link to={`/IndicatorDetail2/${ind.indicator}`} ><button  style={{backgroundColor: '#fbe0a1'}}><b>{ind.indiname}</b></button></Link>
+                      <Link to={`/IndicatorDetail2/${ind.indicator}`} >
+                        <button  style={{backgroundColor: '#fbe0a1'}}>
+                        <Text
+                        textSize={{ xs: "caption", md: "body" }}
+                          >
+                          {ind.indiname}
+                        </Text>
+                          </button></Link>
                     ) : (
                       (ind.indiname == '달러/유로') || (ind.indiname == '영국 파운드/달러') || (ind.indiname == '일본 엔/달러') || (ind.indiname == '중국 위안/달러')
                       ?
                       (
-                        <Link to={`/IndicatorDetailExeFor/${ind.indicator}`} ><button  style={{backgroundColor: '#fbe0a1'}}><b>{ind.indiname}</b></button></Link>
+                        <Link to={`/IndicatorDetailExeFor/${ind.indicator}`} >
+                          <button  style={{backgroundColor: '#fbe0a1'}}>
+                           <Text
+                        textSize={{ xs: "caption", md: "body" }}
+                          >
+                          {ind.indiname}
+                          </Text>
+                          </button></Link>
                       ) :
                       ''
                     )
@@ -392,7 +426,7 @@ function IndicatorDetail() {
             w={{ xs: "100%", md: "36rem" }}
             maxW="100%"
             pos={{ xs: "static", md:"static" }}
-            m={{ x: { xs: '1rem', md: '-1rem' }, y: { xs: '2rem', md: '40rem' }}}
+            m={{ x: { xs: '0rem', md: '-1rem' }, y: { xs: '-2.5rem', md: '40rem' }}}
             p={{ x: { xs: '1rem', md: '22rem' }, y: { xs: '2rem', md: '50rem' }}}
             left="0"
             top="0"
@@ -406,7 +440,7 @@ function IndicatorDetail() {
           <Text
             textAlign="left"
             textSize="title"
-            m={{ x: { xs: '1rem', md: '-1rem' }, y: { xs: '2rem', md: '-0.5rem' }}}
+            m={{ x: { xs: '-1rem', md: '-1rem' }, y: { xs: '1rem', md: '-0.5rem' }}}
             textWeight="800"
             fontFamily="ko"
           >
@@ -418,7 +452,7 @@ function IndicatorDetail() {
            <Div
            align="flex-start"
            h = {{xs : "rem" ,md : "auto"}}
-           m={{ x: { xs: '1rem', md: '0' }, y: { xs: '2rem', md: '1rem' }}}
+           m={{ x: { xs: '0rem', md: '0' }, y: { xs: '0rem', md: '1rem' }}}
            onClick = {() => {moveHref(data['_source']['news_url'])}}
            >
             <Text
@@ -448,8 +482,8 @@ function IndicatorDetail() {
            w={{ xs: "100%", md: "32rem" }}
            maxW="100%"
            pos={{ xs: "static", md: "absolute" }}
-           m={{ x: { xs: '1rem', md: '26rem' }, y: { xs: '2rem', md: '47.5rem' }}}
-           p={{ x: { xs: '1rem', md: '0rem' }, y: { xs: '2rem', md: '16rem' }}}
+           m={{ x: { xs: '0rem', md: '26rem' }, y: { xs: '3rem', md: '47.5rem' }}}
+           p={{ x: { xs: '0rem', md: '0rem' }, y: { xs: '2rem', md: '16rem' }}}
            right="0"
            top="0"
            rounded="xl"
@@ -463,7 +497,7 @@ function IndicatorDetail() {
            <Text
             textAlign="left"
             textSize="title"
-            m={{ x: { xs: '1rem', md: '-1rem' }, y: { xs: '2rem', md: '-0.5rem' }}}
+            m={{ x: { xs: '-1rem', md: '-1rem' }, y: { xs: '0rem', md: '-0.5rem' }}}
             textWeight="800"
             fontFamily="ko"
           >

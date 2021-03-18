@@ -120,74 +120,62 @@ function CommentExe(props) {
       
       <div align = "center" >
         
-    <Container m ="0">
-    <Text
-      textAlign="left"
-      textSize="title"
-      m={{ t: "2rem", b: "0rem" }}
-      textWeight="800"
-      fontFamily="ko"
-    >
-      개미토론방
-      </Text>      
-      </Container>
-                 
   <Div
     m={{ t: "0.5rem" }}
     h="6rem"
     w="70rem"
     d="inline-block" align="center"
     >
-     
-    <Input
+       <Input
       placeholder="댓글을 남겨주세요."
       p={{ x: "2.5rem" }}
       m={{ t: "0.5rem" }}
-      h="5rem"
-      w={{ xs: "25rem", md: "500rem" }}
+      h={{ xs: "6rem", md: "5rem" }}
+      w={{ xs: "23rem", md: "28rem" }}
       name="commnet_content"
       value={comment}
       onChange={(e) => { commentbyun(e.target.value) }}
-    suffix={
-        <Button
+   
+    />
+    <Button
         pos={{ xs: "static", md: "absolute" }}
-        bg="warning800"
-        hoverBg="warning600"
+        bg="info700"
+        hoverBg="info600"
         w={{ xs: "3rem", md: "6rem" }}
         h={{ xs: "5rem", md: "2.5rem" }}
-        bottom="0"
+        m={{ x: { xs: '1rem', md: '1.5rem' }, y: { xs: '2rem', md: '-1.5rem' }}}
+     
         right="0"
         rounded="md"
         onClick={addComment}
         >
         등록
-     </Button>
- }
-    /></Div>  
-   
+     </Button></Div>  
+
   
     {commentlist.map(comment=>(
 <Div 
-       p={{ x: "2.5rem", t: "0.7rem" }}
-      m={{ t: "0.5rem" }}
-      h="7.5rem"
-      w={{ xs: "25rem", md: "70rem" }}
-       border={{ t: "1px solid", b: "1px solid" }}
-       borderColor="gray400"
-       d="flex"
-       bg="gray200"
-      justify="space-between"
-      >
-      <Div
-      w={{ xs: "20rem", md: "auto" }}
+      p={{ x: "2.5rem", t: "0.7rem" }}
+      // m={{ t: "0.5rem" }}
+      m={{ x: { xs: '0.5rem', md: '0.5rem' }, y: { xs: '0.5rem', md: '0.5rem' }}}
+       h="7.5rem"
+       w={{ xs: "22rem", md: "28rem" }}
+        border={{ t: "1px solid", b: "1px solid" }}
+        borderColor="gray400"
+        d="flex"
+        bg="gray200"
+       justify="space-between"
        >
-      <Div
-       textWeight="300"
-       textColor="gray"
-       d = "flex"
-      m ={{ t: "0.3rem" }}
+       <Div
+       w={{ xs: "20rem", md: "auto" }}
         >
-      <Text>
+       <Div
+        textWeight="300"
+        textColor="gray"
+        d = "flex"
+       m ={{ t: "0.3rem" }}
+         >
+       <Text>
       {comment.nickName}
       </Text>
       </Div>
@@ -233,13 +221,37 @@ function CommentExe(props) {
 </Div>
 
 ))} 
+<Div  m={{ x: { xs: '1rem', md: '1.5rem' }, y: { xs: '1rem', md: '0.5rem' }}} >
+  <div align-items= "center"  >
+<button style={{backgroundColor: '#0284fe'}}  color="white"onClick={ () => links2(props.tableName, next)}>
+<Text
+        textAlign="left"
+        textSize="Typography"
+        textWeight="600"
+        fontFamily="secondary"
+        textColor="white"
+         >
+  ◀
+  </Text>
+  </button>&nbsp;
+<button style={{backgroundColor: '#0284fe'}} onClick={ () =>  links(props.tableName, next)}>
+<Text
+        textAlign="left"
+        textSize="Typography"
+        textWeight="600"
+        fontFamily="secondary"
+        textColor="white"
+         >
 
-  <nav aria-label="Page navigation example" class="nav justify-content-center">
-  <ul className="pagination" align="center">
-    <li className="page-item" align="center"><button onClick={ () => links2(props.tableName, next)}>Previous</button></li>
-    <li className="page-item" align="center"><button onClick={ () => links(props.tableName, next)}>Next</button></li>
-</ul>
-</nav>
+  ▶
+</Text>  
+  </button>
+
+</div>
+
+</Div> 
+
+ 
         <AlignStartModal
           userid = {loginid}
           nickname = {loginname}

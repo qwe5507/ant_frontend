@@ -298,7 +298,7 @@ class IndiTable1 extends Component{
         {this.state.jipyobond2.map(indi => 
           <TableRow>
              <TableCell align="center">
-             <Link to={"/IndicatorDetail2/bond2"} >
+             <Link to={"/IndicatorDetail1/bond2"} >
              <Button size="small" variant="contained" style={{boxShadow: 'none', backgroundColor: '#fbe0a1'}}>
              <Text
               textSize={{xs:"body", md:"body"}}
@@ -316,7 +316,7 @@ class IndiTable1 extends Component{
         {this.state.jipyodolidx.map(indi => 
           <TableRow>
              <TableCell align="center">
-             <Link to={"/IndicatorDetail2/dolleridx"} >
+             <Link to={"/IndicatorDetail1/dolleridx"} >
              <Button size="small" variant="contained" style={{boxShadow: 'none', backgroundColor: '#fbe0a1'}}>
              <Text
               textSize={{xs:"body", md:"body"}}
@@ -334,7 +334,7 @@ class IndiTable1 extends Component{
         {this.state.jipyobit.map(indi => 
           <TableRow>
              <TableCell align="center">
-             <Link to={"/IndicatorDetail2/bitcoin"} >
+             <Link to={"/IndicatorDetail1/bitcoin"} >
              <Button size="small" variant="contained" style={{boxShadow: 'none', backgroundColor: '#fbe0a1'}}>
              <Text
               textSize={{xs:"body", md:"body"}}
