@@ -1,12 +1,11 @@
 import React, { Component } from "react"
 import UserApiService from "../../api/UserApi";
-import { Text, Div, Icon, Anchor, Button, Input } from "atomize"
+import { Text, Div } from "atomize"
 import Paper from '@material-ui/core/Paper';
 import { Link } from 'react-router-dom';
 class ProfileDetail3 extends Component{
 
     constructor(props){
-       // console.log('constro run');
         super(props);
         this.state ={
           boards : [],
@@ -14,10 +13,7 @@ class ProfileDetail3 extends Component{
         };
       }
 
-     
-
       componentDidMount(){
-       // console.log('comdid run');
         this.reloadBoardList();
       }
 
@@ -57,26 +53,24 @@ class ProfileDetail3 extends Component{
         bg="white"
         shadow="4"
         rounded="xl"
-
     >
         
         <Div
             flexGrow="1"
             textAlign="center"
         >
-            <Text
+        <Text
                 m={{ t: "1rem", b: "0.5rem" }}
                 textWeight="800"
                 textSize="title"
                 fontFamily="ko"
-            >
-                게시물
-            </Text>
+        >
+              나의 게시물 
+        </Text>
             {this.state.boards.map(board => 
             <Link to={`/Community/${board.board_id}`} >
-            <Paper>
-
-            <Text
+        <Paper>
+        <Text
             textAlign="left"
             m={{ t: "0.5rem", b: "0.5rem" }}
             textWeight="600"
@@ -84,7 +78,7 @@ class ProfileDetail3 extends Component{
             fontFamily="ko"
             >
             {board.board_title.substring(0,15)}
-            </Text>
+        </Text>
         <Text
         textColor="gray900"
         textAlign="right"
@@ -92,10 +86,10 @@ class ProfileDetail3 extends Component{
         fontFamily="ko"
         >{board.board_createdata.substring(0,19)}</Text>
 
-    </Paper>
-    </Link>)}
+        </Paper>
+        </Link>)}
         </Div>
-    </Div>
+        </Div>
         )
     }
 }

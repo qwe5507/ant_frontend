@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-
-import { Button, Container, Text, Div, Icon, Input, Anchor } from "atomize";
+import {Div } from "atomize";
 import IndApi from "../../../../../api/IndApi";
 import { Line } from 'react-chartjs-2';
 
@@ -16,20 +15,14 @@ function ChartExeKor(props) {
     var charteurusd = []
     IndApi.chartIndiExeFor(props.symbol, props.nums)
     .then(res =>{
-      console.log(res.data)
       charteurusd = res.data   
-      
       for (var i = 0; i < charteurusd.length ; i++){
-        labeleurusd.push(charteurusd[i]["dates"])
+        labeleurusd.push(charteurusd[i]["dates"].substring(0,10))
       }
-     
       for (var i = 0; i < charteurusd.length ; i++){
         datachart.push( charteurusd[i]["price"])
      }
-     console.log(labeleurusd)
-     console.log(datachart)
-     var dataSet ={
-       
+     var dataSet ={ 
               labels: labeleurusd,
               datasets: [
                   {
@@ -52,8 +45,6 @@ function ChartExeKor(props) {
           dataArr.push(dataSet);
           chartDataChange(dataArr);
         })
-  
-
   }, [props]);
 
   return (

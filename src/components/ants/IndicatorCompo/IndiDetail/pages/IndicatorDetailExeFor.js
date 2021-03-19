@@ -1,6 +1,6 @@
-  import React, {useState, useEffect, useCallback } from "react"
+  import React, {useState, useEffect } from "react"
   import { Text, Div,  Button,  Container, Icon} from "atomize";
-  import { useParams, Link, useHistory } from 'react-router-dom';
+  import { useParams, Link } from 'react-router-dom';
   import ChartExeFor from "../chart/ChartExeFor"
   import CorrKorExe from "../chart/CorrKorExe"
   import IndApi from "../../../../../api/IndApi";
@@ -9,9 +9,7 @@
   import TableCell from '@material-ui/core/TableCell'
   import TableHead from '@material-ui/core/TableHead'
   import TableRow from '@material-ui/core/TableRow'
-  import axios from "axios";
   import NewsApi from "../../../../../api/NewsApi";
-
   import CommentExe from "./CommentExe"
 
   function IndicatorDetailExeFor(props) {
@@ -19,8 +17,8 @@
       let [hits, hitsbyun] = useState([]); 
       let [inds, indsbyun] = useState([]); 
 
-      let [id1, id1byun] = useState('달러')
-      let [id2, id2byun] = useState('유로')
+      let [id1, id1byun] = useState('')
+      let [id2, id2byun] = useState('')
 
       let [name, namebyun] = useState('')
       let [nums, numsbyun] = useState('')
@@ -38,29 +36,31 @@
       let [ind5, ind5byun] = useState('')
       
       let [values, valuesbyun] = useState(true)
-      {/*뉴스*/}  
+
       function moveHref(url){
-      
       window.open(url)
       }
 
       function searchmatchparse(){
         IndApi.chartIndiExeFor(symbol, 1)
-        .then(res =>{
-        
+        .then(res =>{    
           namebyun(res.data[0]["exechange_Name"])
           numsbyun(res.data[0]["price"])
           datesbyun(res.data[0]["dates"].substring(0,10))
           valuesbyun(false)
+          if(res.data[0]["exechange_Name"] != "달러/유로")
+          {
             id1byun(name.split("/")[0].split(" ")[0])
-        id2byun(name.split("/")[0].split(" ")[1])
-
+            id2byun(name.split("/")[0].split(" ")[1])
+          }else{
+            id1byun("달러")
+            id2byun("유로")
+          }
+        
       NewsApi.searchmatchphrasesort(id1, id2)
       .then(response =>{
-          result=response.data
-        
-          var hits2 = result['hits']['hits']
-          
+          result=response.data      
+          var hits2 = result['hits']['hits']      
           hitsbyun(hits2)
           if(hits2.length > 9)
           {
@@ -76,12 +76,10 @@
         .catch(err => {
           console.error('1일 수치 확인 오류(국내환율)', err);
           })
-
           return "res"    
-      }
+          }
       
       function corrAbs(){
-        console.log("들어갈것 확인",symbol)
         symbolibyun(symbol)
         IndApi.corrAbs(symbol, 5)
         .then(res=>{
@@ -100,13 +98,11 @@
       }
 
       useEffect(() => {
-        window.scrollTo(0, 0)
-        
+        window.scrollTo(0, 0)       
         console.log("심볼확인", symboli)
         searchmatchparse()
         corrAbs()
-        
-      },[id2]);
+     },[id2]);
 
       return (     
         
@@ -125,8 +121,7 @@
                   >                
                   {name}
                 </Text>
-            
-           
+                 
             <Text
                textAlign="left"
                textSize="heading"
@@ -139,31 +134,27 @@
             </Text>  
             <Text
                 textSize="caption"
-                //   m={{ t: "0.5rem", b: "1rem" }}
                 m={{ x: { xs: '0.5rem', md: '0.5rem' }, y: { xs: '-0.5rem', md: '0.5rem' }}}
                  textWeight="800"
                  fontFamily="ko"
                  textColor="white"
-          
             >
             ((
             </Text> 
-           < Text
+            <Text
               textAlign="left"
-               textSize="caption"
-          //    m={{ t: "0.5rem", b: "0.5rem" }}
-          m={{ x: { xs: '0rem', md: '-1rem' }, y: { xs: '0rem', md: '0.5rem' }}}
+              textSize="caption"
+              m={{ x: { xs: '0rem', md: '-1rem' }, y: { xs: '0rem', md: '0.5rem' }}}
               textWeight="800"
               fontFamily="ko"
               textColor="light"
-        
-          >
+              >
             ({date} 기준)
             </Text> 
             <Div>
-          <Div d="flex" flexDir="row "
-           m={{ x: { xs: '1rem', md: '1rem' }, y: { xs: '0rem', md: '0em' }}}
-          >
+            <Div d="flex" flexDir="row "
+            m={{ x: { xs: '1rem', md: '1rem' }, y: { xs: '0rem', md: '0em' }}}
+            >
            <Button onClick={() => {chartShow1(true); chartShow2(false); chartShow3(false);} } 
             bg="black"        
             h={{ xs: '2rem', md: '2rem' }}
@@ -171,28 +162,25 @@
             m='0.5rem'
             shadow="3"
             hoverShadow="4"
-          ><Text
-          textSize="subheader"
-          >
-              1개월
-              </Text>
-           
+            ><Text
+            textSize="subheader"
+            >
+            1개월
+            </Text>        
            </Button>
-           <Button onClick={() => {chartShow2(true); chartShow1(false); chartShow3(false);} } 
-            
+           <Button onClick={() => {chartShow2(true); chartShow1(false); chartShow3(false);} }        
             bg="black"
             h={{ xs: '2rem', md: '2rem' }}
             w={{ xs: '5rem', md: '5rem' }}
             m='0.5rem'
             shadow="3"
             hoverShadow="4"
-          >
-            <Text  textSize="subheader">
+            >
+          <Text  textSize="subheader">
               3개월 
-              </Text>
+            </Text>
           </Button>
-          <Button onClick={() => {chartShow3(true); chartShow1(false); chartShow2(false);} }
-            
+          <Button onClick={() => {chartShow3(true); chartShow1(false); chartShow2(false);} }            
             bg="black"
             h={{ xs: '2rem', md: '2rem' }}
             w={{ xs: '5rem', md: '5rem' }}
@@ -221,9 +209,8 @@
             rounded="xl"
             h={{ lg: "25rem" }}
             bg="white"
-           
             p="2rem"
-         >
+          >
              <Text
                 textAlign="left"
                 textSize="subheader"
@@ -261,36 +248,31 @@
             }
             </Div>
             </Div>
-              <Div
-         d="flex"
-        flexDir="column"
-        
-          w={{ xs: "100%", md: "23rem" }}
-          maxW="100%"
-          pos={{ xs: "static", md: "absolute" }}
- 
-    m={{ x: { xs: '-1.5rem', md: '25rem' }, y: { xs: '-3.5rem', md: '8rem' }}}
-   
-    right="0"
-    top="0"
-    rounded="xl"
-    h={{ lg: "25rem" }}
-    bg="white"
-   
-    p="2rem"
-  >
-     <Text
-      textAlign="left"
-      textSize="subheader"
-      textWeight="800"
-      fontFamily="ko"
-      bgColor="red"
-      m={{ x: { xs: '0', md: '0' }, y: { xs: '2rem', md: '-2rem' }}}
-      >
-               기간별 상관관계
-              </Text>
-              <Div flexGrow="0">
-
+            <Div
+            d="flex"
+            flexDir="column"    
+            w={{ xs: "100%", md: "23rem" }}
+            maxW="100%"
+            pos={{ xs: "static", md: "absolute" }}
+            m={{ x: { xs: '-1.5rem', md: '25rem' }, y: { xs: '-3.5rem', md: '8rem' }}}
+            right="0"
+            top="0"
+            rounded="xl"
+            h={{ lg: "25rem" }}
+            bg="white"
+            p="2rem"
+            >
+            <Text
+             textAlign="left"
+            textSize="subheader"
+            textWeight="800"
+            fontFamily="ko"
+            bgColor="red"
+            m={{ x: { xs: '0', md: '0' }, y: { xs: '2rem', md: '-2rem' }}}
+              >
+            기간별 상관관계
+            </Text>
+            <Div flexGrow="0">
             {
             chart1 === true
             ? 
@@ -298,8 +280,7 @@
             <CorrKorExe nums={30} symbol={symbol}/>
             </Div>
             : null
-            }
-           
+            }     
             {
             chart2 === true
             ? 
@@ -316,54 +297,51 @@
             </Div>
             : null
             }
-             </Div>
+            </Div>
+            </Div>
+            <Div
+            d="flex"
+            flexDir="column"
+            w={{ xs: "100%", md: "72rem" }}
+            maxW="100%"
+            pos={{ xs: "static", md: "absolute" }}
+            m={{ x: { xs: '-2rem', md: '22rem' }, y: { xs: '2rem', md: '31rem' }}}
+            left="0"
+            top="0"
+            rounded="xl"
+            h={{ lg: "15rem" }}
+            bg="white"
+            p="2rem"
+            >
   
-  </Div>
-  <Div
-      d="flex"
-      flexDir="column"
-     
-        w={{ xs: "100%", md: "72rem" }}
-        maxW="100%"
-        pos={{ xs: "static", md: "absolute" }}
-         m={{ x: { xs: '-2rem', md: '22rem' }, y: { xs: '2rem', md: '31rem' }}}
-        left="0"
-        top="0"
-        rounded="xl"
-        h={{ lg: "15rem" }}
-        bg="white"
-       
-        p="2rem"
-         >
-              
-        <Div d="flex" flexDir="column">
-        <Text
+            <Div d="flex" flexDir="column">
+            <Text
             textAlign="left"
             textSize="title"
             m={{ t: "0rem", b: "0rem" }}
             textWeight="800"
             fontFamily="ko"
-         >
-          관련지표
-        </Text>
-        <Div d="flex" flexDir="row">
-        <Icon name="Checked" size="20px"  m={{ t: "0.5rem", b: "1rem" }}/>
-        <Text
+            >
+            관련지표
+            </Text>
+            <Div d="flex" flexDir="row">
+            <Icon name="Checked" size="20px"  m={{ t: "0.5rem", b: "1rem" }}/>
+            <Text
             fontColor="dark"
             textAlign="left"
             textSize="subheader"
             m={{ t: "0.5rem", b: "1rem" }}
             textWeight="600"
             fontFamily="ko"
-         >
-          전체 기간에서 상관관계가 높은 5개의 지표와 상관계수입니다.
-        </Text>
-        </Div>
-        <Div d="flex" flexDir="row"
+            >
+            전체 기간에서 상관관계가 높은 5개의 지표와 상관계수입니다.
+            </Text>
+            </Div>
+            <Div d="flex" flexDir="row"
             m={{ x: { xs: '0rem', md: '0rem' }, y: { xs: '-1rem', md: '-1.5rem' }}}
-        >
-        <Icon name="Checked" size="20px"  m={{ t: "0.5rem", b: "1rem" }}/>
-        <Text
+            >
+            <Icon name="Checked" size="20px"  m={{ t: "0.5rem", b: "1rem" }}/>
+            <Text
             fontColor="dark"
             textAlign="left"
             textSize="subheader"
@@ -372,11 +350,11 @@
             fontFamily="ko"
          >
            상관계수는 1에 가까울수록 비례 관계를, -1에 가까울수록 반비례 관계를 보입니다.
-        </Text>
-        </Div>
-        </Div>
-        <Container  m={{ x: { xs: '-2rem', md: '0rem' }, y: { xs: '0rem', md: '0.5rem' }}}>
-          <Table   >
+            </Text>
+            </Div>
+            </Div>
+            <Container  m={{ x: { xs: '-2rem', md: '0rem' }, y: { xs: '0rem', md: '0.5rem' }}}>
+            <Table>
             <TableHead>
               <TableRow>
               {inds.map(ind => 
@@ -429,7 +407,6 @@
                       ''
                     )
                   )
-                 
                 }
                   </TableCell>                   
                 )}   
@@ -447,7 +424,7 @@
           </Table>
           </Container>
           </Div>
-    <Div
+          <Div
             d="flex"
             flexDir="column"
             border="1px solid"
@@ -464,7 +441,7 @@
             bg="white"
             shadow="4"
             p="2rem"
-         >
+            >
            <Div flexGrow="1">
            <Text
             textAlign="left"
@@ -473,10 +450,9 @@
             textWeight="800"
             fontFamily="ko"
           >
-                  뉴스 목록
-                </Text>   
-            
-           
+           뉴스 목록
+          </Text>   
+                     
             {hits.map(function(data){
         return(
           <Div
@@ -498,46 +474,44 @@
                 textAlign="left"  
                 textColor="gray900"
                >{data['_source']['news_group']} | {data['_source']['news_source']} | {data['_source']['news_date'].substring(0,10)} | </Text>  
-            
-            
-           </Div>
+              </Div>
 
-)})}
+                )})}
  
- </Div>
-    </Div>    
-    <Div
-           d="flex"
-           flexDir="column"
-           border="1px solid"
-           borderColor="gray200"
-           w={{ xs: "100%", md: "32rem" }}
-           maxW="100%"
-           pos={{ xs: "static", md: "absolute" }}
-           m={{ x: { xs: '0rem', md: '26rem' }, y: { xs: '3rem', md: '47.5rem' }}}
-           p={{ x: { xs: '0rem', md: '0rem' }, y: { xs: '2rem', md: '16rem' }}}
-           right="0"
-           top="0"
-           rounded="xl"
-           h={{ lg: "52.5rem" }}
-           bg="white"
-           shadow="4"
-           p="2rem"
-         >
+              </Div>
+              </Div>    
+              <Div
+              d="flex"
+              flexDir="column"
+              border="1px solid"
+              borderColor="gray200"
+              w={{ xs: "100%", md: "32rem" }}
+              maxW="100%"
+              pos={{ xs: "static", md: "absolute" }}
+              m={{ x: { xs: '0rem', md: '26rem' }, y: { xs: '3rem', md: '47.5rem' }}}
+              p={{ x: { xs: '0rem', md: '0rem' }, y: { xs: '2rem', md: '16rem' }}}
+              right="0"
+              top="0"
+              rounded="xl"
+              h={{ lg: "52.5rem" }}
+              bg="white"
+              shadow="4"
+              p="2rem"
+              >
            
-           <Div flexGrow="1">
-           <Text
-            textAlign="left"
-            textSize="title"
-            m={{ x: { xs: '-1rem', md: '-1rem' }, y: { xs: '0rem', md: '-0.5rem' }}}
-            textWeight="800"
-            fontFamily="ko"
-          >
-            개미토론방
-              </Text>
-  <CommentExe tableName={symbol} num={2}/>
-  </Div>
-         </Div>
+              <Div flexGrow="1">
+              <Text
+              textAlign="left"
+              textSize="title"
+              m={{ x: { xs: '-1rem', md: '-1rem' }, y: { xs: '0rem', md: '-0.5rem' }}}
+              textWeight="800"
+              fontFamily="ko"
+              >
+              개미토론방
+            </Text>
+            <CommentExe tableName={symbol} num={2}/>
+            </Div>
+            </Div>
           </Container>
       </div>
       

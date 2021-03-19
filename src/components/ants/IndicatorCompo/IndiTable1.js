@@ -13,7 +13,6 @@ import { Link } from 'react-router-dom';
 class IndiTable1 extends Component{
 
     constructor(props){
-        console.log('constro run');
         super(props);
         this.state ={
           jipyokor : [],
@@ -129,25 +128,24 @@ class IndiTable1 extends Component{
     
     }
 
-      render(){
-       
+      render(){   
         return(
             <div>
             
-        <Div  p={{ t: { xs: "1rem", md: "5rem" } }}
-        m={{ x: { xs: '0rem', md: '0rem' }, y: { xs: '0rem', md: '2.5rem' }}}
-        >
-        <Div textAlign="left">
-        <Text
-          textSize="heading"
-          textWeight="800"
-          fontFamily='ko'
-          >
-          최근 1일간 수치
-        </Text>
-        </Div >
-        <Div >
-        <Table size="small" style={{margin:"8px"}}>
+            <Div  p={{ t: { xs: "1rem", md: "5rem" } }}
+            m={{ x: { xs: '0rem', md: '0rem' }, y: { xs: '0rem', md: '2.5rem' }}}
+            >
+            <Div textAlign="left">
+            <Text
+            textSize="heading"
+            textWeight="800"
+            fontFamily='ko'
+            >
+            최근 1일간 수치
+            </Text>
+            </Div>
+            <Div>
+          <Table size="small" style={{margin:"8px"}}>
           <TableHead>
             <TableRow>
               <TableCell align="center"><b>지표명</b></TableCell>
@@ -156,7 +154,7 @@ class IndiTable1 extends Component{
             </TableRow>
           </TableHead>
           <TableBody>
-        {this.state.jipyokor.map(indikor => 
+          {this.state.jipyokor.map(indikor => 
           <TableRow>
              <TableCell align="center">
              <Link to="/IndicatorDetail" >
@@ -353,10 +351,9 @@ class IndiTable1 extends Component{
         
         </Table>
         </Div>
-        </Div >
-            </div>
+        </Div>
+        </div>
         )
-
       }
 
 }

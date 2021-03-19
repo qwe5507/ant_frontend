@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
-
-import { Button, Container, Text, Div, Icon, Input, Anchor } from "atomize";
-
+import { Div } from "atomize";
 import { Line } from 'react-chartjs-2';
 import IndApi from "../../../api/IndApi";
 function LineChartIn2(props) {
@@ -12,8 +10,8 @@ function LineChartIn2(props) {
       IndApi.indicators2("bond10", 7)
      .then(res =>{
       var dataArr = [];
-      let labeleurusd = [res.data[0]["dates"].substring(0,10), res.data[1]["dates"].substring(0,10), res.data[2]["dates"].substring(0,10), res.data[3]["dates"].substring(0,10), res.data[4]["dates"].substring(0,10), res.data[5]["dates"].substring(0,10), res.data[6]["dates"].substring(0,10)]
-
+      let labeleurusd = [res.data[0]["dates"].substring(0,10), res.data[1]["dates"].substring(0,10), res.data[2]["dates"].substring(0,10),
+       res.data[3]["dates"].substring(0,10), res.data[4]["dates"].substring(0,10), res.data[5]["dates"].substring(0,10), res.data[6]["dates"].substring(0,10)]
       let charteurusd = [ res.data[0]["price"],  res.data[1]["price"],  res.data[2]["price"],
       res.data[3]["price"],  res.data[4]["price"],  res.data[5]["price"], res.data[6]["price"]]
           var dataSet = {
@@ -39,31 +37,25 @@ function LineChartIn2(props) {
           }
 
           dataArr.push(dataSet);
-      
+          chartDataChange(dataArr);
+        })       
+        }, [props]);
 
-      chartDataChange(dataArr);
-
-    })
-        
-    }, [props]);
-
-    return (
-  
-      <Div
-      d="flex"
-      justify="center"
-      w={{ xs: "100%", lg: "100%" }}
-  >
+        return (
+            
+        <Div
+        d="flex"
+        justify="center"
+        w={{ xs: "100%", lg: "100%" }}
+         >
       <Div
           w={{ xs: "100%", md: "-25rem", md: "-23rem" }}
           maxW="130%"
           maxH="120%"
           pos={{ xs: "static", md: "static" }}
           m={{ xs: "1rem", md: "0", lg:"0" }}
-          top="0"
-         
+          top="0"     
           h="12rem"
-          
       >
           <Div
               flexGrow="1"
@@ -72,8 +64,7 @@ function LineChartIn2(props) {
             <div style={{ height:"225px"}}>
                     { chartData.map((a, i) => {
                         return(    
-                        <Line
-                        
+                        <Line                        
                             data={ a }
                             options={{
                                 animation: {
@@ -126,9 +117,7 @@ function LineChartIn2(props) {
                     </div>
                 </Div>
                 </Div>
-                </Div>
-       
-    )
-}
+                </Div>    
+    )}
 
 export default LineChartIn2;

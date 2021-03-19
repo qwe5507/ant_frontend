@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom';
 class   IndicatorForm3 extends Component{
 
   constructor(props){
-    console.log('constro run');
     super(props);
     this.state ={
       dates : '',
@@ -14,13 +13,11 @@ class   IndicatorForm3 extends Component{
       rates : '',
       wtiid : 'wti',
       message : null
-};
-}
+    };
+    }
 
   componentDidMount(){
-  console.log('comdid run');
-  this.reloadJipyoList();
-  
+  this.reloadJipyoList();  
   }
 
   reloadJipyoList = () => {
@@ -30,22 +27,18 @@ class   IndicatorForm3 extends Component{
       dates : res.data[0]["dates"].substring(0,10),
       rates : res.data[0]["price"]
     })
-   
-    }
-    )
+    })
     .catch(err => {
       console.error('지표리스트 오류(WTI)', err);
       })
+      }
 
-  }
-
-  componentWillUnmount(){
+    componentWillUnmount(){
     console.log('comwilunmont run')
-  }
+    }
 
   render(){
-  return(
-    
+  return( 
     <Div
     d="flex"
     flexDir="column"
@@ -55,7 +48,6 @@ class   IndicatorForm3 extends Component{
     maxW="100%"
     pos={{ xs: "static", md: "absolute" }}
     m={{ xs: "1rem", md: "-2rem" }}
-    //left="0"
     right="0"
     top="0"
     rounded="xl"
@@ -114,7 +106,7 @@ class   IndicatorForm3 extends Component{
    <LineChartIn3/>
   </Div>
   </Link>
-</Div>
+  </Div>
 )
 }
 }

@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { Text, Div, Icon, Anchor, Button,  Notification } from "atomize"
+import { Text, Div, Icon, Button,  Notification } from "atomize"
 import UserApiService from "../../api/UserApi";
 import $ from 'jquery';
 import TextField from '@material-ui/core/TextField'
@@ -39,8 +39,7 @@ class ProfileDetail2 extends Component{
       }
 
       componentDidMount(){
-        this.loadUser();
-        
+        this.loadUser();    
       }
 
       loadUser = () => {
@@ -77,28 +76,25 @@ class ProfileDetail2 extends Component{
               })
          }
       if( $('#pass').val() != $('#passCon').val())
-    {
+      {
       this.setState({
         coDuplicateError : true
       })
-    }
-    else if( $.trim($('#pass').val()).length < 6)
-    {
-      this.setState({
+     }
+      else if( $.trim($('#pass').val()).length < 6)
+      {
+       this.setState({
         coPassLenError : true
       })
-    }
+     }
     else{
-      
         let user ={
          userid: this.state.userid,
           pass : this.state.pass
         }
-        
-     
-        await UserApiService.passwordEdit( user)
-          .then( res  =>{
-
+    
+      await UserApiService.passwordEdit( user)
+        .then( res  =>{
             alert("고객님의 비밀번호가 수정되었습니다")
           console.log(this.state.message)    
         })
@@ -111,28 +107,24 @@ class ProfileDetail2 extends Component{
         .then(function(userCredential) {
           userCredential.user.updatePassword(user.pass)
          })
-
-
         }
       }
   
-      
       saveUser =  (e) =>{
         e.preventDefault();
         
-   if( $.trim($('#nickname').val()).length == 0 ||$.trim($('#phone').val()).length == 0 )
-    {
+    if( $.trim($('#nickname').val()).length == 0 ||$.trim($('#phone').val()).length == 0 )
+      {
           this.setState({
-            coInputError : true
+          coInputError : true
           })
         }
-  else if(  $.trim($('#nickname').val()).length < 2)
+    else if(  $.trim($('#nickname').val()).length < 2)
         {
           this.setState({
-            coNameError : true
+          coNameError : true
           })
-      }   
-    
+        } 
     else if( isNaN( $('#phone').val()))
     {
       this.setState({
@@ -140,7 +132,6 @@ class ProfileDetail2 extends Component{
       })
     }  
         else{
-
           let user ={
             userid: this.state.userid,
             nickname : this.state.nickname,
@@ -148,8 +139,7 @@ class ProfileDetail2 extends Component{
           }
         
           UserApiService.profileEdit( user)
-          .then( res  =>{
-        
+          .then( res  =>{ 
             this.setState({
               message : "수정되었습니다"
             })
@@ -174,11 +164,8 @@ class ProfileDetail2 extends Component{
           .updateProfile({displayName: user.nickname }).then(
     
           )
-
         }
-     
       }
-  
 
 render(){
     const { coInputError } = this.state;
@@ -207,7 +194,6 @@ render(){
         bg="white"
         shadow="4"  
         rounded="xl"
-
     >
         <Notification
               bg="info700"
@@ -293,10 +279,8 @@ render(){
         <Div
             flexGrow="1"
             textAlign="center"
-            
         >
             <Text
-                
                 m={{ t: "1rem", b: "0.5rem" }}
                 textWeight="800"
                 textSize="title"
@@ -309,7 +293,7 @@ render(){
             flexDir="row"
             m={{ b: "1rem" }}
             >
-            <Text
+            <Text   
                 w={{ xs: "20%", sm: "5rem" }}
                 p={{ t: "0.3rem" }}
                 textSize="subheader"
@@ -332,9 +316,9 @@ render(){
             flexDir="row"
             m={{ b: "0.5rem" }}>
             <Text
+                textSize={{xs:"body", md:"subheader"}}
                 w={{ xs: "20%", sm: "5rem" }}
                 p={{ t: "0.3rem" }}
-                textSize="subheader"
                 textWeight="800"
                 textAlign="center"
                 fontFamily="ko"
@@ -350,51 +334,55 @@ render(){
             </Div>
            
             <div align="center">
-            <Button
-            
+          <Button   
             h="2rem"
             w="8rem"
-            bg="black"
+            bg="#0284fe"
             rounded="circle"
             m={{ r: "1rem" }}
             shadow="2"
             hoverShadow="4"
             onClick={this.saveUser}
             >
-            정보 수정
+            <Text
+              textSize="subheader"
+              textWeight="700"
+              fontFamily='ko'>
+              정보 수정
+            </Text>
         </Button>
         <Text
-                m={{ t: "1rem", b: "0.5rem" }}
-                textWeight="800"
-                textSize="title"
-                fontFamily="ko"
-            >
-                비밀번호수정
-            </Text>
+            m={{ t: "1rem", b: "0.5rem" }}
+            textWeight="800"
+            textSize="title"
+            fontFamily="ko"
+        >
+            비밀번호수정
+        </Text>
         <Div
             d="flex"
             flexDir="row"
             m={{ b: "1rem" }}
-            >
-            <Text
-                w={{ xs: "20%", sm: "5rem" }}
-                p={{ t: "0.3rem" }}
-                textSize="subheader"
-                textWeight="800"
-                textAlign="center"
-                fontFamily="ko"
-            >
-                비밀번호
-             </Text>
-             <TextField type="password"
+        >
+        <Text
+            w={{ xs: "20%", sm: "5rem" }}
+            p={{ t: "0.3rem" }}
+            textSize={{xs:"body", md:"subheader"}}
+            textWeight="800"
+            textAlign="center"
+            fontFamily="ko"
+        >
+            비밀번호
+        </Text>
+        <TextField type="password"
             value={this.state.pass}
             type={showPassword ? "text" : "password"}
             onChange={this.onChange}
             name="pass"
             id = "pass"
-            />    
-            </Div>
-            <Div
+        />    
+        </Div>
+        <Div
             d="flex"
             flexDir="row"
             m={{ b: "0.5rem" }}>
@@ -405,28 +393,31 @@ render(){
                 textWeight="800"
                 textAlign="center"
                 fontFamily="ko"
-                
             >
-                확인
-             </Text>
-             <TextField type="password"
+              확인
+          </Text>
+        <TextField type="password"
             id = "passCon"
             type={showPassword ? "text" : "password"}
             onChange={this.onChange}
             />    
             </Div>
-        <Button
-            
+        <Button    
             h="2rem"
             w="8rem"
-            bg="black"
+            bg="#0284fe"
             rounded="circle"
             m={{ r: "1rem" }}
             shadow="2"
             hoverShadow="4"
             onClick={this.byunPass}
             >
+          <Text
+              textSize="subheader"
+              textWeight="700"
+              fontFamily='ko'>
             비밀번호변경
+            </Text> 
         </Button>
         </div>
         

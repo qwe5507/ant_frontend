@@ -20,7 +20,7 @@ function ChartKor(props) {
       charteurusd = res.data   
       
       for (var i = 0; i < charteurusd.length ; i++){
-        labeleurusd.push(charteurusd[i]["dates"])
+        labeleurusd.push(charteurusd[i]["dates"].substring(0,10))
       }
      
       for (var i = 0; i < charteurusd.length ; i++){

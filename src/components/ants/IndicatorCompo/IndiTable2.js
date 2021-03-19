@@ -1,28 +1,17 @@
-import { render } from '@testing-library/react';
-import React, {Component, useEffect} from 'react';
+import React from 'react';
 import IndiTable2_Detail from './IndiTable2_Detail'
-import TableBody from '@material-ui/core/TableBody'
-import TableCell from '@material-ui/core/TableCell'
-import TableHead from '@material-ui/core/TableHead'
-import TableRow from '@material-ui/core/TableRow'
-import { Text, Div, Icon, Anchor, Button, Link } from "atomize";
-import { useHistory, useParams } from 'react-router-dom';
+import { Div } from "atomize";
+
 function IndiTable2(){
-    let history = useHistory();
 
         return(
           <div>
-          
-      <Div p={{ t: { xs: "1rem", md: "5rem" } }}
-        m={{ x: { xs: '0rem', md: '0rem' }, y: { xs: '0rem', md: '2.5rem' }}} >
-       
+          <Div p={{ t: { xs: "1rem", md: "5rem" } }}
+          m={{ x: { xs: '0rem', md: '0rem' }, y: { xs: '0rem', md: '2.5rem' }}} >
           <IndiTable2_Detail />
          </Div >
       
-          </div>
+        </div>
       )
-
-      
-
 }
 export default IndiTable2;

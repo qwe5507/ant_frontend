@@ -2,7 +2,7 @@ import React, {useEffect, connect} from "react"
 import { Button, Container, Text, Div, Dropdown, Anchor, Input, Icon } from "atomize"
 import PaymentApiService from "../../api/PaymentApi";
 import { useHistory, useParams } from 'react-router-dom';
-
+import imgName from '../../images/payment1.jpg';
 function Payment() {
     let history = useHistory();
     function onClickPayment() {
@@ -18,9 +18,8 @@ function Payment() {
           buyer_name: '똑똑한 개미들',                           // 구매자 이름
           buyer_tel: '01012341234',                     // 구매자 전화번호
           buyer_email: 'example@example',               // 구매자 이메일
-          buyer_addr: '신사동 661-16',                    // 구매자 주소
+          buyer_addr: '가산동 kosmo',                    // 구매자 주소
           buyer_postcode: '06018',                      // 구매자 우편번호
-      
         };
     
         if (isReactNative()) {
@@ -59,9 +58,7 @@ function Payment() {
             }
             PaymentApiService.addPayment(payment)
           .then( res => {
-
-            console.log("결제성공");
-           
+          console.log("결제성공");
           })
           .catch(err => {
             console.log('savePayment 에러', err);
@@ -110,16 +107,14 @@ function Payment() {
                         </Text>
                         <Text
                             tag="h2"
-                            textWeight="400"
+                            textWeight="800"
                             maxW="36rem"
                             textSize="subheader"
-                            textAlign="center"
-                            fontFamily="secondary"
-                            textColor="medium"
+                            textAlign="center"  
                             m={{ b: "2.5rem" }}
                             fontFamily='ko'
                         >
-                            한달 ￦8,900 으로 황금개미가 되어보세요
+                          저렴한 가격! ￦8,900 으로 백테스트 서비스를 이용해보세요
                         </Text>
           
                             <Button onClick={onClickPayment}
@@ -134,15 +129,13 @@ function Payment() {
                                     textSize="subheader"
                                     textWeight="800"
                                     fontFamily='ko'
-                                >등록하기
+                                >구독하기
                                 </Text>
                             </Button>
-                
-                </Container>
-            </Div>
-
-
-
+                            <br/><br/>
+                            <img src = {imgName} style={{opacity:0.5}}/>
+                    </Container>
+                  </Div>
         </>
         </div>
     )

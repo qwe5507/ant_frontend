@@ -4,7 +4,6 @@ import { useParams, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import IndApi from "../../../../../api/IndApi";
 import AlignStartModal from "./AlignStartModal";
-import AlignStartModal2 from "./AlignStartModal2";
 
 function CommentUsdkrw2(props) {
   const loginid = useSelector(state => state.user.userid);

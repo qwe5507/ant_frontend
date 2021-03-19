@@ -22,10 +22,9 @@ class IndiTable3 extends Component{
           forgoldid : 'goldfor',
           message : null
     };
-}
+    }
 
     componentDidMount(){
-        console.log('comdid run');
         this.reloadWTIList();
         this.reloadForGoldList();
       }
@@ -38,9 +37,7 @@ class IndiTable3 extends Component{
         })
         .catch(err => {
         console.error('지표리스트(WTI) 오류', err);
-        //alert('조회오류');
         })
-
       }
 
       reloadForGoldList = () => {
@@ -51,7 +48,6 @@ class IndiTable3 extends Component{
           .catch(err => {
           console.error('지표리스트(국제금) 오류', err);
           })
-  
         }
 
       componentWillUnmount(){
@@ -59,7 +55,6 @@ class IndiTable3 extends Component{
       }
     
       render(){
-        console.log('render run');
         return(
           <div>
        
@@ -103,12 +98,10 @@ class IndiTable3 extends Component{
               <TableCell align="center">{wti.price}</TableCell>
              
             </TableRow>      
-        )
-      }   
-            </TableBody>
+        )}   
+        </TableBody>
         </Table>
         </Div >
-        
         <Div  p={{ t: { xs: "1rem", md: "0rem" } }} >
           <Div textAlign="left">
           <Text
@@ -146,15 +139,11 @@ class IndiTable3 extends Component{
             <TableCell align="center">{forgold.dates.substring(0,10)}</TableCell>   
           <TableCell align="center">{forgold.price}</TableCell>
           </TableRow>         
-        )
-      }
+        )}
           </TableBody>
         </Table>
-      </Div >
-    
+      </Div>   
           </div>
-      )
-      }
-
+      )}
 }
 export default IndiTable3;

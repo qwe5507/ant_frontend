@@ -21,7 +21,6 @@ function Corr1(props){
 
         datasets: [
           {
-           // legend: false,
             label: '상관관계',
             backgroundColor:[
               'rgba(50, 116, 161, 1)',

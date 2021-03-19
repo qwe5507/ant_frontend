@@ -14,7 +14,6 @@ import { Text, Div} from "atomize";
 class IndiTable4 extends Component{
 
     constructor(props){
-        console.log('constro run');
         super(props);
         this.state ={
           bond10s : [],
@@ -23,7 +22,7 @@ class IndiTable4 extends Component{
           bond2id : 'bond2',
           message : null
     };
-}
+    }
 
     componentDidMount(){
         this.reloadBond10List();
@@ -37,9 +36,7 @@ class IndiTable4 extends Component{
         })
         .catch(err => {
         console.error('지표리스트(10년 채권) 오류', err);
-        //alert('조회오류');
         })
-
       }
 
       reloadBond2List = () => {
@@ -50,7 +47,6 @@ class IndiTable4 extends Component{
             .catch(err => {
             console.error('지표리스트(2년 채권) 오류', err);
             })
-    
       }
 
       componentWillUnmount(){
@@ -106,11 +102,9 @@ class IndiTable4 extends Component{
               <TableCell align="center">{bond10.price}</TableCell>
               <TableCell align="center">{bond10.open}</TableCell>
               <TableCell align="center">{bond10.high}</TableCell>
-              <TableCell align="center">{bond10.low}</TableCell>
-             
+              <TableCell align="center">{bond10.low}</TableCell>    
             </TableRow>      
-        )
-      }   
+        )}   
             </TableBody>
         </Table>
         </Div >
@@ -158,20 +152,13 @@ class IndiTable4 extends Component{
               <TableCell align="center">{bond2.price}</TableCell>
               <TableCell align="center">{bond2.open}</TableCell>
               <TableCell align="center">{bond2.high}</TableCell>
-              <TableCell align="center">{bond2.low}</TableCell>
-             
+              <TableCell align="center">{bond2.low}</TableCell>    
             </TableRow>      
-        )
-      }   
+        )}   
             </TableBody>
         </Table>
-        </Div >
-       
-    
-          </div>
-      )
-
-      }
-
+        </Div>
+        </div>
+      )}
 }
 export default IndiTable4;

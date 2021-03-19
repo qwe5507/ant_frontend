@@ -127,16 +127,6 @@ export class DirectMessages extends Component {
                 }}
             >
                 # {user.name}
-                {/* <Badge variant={this.isUserOnline(user) ? "info" : "danger"}
-                    style={{
-                        height: '10px',
-                        width: '10px',
-                        float: 'right',
-                        marginTop: '8px'
-                    }}
-                >
-                    {" "}
-                </Badge> */}
             </li >
         ));
 
@@ -185,8 +175,6 @@ export class DirectMessages extends Component {
         )
     }
 }
-
-
 
 const mapStateToProps = state => {
     return {

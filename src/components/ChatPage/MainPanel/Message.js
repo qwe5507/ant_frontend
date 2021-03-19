@@ -2,7 +2,6 @@ import React from 'react'
 import moment from "moment";
 import { makeStyles } from '@material-ui/core/styles';
 import CardContent from '@material-ui/core/CardContent';
-
 import Media from 'react-bootstrap/Media';
 import { Row, Col,Text } from "atomize"
 
@@ -55,7 +54,6 @@ function MessageBody({ message, user }) {
                 className="mr-3"
                 src={message.user.image}
                 alt={message.user.name}
-                
                 />  
                 </Col>
                 <Col size={{ xs: "3", lg: "auto"}} >
@@ -66,7 +64,7 @@ function MessageBody({ message, user }) {
                         textWeight="800"
                         fontFamily="ko"
                         m="-0.3rem"
-                >               
+                    >               
                    {message.user.name}{" "}
                     </Text>
               

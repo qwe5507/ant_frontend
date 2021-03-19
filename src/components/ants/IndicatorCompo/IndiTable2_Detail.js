@@ -6,7 +6,7 @@ import TableCell from '@material-ui/core/TableCell'
 import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
 import Button from '@material-ui/core/Button'
-import { Text, Div, Icon, Anchor} from "atomize";
+import { Text, Div} from "atomize";
 import { Link } from 'react-router-dom';
 
 class IndiTable2_Detail extends Component{
@@ -20,15 +20,13 @@ class IndiTable2_Detail extends Component{
           dollerid : 'dolleridx',
           message : null
     };
-}
+    }
 
     componentDidMount(){
         this.reloadJipyoList();
         this.reloadKorList();
-        this.reloadDolIdxList();
-        
+        this.reloadDolIdxList(); 
       }
-
     
     reloadJipyoList = () => {
     IndApi.exeForeignList()
@@ -39,7 +37,6 @@ class IndiTable2_Detail extends Component{
         .catch(err => {
         console.error('지표리스트 오류(국외환율)', err);
         })
-
       }
 
     reloadKorList = () => {
@@ -49,8 +46,7 @@ class IndiTable2_Detail extends Component{
         })
     .catch(err => {
         console.error('지표리스트 오류(국내환율)', err);
-        })
-    
+        })  
     }
 
     reloadDolIdxList = () => {
@@ -70,9 +66,8 @@ class IndiTable2_Detail extends Component{
 
       render(){
         return(
-          <div>
-          
-      <Div  p={{ t: { xs: "0rem", md: "0rem" } }} >
+          <div>    
+        <Div  p={{ t: { xs: "0rem", md: "0rem" } }} >
         <Div textAlign="left">
         <Text
           textSize="heading"
@@ -93,8 +88,7 @@ class IndiTable2_Detail extends Component{
         </TableHead>
         <TableBody>
         {this.state.indifors.map(indifor => 
-            <TableRow>
-              
+            <TableRow>           
               <TableCell align="center">
               <Link to={`/IndicatorDetailExeFor/${indifor.symbol}`} >
               <Button size="small" variant="contained" style={{boxShadow: 'none', backgroundColor: '#fbe0a1'}}>
@@ -213,12 +207,9 @@ class IndiTable2_Detail extends Component{
       }         
             </TableBody>
       </Table>
-      </Div >
-      
-          </div>
-      )
-
-      }
+      </Div>
+      </div>
+      )}
 
 }
 export default IndiTable2_Detail;

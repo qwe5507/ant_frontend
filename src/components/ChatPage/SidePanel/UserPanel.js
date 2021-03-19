@@ -1,11 +1,9 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import firebase from "../../../firebase";
 import mime from "mime-types";
 import { setPhotoURL } from '../../../redux/actions/user_action';
-import { Div, Text} from "atomize"
-import Dropdown from 'react-bootstrap/Dropdown';
+import {  Text} from "atomize"
 import Image from 'react-bootstrap/Image';
 import { IoIosChatboxes } from 'react-icons/io';
 
@@ -14,11 +12,6 @@ function UserPanel() {
     const user = useSelector(state => state.user.currentUser)
 
     const inputOpenImageRef = useRef()
-
-    // const handleLogout = () => {
-    //     firebase.auth().signOut()
-    // }
-
     const handleOpenImageRef = () => {
         inputOpenImageRef.current.click()
     }
@@ -84,33 +77,6 @@ function UserPanel() {
                         >
                         {user && user.displayName}
                         </Text>
-              {/*  <Dropdown>
-                    <Dropdown.Toggle
-                        style={{
-                            background: 'transparent',
-                            border: '0px'
-                        }}
-                        id="dropdown-basic"
-                    >
-                        <Text m={{ xs: "0.2rem", md: "0.3rem" }}
-                        textAlign="right"
-                        textSize="heading"
-                        textWeight="800"
-                        fontFamily="ko"
-                        >
-                        {user && user.displayName}
-                        </Text>
-                    </Dropdown.Toggle>
-
-                    <Dropdown.Menu>
-                        <Dropdown.Item onClick={handleOpenImageRef}>
-                            프로필 사진 변경
-                        </Dropdown.Item>
-                        {/* <Dropdown.Item onClick={handleLogout}>
-                            로그아웃
-                        </Dropdown.Item> 
-                    </Dropdown.Menu>
-                </Dropdown>*/}
             </div>
 
             <input
