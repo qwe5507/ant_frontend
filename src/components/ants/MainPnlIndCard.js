@@ -42,7 +42,6 @@ function MainPnlIndCard(props) {
                     {props.chartData.name}
                 </Text>
                 <Text
-                    textWeight="800"
                     fontFamily="ko"
                     textAlign="left"
                     w="3rem"
@@ -50,61 +49,13 @@ function MainPnlIndCard(props) {
                     {props.chartData.price}
                 </Text>
                 <Text
-                    textWeight="800"
                     fontFamily="ko"
                     textColor={props.chartData.changedate > 0 ? "danger700" : "info700"}
                     textAlign="left"
-                    w="3rem"
+                    w="4rem"
                 >
                     {props.chartData.changedate > 0 ? '+' : ''}{props.chartData.changedate} %
                 </Text>
-                <Div
-                    w="2rem"
-                    overflow="hidden"
-                >
-                    <Line
-                        data={props.chartData.dataSet}
-                        options={{
-                            animation: {
-                                duration: 2000
-                            },
-                            responsive: true,
-                            maintainAspectRatio: true,
-                            legend: {
-                                display: false
-                            },
-                            scales: {
-                                xAxes: [
-                                    {
-                                        display: false,
-                                        gridLines: {
-                                            display: false,
-                                        },
-                                        scaleLabel: {
-                                            display: false,
-                                        },
-                                        type: "time",
-                                        time: {
-                                            unit: "day",
-                                            unitStepSize: 1
-                                        },
-                                    }
-                                ],
-                                yAxes: [
-                                    {
-                                        display: false,
-                                        gridLines: {
-                                            display: false,
-                                        },
-                                        scaleLabel: {
-                                            display: false,
-                                        },
-                                    }
-                                ]
-                            }
-                        }}
-                    />
-                </Div>
             </Div>
         </Div>
     )

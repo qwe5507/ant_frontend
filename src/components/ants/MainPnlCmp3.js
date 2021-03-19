@@ -110,10 +110,6 @@ function MainPnlCmp3() {
 
     return (
         <Div
-            d="flex"
-            align="center"
-            justify="center"
-            flexDir="column"
             border="1px solid"
             borderColor="gray200"
             w={{ xs: "100%", md: "22rem" }}
@@ -126,18 +122,14 @@ function MainPnlCmp3() {
                 b: { xs: "2rem", sm: "1.5rem" },
                 t: "1.5rem",
             }}
-            h="auto"
+            h={{ xs: "auto", md: "27rem" }}
             bg="white"
             shadow="2"
             rounded="xl"
         >
             <Div
-                w="100%"
                 flexGrow="1"
                 textAlign="center"
-                p={{
-                    x: { xs: "0.5rem", sm: "1.5rem" },
-                }}
             >
                 <Text
                     m={{ b: "1rem" }}
@@ -166,7 +158,7 @@ function MainPnlCmp3() {
                     return (
                         <Div
                             w="100%"
-                            h="6rem"
+                            h="auto"
                             bg="white"
                             shadow="2"
                             rounded="xl"
@@ -188,7 +180,6 @@ function MainPnlCmp3() {
                                         [{data['_source']['news_source']}]
                                     </Text>
                                     <Text
-                                        textWeight="800"
                                         fontFamily="ko"
                                         textAlign="right"
                                     >
@@ -196,7 +187,6 @@ function MainPnlCmp3() {
                                     </Text>
                                 </Div>
                                 <Text
-                                    textWeight="800"
                                     textAlign="left"
                                     fontFamily="ko"
                                     onClick={() => handleClick(data['_source']['news_id'])}

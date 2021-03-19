@@ -112,28 +112,40 @@ const Footer = () => {
   return (
     <Div
       tag="footer"
-      p={{ t: { xs: "12rem", md: "8rem" }, b: { xs: "4rem", md: "5rem" } }}
+      p={{ t: { xs: "4rem", md: "4rem" }, b: { xs: "4rem", md: "5rem" } }}
       pos="relative"
     >
       <Container>
-        <Div d="flex" align="center" justify="center" flexDir="column">
+        <Div 
+          d="flex" 
+          align="center" 
+          justify="center" 
+          flexDir="column"
+        >
           <Text
-            tag="h2"
-            textWeight="400"
-            textSize="body"
-            textAlign="center"
+            fontFamily="ko"
+            textSize="subheader"
+            textAlign="left"
             m={{ b: "1rem" }}
           >
-            똑똑한 개미들에서 제공하는 모든 정보는 투자 참고 사항이며, 정보의 오류와 지연 가능성이 있습니다.
+            본 사이트는 테스트 중이며 정식 서비스를 하고 있지 않습니다.
+          </Text>
+          <Text
+            fontFamily="ko"
+            textSize="body"
+            textAlign="left"
+            m={{ b: "1rem" }}
+          >
+            똑똑한 개미들이 제공하는 모든 정보는 투자 참고 사항이며, 정보의 오류와 지연 가능성이 있습니다.
             똑똑한 개미들은 제공하는 정보에 의한 투자 결과에 대해 법적인 책임을 지지 않습니다.
             똑똑한 개미들이 제공하는 모든 컨텐츠는 저작권법에 의해 보호 받고 있으며 당사의 동의 없이 어떠한
             형태로든 복제, 배포, 전송, 대여할 수 없으며 만일 이를 위반할 경우 법적인 책임을 지게 됩니다.
           </Text>
           <Text
-            tag="h2"
+            fontFamily="ko"
             textWeight="400"
             textSize="body"
-            textAlign="center"
+            textAlign="left"
             m={{ b: "1rem" }}
           >
             대표 이진현  서울 금천구 가산동  사업자등록번호 000-00-0000 통신판매업신고번호 2021-서울-00000 고객문의 contacts@smartants.com 개인정보처리방침

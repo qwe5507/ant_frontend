@@ -112,11 +112,10 @@ function MainPnlInd() {
         b: { xs: "2rem", sm: "1.5rem" },
         t: "1.5rem",
       }}
-      h="auto"
+      h={{ xs: "auto", md: "27rem" }}
       bg="white"
       shadow="2"
       rounded="xl"
-
     >
       <Div
         d="flex"

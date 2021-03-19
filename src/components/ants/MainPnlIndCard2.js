@@ -16,6 +16,21 @@ function MainPnlIndCard(props) {
     function handleClick(stockId) {
         history.push('/Stocks/' + stockId)
     }
+
+
+    function textLengthOverCut(txt, len, lastTxt) {
+        if (len == "" || len == null) { // 기본값
+            len = 7;
+        }
+        if (lastTxt == "" || lastTxt == null) { // 기본값
+            lastTxt = "...";
+        }
+        if (txt.length > len) {
+            txt = txt.substr(0, len) + lastTxt;
+        }
+        return txt;
+    }
+
     return (
         <Div
             p="1rem"
@@ -41,72 +56,23 @@ function MainPnlIndCard(props) {
                     cursor="pointer"
                     onClick={() => handleClick(props.stocksData.code)}
                 >
-                    {props.stocksData.name}
+                    {textLengthOverCut(props.stocksData.name)}
                 </Text>
                 <Text
-                    textWeight="800"
                     fontFamily="ko"
-                    textAlign="center"
-                    w="6rem"
+                    textAlign="left"
+                    w="3rem"
                 >
                     {props.stocksData.price}
                 </Text>
                 <Text
-                    textWeight="800"
                     fontFamily="ko"
                     textColor={props.stocksData.change > 0 ? "danger700" : "info700"}
-                    textAlign="center"
-                    w="8rem"
+                    textAlign="left"
+                    w="4rem"
                 >
                     {props.stocksData.change > 0 ? '+' : ''}{props.stocksData.change} %
                 </Text>
-                <Div
-                    w="2rem"
-                    overflow="hidden"
-                >
-                    <Line
-                        data={props.stocksData.dataSet}
-                        options={{
-                            animation: {
-                                duration: 2000
-                            },
-                            responsive: true,
-                            maintainAspectRatio: true,
-                            legend: {
-                                display: false
-                            },
-                            scales: {
-                                xAxes: [
-                                    {
-                                        display: false,
-                                        gridLines: {
-                                            display: false,
-                                        },
-                                        scaleLabel: {
-                                            display: false,
-                                        },
-                                        type: "time",
-                                        time: {
-                                            unit: "day",
-                                            unitStepSize: 1
-                                        },
-                                    }
-                                ],
-                                yAxes: [
-                                    {
-                                        display: false,
-                                        gridLines: {
-                                            display: false,
-                                        },
-                                        scaleLabel: {
-                                            display: false,
-                                        },
-                                    }
-                                ]
-                            }
-                        }}
-                    />
-                </Div>
             </Div>
         </Div>
     )

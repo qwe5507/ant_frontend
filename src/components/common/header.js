@@ -32,8 +32,8 @@ function Header() {
   const menuLink = ['/News', '/Indicators', '/Community', '/Backtest'];
   const menuName = ['뉴스', '지표', '커뮤니티', '백테스트'];
 
-  const profileLink = ['/ChatPage', '/PaymentFirst', '/Profile', '/Logout'];
-  const profileName = ["채팅", "구독", "마이페이지", "로그아웃"];
+  const profileLink = ['/ChatPage', '/PaymentFirst', '/Logout'];
+  const profileName = ["채팅", "구독", "로그아웃"];
 
   return (
     <>
@@ -152,8 +152,8 @@ function Header() {
                       d="block"
                       p={{ y: "0.25rem" }}
                       m={{ r: "1rem", b: { xs: "0.2rem", md: "0" } }}
-                      textSize="title"
-                      textWeight="800"
+                      textSize={{ xs: "subheader", md: "title" }}
+                      textWeight="600"
                       textColor={menuLink[index] == currentLocation ? "black" : "medium"}
                       hoverTextColor="black"
                       fontFamily="ko"
@@ -182,8 +182,8 @@ function Header() {
                       d="block"
                       p={{ y: "0.25rem" }}
                       m={{ r: "1rem", b: { xs: "0.2rem", md: "0" } }}
-                      textSize="title"
-                      textWeight="800"
+                      textSize={{ xs: "subheader", md: "title" }}
+                      textWeight="600"
                       textColor={profileLink[index] == currentLocation ? "black" : "medium"}
                       hoverTextColor="black"
                       fontFamily="ko"
@@ -223,8 +223,8 @@ function Header() {
                       m={{ r: "0.5rem" }}
                     />
                     <Text
-                      textSize="title"
-                      textWeight="800"
+                      textSize={{ xs: "subheader", md: "title" }}
+                      textWeight="600"
                       textColor="medium"
                       hoverTextColor="black"
                       fontFamily="ko"

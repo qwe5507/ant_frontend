@@ -117,8 +117,8 @@ function Intoducing() {
                           <Text
                             textAlign="left"
                             textSize="body"
-                            textWeight="700"
-                            fontFamily="secondary"
+                            textWeight="900"
+                            fontFamily="ko"
                             m={{ b: "0.2rem" }}
                           >
                             {data['nickname']}

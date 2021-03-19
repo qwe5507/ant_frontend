@@ -50,7 +50,6 @@ function HeroSection() {
           align="center"
         >
           <Text
-            tag="h1"
             textWeight="800"
             textAlign="center"
             textSize="display3"
@@ -60,7 +59,6 @@ function HeroSection() {
             개인투자자만을 위한 공간
             </Text>
           <Text
-            tag="h2"
             textWeight="800"
             maxW="36rem"
             textSize="subheader"

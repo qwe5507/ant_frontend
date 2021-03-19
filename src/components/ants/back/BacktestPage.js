@@ -19,7 +19,6 @@ function BacktestPage(props) {
                     align="center"
                 >
                     <Text
-                        tag="h1"
                         textWeight="800"
                         textAlign="center"
                         textSize="display2"
@@ -42,7 +41,6 @@ function BacktestPage(props) {
                          flexDir="row">
                         <Icon name="Checked" size="20px"  m={{ t: "0.5rem", b: "1rem" }}/>
                         <Text
-                        tag="h2"
                         textWeight="800"
                         maxW="36rem"
                         textSize="subheader"
@@ -58,7 +56,6 @@ function BacktestPage(props) {
                          flexDir="row">
                     <Icon name="Checked" size="20px"  m={{ t: "0.5rem", b: "1rem" }}/>
                     <Text
-                        tag="h2"
                         textWeight="800"
                         maxW="36rem"
                         textSize="subheader"
