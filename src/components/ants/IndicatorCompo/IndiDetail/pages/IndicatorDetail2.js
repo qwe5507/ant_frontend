@@ -1,6 +1,6 @@
-import React, {useState, useEffect, useRef } from "react"
-import { Text, Div, Icon, Anchor, Input, Container, Button} from "atomize";
-import { useParams, Link, useHistory } from 'react-router-dom';
+import React, {useState, useEffect } from "react"
+import { Text, Div, Icon, Container, Button} from "atomize";
+import { useParams, Link } from 'react-router-dom';
 import ChartIndi1 from "../chart/ChartIndi1"
 import Corr1 from "../chart/Corr1"
 import IndApi from "../../../../../api/IndApi";
@@ -9,7 +9,6 @@ import TableBody from '@material-ui/core/TableBody'
 import TableCell from '@material-ui/core/TableCell'
 import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
-import axios from "axios";
 import CommentExe from "./CommentExe"
 import NewsApi from "../../../../../api/NewsApi";
 function IndicatorDetail2(props) {
@@ -34,7 +33,6 @@ function IndicatorDetail2(props) {
     let [ind5, ind5byun] = useState('')
     
     function moveHref(url){
-      console.log("moveHref호출")
      window.open(url)
     }
 
@@ -77,13 +75,9 @@ function IndicatorDetail2(props) {
     }
 
     function corrAbs(){
-      console.log("들어갈것 확인",symboli)
-      console.log("확인2",symboli["tableName"].toLowerCase())
       IndApi.corrAbs(symboli["tableName"].toLowerCase(), 5)
       .then(res=>{
-        console.log("상관관계 확인", res.data)
         indsbyun(res.data)
-        console.log("확인확인",res.data[0][symboli["tableName"].toLowerCase()])
         ind1byun(res.data[0][symboli["tableName"].toLowerCase()])
         ind2byun(res.data[1][symboli["tableName"].toLowerCase()])
         ind3byun(res.data[2][symboli["tableName"].toLowerCase()])
@@ -98,7 +92,6 @@ function IndicatorDetail2(props) {
 
     useEffect(() => {
       window.scrollTo(0, 0)
-      
       searchmatchparse()
       corrAbs()
     }, []);
@@ -134,7 +127,6 @@ function IndicatorDetail2(props) {
          </Text>  
          <Text
              textSize="caption"
-             //   m={{ t: "0.5rem", b: "1rem" }}
              m={{ x: { xs: '0.5rem', md: '0.5rem' }, y: { xs: '-0.5rem', md: '0.5rem' }}}
               textWeight="800"
               fontFamily="ko"
@@ -145,8 +137,7 @@ function IndicatorDetail2(props) {
          <Text
              textAlign="left"
              textSize="caption"
-        //    m={{ t: "0.5rem", b: "0.5rem" }}
-        m={{ x: { xs: '0rem', md: '-1rem' }, y: { xs: '0rem', md: '0.5rem' }}}
+            m={{ x: { xs: '0rem', md: '-1rem' }, y: { xs: '0rem', md: '0.5rem' }}}
             textWeight="800"
             fontFamily="ko"
             textColor="light"
@@ -253,36 +244,30 @@ function IndicatorDetail2(props) {
           </Div>
             </Div>
               <Div
-         d="flex"
-        flexDir="column"
-        
-          w={{ xs: "100%", md: "23rem" }}
-          maxW="100%"
-          pos={{ xs: "static", md: "absolute" }}
- 
-    m={{ x: { xs: '-1.5rem', md: '25rem' }, y: { xs: '-3.5rem', md: '8rem' }}}
-   
-    right="0"
-    top="0"
-    rounded="xl"
-    h={{ lg: "25rem" }}
-    bg="white"
-   
-    p="2rem"
-  >
-     <Text
-      textAlign="left"
-      textSize="subheader"
-      textWeight="800"
-      fontFamily="ko"
-      bgColor="red"
-      m={{ x: { xs: '0', md: '0' }, y: { xs: '2rem', md: '-2rem' }}}
-      >
-               기간별 상관관계
-              </Text>
-              <Div flexGrow="0">
-
-
+            d="flex"
+            flexDir="column"
+            w={{ xs: "100%", md: "23rem" }}
+            maxW="100%"
+            pos={{ xs: "static", md: "absolute" }}
+            m={{ x: { xs: '-1.5rem', md: '25rem' }, y: { xs: '-3.5rem', md: '8rem' }}}
+            right="0"
+            top="0"
+            rounded="xl"
+            h={{ lg: "25rem" }}
+            bg="white"
+            p="2rem"
+          >
+          <Text
+            textAlign="left"
+            textSize="subheader"
+            textWeight="800"
+            fontFamily="ko"
+            bgColor="red"
+            m={{ x: { xs: '0', md: '0' }, y: { xs: '2rem', md: '-2rem' }}}
+            >
+            기간별 상관관계
+            </Text>
+            <Div flexGrow="0">
           {
             chart1 === true
             ? 
@@ -290,8 +275,7 @@ function IndicatorDetail2(props) {
             <Corr1 nums={30} tableName={tableName}/>
             </Div>
             : null
-            }
-         
+            }        
           {
             chart2 === true
             ?
@@ -299,8 +283,7 @@ function IndicatorDetail2(props) {
              <Corr1 nums={90} tableName={tableName}/>
              </Div>
             : null
-            }
-         
+            }         
           {
             chart3 === true
             ?
@@ -312,23 +295,21 @@ function IndicatorDetail2(props) {
           </Div>
           </Div>
           <Div
-      d="flex"
-      flexDir="column"
-     
-        w={{ xs: "100%", md: "72rem" }}
-        maxW="100%"
-        pos={{ xs: "static", md: "absolute" }}
-         m={{ x: { xs: '-2rem', md: '22rem' }, y: { xs: '2rem', md: '31rem' }}}
-        left="0"
-        top="0"
-        rounded="xl"
-        h={{ lg: "15rem" }}
-        bg="white"
-       
-        p="2rem"
-         >
-            <Div d="flex" flexDir="column">
-            <Text
+          d="flex"
+          flexDir="column"
+          w={{ xs: "100%", md: "72rem" }}
+          maxW="100%"
+          pos={{ xs: "static", md: "absolute" }}
+          m={{ x: { xs: '-2rem', md: '22rem' }, y: { xs: '2rem', md: '31rem' }}}
+          left="0"
+          top="0"
+          rounded="xl"
+          h={{ lg: "15rem" }}
+          bg="white"
+          p="2rem"
+          >
+          <Div d="flex" flexDir="column">
+          <Text
             textAlign="left"
             textSize="title"
             m={{ t: "0rem", b: "0rem" }}
@@ -336,17 +317,17 @@ function IndicatorDetail2(props) {
             fontFamily="ko"
          >
           관련지표
-        </Text>
-        <Div d="flex" flexDir="row">
-        <Icon name="Checked" size="20px"  m={{ t: "0.5rem", b: "1rem" }}/>
-        <Text
+          </Text>
+          <Div d="flex" flexDir="row">
+          <Icon name="Checked" size="20px"  m={{ t: "0.5rem", b: "1rem" }}/>
+          <Text
             fontColor="dark"
             textAlign="left"
             textSize="subheader"
             m={{ t: "0.5rem", b: "1rem" }}
             textWeight="600"
             fontFamily="ko"
-         >
+          >
           전체 기간에서 상관관계가 높은 5개의 지표와 상관계수입니다.
           </Text>
         </Div>
@@ -422,8 +403,7 @@ function IndicatorDetail2(props) {
                       ) :
                       ''
                     )
-                  )
-                 
+                  )                
                 }
                   </TableCell>                   
                 )}  
@@ -444,7 +424,7 @@ function IndicatorDetail2(props) {
         </Container>
 
         </Div>
-    <Div
+        <Div
             d="flex"
             flexDir="column"
             border="1px solid"
@@ -461,7 +441,7 @@ function IndicatorDetail2(props) {
             bg="white"
             shadow="4"
             p="2rem"
-         >
+            >
            <Div flexGrow="1">
            <Text
             textAlign="left"
@@ -469,11 +449,11 @@ function IndicatorDetail2(props) {
             m={{ x: { xs: '-1rem', md: '-1rem' }, y: { xs: '1rem', md: '-0.5rem' }}}
             textWeight="800"
             fontFamily="ko"
-          >
+            >
                   뉴스 목록
                 </Text>   
           {hits.map(function(data){
-        return(
+          return(
           <Div
           align="flex-start"
           h = {{xs : "rem" ,md : "auto"}}
@@ -485,21 +465,20 @@ function IndicatorDetail2(props) {
                 textSize="subheader"
                 textWeight="800"
                 fontFamily="ko"
-              >
-               {data['_source']['news_title']}
-               </Text>
-               <Text
+            >
+            {data['_source']['news_title']}
+            </Text>
+            <Text
                  m = {{ xs: "1rem", md: "0" }}
                  textAlign="left"  
                  textColor="gray900"
-               >{data['_source']['news_group']} | {data['_source']['news_source']} | {data['_source']['news_date'].substring(0,10)} | </Text>  
-            
+               >{data['_source']['news_group']} | {data['_source']['news_source']} | {data['_source']['news_date'].substring(0,10)} | </Text>       
            </Div>
 
-)})}
-</Div>
-    </Div>    
-    <Div
+            )})}
+          </Div>
+          </Div>    
+          <Div
            d="flex"
            flexDir="column"
            border="1px solid"
@@ -516,8 +495,7 @@ function IndicatorDetail2(props) {
            bg="white"
            shadow="4"
            p="2rem"
-         >
-           
+            >          
            <Div flexGrow="1">
            <Text
             textAlign="left"
@@ -535,7 +513,5 @@ function IndicatorDetail2(props) {
       </div>
     )
 }
-
-
-
+  
 export default IndicatorDetail2;

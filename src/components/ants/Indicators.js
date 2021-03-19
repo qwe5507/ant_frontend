@@ -1,5 +1,5 @@
 import React, {useState,  useEffect}  from "react"
-import { Text, Div, Link, Button, Input, Container, Row, footerLinks, Col,  mediaLinks } from "atomize";
+import { Text, Div, Button, Container} from "atomize";
 import IndicatorForm1 from "./IndicatorCompo/IndicatorForm1"
 import IndicatorForm2 from "./IndicatorCompo/IndicatorForm2"
 import IndicatorForm3 from "./IndicatorCompo/IndicatorForm3"
@@ -8,7 +8,7 @@ import IndiTable2 from "./IndicatorCompo/IndiTable2"
 import IndiTable3 from "./IndicatorCompo/IndiTable3"
 import IndiTable4 from "./IndicatorCompo/IndiTable4"
 import IndiTable5 from "./IndicatorCompo/IndiTable5"
-import IndApi from "../../api/IndApi";
+
 function Indicators() {
 
   let [indi1, indiShow1 ] = useState(true);
@@ -17,23 +17,19 @@ function Indicators() {
   let [indi4, indiShow4 ] = useState(false);
   let [indi5, indiShow5 ] = useState(false);
 
-    console.log('IndiPage Start')
-
     useEffect(() => {
       window.scrollTo(0, 0)
      }, []);
 
     return (     
-      
-      
+     
       <div align = "center" >
         <Div
         w="100vw"
         p={{ t: { xs: "3rem", md: "8rem" } }}
         overflow="hidden"
       >
-        <Container
-        >
+        <Container>
           <Div
             d="flex"
             justify="center"
@@ -48,7 +44,7 @@ function Indicators() {
               m={{ xs: "1rem", md: "-1.5rem" }}
               pos="relative"
             >
-              {/* Form Component */}
+             
               <IndicatorForm1 />
               <IndicatorForm2 />
               <IndicatorForm3 />
@@ -166,9 +162,8 @@ function Indicators() {
 
         </Button>
       
-         
-           </Container>
-           <Div>
+        </Container>
+        <Div>
       <Container>
       {
         indi1 === true

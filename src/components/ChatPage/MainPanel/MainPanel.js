@@ -36,7 +36,6 @@ export class MainPanel extends Component {
 
     componentDidUpdate() {
         if (this.messagesEnd) {
-            console.log('jjsjsjs')
             this.messagesEnd.scrollIntoView(false);
         }
     }

@@ -14,11 +14,10 @@ class   IndicatorForm2 extends Component{
       rates : '',
       bond10id : 'bond10',
       message : null
-};
-}
+    };
+    }
 
   componentDidMount(){
-  console.log('comdid run');
   this.reloadJipyoList();
   
   }
@@ -31,13 +30,10 @@ class   IndicatorForm2 extends Component{
       rates : res.data[0]["price"]
     })
   
-    }
-    )
+  })
     .catch(err => {
       console.error('지표리스트 오류(10년)', err);
-     // alert('조회오류');
       })
-
   }
 
   componentWillUnmount(){
@@ -45,8 +41,7 @@ class   IndicatorForm2 extends Component{
   }
 
   render(){
-  return(
-    
+  return( 
   <Div
     d="flex"
     flexDir="column"
@@ -56,8 +51,6 @@ class   IndicatorForm2 extends Component{
     maxW="100%"
     pos={{ xs: "static", md: "absolute" }}
     m={{ xs: "1rem", md: "-2rem" }}
-    //left="0"
-    //right="0"
     top="0"
     rounded="xl"
     h={{ lg: "22rem" }}
@@ -84,7 +77,7 @@ class   IndicatorForm2 extends Component{
         fontFamily="ko"
         textColor="black"
       >
-     미10년 채권
+      미10년 채권
       </Text>
       <Text
         textAlign="center"
@@ -92,8 +85,7 @@ class   IndicatorForm2 extends Component{
         m={{ x: { xs: '0.5rem', md: '0.5rem' }, y: { xs: '0', md: '0' }}}
         textWeight="800"
         fontFamily="ko"
-        textColor="info700"
-        
+        textColor="info700"   
       >
         {this.state.rates} 
       </Text>
@@ -104,16 +96,15 @@ class   IndicatorForm2 extends Component{
         m={{ t: "0.5rem", b: "0.5rem" }}
         textWeight="800"
         fontFamily="ko"
-        textColor="light"
-        
+        textColor="light"      
       >
         ({this.state.dates} 기준)
       </Text>
       </Div>
-   <LineChartIn2/>
-  </Div>
-  </Link>
-</Div>
+      <LineChartIn2/>
+      </Div>
+      </Link>
+      </Div>
 )
 }
 }

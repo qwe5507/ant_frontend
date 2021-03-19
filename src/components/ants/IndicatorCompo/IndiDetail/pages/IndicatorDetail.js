@@ -1,7 +1,6 @@
-import React, {useState, useEffect, useRef } from "react"
-import { Text, Div, Button, Container, Icon,Col, Row, ThemeProvider } from "atomize";
+import React, {useState, useEffect } from "react"
+import { Text, Div, Button, Container, Icon } from "atomize";
 import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
 import ChartKor from "../chart/ChartKor"
 import CommentUsdkrw2 from "./CommentUsdkrw2"
 import CorrKor from "../chart/CorrKor"
@@ -12,7 +11,6 @@ import TableBody from '@material-ui/core/TableBody'
 import TableCell from '@material-ui/core/TableCell'
 import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
-import axios from "axios";
 
 function IndicatorDetail() {
 
@@ -39,10 +37,8 @@ function IndicatorDetail() {
     }
 
     function searchmatchparse(){
-     
-    //axios.get("http://localhost:8000/news/searchmatchpharse", { params :{id : "달러", id: "원화"}})
-  NewsApi.searchmatchphrasesort("원화", "달러")
-  .then(response =>{
+     NewsApi.searchmatchphrasesort("원화", "달러")
+     .then(response =>{
         result=response.data
         console.log(response)
         var hits2 = result['hits']['hits']
@@ -115,8 +111,7 @@ function IndicatorDetail() {
           <Text
               textAlign="left"
                textSize="caption"
-             //   m={{ t: "0.5rem", b: "1rem" }}
-             m={{ x: { xs: '0.5rem', md: '0.5rem' }, y: { xs: '-0.5rem', md: '0.5rem' }}}
+              m={{ x: { xs: '0.5rem', md: '0.5rem' }, y: { xs: '-0.5rem', md: '0.5rem' }}}
               textWeight="800"
               fontFamily="ko"
               textColor="white"
@@ -126,8 +121,7 @@ function IndicatorDetail() {
           <Text
               textAlign="left"
                textSize="caption"
-          //    m={{ t: "0.5rem", b: "0.5rem" }}
-          m={{ x: { xs: '0rem', md: '-1rem' }, y: { xs: '0rem', md: '0.5rem' }}}
+              m={{ x: { xs: '0rem', md: '-1rem' }, y: { xs: '0rem', md: '0.5rem' }}}
               textWeight="800"
               fontFamily="ko"
               textColor="light"
@@ -247,28 +241,25 @@ function IndicatorDetail() {
         
           w={{ xs: "100%", md: "23rem" }}
           maxW="100%"
-          pos={{ xs: "static", md: "absolute" }}
- 
-    m={{ x: { xs: '-1.5rem', md: '25rem' }, y: { xs: '-3.5rem', md: '8rem' }}}
-   
-    right="0"
-    top="0"
-    rounded="xl"
-    h={{ lg: "25rem" }}
-    bg="white"
-   
-    p="2rem"
-  >
-     <Text
-      textAlign="left"
-      textSize="subheader"
-      textWeight="800"
-      fontFamily="ko"
-      bgColor="red"
-      m={{ x: { xs: '0', md: '0' }, y: { xs: '2rem', md: '-2rem' }}}
-      >
-               기간별 상관관계
-              </Text>
+          pos={{ xs: "static", md: "absolute" }} 
+          m={{ x: { xs: '-1.5rem', md: '25rem' }, y: { xs: '-3.5rem', md: '8rem' }}}
+          right="0"
+          top="0"
+          rounded="xl"
+          h={{ lg: "25rem" }}
+          bg="white"
+          p="2rem"
+          >
+          <Text
+          textAlign="left"
+          textSize="subheader"
+          textWeight="800"
+          fontFamily="ko"
+          bgColor="red"
+          m={{ x: { xs: '0', md: '0' }, y: { xs: '2rem', md: '-2rem' }}}
+          >
+        기간별 상관관계
+        </Text>
     <Div flexGrow="0">
     {
     chart1 === true
@@ -296,11 +287,10 @@ function IndicatorDetail() {
       }
   </Div>
   
-</Div>
-<Div
-      d="flex"
-      flexDir="column"
-     
+    </Div>
+      <Div
+        d="flex"
+        flexDir="column"   
         w={{ xs: "100%", md: "72rem" }}
         maxW="100%"
         pos={{ xs: "static", md: "absolute" }}
@@ -309,11 +299,9 @@ function IndicatorDetail() {
         top="0"
         rounded="xl"
         h={{ lg: "15rem" }}
-        bg="white"
-       
+        bg="white"     
         p="2rem"
-         >
-              
+         >           
         <Div d="flex" flexDir="column">
         <Text
             textAlign="left"

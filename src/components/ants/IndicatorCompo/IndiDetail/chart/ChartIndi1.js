@@ -1,23 +1,20 @@
 import React, { useEffect, useState } from "react";
-
-import { Button, Container, Text, Div, Icon, Input, Anchor } from "atomize";
+import { Div } from "atomize";
 import IndApi from "../../../../../api/IndApi";
 import { Line } from 'react-chartjs-2';
-import { AlertTitle } from "@material-ui/lab";
+
 
 function ChartIndi1(props) {
 
   let [chartData, chartDataChange] = useState([]);
 
   useEffect(() => {
-    //alert("이")
     let datachart = []
     var dataArr = [];
     var  labeleurusd = []
     var charteurusd = []
     IndApi.indicators1(props.tableName, props.num)
     .then(res =>{
- 
       charteurusd = res.data   
       
       for (var i = 0; i < charteurusd.length ; i++){
@@ -27,8 +24,7 @@ function ChartIndi1(props) {
       for (var i = 0; i < charteurusd.length ; i++){
         datachart.push( charteurusd[i]["price"])
      }
-     console.log(labeleurusd)
-     console.log(datachart)
+    
      var dataSet ={
        
               labels: labeleurusd,

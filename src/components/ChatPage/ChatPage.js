@@ -20,8 +20,8 @@ function ChatPage() {
                     d="flex"
                     justify="space-between"     
                     p={{ b: "280rem" }}
-                    border={{ b: "1px solid" }}
-                    borderColor="gray300"
+                   border={{ b: "1px solid" }}
+                 borderColor="gray300"
                     w={{ b: "280rem"}}
                 >
                     <Div

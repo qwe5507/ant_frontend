@@ -195,28 +195,6 @@ function MessageForm() {
                         </Text>
                     </Button>{' '}
                 </Col>
-            <Col>
-                <Button onClick={handleSubmit}
-                        type="submit"
-                        style={{ width: '100%' }}
-                        disabled={loading ? true : false}
-                        h="3rem"
-                        w={{ xs: "100%", sm: "40rem" }}
-                        bg="info700"
-                        hoverBg="info600"
-                         rounded="lg"
-                       
-                       m={{ r: "1rem", b: { xs: "1rem", sm: "0.5rem" } }}
-                    >
-                        <Text
-                        textSize="subheader"
-                         textWeight="800"
-                         fontFamily='ko'
-                         >
-                        UPLOAD
-                        </Text>
-                    </Button>{' '}
-                </Col>
             </Row>
 
             <input

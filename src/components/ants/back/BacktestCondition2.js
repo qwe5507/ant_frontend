@@ -4,7 +4,6 @@ import BacktestResult2 from "./BacktestResult2"
 
 import { Button, Container, Text, Div, Dropdown, Anchor, Input, Icon, Notification } from "atomize"
 
-// import Notification from './uicomponents/Notification'
 function BacktestCondition2() {
 
     // 선택 조건 목록
@@ -14,10 +13,6 @@ function BacktestCondition2() {
     let [showcoFsvalue, showcoFsvalueChange] = useState(false);
     let [coFsvalueSel, coFsvalueSelChange] = useState('조건');
 
-    let [showcoPeriod, showcoPeriodChange] = useState(false);
-    let [coPeriodSel, coPeriodSelChange] = useState('기간');
-
-    let [showcoSet, showcoSetChange] = useState(false);
     let [coSetSel, coSetSelChange] = useState('기준');
 
     let [showcoPrice, showcoPriceChange] = useState(false);
@@ -54,12 +49,15 @@ function BacktestCondition2() {
                     var unit;
                     switch (coFsvalueSel) {
                         case '삼성전자(005930)':
-                        case '한국전력(015760)':
-                        case 'LG생활건강(011900)':
-                        case '한샘(009240)':
-                        case '고려아연(010130)':
-                        case '매일유업(267980)':
+                        case '대웅제약(069620)':
                         case '한국카본(017960)':
+                        case '하이트진로(000800)':
+                        case '유한양행(000100)':
+                        case '한미반도체(009540)':
+                        case '한국조선해양(009540)':
+                        case '만도(204320)':
+                        case '영원무역(111770)':
+                        case '인텍플러스(064290)':
                     }
                 }
                 else {
@@ -147,7 +145,8 @@ function BacktestCondition2() {
     // 재무제표 조건
     const coFsvalue = (
         <Div>
-            {['삼성전자(005930)', '한국전력(015760)', 'LG생활건강(051900)', '한샘(009240)','고려아연(010130)', '한국카본(017960)'].map((name, index) => (
+            {['삼성전자(005930)', '대웅제약(069620)', '한국카본(017960)', '하이트진로(000800)', '한미반도체(009540)',
+             '한국조선해양(009540)', '만도(204320)', '영원무역(111770)', '인텍플러스(064290)'].map((name, index) => (
                 <Anchor
                     d="block"
                     p={{ y: "0.25rem", l: "0.75rem" }}
@@ -164,50 +163,10 @@ function BacktestCondition2() {
         showcoFsvalueChange(!showcoFsvalue)
     }
 
-    // 기간
-    const coPeriod = (
-        <Div>
-            {['분기', '연간'].map((name, index) => (
-                <Anchor
-                    d="block"
-                    p={{ y: "0.25rem", l: "0.75rem" }}
-                    onClick={() => coPeriodClicked(name)}
-                >
-                    {name}
-                </Anchor>
-            ))}
-        </Div>
-    );
-
-    function coPeriodClicked(name) {
-        coPeriodSelChange(name)
-        showcoPeriodChange(!showcoPeriod)
-    }
-
-    // 기준
-    const coSet = (
-        <Div>
-            {['수치', '성장률'].map((name, index) => (
-                <Anchor
-                    d="block"
-                    p={{ y: "0.25rem", l: "0.75rem" }}
-                    onClick={() => coSetClicked(name)}
-                >
-                    {name}
-                </Anchor>
-            ))}
-        </Div>
-    );
-
-    function coSetClicked(name) {
-        coSetSelChange(name)
-        showcoSetChange(!showcoSet)
-    }
-
     // 가격지표 조건 (복수선택)
     const coPrice = (
         <Div>
-            {['2018년(2018.01.01~2018.12.31)', '2019년(2019.01.01~2019.12.31)', '2020년(2020.01.01~2020.12.31)'].map((name, index) => (
+            {['2016년(2016.01.01~2016.12.31)','2017년(2017.01.01~2017.12.31)','2018년(2018.01.01~2018.12.31)', '2019년(2019.01.01~2019.12.31)', '2020년(2020.01.01~2020.12.31)'].map((name, index) => (
                 <Anchor
                     d="block"
                     p={{ y: "0.25rem", l: "0.75rem" }}
@@ -232,8 +191,9 @@ function BacktestCondition2() {
             <Div
                 tag="section"
                 w="100vw"
-                p={{ t: { xs: "6rem", md: "8rem" } }}
+                p={{ t: { xs: "6rem", md: "6rem" } }}
                 overflow="hidden"
+                
             >
                 <Container
                     d="flex"
@@ -245,24 +205,11 @@ function BacktestCondition2() {
                         textWeight="800"
                         textAlign="center"
                         textSize="display2"
-                        m={{ b: "1rem" }}
+                        m={{ b: "1.5rem" }}
                         fontFamily='ko'
                     >
                         한국주식 모멘텀 전략 백테스트
                         </Text>
-                    <Text
-                        tag="h2"
-                        textWeight="400"
-                        maxW="36rem"
-                        textSize="subheader"
-                        textAlign="center"
-                        fontFamily="secondary"
-                        textColor="medium"
-                        m={{ b: "2.5rem" }}
-                        fontFamily='ko'
-                    >
-                        한국 주식을 모멘텀 전략으로 과거에 매매했다면 성과가 어땠을지 확인해보세요.
-                    </Text>
 
                     {/* 재무제표 조건 드롭다운 */}
                     <Div
@@ -271,6 +218,12 @@ function BacktestCondition2() {
                         flexDir="column"
                         align="center"
                         w="100%"
+                        m={{ b: "0.5rem" }}
+                    >
+                        <Div
+                        d="flex"
+                        flexDir="row"
+                        
                     >
                         <Text
                             textSize="title"
@@ -283,21 +236,21 @@ function BacktestCondition2() {
                         </Text>
                         <Text
                             textSize="subheader"
-                            m={{ b: "0.5rem" }}
+                            m={{ x: { xs: '0.5rem', md: '0.5rem' }, y: { xs: '0rem', md: '0rem' }}}
                             textWeight="500"
                             textAlign="center"
                             fontFamily="ko"
                         >
                             대상 회사를 선택해보세요
                         </Text>
-
+                        </Div>
                         <Div
                             d="flex"
                             w="100%"
                             justify="center"
                         >
                             <Dropdown
-                                w={{ xs: "50%", sm: "10rem" }}
+                                w={{ xs: "50%", sm: "20rem" }}
                                 m={{ b: "0.5rem", r: "1rem" }}
                                 isOpen={showcoFsvalue}
                                 onClick={() =>
@@ -307,15 +260,6 @@ function BacktestCondition2() {
                             >
                                 {coFsvalueSel}
                             </Dropdown>
-                           
-                        </Div>
-                        <Div
-                            d="flex"
-                            w="100%"
-                            justify="center"
-                        >
-                    
-                        
                             <Icon
                                 name="Add"
                                 color="info700"
@@ -324,7 +268,6 @@ function BacktestCondition2() {
                                 m={{ b: "1.5rem", r: "1rem" }}
                                 onClick={() => { addFsCo() }}
                             />
-
                         </Div>
 
                     </Div> {/* 끝 : 재무제표 조건 드롭다운 */}
@@ -337,6 +280,10 @@ function BacktestCondition2() {
                         align="center"
                         w="100%"
                     >
+                        <Div
+                        d="flex"
+                        flexDir="row"
+                    >
                         <Text
                             textSize="title"
                             m={{ b: "0.5rem" }}
@@ -348,13 +295,14 @@ function BacktestCondition2() {
                         </Text>
                         <Text
                             textSize="subheader"
-                            m={{ b: "0.5rem" }}
+                            m={{ x: { xs: '0.5rem', md: '0.5rem' }, y: { xs: '0rem', md: '0rem' }}}
                             textWeight="500"
                             textAlign="center"
                             fontFamily="ko"
                         >
                            백테스트가 적용될 기간을 선택해보세요
                         </Text>
+                        </Div>
                     </Div>
                     <Div
                         d="flex"
@@ -372,6 +320,7 @@ function BacktestCondition2() {
                         >
                             {coPriceSel}
                         </Dropdown>
+                        
                         <Icon
                             name="Add"
                             color="info700"
@@ -529,17 +478,17 @@ function BacktestCondition2() {
                     ?
                     ''
                     :
-                    <Container
+                    <Div
                         d="flex"
                         flexDir="column"
                         align="center"
                     >
                         <BacktestResult2 result={result} />
-                    </Container>
+                    </Div>
                 }
                 {/* 조건 입력 에러 Notification*/}
                 <Notification
-                    bg="warning700"
+                    bg="info700"
                     isOpen={zoInputError}
                     onClose={() => zoInputErrorChange(false)}
                     prefix={
@@ -556,7 +505,7 @@ function BacktestCondition2() {
 
                 {/* 회사명기간 입력 에러 Notification*/}
                 <Notification
-                    bg="warning700"
+                    bg="info700"
                     isOpen={coInputError}
                     onClose={() => coInputErrorChange(false)}
                     prefix={
@@ -573,7 +522,7 @@ function BacktestCondition2() {
 
                 {/* 중복 선택 에러 Notification*/}
                 <Notification
-                    bg="warning700"
+                    bg="info700"
                     isOpen={coDuplicateError}
                     onClose={() => coDuplicateErrorChange(false)}
                     prefix={

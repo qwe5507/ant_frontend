@@ -55,22 +55,25 @@ class IndApiService {
     return axios.get(USER_API_BASE_URL + '/corrAbs'  + '/' + indi + '/' + num);
     }
 
+    //상관관계
     corrAbs2(co) {
     return axios.post(TEST_API_BASE_URL_DJANGO+ "/requestCorr2", co);
     }
 
+    //상관관계
     corrExe(co) {
         
         return axios.post(TEST_API_BASE_URL_DJANGO+ "/corrExe", co);
     }
 
+    //상관관계
     corr1(co) {
        
         return axios.post(TEST_API_BASE_URL_DJANGO+ "/corr1", co);
     }
 
+    //상관관계
     corr2(co) {
-       
         return axios.post(TEST_API_BASE_URL_DJANGO+ "/corr2", co);
     }
 
@@ -78,11 +81,6 @@ class IndApiService {
     insertIndicator(comm) {
         return axios.post(USER_API_BASE_URL + "/input", comm);
     }
-
-   // 댓글(리스트)
-    firstCommentsByIndID(symbolname) {
-        return axios.get(USER_API_BASE_URL +  "/comLis"  + '/' + symbolname);
-   }
 
    // 댓글(리스트)
    fetchCommentsByIndID(symbolname, num) {

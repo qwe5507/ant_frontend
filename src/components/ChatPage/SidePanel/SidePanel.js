@@ -11,7 +11,6 @@ function SidePanel(props) {
 
     return (
         <div style={{
-           // backgroundColor: "#7B83EB",
             padding: '1.5rem 0rem',
             minHeight: '60vh',
             color: 'black',

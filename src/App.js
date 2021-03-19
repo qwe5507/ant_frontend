@@ -12,6 +12,7 @@ import Login from "./components/ants/Login/Login";
 import Register from "./components/ants/Login/Register";
 import Indicators from "./components/ants/Indicators";
 import Backtest from "./components/ants/Backtest";
+import BacktestPage from "./components/ants/back/BacktestPage";
 import Backtest2 from "./components/ants/back/Backtest2";
 import Backtest3 from "./components/ants/back/Backtest3";
 import IndicatorDetail from "./components/ants/IndicatorCompo/IndiDetail/pages/IndicatorDetail";
@@ -171,6 +172,7 @@ function App() {
           <Route exact path="/Register" component={Register} />
           <Route exact path="/Indicators" component={Indicators} />
           <Route exact path="/Backtest" component={Backtest} />
+          <Route exact path="/BacktestPage" component={BacktestPage} />
           <Route exact path="/Backtest2" component={Backtest2} />
           <Route exact path="/Backtest3" component={Backtest3} />
           <Route exact path="/Community" component={Community} />

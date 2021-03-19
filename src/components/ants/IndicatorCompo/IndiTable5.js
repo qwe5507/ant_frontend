@@ -1,5 +1,4 @@
-import { render } from '@testing-library/react';
-import React, {Component, useState} from 'react';
+import React, {Component} from 'react';
 import IndApi from "../../../api/IndApi";
 import Table from '@material-ui/core/Table'
 import TableBody from '@material-ui/core/TableBody'
@@ -8,7 +7,6 @@ import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
 import Button from '@material-ui/core/Button'
 import { Link } from 'react-router-dom';
-
 import { Text, Div } from "atomize";
 
 class IndiTable5 extends Component{
@@ -19,14 +17,12 @@ class IndiTable5 extends Component{
           bitcoins : [],
           bitcoinid : 'bitcoin',
           message : null
-    };
-}
+    };}
 
     componentDidMount(){
         this.reloadBitCoinList();
-      }
+    }
 
-    
     reloadBitCoinList = () => {
       IndApi.indicators2("bitcoin", 10)
     .then(res =>{
@@ -35,7 +31,6 @@ class IndiTable5 extends Component{
         .catch(err => {
         console.error('지표리스트(비트코인) 오류', err);
         })
-
       }
 
       componentWillUnmount(){
@@ -90,16 +85,12 @@ class IndiTable5 extends Component{
               <TableCell align="center">{bitcoin.low}</TableCell>
              
             </TableRow>      
-        )
-      }   
+        )}   
             </TableBody>
         </Table>
         </Div >
       </Div >
           </div>
-      )
-
+      )}
       }
-
-}
 export default IndiTable5;

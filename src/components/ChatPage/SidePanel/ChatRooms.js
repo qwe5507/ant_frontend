@@ -9,9 +9,7 @@ import {
     setCurrentChatRoom, setPrivateChatRoom,
 } from '../../../redux/actions/chatRoom_action';
 import { connect } from 'react-redux';
-import { FaPlus } from 'react-icons/fa';
-import { FaRegSmileWink } from 'react-icons/fa';
-import { Div, Text, Container} from "atomize"
+import { Text} from "atomize"
 import { FaRegSmileBeam } from 'react-icons/fa';
 
 import Accordion from '@material-ui/core/Accordion';
@@ -62,11 +60,9 @@ export class ChatRooms extends Component {
 
     AddChatRoomsListeners = () => {
         let chatRommsArray = []
-        // chatRoomsRef.on(eventType, callback)
         this.state.chatRoomsRef.on("child_added", DataSnapshot => {
             chatRommsArray.push(DataSnapshot.val());
             this.setState({ chatRooms: chatRommsArray }, () => this.setFirstChatRoom());
-            // DataSnapshot.key === chatRoomId
             this.addNotificationListener(DataSnapshot.key);
         })
     }
@@ -261,16 +257,6 @@ export class ChatRooms extends Component {
                 </AccordionDetails>
                 </Accordion>
 
-                <FaPlus
-                        style={{
-                            position: 'absolute',
-                            right: 0, cursor: 'pointer'
-                        }}
-                        onClick={this.handleShow}
-                    />
-                
-
-               
                 {/* ADD ChatRoom Modal */}
                 <Modal show={show} onHide={this.handleClose}>
                     <Modal.Header closeButton>

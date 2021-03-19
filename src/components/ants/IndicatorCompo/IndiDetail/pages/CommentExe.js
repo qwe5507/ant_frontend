@@ -1,35 +1,26 @@
-import React, {useState, useEffect, useRef,  useCallback } from "react"
-import { Text, Div, Button, Container, Icon, Input, Modal } from "atomize";
-import { useParams, useHistory, Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import React, {useState, useEffect} from "react"
+import { Text, Div, Button, Icon, Input } from "atomize";
+import {  useSelector } from 'react-redux';
 import IndApi from "../../../../../api/IndApi";
 import AlignStartModal from "./AlignStartModal";
-import AlignStartModal2 from "./AlignStartModal2";
 
 function CommentExe(props) {
-  let history = useHistory();
   const loginid = useSelector(state => state.user.userid);
   const loginname = useSelector(state => state.user.nickname);
   
   let [showModal, showModalb ] = useState(false);
-  let [showModala, showModalab ] = useState(false);
 
     let [comment, commentbyun] = useState("");
-    let [commentid, commentidbyun] = useState("");
     let [commentlist, commentlistbyun] = useState([]);
-   
-    let {tableName} = useParams();  
-    let {num} = useParams();
 
     let [next, nextbyun] = useState(2)
-    let [su, subyun] = useState(0)
 
     const commentloading = () => {
    
      IndApi.fetchCommentsByIndID(props.tableName, next)
           .then(res => {
             nextbyun(props.num)
-              commentlistbyun(res.data)
+           commentlistbyun(res.data)
           })
           .catch(err => {
               console.log('댓글 리스트 error:', err);
@@ -45,12 +36,11 @@ function CommentExe(props) {
           commentlistbyun(res.data)
       })
       .catch(err => {
-          console.log('댓글 리스트 error:', err);
+          console.log('댓글 error:', err);
         });
       }
     else
     {
-      console.log("초기확인1",next)
       IndApi.fetchCommentsByIndID(symbol, next+1)
     .then(res => {
       if(res.data[0] != null){
@@ -59,7 +49,7 @@ function CommentExe(props) {
       }
     })
     .catch(err => {
-        console.log('댓글 원/달러 리스트 error:', err);});
+        console.log('댓글 error:', err);});
     }
   }
     
@@ -71,23 +61,19 @@ function CommentExe(props) {
         commentlistbyun(res.data)
     })
     .catch(err => {
-        console.log('댓글 원/달러 리스트 error:', err);
+        console.log('댓글 error:', err);
       });
     }
   
   else
   {
-    
-    console.log("초기확인1",next)
     IndApi.fetchCommentsByIndID(symbol, next-1)
-  .then(res => {
-      
+  .then(res => {  
       commentlistbyun(res.data)
-     
       nextbyun(next-1)
   })
   .catch(err => {
-      console.log('댓글 원/달러 리스트 error:', err);});
+      console.log('댓글리스트 error:', err);});
   }
 }
 
@@ -119,13 +105,20 @@ function CommentExe(props) {
     return (     
       
       <div align = "center" >
-        
-  <Div
-    m={{ t: "0.5rem" }}
-    h="6rem"
-    w="70rem"
-    d="inline-block" align="center"
-    >
+         <AlignStartModal
+          userid = {loginid}
+          nickname = {loginname}
+          symbolname = {props.tableName}
+          content = {comment}
+          isOpen={showModal}
+          onClose={() =>  showModalb(false)}
+        />
+      <Div
+        m={{ t: "0.5rem" }}
+        h="6rem"
+        w="70rem"
+        d="inline-block" align="center"
+        >
        <Input
       placeholder="댓글을 남겨주세요."
       p={{ x: "2.5rem" }}
@@ -135,8 +128,7 @@ function CommentExe(props) {
       name="commnet_content"
       value={comment}
       onChange={(e) => { commentbyun(e.target.value) }}
-   
-    />
+      />
     <Button
         pos={{ xs: "static", md: "absolute" }}
         bg="info700"
@@ -151,12 +143,10 @@ function CommentExe(props) {
         >
         등록
      </Button></Div>  
-
   
     {commentlist.map(comment=>(
-<Div 
+    <Div 
       p={{ x: "2.5rem", t: "0.7rem" }}
-      // m={{ t: "0.5rem" }}
       m={{ x: { xs: '0.5rem', md: '0.5rem' }, y: { xs: '0.5rem', md: '0.5rem' }}}
        h="7.5rem"
        w={{ xs: "22rem", md: "28rem" }}
@@ -217,13 +207,13 @@ function CommentExe(props) {
       /> :null}
        
       </Div>
-</Div>
-</Div>
+      </Div>
+      </Div>
 
-))} 
-<Div  m={{ x: { xs: '1rem', md: '1.5rem' }, y: { xs: '1rem', md: '0.5rem' }}} >
-  <div align-items= "center"  >
-<button style={{backgroundColor: '#0284fe'}}  color="white"onClick={ () => links2(props.tableName, next)}>
+      ))} 
+      <Div  m={{ x: { xs: '1rem', md: '1.5rem' }, y: { xs: '1rem', md: '0.5rem' }}} >
+      <div align-items= "center"  >
+      <button style={{backgroundColor: '#0284fe'}}  color="white"onClick={ () => links2(props.tableName, next)}>
 <Text
         textAlign="left"
         textSize="Typography"
@@ -234,36 +224,20 @@ function CommentExe(props) {
   ◀
   </Text>
   </button>&nbsp;
-<button style={{backgroundColor: '#0284fe'}} onClick={ () =>  links(props.tableName, next)}>
-<Text
+      <button style={{backgroundColor: '#0284fe'}} onClick={ () =>  links(props.tableName, next)}>
+      <Text
         textAlign="left"
         textSize="Typography"
         textWeight="600"
         fontFamily="secondary"
         textColor="white"
          >
-
-  ▶
-</Text>  
-  </button>
-
-</div>
-
-</Div> 
-
- 
-        <AlignStartModal
-          userid = {loginid}
-          nickname = {loginname}
-          symbolname = {props.tableName}
-          content = {comment}
-          isOpen={showModal}
-          onClose={() =>  showModalb(false)}
-        />
-
-        
-</div>
-
+      ▶
+      </Text>  
+      </button>
+      </div>
+      </Div> 
+      </div>
     )
 }
 

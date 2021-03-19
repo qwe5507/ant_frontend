@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState } from "react";
-import {HorizontalBar, Bar} from 'react-chartjs-2';
+import {HorizontalBar} from 'react-chartjs-2';
 import IndApi from "../../../../../api/IndApi";
 function CorrKorExe(props){
 
@@ -21,7 +21,6 @@ function CorrKorExe(props){
 
         datasets: [
           {
-           // legend: false,
             label: '상관관계',
             backgroundColor:[
               'rgba(50, 116, 161, 1)',

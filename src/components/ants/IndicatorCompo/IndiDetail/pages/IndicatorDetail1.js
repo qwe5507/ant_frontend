@@ -1,6 +1,6 @@
-import React, {useState, useEffect, useRef } from "react"
-import { Text, Div, Icon, Anchor, Input, Container, Button} from "atomize";
-import { useParams, Link, useHistory } from 'react-router-dom';
+import React, {useState, useEffect } from "react"
+import { Text, Div, Icon, Container, Button} from "atomize";
+import { useParams, Link } from 'react-router-dom';
 import ChartIndi1 from "../chart/ChartIndi1"
 import Corr1 from "../chart/Corr1"
 import IndApi from "../../../../../api/IndApi";
@@ -9,9 +9,9 @@ import TableBody from '@material-ui/core/TableBody'
 import TableCell from '@material-ui/core/TableCell'
 import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
-import axios from "axios";
 import CommentExe from "./CommentExe"
 import NewsApi from "../../../../../api/NewsApi";
+
 function IndicatorDetail1(props) {
 
     let [result, resultbyun] = useState("");
@@ -55,7 +55,6 @@ function IndicatorDetail1(props) {
       {
         titlebyun("비트코인")
       }
-      console.log("제목변경",title)
       IndApi.indicators2(tableName, 1)
       .then(res =>{
         numsbyun(res.data[0]["price"])
@@ -77,20 +76,14 @@ function IndicatorDetail1(props) {
       }
       )
       .catch(err => {
-        console.error('1일 수치 확인 오류', err);
-      
+        console.error('1일 수치 확인 오류', err);      
         })
-
     }
 
     function corrAbs(){
-      console.log("들어갈것 확인",symboli)
-      console.log("확인2",symboli["tableName"].toLowerCase())
       IndApi.corrAbs(symboli["tableName"].toLowerCase(), 5)
       .then(res=>{
-        console.log("상관관계 확인", res.data)
         indsbyun(res.data)
-        console.log("확인확인",res.data[0][symboli["tableName"].toLowerCase()])
         ind1byun(res.data[0][symboli["tableName"].toLowerCase()])
         ind2byun(res.data[1][symboli["tableName"].toLowerCase()])
         ind3byun(res.data[2][symboli["tableName"].toLowerCase()])
@@ -104,8 +97,7 @@ function IndicatorDetail1(props) {
     }
 
     useEffect(() => {
-      window.scrollTo(0, 0)
-      
+      window.scrollTo(0, 0)     
       searchmatchparse()
       corrAbs()
     }, []);
@@ -141,7 +133,6 @@ function IndicatorDetail1(props) {
          </Text>  
          <Text
              textSize="caption"
-             //   m={{ t: "0.5rem", b: "1rem" }}
              m={{ x: { xs: '0.5rem', md: '0.5rem' }, y: { xs: '-0.5rem', md: '0.5rem' }}}
               textWeight="800"
               fontFamily="ko"
@@ -152,8 +143,7 @@ function IndicatorDetail1(props) {
          <Text
              textAlign="left"
              textSize="caption"
-        //    m={{ t: "0.5rem", b: "0.5rem" }}
-        m={{ x: { xs: '0rem', md: '-1rem' }, y: { xs: '0rem', md: '0.5rem' }}}
+            m={{ x: { xs: '0rem', md: '-1rem' }, y: { xs: '0rem', md: '0.5rem' }}}
             textWeight="800"
             fontFamily="ko"
             textColor="light"
@@ -261,35 +251,29 @@ function IndicatorDetail1(props) {
             </Div>
               <Div
          d="flex"
-        flexDir="column"
-        
+        flexDir="column"  
           w={{ xs: "100%", md: "23rem" }}
           maxW="100%"
           pos={{ xs: "static", md: "absolute" }}
- 
-    m={{ x: { xs: '-1.5rem', md: '25rem' }, y: { xs: '-3.5rem', md: '8rem' }}}
-   
-    right="0"
-    top="0"
-    rounded="xl"
-    h={{ lg: "25rem" }}
-    bg="white"
-   
-    p="2rem"
+        m={{ x: { xs: '-1.5rem', md: '25rem' }, y: { xs: '-3.5rem', md: '8rem' }}}
+        right="0"
+        top="0"
+        rounded="xl"
+        h={{ lg: "25rem" }}
+        bg="white"
+        p="2rem"
   >
-     <Text
-      textAlign="left"
-      textSize="subheader"
-      textWeight="800"
-      fontFamily="ko"
-      bgColor="red"
-      m={{ x: { xs: '0', md: '0' }, y: { xs: '2rem', md: '-2rem' }}}
-      >
-               기간별 상관관계
-              </Text>
-              <Div flexGrow="0">
-
-
+        <Text
+        textAlign="left"
+        textSize="subheader"
+        textWeight="800"
+        fontFamily="ko"
+        bgColor="red"
+        m={{ x: { xs: '0', md: '0' }, y: { xs: '2rem', md: '-2rem' }}}
+        >
+        기간별 상관관계
+        </Text>
+        <Div flexGrow="0">
           {
             chart1 === true
             ? 
@@ -297,8 +281,7 @@ function IndicatorDetail1(props) {
             <Corr1 nums={30} tableName={tableName}/>
             </Div>
             : null
-            }
-         
+            }       
           {
             chart2 === true
             ?
@@ -306,8 +289,7 @@ function IndicatorDetail1(props) {
              <Corr1 nums={90} tableName={tableName}/>
              </Div>
             : null
-            }
-         
+            }        
           {
             chart3 === true
             ?
@@ -319,21 +301,19 @@ function IndicatorDetail1(props) {
           </Div>
           </Div>
           <Div
-      d="flex"
-      flexDir="column"
-     
-        w={{ xs: "100%", md: "72rem" }}
-        maxW="100%"
-        pos={{ xs: "static", md: "absolute" }}
-         m={{ x: { xs: '-2rem', md: '22rem' }, y: { xs: '2rem', md: '31rem' }}}
-        left="0"
-        top="0"
-        rounded="xl"
-        h={{ lg: "15rem" }}
-        bg="white"
-       
-        p="2rem"
-         >
+          d="flex"
+          flexDir="column"
+          w={{ xs: "100%", md: "72rem" }}
+          maxW="100%"
+          pos={{ xs: "static", md: "absolute" }}
+          m={{ x: { xs: '-2rem', md: '22rem' }, y: { xs: '2rem', md: '31rem' }}}
+          left="0"
+          top="0"
+          rounded="xl"
+          h={{ lg: "15rem" }}
+          bg="white"
+          p="2rem"
+          >
             <Div d="flex" flexDir="column">
             <Text
             textAlign="left"
@@ -499,14 +479,12 @@ function IndicatorDetail1(props) {
                  m = {{ xs: "1rem", md: "0" }}
                  textAlign="left"  
                  textColor="gray900"
-               >{data['_source']['news_group']} | {data['_source']['news_source']} | {data['_source']['news_date'].substring(0,10)} | </Text>  
-            
+               >{data['_source']['news_group']} | {data['_source']['news_source']} | {data['_source']['news_date'].substring(0,10)} | </Text>        
            </Div>
-
-)})}
-</Div>
-    </Div>    
-    <Div
+          )})}
+          </Div>
+          </Div>    
+          <Div
            d="flex"
            flexDir="column"
            border="1px solid"
@@ -534,7 +512,7 @@ function IndicatorDetail1(props) {
             fontFamily="ko"
           >
             개미토론방
-              </Text>
+            </Text>
             <CommentExe tableName={tableName} num={2}/>
           </Div>
          </Div>

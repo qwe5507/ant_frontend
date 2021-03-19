@@ -1,5 +1,5 @@
-import { Div, Button, Modal, Icon, Text, Dropdown, Anchor ,Notification } from "atomize";
-import React, { useState, useEffect } from "react"
+import { Div, Button, Modal, Icon, Text } from "atomize";
+import React from "react"
 import IndApi from "../../../../../api/IndApi";
 
 function AlignStartModal(props){
@@ -15,7 +15,7 @@ function AlignStartModal(props){
       
     )
     window.location.reload()
- //   props.onClose
+ 
   }   
   
   return (
@@ -37,7 +37,7 @@ function AlignStartModal(props){
             m={{ t: "0.35rem", r: "0.5rem" }}
           />
           <Text p={{ l: "0.5rem", t: "0.25rem" }} textSize="subheader">
-            댓글을 남기시겠습니까
+            댓글을 남기시겠습니까?
           </Text>
         </Div>
         <Div d="flex" justify="flex-end">

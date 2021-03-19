@@ -14,10 +14,6 @@ function BacktestCondition3() {
     let [showcoFsvalue, showcoFsvalueChange] = useState(false);
     let [coFsvalueSel, coFsvalueSelChange] = useState('조건');
 
-    let [showcoPeriod, showcoPeriodChange] = useState(false);
-    let [coPeriodSel, coPeriodSelChange] = useState('기간');
-
-    let [showcoSet, showcoSetChange] = useState(false);
     let [coSetSel, coSetSelChange] = useState('기준');
 
     let [showcoPrice, showcoPriceChange] = useState(false);
@@ -54,9 +50,8 @@ function BacktestCondition3() {
                     var unit;
                     switch (coFsvalueSel) {
                         case '애플(AAPL)':
-                        case '테슬라(TSLA)':
-                        case 'IBM(IBM)':
-                        case '엑슨모빌(XOM)':
+                        case '월마트(WMT)':
+                        case '머크(MRK)':
                     }
                 }
                 else {
@@ -144,7 +139,7 @@ function BacktestCondition3() {
     // 재무제표 조건
     const coFsvalue = (
         <Div>
-            {['애플(AAPL)', '테슬라(TSLA)', 'IBM(IBM)', '엑슨모빌(XOM)'].map((name, index) => (
+            {['애플(AAPL)', '월마트(WMT)', '머크(MRK)'].map((name, index) => (
                 <Anchor
                     d="block"
                     p={{ y: "0.25rem", l: "0.75rem" }}
@@ -161,50 +156,11 @@ function BacktestCondition3() {
         showcoFsvalueChange(!showcoFsvalue)
     }
 
-    // 기간
-    const coPeriod = (
-        <Div>
-            {['분기', '연간'].map((name, index) => (
-                <Anchor
-                    d="block"
-                    p={{ y: "0.25rem", l: "0.75rem" }}
-                    onClick={() => coPeriodClicked(name)}
-                >
-                    {name}
-                </Anchor>
-            ))}
-        </Div>
-    );
-
-    function coPeriodClicked(name) {
-        coPeriodSelChange(name)
-        showcoPeriodChange(!showcoPeriod)
-    }
-
-    // 기준
-    const coSet = (
-        <Div>
-            {['수치', '성장률'].map((name, index) => (
-                <Anchor
-                    d="block"
-                    p={{ y: "0.25rem", l: "0.75rem" }}
-                    onClick={() => coSetClicked(name)}
-                >
-                    {name}
-                </Anchor>
-            ))}
-        </Div>
-    );
-
-    function coSetClicked(name) {
-        coSetSelChange(name)
-        showcoSetChange(!showcoSet)
-    }
-
     // 가격지표 조건 (복수선택)
     const coPrice = (
         <Div>
-            {['2016-2018년(2016.01.01~2018.12.31)', '2017-2019년(2017.01.01~2019.12.31)', '2018-2020년(2018.01.01~2020.12.31)'].map((name, index) => (
+            {[ '2016-2018년(2016.01.01~2018.12.31)', 
+            '2017-2019년(2017.01.01~2019.12.31)', '2018-2020년(2018.01.01~2020.12.31)'].map((name, index) => (
                 <Anchor
                     d="block"
                     p={{ y: "0.25rem", l: "0.75rem" }}
@@ -229,7 +185,7 @@ function BacktestCondition3() {
             <Div
                 tag="section"
                 w="100vw"
-                p={{ t: { xs: "6rem", md: "8rem" } }}
+                p={{ t: { xs: "6rem", md: "6rem" } }}
                 overflow="hidden"
             >
                 <Container
@@ -242,24 +198,11 @@ function BacktestCondition3() {
                         textWeight="800"
                         textAlign="center"
                         textSize="display2"
-                        m={{ b: "1rem" }}
+                        m={{ b: "1.5rem" }}
                         fontFamily='ko'
                     >
                         해외주식 RSI 전략 백테스트
                         </Text>
-                    <Text
-                        tag="h2"
-                        textWeight="400"
-                        maxW="36rem"
-                        textSize="subheader"
-                        textAlign="center"
-                        fontFamily="secondary"
-                        textColor="medium"
-                        m={{ b: "2.5rem" }}
-                        fontFamily='ko'
-                    >
-                        해외 주식을 RSI 전략으로 매매했다면 성과가 어땠을지 확인해보세요.
-                    </Text>
 
                     {/* 재무제표 조건 드롭다운 */}
                     <Div
@@ -268,6 +211,11 @@ function BacktestCondition3() {
                         flexDir="column"
                         align="center"
                         w="100%"
+                        m={{ b: "0.5rem" }}
+                    >
+                        <Div
+                        d="flex"
+                        flexDir="row"                     
                     >
                         <Text
                             textSize="title"
@@ -280,21 +228,21 @@ function BacktestCondition3() {
                         </Text>
                         <Text
                             textSize="subheader"
-                            m={{ b: "0.5rem" }}
+                            m={{ x: { xs: '0.5rem', md: '0.5rem' }, y: { xs: '0rem', md: '0rem' }}}
                             textWeight="500"
                             textAlign="center"
                             fontFamily="ko"
                         >
                             대상 회사를 선택해보세요
                         </Text>
-
+                        </Div>
                         <Div
                             d="flex"
                             w="100%"
                             justify="center"
                         >
                             <Dropdown
-                                w={{ xs: "50%", sm: "10rem" }}
+                                w={{ xs: "50%", sm: "20rem" }}
                                 m={{ b: "0.5rem", r: "1rem" }}
                                 isOpen={showcoFsvalue}
                                 onClick={() =>
@@ -304,15 +252,6 @@ function BacktestCondition3() {
                             >
                                 {coFsvalueSel}
                             </Dropdown>
-                           
-                        </Div>
-                        <Div
-                            d="flex"
-                            w="100%"
-                            justify="center"
-                        >
-                    
-                        
                             <Icon
                                 name="Add"
                                 color="info700"
@@ -321,7 +260,6 @@ function BacktestCondition3() {
                                 m={{ b: "1.5rem", r: "1rem" }}
                                 onClick={() => { addFsCo() }}
                             />
-
                         </Div>
 
                     </Div> {/* 끝 : 재무제표 조건 드롭다운 */}
@@ -334,6 +272,10 @@ function BacktestCondition3() {
                         align="center"
                         w="100%"
                     >
+                         <Div
+                        d="flex"
+                        flexDir="row"
+                    >
                         <Text
                             textSize="title"
                             m={{ b: "0.5rem" }}
@@ -345,13 +287,14 @@ function BacktestCondition3() {
                         </Text>
                         <Text
                             textSize="subheader"
-                            m={{ b: "0.5rem" }}
+                            m={{ x: { xs: '0.5rem', md: '0.5rem' }, y: { xs: '0rem', md: '0rem' }}}
                             textWeight="500"
                             textAlign="center"
                             fontFamily="ko"
                         >
                            백테스트가 적용될 기간을 선택해보세요
                         </Text>
+                        </Div>
                     </Div>
                     <Div
                         d="flex"
@@ -537,7 +480,7 @@ function BacktestCondition3() {
 
                 {/* 회사명 기간 입력 에러 Notification*/}
                 <Notification
-                    bg="warning700"
+                    bg="info700"
                     isOpen={coInputError}
                     onClose={() => coInputErrorChange(false)}
                     prefix={
@@ -554,7 +497,7 @@ function BacktestCondition3() {
                 
                 {/* 조건 입력 에러 Notification*/}
                 <Notification
-                    bg="warning700"
+                    bg="info700"
                     isOpen={zoInputError}
                     onClose={() => zoInputErrorChange(false)}
                     prefix={

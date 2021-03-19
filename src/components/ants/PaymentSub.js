@@ -1,6 +1,8 @@
 import React from "react"
-import { Button, Container, Text, Div, Dropdown, Anchor, Input, Icon } from "atomize"
+import { Button, Container, Text, Div} from "atomize"
 import { Link} from 'react-router-dom';
+import imgName from '../../images/payment2.jpg';
+
 function Payment() {
     return (
         <div>
@@ -25,11 +27,9 @@ function Payment() {
                         </Text>
                         <Text
                             tag="h2"
-                            textWeight="400"
+                            textWeight="800"
                             maxW="36rem"
-                            textSize="subheader"
                             textAlign="center"
-                            fontFamily="secondary"
                             textColor="medium"
                             m={{ b: "2.5rem" }}
                             fontFamily='ko'
@@ -53,12 +53,11 @@ function Payment() {
                                 </Text>
                             </Button>
                             </Link>
-                
-                   
+                            <br/><br/>
+                            <img src = {imgName} style={{opacity:0.5}}/>
+
                 </Container>
             </Div>
-
-
 
         </>
         </div>

@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import Container from 'react-bootstrap/Container';
-//import Row from 'react-bootstrap/Row';
-//import Col from 'react-bootstrap/Col';
 import { Row, Col, Div, Text } from "atomize"
 import InputGroup from 'react-bootstrap/InputGroup';
 import FormControl from 'react-bootstrap/FormControl';
@@ -27,7 +25,6 @@ function MessageHeader({ handleSearchChange }) {
         if (chatRoom && user) {
             addFavoriteListener(chatRoom.id, user.uid)
         }
-      //  window.scrollTo(0, 0)
     })
 
     const addFavoriteListener = (chatRoomId, userId) => {
@@ -97,8 +94,6 @@ function MessageHeader({ handleSearchChange }) {
         <div style={{
             width: '95%',
             height: '120px',
-            border: '.2rem solid #ececec',
-            borderRadius: '4px',
             padding: '1rem',
             marginBottom: '1rem',
             marginTop: '-1rem'
@@ -160,9 +155,6 @@ function MessageHeader({ handleSearchChange }) {
                         </InputGroup>
                     </Col>
                 </Row>
-
-              
-                
 
                 <Row >
                 <Div

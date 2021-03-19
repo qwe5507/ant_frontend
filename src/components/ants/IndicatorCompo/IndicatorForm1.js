@@ -17,9 +17,7 @@ class IndicatorForm1 extends Component{
 }
 
 componentDidMount(){
-  console.log('comdid run');
   this.reloadJipyoList();
-  
 }
 
 reloadJipyoList = () => {
@@ -31,7 +29,6 @@ reloadJipyoList = () => {
         rates : res.data[0]["price"],
         message : "1일 데이터"
       })
-      
       })
       .catch(err => {
       console.error('지표리스트 오류(국외환율)', err);
