@@ -11,7 +11,6 @@ import { useSelector } from 'react-redux';
 import { MdFavorite } from 'react-icons/md';
 import { MdFavoriteBorder } from 'react-icons/md';
 import firebase from "../../../firebase";
-import Media from 'react-bootstrap/Media';
 
 function MessageHeader({ handleSearchChange }) {
     const chatRoom = useSelector(state => state.chatRoom.currentChatRoom)
@@ -67,29 +66,6 @@ function MessageHeader({ handleSearchChange }) {
             setIsFavorited(prev => !prev)
         }
     };
-
-    const renderUserPosts = userPosts =>
-        Object.entries(userPosts)
-            .sort((a, b) => b[1].count - a[1].count)
-            .map(([key, val], i) => (
-                <Media key={i}>
-                    <img
-                        style={{ borderRadius: '25px' }}
-                        width={48}
-                        height={48}
-                        className="mr-3"
-                        src={val.image}
-                        alt={val.name}
-                    />
-                    <Media.Body>
-                        <h6>{key}</h6>
-                        <p>
-                            {val.count} 개
-                        </p>
-                    </Media.Body>
-                </Media>
-            ))
-
     return (
         <div style={{
             width: '95%',
@@ -126,10 +102,10 @@ function MessageHeader({ handleSearchChange }) {
                             <span>
                             <Text
                              textAlign="left"
-                            textSize="display1"
+                            textSize={{xs:"subheader", md:"display1"}}
                             textWeight="800"
                             fontFamily="ko"
-                            m={{ b: "1rem" }}
+                            m={{ x: { xs: '0.5rem', md: '0.5rem' }, y: { xs: '0.5rem', md: '0.5rem' }}}
                             >
                             {" "}
                             {chatRoom && chatRoom.name}
@@ -148,7 +124,7 @@ function MessageHeader({ handleSearchChange }) {
                             <FormControl
                                 onChange={handleSearchChange}
                                 size="lg" type="text"
-                                placeholder="메시지 검색"
+                                placeholder="검색"
                                 aria-label="Search"
                                 aria-describedby="basic-addon1"
                             />

@@ -81,7 +81,6 @@ class IndiTable2_Detail extends Component{
         <TableHead>         
           <TableRow>         
             <TableCell align="center"><b>통화명</b></TableCell>
-            <TableCell align="center"><b>심볼</b></TableCell>
             <TableCell align="center"><b>매매기준율</b></TableCell>
             <TableCell align="center"><b>기준일자</b></TableCell>
           </TableRow>
@@ -104,7 +103,6 @@ class IndiTable2_Detail extends Component{
               </Button>
               </Link>
                 </TableCell>
-              <TableCell align="center">{indifor.symbol}</TableCell>
               <TableCell align="center">{indifor.price}</TableCell>
               <TableCell align="center">{indifor.dates.substring(0,10)}</TableCell>
             </TableRow>
@@ -129,10 +127,8 @@ class IndiTable2_Detail extends Component{
           <TableRow>         
             <TableCell align="center"><b>통화명</b></TableCell>
             <TableCell align="center"><b>기준일자</b></TableCell>
-            <TableCell align="center"><b>종가</b></TableCell>
-            <TableCell align="center"><b>오픈</b></TableCell>
-            <TableCell align="center"><b>고가</b></TableCell>
-            <TableCell align="center"><b>저가</b></TableCell>
+            <TableCell align="center"><b>가격</b></TableCell>
+            
             
           </TableRow>
         </TableHead>
@@ -154,9 +150,7 @@ class IndiTable2_Detail extends Component{
                 </TableCell>
               <TableCell align="center">{dolidx.dates.substring(0,10)}</TableCell>
               <TableCell align="center">{dolidx.price}</TableCell>
-              <TableCell align="center">{dolidx.open}</TableCell>
-              <TableCell align="center">{dolidx.high}</TableCell>
-              <TableCell align="center">{dolidx.low}</TableCell>
+              
             </TableRow>
         )
       }         

@@ -40,7 +40,7 @@ function MessageBody({ message, user }) {
 
     return (
         <div align = {isMessageMine(message, user) ? "right" : "left" } >
-      <CardContent style={{  padding:'2', width : "75%", backgroundColor: isMessageMine(message, user) ? "#ECECEC" : "#FFFFFF", borderRadius: "1em", margin:'0.5em'}}  >
+      <CardContent style={{  padding:'2', width : "75%", backgroundColor: isMessageMine(message, user) ? "#ECECEC" : "#FFFFFF", borderRadius: "1em", margin:'0.5rem'}}  >
         <Media style={{ marginBottom:'3px'}}>
             
             <Media.Body >

@@ -116,40 +116,41 @@ function CommentExe(props) {
       <Div
         m={{ t: "0.5rem" }}
         h="6rem"
-        w="70rem"
+        w={{ xs: "100%", md: "70rem" }}
         d="inline-block" align="center"
         >
-       <Input
+      <Input
       placeholder="댓글을 남겨주세요."
       p={{ x: "2.5rem" }}
       m={{ t: "0.5rem" }}
       h={{ xs: "6rem", md: "5rem" }}
-      w={{ xs: "23rem", md: "28rem" }}
+      w={{ xs: "100%", md: "28rem" }}
       name="commnet_content"
       value={comment}
       onChange={(e) => { commentbyun(e.target.value) }}
-      />
+   
+    />
     <Button
         pos={{ xs: "static", md: "absolute" }}
-        bg="info700"
-        hoverBg="info600"
-        w={{ xs: "3rem", md: "6rem" }}
-        h={{ xs: "5rem", md: "2.5rem" }}
-        m={{ x: { xs: '1rem', md: '1.5rem' }, y: { xs: '2rem', md: '-1.5rem' }}}
-     
+        bg="warning600"
+        hoverBg="warning700"
+        w={{ xs: "8rem", md: "6rem" }}
+        h={{ xs: "2rem", md: "2.5rem" }}
+        m={{ x: { xs: '1rem', md: '1.5rem' }, y: { xs: '0rem', md: '-1.5rem' }}}
+        textColor="black"
         right="0"
         rounded="md"
         onClick={addComment}
         >
-        등록
+      <b>등록</b>
      </Button></Div>  
-  
+   
     {commentlist.map(comment=>(
     <Div 
-      p={{ x: "2.5rem", t: "0.7rem" }}
+      p={{ x: "2.5rem", t: "0.3rem" }}
       m={{ x: { xs: '0.5rem', md: '0.5rem' }, y: { xs: '0.5rem', md: '0.5rem' }}}
-       h="7.5rem"
-       w={{ xs: "22rem", md: "28rem" }}
+       h="auto"
+       w={{ xs: "100%", md: "28rem" }}
         border={{ t: "1px solid", b: "1px solid" }}
         borderColor="gray400"
         d="flex"
@@ -157,7 +158,7 @@ function CommentExe(props) {
        justify="space-between"
        >
        <Div
-       w={{ xs: "20rem", md: "auto" }}
+       w={{ xs: "100%", md: "auto" }}
         >
        <Div
         textWeight="300"
@@ -176,7 +177,7 @@ function CommentExe(props) {
       <Text
        textWeight="600"
        textSize="subheader"
-       w={{ xs: "40rem", md: "70rem" }}
+       w={{ xs: "95%", md: "70rem" }}
       >
        {comment.comment_content}
       </Text>
@@ -193,9 +194,9 @@ function CommentExe(props) {
         />
       <Text
         textAlign="left"
-        textSize="Typography"
-        textWeight="600"
-        fontFamily="secondary"
+        textSize="body"
+        textWeight="700"
+        fontFamily="ko"
         textColor="gray"
          m={{ r: "1rem" }}
          >
@@ -213,24 +214,23 @@ function CommentExe(props) {
       ))} 
       <Div  m={{ x: { xs: '1rem', md: '1.5rem' }, y: { xs: '1rem', md: '0.5rem' }}} >
       <div align-items= "center"  >
-      <button style={{backgroundColor: '#0284fe'}}  color="white"onClick={ () => links2(props.tableName, next)}>
+      <button style={{backgroundColor: '#f7af22'}}  color="white"onClick={ () => links2(props.tableName, next)}>
 <Text
         textAlign="left"
         textSize="Typography"
         textWeight="600"
         fontFamily="secondary"
-        textColor="white"
          >
   ◀
   </Text>
   </button>&nbsp;
-      <button style={{backgroundColor: '#0284fe'}} onClick={ () =>  links(props.tableName, next)}>
+      <button style={{backgroundColor: '#f7af22'}} onClick={ () =>  links(props.tableName, next)}>
       <Text
         textAlign="left"
         textSize="Typography"
         textWeight="600"
         fontFamily="secondary"
-        textColor="white"
+    //    textColor="white"
          >
       ▶
       </Text>  

@@ -10,9 +10,10 @@ function ChatPage() {
     return (
         <Div>
         <Div
-            tag="section"
-            w="100vw"
-            p={{ t: { xs: "0.5rem", md: "0.5rem", md: "0.5rem" } }}
+          //  tag="section"
+            w={{xs:"97%", md:"100vw"}}
+            p={{ t: { xs: "0rem", md: "0.5rem", md: "0rem" } }}
+            m={{ x: { xs: '0.5rem', md: '0.5rem' }}}
             overflow="hidden"
         >
             <Container>

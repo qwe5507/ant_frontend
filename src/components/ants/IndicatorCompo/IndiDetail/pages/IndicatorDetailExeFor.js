@@ -4,11 +4,7 @@
   import ChartExeFor from "../chart/ChartExeFor"
   import CorrKorExe from "../chart/CorrKorExe"
   import IndApi from "../../../../../api/IndApi";
-  import Table from '@material-ui/core/Table'
-  import TableBody from '@material-ui/core/TableBody'
-  import TableCell from '@material-ui/core/TableCell'
-  import TableHead from '@material-ui/core/TableHead'
-  import TableRow from '@material-ui/core/TableRow'
+  import Table from 'react-bootstrap/Table';
   import NewsApi from "../../../../../api/NewsApi";
   import CommentExe from "./CommentExe"
 
@@ -353,19 +349,19 @@
             </Text>
             </Div>
             </Div>
-            <Container  m={{ x: { xs: '-2rem', md: '0rem' }, y: { xs: '0rem', md: '0.5rem' }}}>
-            <Table>
-            <TableHead>
-              <TableRow>
+            <Div  m={{ x: { xs: '-1em', md: '0rem' }, y: { xs: '1rem', md: '1.5rem' }}} align="center" w={{xs:"135%", md:"100%"}}>
+            <Table responsive size="sm">
+            <thead>
+             <tr align="center">
               {inds.map(ind => 
-                <TableCell align="center">
+                <th align="center">
                  {
                   (ind.indiname == '달러인덱스') || (ind.indiname == '비트코인') || (ind.indiname == '미 10년 채권수익률') || (ind.indiname == '미 2년 채권수익률')
                   ?
                   (
                     <Link to={`/IndicatorDetail1/${ind.indicator}`} ><button style={{backgroundColor: '#fbe0a1'}}>
                       <Text
-                      textSize={{ xs: "caption", md: "body" }}
+                      textSize={{ xs: "tiny", md: "body" }}
                       >
                       {ind.indiname}
                       </Text>
@@ -377,7 +373,7 @@
                       <Link to={`/IndicatorDetail2/${ind.indicator}`} >
                         <button  style={{backgroundColor: '#fbe0a1'}}>
                         <Text
-                        textSize={{ xs: "caption", md: "body" }}
+                        textSize={{ xs: "tiny", md: "body" }}
                           >
                           {ind.indiname}
                         </Text>
@@ -388,7 +384,7 @@
                       (
                         <button onClick={ () => links(ind.indicator)} style={{backgroundColor: '#fbe0a1'}}>
                             <Text
-                        textSize={{ xs: "caption", md: "body" }}
+                        textSize={{ xs: "tiny", md: "body" }}
                           >
                           {ind.indiname}
                           </Text></button>
@@ -398,7 +394,7 @@
                       (
                         <Link to="/IndicatorDetail"> <button  style={{backgroundColor: '#fbe0a1'}}>
                         <Text
-                     textSize={{ xs: "caption", md: "body" }}
+                     textSize={{ xs: "tiny", md: "body" }}
                        >
                        {ind.indiname}
                        </Text>
@@ -408,21 +404,22 @@
                     )
                   )
                 }
-                  </TableCell>                   
+                  </th>                   
                 )}   
-              </TableRow>
-            </TableHead>
-            <TableBody>
-                <TableRow>       
-                <TableCell  align="center">{ind1}</TableCell>                   
-                <TableCell  align="center">{ind2}</TableCell>
-                <TableCell  align="center">{ind3}</TableCell>
-                <TableCell  align="center">{ind4}</TableCell>
-                <TableCell  align="center">{ind5}</TableCell>
-                </TableRow>         
-              </TableBody>
+              </tr>
+            </thead>
+            <tbody>
+             <tr  align="center">
+             <td align="center">{ind1}</td>      
+             <td align="center">{ind2}</td>      
+             <td align="center">{ind3}</td>      
+             <td align="center">{ind4}</td>      
+             <td align="center">{ind5}</td>      
+                </tr>
+                </tbody>
           </Table>
-          </Container>
+ 
+        </Div>
           </Div>
           <Div
             d="flex"
@@ -471,7 +468,8 @@
                </Text>
                <Text
                 m = {{ xs: "1rem", md: "0" }}
-                textAlign="left"  
+                textAlign="left" 
+                textSize="caption"   
                 textColor="gray900"
                >{data['_source']['news_group']} | {data['_source']['news_source']} | {data['_source']['news_date'].substring(0,10)} | </Text>  
               </Div>

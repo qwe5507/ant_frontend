@@ -226,7 +226,6 @@ export class MainPanel extends Component {
                     {this.renderTypingUsers(typingUsers)}
                     <div ref={node => (this.messagesEnd = node)} />
                 </div>
-
                 <MessageForm />
             </Div>
         )
