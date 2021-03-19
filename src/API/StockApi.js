@@ -8,6 +8,10 @@ class StockAPI {
     selectByStockId(stockId) {
         return axios.get(STOCK_API_BASE_URL + '/' + stockId);
     }
+
+    selectByAllStocks(){
+        return axios.get(STOCK_API_BASE_URL + '/' + "StocksList")
+    }
  
 }
 
