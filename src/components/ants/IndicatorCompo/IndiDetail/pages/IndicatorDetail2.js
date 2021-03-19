@@ -4,11 +4,7 @@ import { useParams, Link } from 'react-router-dom';
 import ChartIndi1 from "../chart/ChartIndi1"
 import Corr1 from "../chart/Corr1"
 import IndApi from "../../../../../api/IndApi";
-import Table from '@material-ui/core/Table'
-import TableBody from '@material-ui/core/TableBody'
-import TableCell from '@material-ui/core/TableCell'
-import TableHead from '@material-ui/core/TableHead'
-import TableRow from '@material-ui/core/TableRow'
+import Table from 'react-bootstrap/Table';
 import CommentExe from "./CommentExe"
 import NewsApi from "../../../../../api/NewsApi";
 function IndicatorDetail2(props) {
@@ -347,12 +343,12 @@ function IndicatorDetail2(props) {
         </Text>
         </Div>
         </Div>
-        <Container  m={{ x: { xs: '-2rem', md: '0rem' }, y: { xs: '0rem', md: '0.5rem' }}}>
-        <Table >
-          <TableHead>
-            <TableRow>
+        <Div  m={{ x: { xs: '-1em', md: '0rem' }, y: { xs: '1rem', md: '1.5rem' }}} align="center" w={{xs:"135%", md:"100%"}}>
+        <Table responsive size="sm">
+        <thead>
+          <tr align="center">
             {inds.map(ind => 
-                <TableCell align="center">
+                 <th align="center">
                  {
                   (ind.indiname == '달러인덱스') || (ind.indiname == '비트코인') || (ind.indiname == '미 10년 채권수익률') || (ind.indiname == '미 2년 채권수익률')
                   ?
@@ -405,23 +401,21 @@ function IndicatorDetail2(props) {
                     )
                   )                
                 }
-                  </TableCell>                   
-                )}  
-            </TableRow>
-          </TableHead>
-          <TableBody>
-              <TableRow>
-              <TableCell  align="center">
-                {ind1 }
-                </TableCell>                   
-              <TableCell  align="center">{ind2}</TableCell>
-              <TableCell  align="center">{ind3}</TableCell>
-              <TableCell  align="center">{ind4}</TableCell>
-              <TableCell  align="center">{ind5}</TableCell>
-              </TableRow>         
-              </TableBody>
+                </th>                   
+              )}  
+          </tr>
+          </thead>
+          <tbody>
+           <tr  align="center">
+           <td align="center">{ind1}</td>      
+           <td align="center">{ind2}</td>      
+           <td align="center">{ind3}</td>      
+           <td align="center">{ind4}</td>      
+           <td align="center">{ind5}</td>      
+              </tr>
+              </tbody>
         </Table>
-        </Container>
+        </Div>
 
         </Div>
         <Div

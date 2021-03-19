@@ -149,8 +149,8 @@ function MessageForm() {
             <Form onSubmit={handleSubmit}>
                 <Form.Group controlId="exampleForm.ControlTextarea1">
                     <Textarea
-                     m={{ xs: '0.5rem', md: '0.5rem' }}
-                     w={{xs:'26rem', md: "50rem", lg:"50rem"}}
+                     m={{ xs: '0rem', md: '0.5rem' }}
+                     w={{xs:'22.5rem', md: "50rem", lg:"50rem"}}
                         onKeyDown={handleKeyDown}
                         value={content}
                         onChange={handleChange}
@@ -159,14 +159,6 @@ function MessageForm() {
                     />
                 </Form.Group>
             </Form>
-
-            {!(percentage === 0 || percentage === 100) &&
-                <ProgressBar
-                    variant="warning"
-                    label={`${percentage}%`}
-                    now={percentage} />
-            }
-
             <br />
             <div>
                 {errors.map(errorMsg => <p style={{ color: 'red' }} key={errorMsg}>{errorMsg}</p>)}
@@ -176,15 +168,14 @@ function MessageForm() {
                 <Col>
                     <Button onClick={handleSubmit}
                         type="submit"
-                        style={{ width: '100%' }}
                         disabled={loading ? true : false}
                         h="3rem"
-                        w={{ xs: "100%", sm: "40rem" }}
+                        w={{ xs: "100%", md: "100%" }}
                         bg="info700"
                         hoverBg="info600"
-                         rounded="lg"
+                        rounded="lg"
                        
-                       m={{ r: "1rem", b: { xs: "1rem", sm: "0.5rem" } }}
+                       m={{ r:  { xs: "-1rem", sm: "1rem" }, b: { xs: "0rem", sm: "0.5rem" } }}
                     >
                         <Text
                         textSize="subheader"

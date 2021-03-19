@@ -76,10 +76,7 @@ class IndiTable4 extends Component{
           <TableRow>
           <TableCell align="center"><b>구분</b></TableCell>
             <TableCell align="center"><b>기준일자</b></TableCell>          
-            <TableCell align="center"><b>종가</b></TableCell>
-            <TableCell align="center"><b>오픈</b></TableCell>
-            <TableCell align="center"><b>고가</b></TableCell>
-            <TableCell align="center"><b>저가</b></TableCell>
+            <TableCell align="center"><b>가격</b></TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -100,9 +97,6 @@ class IndiTable4 extends Component{
                 </TableCell>
               <TableCell align="center">{bond10.dates.substring(0,10)}</TableCell>
               <TableCell align="center">{bond10.price}</TableCell>
-              <TableCell align="center">{bond10.open}</TableCell>
-              <TableCell align="center">{bond10.high}</TableCell>
-              <TableCell align="center">{bond10.low}</TableCell>    
             </TableRow>      
         )}   
             </TableBody>
@@ -126,10 +120,7 @@ class IndiTable4 extends Component{
           <TableRow>
           <TableCell align="center"><b>구분</b></TableCell>
             <TableCell align="center"><b>기준일자</b></TableCell>          
-            <TableCell align="center"><b>종가</b></TableCell>
-            <TableCell align="center"><b>오픈</b></TableCell>
-            <TableCell align="center"><b>고가</b></TableCell>
-            <TableCell align="center"><b>저가</b></TableCell>
+            <TableCell align="center"><b>가격</b></TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -149,10 +140,7 @@ class IndiTable4 extends Component{
                 </Link>
                 </TableCell>
               <TableCell align="center">{bond2.dates.substring(0,10)}</TableCell>
-              <TableCell align="center">{bond2.price}</TableCell>
-              <TableCell align="center">{bond2.open}</TableCell>
-              <TableCell align="center">{bond2.high}</TableCell>
-              <TableCell align="center">{bond2.low}</TableCell>    
+              <TableCell align="center">{bond2.price}</TableCell> 
             </TableRow>      
         )}   
             </TableBody>

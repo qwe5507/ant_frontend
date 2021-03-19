@@ -6,11 +6,7 @@ import CommentUsdkrw2 from "./CommentUsdkrw2"
 import CorrKor from "../chart/CorrKor"
 import IndApi from "../../../../../api/IndApi";
 import NewsApi from "../../../../../api/NewsApi";
-import Table from '@material-ui/core/Table'
-import TableBody from '@material-ui/core/TableBody'
-import TableCell from '@material-ui/core/TableCell'
-import TableHead from '@material-ui/core/TableHead'
-import TableRow from '@material-ui/core/TableRow'
+import Table from 'react-bootstrap/Table';
 
 function IndicatorDetail() {
 
@@ -341,21 +337,19 @@ function IndicatorDetail() {
         </Text>
         </Div>
         </Div>
-        <Container  m={{ x: { xs: '-2rem', md: '0rem' }, y: { xs: '0rem', md: '0.5rem' }}}>
-        <Table >
-        
-          <TableHead>
-          </TableHead>
-          <TableRow>
-          {inds.map(ind => 
-                <TableCell align="center">
+        <Div  m={{ x: { xs: '-1em', md: '0rem' }, y: { xs: '1rem', md: '1.5rem' }}} align="center" w={{xs:"135%", md:"100%"}}>
+        <Table responsive size="sm">
+  <thead>
+    <tr align="center">
+    {inds.map(ind => 
+                <th align="center">
                  {
                   (ind.indiname == '달러인덱스') || (ind.indiname == '비트코인') || (ind.indiname == '미 10년 채권수익률') || (ind.indiname == '미 2년 채권수익률')
                   ?
                   (
                     <Link to={`/IndicatorDetail1/${ind.indicator}`} ><button style={{backgroundColor: '#fbe0a1'}}>
                       <Text
-                      textSize={{ xs: "caption", md: "body" }}
+                      textSize={{ xs: "tiny", md: "body" }}
                       >
                       {ind.indiname}
                       </Text>
@@ -367,7 +361,7 @@ function IndicatorDetail() {
                       <Link to={`/IndicatorDetail2/${ind.indicator}`} >
                         <button  style={{backgroundColor: '#fbe0a1'}}>
                         <Text
-                        textSize={{ xs: "caption", md: "body" }}
+                        textSize={{ xs: "tiny", md: "body" }}
                           >
                           {ind.indiname}
                         </Text>
@@ -379,7 +373,7 @@ function IndicatorDetail() {
                         <Link to={`/IndicatorDetailExeFor/${ind.indicator}`} >
                           <button  style={{backgroundColor: '#fbe0a1'}}>
                            <Text
-                        textSize={{ xs: "caption", md: "body" }}
+                        textSize={{ xs: "tiny", md: "body" }}
                           >
                           {ind.indiname}
                           </Text>
@@ -390,21 +384,22 @@ function IndicatorDetail() {
                   )
                  
                 }
-                  </TableCell>                   
+                  </th>                   
                 )}     
-           </TableRow>
-          
-          <TableBody>
-              <TableRow>
-              {inds.map(ind => 
-              <TableCell align="center">{ind.usdkrw}</TableCell>                   
+    </tr>
+  </thead>
+  <tbody>
+    <tr  align="center">
+    {inds.map(ind => 
+              <td align="center">{ind.usdkrw}</td>                   
               )
           }  
-              </TableRow> 
-           
-              </TableBody>
-        </Table>
-        </Container>
+    </tr>
+    
+  </tbody>
+</Table>
+     
+        </Div>
     </Div>
     <Div
             d="flex"
@@ -419,7 +414,7 @@ function IndicatorDetail() {
             left="0"
             top="0"
             rounded="xl"
-            h={{ lg: "52.5rem" }}
+            h={{ lg: "50rem" }}
             bg="white"
             shadow="4"
             p="2rem"
@@ -453,7 +448,8 @@ function IndicatorDetail() {
                </Text>
                <Text
                 m = {{ xs: "1rem", md: "0" }}
-                textAlign="left"  
+                textAlign="left"
+                textSize="caption"  
                 textColor="gray900"
                >{data['_source']['news_group']} | {data['_source']['news_source']} | {data['_source']['news_date'].substring(0,10)} | </Text>  
             
@@ -475,7 +471,7 @@ function IndicatorDetail() {
            right="0"
            top="0"
            rounded="xl"
-           h={{ lg: "52.5rem" }}
+           h={{ lg: "50rem" }}
            bg="white"
            shadow="4"
            p="2rem"
@@ -491,7 +487,7 @@ function IndicatorDetail() {
           >
             개미토론방
               </Text>
-    <CommentUsdkrw2 tableName={"usdkrw"} num={2}/>
+            <CommentUsdkrw2 tableName={"usdkrw"} num={2}/>
           </Div>
          </Div>
           </Container>
