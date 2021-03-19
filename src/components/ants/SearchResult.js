@@ -220,7 +220,7 @@ function SearchResult() {
         {/* 구성: 관련 종목, 뉴스 */}
 
         {/* 관련 종목 */}
-        <Container>
+        {/* <Container>
           <Div
             d="flex"
             justify="center"
@@ -235,9 +235,9 @@ function SearchResult() {
               align="center"
               flexDir="column"
               h="auto"
-            >
+            > */}
               {/* 타이틀바 */}
-              <Div
+              {/* <Div
                 w={{ xs: "100%", md: "60rem" }}
                 p={{ t: "0.5rem" }}
                 d="flex"
@@ -260,9 +260,9 @@ function SearchResult() {
                 d="flex"
                 flexDir="row"
                 w={{ xs: "100%", md: "60rem" }}
-              >
+              > */}
                 {/* 종목 목록 */}
-                <Div
+                {/* <Div
                   border="1px solid"
                   borderColor="gray200"
                   w={{ xs: "100%", md: "10rem" }}
@@ -312,7 +312,7 @@ function SearchResult() {
 
             </Div>
           </Div>
-        </Container>
+        </Container> */}
 
         {/* 뉴스 */}
         <Container>
@@ -344,7 +344,7 @@ function SearchResult() {
                   textWeight="800"
                   fontFamily="ko"
                   p={{ l: "0.5rem" }}
-                  m={{ r: "1.5rem" }}
+                  m={{ r: "1.5rem", t:"1.5rem"}}
                 >
                   뉴스
                 </Text>

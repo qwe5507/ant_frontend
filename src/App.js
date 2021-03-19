@@ -35,7 +35,7 @@ import BlockTest from "./components/test/BlockTest";
 import Profile from "./components/ants/Profile";
 import ChatPage from "./components/ChatPage/ChatPage";
 import Logout from "./components/ants/Logout";
-
+import StocksList from "./components/ants/StocksList";
 import BoardApiService from "./api/BoardApi";
 import DeclareApiService from "./api/DeclareApi";
 
@@ -192,6 +192,7 @@ function App() {
           <Route exact path="/News" component={News} />
           <Route exact path="/NewsDetail/:newsId" component={NewsDetail} />
           <Route exact path="/Stocks/:stockId" component={Stocks} />
+          <Route exact path="/StocksList" component={StocksList} />
           <Route exact path="/Profile" component={Profile} />
           <Route exact path="/Logout" component={Logout} />
           <Route exact path="/Test" component={BlockTest} />
