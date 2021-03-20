@@ -2,7 +2,7 @@ import React, { useEffect, useState, useMemo } from "react";
 
 import { Button, Container, Text, Div, Icon, Input, Anchor } from "atomize";
 import styled from 'styled-components';
-import { storiesOf } from '@storybook/react';
+// import { storiesOf } from '@storybook/react';
 import DataTable from 'react-data-table-component';
 import StockApiService from "../../api/StockApi";
 import MainPnlIndShimmer from "./MainPnlIndShimmer";
@@ -266,7 +266,7 @@ function StocksList() {
     )
 }
 
-storiesOf('Filtering', module)
-  .add('Example 1', () => <StocksList />);
+// storiesOf('Filtering', module)
+//   .add('Example 1', () => <StocksList />);
 
 export default StocksList;
