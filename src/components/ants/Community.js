@@ -91,7 +91,7 @@ function Community() {
             justify="center"
           >
 
-            <Label
+            {/* <Label
               d={{ xs: "flex", md: "none" }}
               // m={{ l: "85%", t: "-1rem" }}
               onClick={() =>
@@ -112,7 +112,7 @@ function Community() {
               {boardid == "registe" || (typeof updateboardid != "undefined") ?
                 null
                 : selectedSwitchValue ? <Text>추천순</Text> : <Text>최신순</Text>}
-            </Label>
+            </Label> */}
 
             {/* Links for Desktop */}
             <Div

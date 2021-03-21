@@ -143,7 +143,7 @@ function CommunityBoardUpdate(props){
                 </Div>
           </Col>
         </Row>
-        <Row
+        {/* <Row
         p={{ b: "0.5rem"}}>
           <Col size={{ xs: 8, md: 8, lg: 8 }} pos="relative">
             <Div
@@ -161,7 +161,7 @@ function CommunityBoardUpdate(props){
             >
             </Div>
           </Col>
-        </Row>
+        </Row> */}
 
         <Row 
         p={{ b: "0.5rem"}}
